@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E72E59DC-AEED-3F5C-8DE8-EB97032C03E2}</ProjectGuid>
+    <ProjectGuid>{12E170D8-3673-32ED-95F5-F4A4A1C212B4}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
@@ -102,10 +102,10 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\external\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/CMakeLists.txt</Message>
+    <CustomBuild Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\external\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/external/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/external/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -114,11 +114,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/external/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/external/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -127,11 +127,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/external/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/external/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -140,11 +140,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/external/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/external/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -153,61 +153,61 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\ZERO_CHECK.vcxproj">
-      <Project>{60115441-E1D7-3191-BF66-87CB76DB331E}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\ZERO_CHECK.vcxproj">
+      <Project>{6A2DD814-BF2F-3185-B381-446C730DC5F9}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\clipper\ext_clipper.vcxproj">
-      <Project>{75EFABE1-E964-3426-8D32-4A127261BAFB}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\clipper\ext_clipper.vcxproj">
+      <Project>{7FEA2E79-D9C0-35DC-AD16-BF99D0D5C298}</Project>
       <Name>ext_clipper</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\ConvertUTF\ext_convertUTF.vcxproj">
-      <Project>{2043CD96-FCA8-352F-83D3-7CD1C87068EE}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\ConvertUTF\ext_convertUTF.vcxproj">
+      <Project>{A320B730-2B16-3E81-95C4-370E9D8A4F96}</Project>
       <Name>ext_convertUTF</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\edtaa3func\ext_edtaa3func.vcxproj">
-      <Project>{2B55F61E-4F5B-31A7-B5AD-41F15324648F}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\edtaa3func\ext_edtaa3func.vcxproj">
+      <Project>{D3C72369-0674-396D-B325-E25AB6BBA4F9}</Project>
       <Name>ext_edtaa3func</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\md5\ext_md5.vcxproj">
-      <Project>{7BE769F7-073A-341C-8500-64825493C7E5}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\md5\ext_md5.vcxproj">
+      <Project>{F083432F-89E3-34AE-9444-F10DE873AF67}</Project>
       <Name>ext_md5</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\poly2tri\ext_poly2tri.vcxproj">
-      <Project>{2A1220EF-C011-3AC0-BB4B-572E25101D40}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\poly2tri\ext_poly2tri.vcxproj">
+      <Project>{BE833533-787C-3B1C-9FD1-5D7C09F9C40A}</Project>
       <Name>ext_poly2tri</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\recast\ext_recast.vcxproj">
-      <Project>{473ECBE9-DDA8-3B5B-8833-2206888C6B3B}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\recast\ext_recast.vcxproj">
+      <Project>{D703CBB6-03F9-3190-99C5-005D0E30FE99}</Project>
       <Name>ext_recast</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\tinyxml2\ext_tinyxml2.vcxproj">
-      <Project>{81421BD2-9541-3DB5-AF54-C8E70471979B}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\tinyxml2\ext_tinyxml2.vcxproj">
+      <Project>{B4332536-BAC2-32AE-BCA8-5FE4567A6575}</Project>
       <Name>ext_tinyxml2</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\unzip\ext_unzip.vcxproj">
-      <Project>{984BF1E1-0108-39CD-9D9E-7003C9D190EF}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\unzip\ext_unzip.vcxproj">
+      <Project>{71746DC9-2311-32A9-81CF-95C7BAE9F68B}</Project>
       <Name>ext_unzip</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\xxhash\ext_xxhash.vcxproj">
-      <Project>{1B70CFBD-F32B-318E-8595-E490C302D534}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\xxhash\ext_xxhash.vcxproj">
+      <Project>{5E21D103-5006-39C9-BA6C-D93EABF73DE0}</Project>
       <Name>ext_xxhash</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\xxtea\ext_xxtea.vcxproj">
-      <Project>{61687136-1F6C-384B-8649-6DC0435378E6}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\xxtea\ext_xxtea.vcxproj">
+      <Project>{0BC8DE00-1E0B-3A54-B6A7-C32473FDE5C6}</Project>
       <Name>ext_xxtea</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\external.vcxproj">
-      <Project>{F0DB72A6-ED7A-3ED7-A31C-772E1B33E667}</Project>
+    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\external.vcxproj">
+      <Project>{2B8C6E71-BB71-35D2-A948-C98B5A26ADCE}</Project>
       <Name>external</Name>
     </ProjectReference>
   </ItemGroup>
