@@ -1,77 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\Code\Cocos2d\TorchChase\Torchase\Classes\AppDelegate.cpp">
+    <ClCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Classes\AppDelegate.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Code\Cocos2d\TorchChase\Torchase\Classes\HelloWorldScene.cpp">
+    <ClCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Classes\HelloWorldScene.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Code\Cocos2d\TorchChase\Torchase\proj.win32\main.cpp">
+    <ClCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\proj.win32\main.cpp">
       <Filter>Source Files\proj.win32</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Code\Cocos2d\TorchChase\Torchase\cocos2d\cocos\precheader.cpp">
+    <ClCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\precheader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\Classes\AppDelegate.h">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Classes\AppDelegate.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\Classes\HelloWorldScene.h">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Classes\HelloWorldScene.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\proj.win32\main.h">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\proj.win32\main.h">
       <Filter>Source Files\proj.win32</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\proj.win32\resource.h">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\proj.win32\resource.h">
       <Filter>Source Files\proj.win32</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\Resources\CloseNormal.png">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\CloseNormal.png">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\Resources\CloseSelected.png">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\CloseSelected.png">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\Resources\HelloWorld.png">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\HelloWorld.png">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\Resources\fonts\Marker Felt.ttf">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\fonts\Marker Felt.ttf">
       <Filter>Resources\fonts</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\Resources\fonts\arial.ttf">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\fonts\arial.ttf">
       <Filter>Resources\fonts</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Code\Cocos2d\TorchChase\Torchase\Resources\res\.gitkeep">
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\res\.gitkeep">
       <Filter>Resources\res</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\Code\Cocos2d\TorchChase\Torchase\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="D:\Code\Cocos2d\TorchChase\Torchase\proj.win32\game.rc">
+    <ResourceCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\proj.win32\game.rc">
       <Filter>Source Files\proj.win32</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">
-      <UniqueIdentifier>{7D917C9B-ECBC-3029-AA2A-9045A45A497F}</UniqueIdentifier>
+      <UniqueIdentifier>{AE2EFFBA-93B3-3B4B-9BF2-4511D46CA2AA}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\fonts">
-      <UniqueIdentifier>{49402E84-6CF8-3AEF-BDC8-00F5B8C079EF}</UniqueIdentifier>
+      <UniqueIdentifier>{D26910FC-F242-3678-B2F3-70AB431A3C24}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\res">
-      <UniqueIdentifier>{68EDD8B0-E267-3914-912E-751D4A6D989F}</UniqueIdentifier>
+      <UniqueIdentifier>{7BCB9828-D31B-324F-9538-A638D99296B5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{DAF23B4D-8296-3739-9010-D5F4CE46B103}</UniqueIdentifier>
+      <UniqueIdentifier>{CAF37C4D-182C-3B50-A226-73689A4A8ED2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Classes">
-      <UniqueIdentifier>{0E57BEAE-1E97-38E7-AF9C-5963E30AE08C}</UniqueIdentifier>
+      <UniqueIdentifier>{78E849C7-F62A-3165-B3BF-1CA6258196EA}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\proj.win32">
-      <UniqueIdentifier>{676BE00B-361B-3C63-A562-3F4227BA2545}</UniqueIdentifier>
+      <UniqueIdentifier>{24EAAF15-F9FA-3925-90E0-FD9C43179299}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
