@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Classes\AppDelegate.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Classes\HelloWorldScene.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\proj.win32\main.cpp">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\precheader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Classes\AppDelegate.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Classes\HelloWorldScene.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\proj.win32\main.h">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\proj.win32\resource.h">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\CloseNormal.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\CloseSelected.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\HelloWorld.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\fonts\Marker Felt.ttf">
+      <Filter>Resources\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\fonts\arial.ttf">
+      <Filter>Resources\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\Resources\res\.gitkeep">
+      <Filter>Resources\res</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\proj.win32\game.rc">
+      <Filter>Source Files\proj.win32</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{AE2EFFBA-93B3-3B4B-9BF2-4511D46CA2AA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\fonts">
+      <UniqueIdentifier>{D26910FC-F242-3678-B2F3-70AB431A3C24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\res">
+      <UniqueIdentifier>{7BCB9828-D31B-324F-9538-A638D99296B5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{CAF37C4D-182C-3B50-A226-73689A4A8ED2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes">
+      <UniqueIdentifier>{78E849C7-F62A-3165-B3BF-1CA6258196EA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\proj.win32">
+      <UniqueIdentifier>{24EAAF15-F9FA-3925-90E0-FD9C43179299}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
