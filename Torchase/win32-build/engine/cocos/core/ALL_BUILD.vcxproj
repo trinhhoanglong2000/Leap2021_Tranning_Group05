@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{12E170D8-3673-32ED-95F5-F4A4A1C212B4}</ProjectGuid>
+    <ProjectGuid>{C7621159-FFEA-3560-806B-2D3B6C462DBF}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
@@ -102,10 +102,10 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/cocos/CMakeLists.txt</Message>
+    <CustomBuild Include="D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/Leap2021_Trainning_Group05/Torchase/cocos2d/cocos/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/cocos/core/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Leap2021_Trainning_Group05/Torchase -BD:/Leap2021_Trainning_Group05/Torchase/win32-build --check-stamp-file D:/Leap2021_Trainning_Group05/Torchase/win32-build/engine/cocos/core/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -113,12 +113,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\2d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\3d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\audio\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\base\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\math\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\navmesh\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\network\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\physics\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\physics3d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\platform\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\renderer\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\ui\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\2d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\3d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\audio\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\base\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\math\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\navmesh\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\network\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\physics\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\physics3d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\platform\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\renderer\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\ui\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/cocos/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/Leap2021_Trainning_Group05/Torchase/cocos2d/cocos/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/cocos/core/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Leap2021_Trainning_Group05/Torchase -BD:/Leap2021_Trainning_Group05/Torchase/win32-build --check-stamp-file D:/Leap2021_Trainning_Group05/Torchase/win32-build/engine/cocos/core/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -126,12 +126,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\2d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\3d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\audio\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\base\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\math\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\navmesh\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\network\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\physics\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\physics3d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\platform\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\renderer\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\ui\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\2d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\3d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\audio\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\base\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\math\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\navmesh\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\network\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\physics\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\physics3d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\platform\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\renderer\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\ui\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/cocos/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule D:/Leap2021_Trainning_Group05/Torchase/cocos2d/cocos/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/cocos/core/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Leap2021_Trainning_Group05/Torchase -BD:/Leap2021_Trainning_Group05/Torchase/win32-build --check-stamp-file D:/Leap2021_Trainning_Group05/Torchase/win32-build/engine/cocos/core/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -139,12 +139,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\2d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\3d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\audio\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\base\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\math\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\navmesh\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\network\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\physics\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\physics3d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\platform\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\renderer\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\ui\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\2d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\3d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\audio\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\base\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\math\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\navmesh\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\network\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\physics\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\physics3d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\platform\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\renderer\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\ui\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/cocos/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule D:/Leap2021_Trainning_Group05/Torchase/cocos2d/cocos/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase -BC:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build --check-stamp-file C:/Users/Admin/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/cocos/core/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Leap2021_Trainning_Group05/Torchase -BD:/Leap2021_Trainning_Group05/Torchase/win32-build --check-stamp-file D:/Leap2021_Trainning_Group05/Torchase/win32-build/engine/cocos/core/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -152,66 +152,66 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\2d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\3d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\audio\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\base\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\math\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\navmesh\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\network\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\physics\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\physics3d\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\platform\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\renderer\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\cocos\ui\CMakeLists.txt;C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\2d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\3d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\audio\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\base\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\editor-support\cocostudio\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\math\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\navmesh\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\network\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\physics\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\physics3d\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\platform\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\renderer\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\cocos\ui\CMakeLists.txt;D:\Leap2021_Trainning_Group05\Torchase\cocos2d\extensions\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\cocos\core\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\ZERO_CHECK.vcxproj">
-      <Project>{6A2DD814-BF2F-3185-B381-446C730DC5F9}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\ZERO_CHECK.vcxproj">
+      <Project>{7042C890-3C3A-349B-A908-24DDFBA514E8}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\cocos\core\cocos2d.vcxproj">
-      <Project>{E849C369-A95F-3AAB-B13B-4520060A0C8F}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\cocos\core\cocos2d.vcxproj">
+      <Project>{E23E8536-C8F7-33CB-8714-55DA8E3221FA}</Project>
       <Name>cocos2d</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\clipper\ext_clipper.vcxproj">
-      <Project>{7FEA2E79-D9C0-35DC-AD16-BF99D0D5C298}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\clipper\ext_clipper.vcxproj">
+      <Project>{75B634D4-A177-3838-8DA7-FF34A50D42F6}</Project>
       <Name>ext_clipper</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\ConvertUTF\ext_convertUTF.vcxproj">
-      <Project>{A320B730-2B16-3E81-95C4-370E9D8A4F96}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\ConvertUTF\ext_convertUTF.vcxproj">
+      <Project>{967A784B-FD94-37A0-BB48-9F96F74B8098}</Project>
       <Name>ext_convertUTF</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\edtaa3func\ext_edtaa3func.vcxproj">
-      <Project>{D3C72369-0674-396D-B325-E25AB6BBA4F9}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\edtaa3func\ext_edtaa3func.vcxproj">
+      <Project>{7408D841-0CE1-39A0-815A-F51FE47FD430}</Project>
       <Name>ext_edtaa3func</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\md5\ext_md5.vcxproj">
-      <Project>{F083432F-89E3-34AE-9444-F10DE873AF67}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\md5\ext_md5.vcxproj">
+      <Project>{B96EEBAA-8C04-35AB-93D8-45EE8A36B645}</Project>
       <Name>ext_md5</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\poly2tri\ext_poly2tri.vcxproj">
-      <Project>{BE833533-787C-3B1C-9FD1-5D7C09F9C40A}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\poly2tri\ext_poly2tri.vcxproj">
+      <Project>{04CE4A4F-30DF-3212-96CF-AB9E47FAF63B}</Project>
       <Name>ext_poly2tri</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\recast\ext_recast.vcxproj">
-      <Project>{D703CBB6-03F9-3190-99C5-005D0E30FE99}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\recast\ext_recast.vcxproj">
+      <Project>{A9E3CCC3-58A6-3C20-AEA4-6ACCE6386E03}</Project>
       <Name>ext_recast</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\tinyxml2\ext_tinyxml2.vcxproj">
-      <Project>{B4332536-BAC2-32AE-BCA8-5FE4567A6575}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\tinyxml2\ext_tinyxml2.vcxproj">
+      <Project>{B004CA62-7202-3D21-8B3C-E248459A04BD}</Project>
       <Name>ext_tinyxml2</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\unzip\ext_unzip.vcxproj">
-      <Project>{71746DC9-2311-32A9-81CF-95C7BAE9F68B}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\unzip\ext_unzip.vcxproj">
+      <Project>{6BD21292-C430-3DF6-9CE4-ADB42BCC86E8}</Project>
       <Name>ext_unzip</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\xxhash\ext_xxhash.vcxproj">
-      <Project>{5E21D103-5006-39C9-BA6C-D93EABF73DE0}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\xxhash\ext_xxhash.vcxproj">
+      <Project>{69F60726-C9DD-3E26-9927-A7665478BAB5}</Project>
       <Name>ext_xxhash</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\xxtea\ext_xxtea.vcxproj">
-      <Project>{0BC8DE00-1E0B-3A54-B6A7-C32473FDE5C6}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\xxtea\ext_xxtea.vcxproj">
+      <Project>{6D231A5C-E894-35B6-A0C4-6BA380D9A574}</Project>
       <Name>ext_xxtea</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\Admin\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\engine\external\external.vcxproj">
-      <Project>{2B8C6E71-BB71-35D2-A948-C98B5A26ADCE}</Project>
+    <ProjectReference Include="D:\Leap2021_Trainning_Group05\Torchase\win32-build\engine\external\external.vcxproj">
+      <Project>{82F09096-F322-39E4-87B7-50622102EC3D}</Project>
       <Name>external</Name>
     </ProjectReference>
   </ItemGroup>
