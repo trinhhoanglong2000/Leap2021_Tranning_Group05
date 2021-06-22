@@ -12,11 +12,9 @@ win32-build/**/*.tlog
 win32-build/**/*.log
 win32-build/**/*.pch
 win32-build/**/*.pdb
-<<<<<<< HEAD
 win32-build/**/*.cmake
 win32-build/**/*.filters
 win32-build/**/*.vcxproj
-=======
 win32-build/*.cmake
 win32-build/*.filters
 win32-build/*.vcxproj
