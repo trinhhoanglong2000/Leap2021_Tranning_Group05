@@ -1,32 +1,17 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+config.bat
+**/.vs
+**/.vscode
+**/*.user
+**/CMakeCache.txt
+**/CMakeFiles
+bin
+win32-build/**/Debug
+win32-build/**/Release
+win32-build/**/*.obj
+win32-build/**/*.tlog
+win32-build/**/*.log
+win32-build/**/*.pch
+win32-build/**/*.pdb
+cocos2d/cocos/platform/android/**/build
+cocos2d/cocos/platform/android/**/.classpath
+cocos2d/cocos/platform/android/**/.settings/*.prefs
