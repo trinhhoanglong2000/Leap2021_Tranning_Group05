@@ -12,15 +12,12 @@ win32-build/**/*.tlog
 win32-build/**/*.log
 win32-build/**/*.pch
 win32-build/**/*.pdb
-<<<<<<< HEAD
 win32-build/**/*.cmake
 win32-build/**/*.filters
 win32-build/**/*.vcxproj
-=======
 win32-build/*.cmake
 win32-build/*.filters
 win32-build/*.vcxproj
->>>>>>> cee348a1fde5682b07dd984d5f4bdc17a8ff61ba
 cocos2d/cocos/platform/android/**/build
 cocos2d/cocos/platform/android/**/.classpath
 cocos2d/cocos/platform/android/**/.settings/*.prefs
