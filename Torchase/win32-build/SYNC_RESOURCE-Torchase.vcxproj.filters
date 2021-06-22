@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\CMakeFiles\c64c6cf1fd53055b1e5420d923a97273\SYNC_RESOURCE-Torchase.rule">
+    <CustomBuild Include="D:\Code\Cocos2d\TorchChase\Torchase\win32-build\CMakeFiles\9277fae37a50fb184746107504031d64\SYNC_RESOURCE-Torchase.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
-    <CustomBuild Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\CMakeLists.txt" />
+    <CustomBuild Include="D:\Code\Cocos2d\TorchChase\Torchase\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\win32-build\CMakeFiles\SYNC_RESOURCE-Torchase" />
+    <None Include="D:\Code\Cocos2d\TorchChase\Torchase\win32-build\CMakeFiles\SYNC_RESOURCE-Torchase" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{A5C27272-4AE1-33D7-B850-CFA80F239B87}</UniqueIdentifier>
+      <UniqueIdentifier>{6C350EB3-2B69-3696-B298-55F4E179DC61}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/png
+# Install script for directory: D:/Code/Cocos2d/TorchChase/Torchase/cocos2d/external/png
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/cocos2d/external/win32-specific/OpenalSoft
+# Install script for directory: D:/Code/Cocos2d/TorchChase/Torchase/cocos2d/external/win32-specific/OpenalSoft
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase
+# Install script for directory: D:/Code/Cocos2d/TorchChase/Torchase
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/engine/cocos/core/cmake_install.cmake")
+  include("D:/Code/Cocos2d/TorchChase/Torchase/win32-build/engine/cocos/core/cmake_install.cmake")
 
 endif()
 
@@ -46,5 +46,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/TaMinhTam/Documents/Leap2021_Tranning_Group05/Torchase/win32-build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Code/Cocos2d/TorchChase/Torchase/win32-build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

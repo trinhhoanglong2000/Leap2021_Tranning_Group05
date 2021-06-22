@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\external\clipper\clipper.cpp">
+    <ClCompile Include="D:\Code\Cocos2d\TorchChase\Torchase\cocos2d\external\clipper\clipper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\TaMinhTam\Documents\Leap2021_Tranning_Group05\Torchase\cocos2d\external\clipper\CMakeLists.txt" />
+    <CustomBuild Include="D:\Code\Cocos2d\TorchChase\Torchase\cocos2d\external\clipper\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{CAF37C4D-182C-3B50-A226-73689A4A8ED2}</UniqueIdentifier>
+      <UniqueIdentifier>{DAF23B4D-8296-3739-9010-D5F4CE46B103}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
