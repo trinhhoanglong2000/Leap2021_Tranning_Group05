@@ -1,4 +1,4 @@
-/****************************************************************************
+	/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -22,37 +22,27 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "MainMenuScene.h"
-#include "Definitions.h"
-#include "GameScene.h"
+#ifndef __MINIONS_H__
+#define __MINIONS_H__
 
-USING_NS_CC;
+#include "cocos2d.h"
 
-Scene* MainMenuScene::createScene()
+
+class Minions : public cocos2d::Scene
 {
-    return MainMenuScene::create();
-}
+public:
+	Minions(cocos2d::Scene *scene);
+	void MinionsMoveUp();
+	void MinionsMoveDow();
+	void MinionsMoveLeft();
+	void MinionsMoveRight();
+	void findPlayer();
+private:
+	
+	cocos2d::Size visibleSize;
+	cocos2d::Vec2 origin;
+	cocos2d::Sprite *MinionSprite;
+	cocos2d::Node *player;
+};
 
-// Print useful error message instead of segfaulting when files are not there.
-static void problemLoading(const char* filename)
-{
-    printf("Error while loading: %s\n", filename);
-    printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
-}
-
-// on "init" you need to initialize your instance
-bool MainMenuScene::init()
-{
-    //////////////////////////////
-    // 1. super init first
-    if ( !Scene::init() )
-    {
-        return false;
-    }
-
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    return true;
-}
-
-
+#endif // __MINIONS_H__

@@ -27,6 +27,7 @@
 
 #include "cocos2d.h"
 #include "Player.h"
+#include "Minions.h"
 #include "ui\CocosGUI.h"
 
 class GameScene : public cocos2d::Scene
@@ -35,8 +36,9 @@ public:
     static cocos2d::Scene* createScene();
     virtual bool init();
     CREATE_FUNC(GameScene);
-
+	//GameScene *Scene_layer;
 private:
+	void enemyFind(float dt);
 	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
 	void MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
@@ -46,12 +48,9 @@ private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	cocos2d::ui::Layout *Layout;
-	cocos2d::ui::Button *ButtonUp;
-
 	Player *player;
+	Minions *minion;
 	cocos2d::PhysicsWorld *sceneWorld;
-	//static GameScene *Scene_layer;
-
 };
 
 #endif // __GAMESCENE_H__

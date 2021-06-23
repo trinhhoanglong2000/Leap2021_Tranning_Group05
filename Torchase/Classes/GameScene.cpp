@@ -26,34 +26,26 @@
 #include "Definitions.h"
 #include "AudioEngine.h"
 USING_NS_CC;
-static GameScene *Scene_layer;
 Scene* GameScene::createScene()
 {
-	/*auto scene = Scene::createWithPhysics();
+	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
-	Scene_layer = GameScene::create();
+	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
 
 	scene->addChild(Scene_layer);
-	return scene;*/
-	return GameScene::create();
-}
 
-// Print useful error message instead of segfaulting when files are not there.
-static void problemLoading(const char* filename)
-{
-    printf("Error while loading: %s\n", filename);
-    printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
+	return scene;
+	//return GameScene::create();
 }
 
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
+
     if ( !Scene::init() )
     {
         return false;
@@ -63,13 +55,14 @@ bool GameScene::init()
     origin = Director::getInstance()->getVisibleOrigin();
 
 	auto bg = Sprite::create("Background.png");
+	bg->setScale(2.0f);
 	bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	this->addChild(bg);
 
 	// ui move
 	Layout = ui::Layout::create();
 
-	ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
+	auto ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
 	auto ButtonDow = ui::Button::create("prefap/Gui/Play-8.png");
 	auto ButtonLeft = ui::Button::create("prefap/Gui/Play-8.png");
 	auto ButtonRight = ui::Button::create("prefap/Gui/Play-8.png");
@@ -97,14 +90,21 @@ bool GameScene::init()
 	Layout->addChild(ButtonRight);
 	this->addChild(Layout, 5);
 
+	
 	player = new Player(this); // add player
-
+	minion = new Minions(this);
+	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
 	return true;
+}
+void GameScene::enemyFind(float dt)
+{
+	minion->findPlayer();
 }
 void GameScene::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
+		minion->findPlayer();
 		Layout->setPosition(Vec2(Layout->getPositionX(), Layout->getPositionY() + visibleSize.height*PLAYER_SPEED));
 		player->MoveUp();
 	}

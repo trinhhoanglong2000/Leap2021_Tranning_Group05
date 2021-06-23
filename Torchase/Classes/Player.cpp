@@ -29,38 +29,38 @@
 USING_NS_CC;
 Player::Player(cocos2d::Scene *scene)
 {
-	
+	//cam = camera;
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	PlayerSprite = Sprite::create("prefap/Player/redbird-midflap.png");
 	PlayerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	PlayerSprite->setTag(1);
 	scene->addChild(PlayerSprite,2);
-	
-
+	mainscene = scene;
 
 
 }	
 void Player::MoveUp()
 {
 	PlayerSprite->setPosition(Vec2(PlayerSprite->getPositionX(), PlayerSprite->getPositionY() + visibleSize.height*PLAYER_SPEED));
-	auto cam = Camera::getDefaultCamera();
+	auto cam = mainscene->getDefaultCamera();
 	cam->setPosition(PlayerSprite->getPosition());
 }
 void Player::MoveDow()
 {
 	PlayerSprite->setPosition(Vec2(PlayerSprite->getPositionX(), PlayerSprite->getPositionY() - visibleSize.height*PLAYER_SPEED));
-	auto cam = Camera::getDefaultCamera();
+	auto cam = mainscene->getDefaultCamera();
 	cam->setPosition(PlayerSprite->getPosition());
 }
 void Player::MoveLeft()
 {
 	PlayerSprite->setPosition(Vec2(PlayerSprite->getPositionX() - visibleSize.height*PLAYER_SPEED, PlayerSprite->getPositionY()));
-	auto cam = Camera::getDefaultCamera();
+	auto cam = mainscene->getDefaultCamera();
 	cam->setPosition(PlayerSprite->getPosition());
 }
 void Player::MoveRight()
 {
 	PlayerSprite->setPosition(Vec2(PlayerSprite->getPositionX() + visibleSize.height*PLAYER_SPEED, PlayerSprite->getPositionY()));
-	auto cam = Camera::getDefaultCamera();
+	auto cam = mainscene->getDefaultCamera();
 	cam->setPosition(PlayerSprite->getPosition());
 }
