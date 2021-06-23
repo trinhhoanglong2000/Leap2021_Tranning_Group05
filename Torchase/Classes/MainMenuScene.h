@@ -46,6 +46,8 @@ public:
 	void addSplashScene(float dt);
     // implement the "static create()" method manually
 	void setViewPointCenter(Point position);
+	void onTouchEnded(Touch *touch, Event *unused_event);
+	void setPlayerPosition(Point position);
     CREATE_FUNC(MainMenuScene);
 };
 

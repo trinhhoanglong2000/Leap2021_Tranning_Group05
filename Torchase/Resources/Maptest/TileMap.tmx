@@ -9,9 +9,6 @@
   </data>
  </layer>
  <objectgroup color="#ff0000" id="2" name="Object">
-  <object id="1" x="80" y="299"/>
- </objectgroup>
- <objectgroup color="#0000ff" id="4" name="SpawnPoint">
-  <object id="3" x="176" y="592"/>
+  <object id="1" name="SpawnPoint" x="800" y="1301"/>
  </objectgroup>
 </map>

@@ -64,35 +64,33 @@ bool MainMenuScene::init()
 
 	this->addChild(_tileMap);
 
-	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Objects");
+	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Object");
 
-	//if (objectGroup == NULL) {
-		//CCLOG("tile map has no objects object layer");
-		//return false;
-	//}
+	if (objectGroup == NULL) {
+		CCLOG("tile map has no objects object layer");
+		return false;
+	}
 
-	//auto spawnPoint = objectGroup->getObject("SpawnPoint");
+	auto spawnPoint = objectGroup->getObject("SpawnPoint");
 
-	//int x = spawnPoint["X"].asInt(); 
-	//int y = spawnPoint["Y"].asInt();
+	int x = spawnPoint["x"].asInt(); 
+	int y = spawnPoint["y"].asInt();
 
 	_player = new Sprite();
 	_player->initWithFile("Maptest/Player.png");
-	_player->setPosition(Point(110, 110));
-
+	_player->setPosition(Point(x, y));
+	//CCLOG("%d %d", x, y);
+	//CCLOG("%f %f", _player->getPosition().x, _player->getPosition().y);
 	this->addChild(_player);
 	this->setViewPointCenter(_player->getPosition());
 
-
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = [&](Touch *touch, Event *unused_event)->bool {return true; };
+	listener->onTouchEnded = CC_CALLBACK_2(MainMenuScene::onTouchEnded, this);
+	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
     
     return true;
 }
@@ -114,7 +112,7 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 void MainMenuScene::setViewPointCenter(Point position) {
 
 	Size winSize = Director::getInstance()->getWinSize();
-
+	//CCLOG("% d %d",position.x,position.y);
 	int x = MAX(position.x, winSize.width / 2);
 	int y = MAX(position.y, winSize.height / 2);
 	x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
@@ -126,3 +124,48 @@ void MainMenuScene::setViewPointCenter(Point position) {
 	this->setPosition(viewPoint);
 }
 
+void MainMenuScene::onTouchEnded(Touch *touch, Event *unused_event)
+{
+	auto actionTo1 = RotateTo::create(0, 0, 180);
+	auto actionTo2 = RotateTo::create(0, 0, 0);
+	auto touchLocation = touch->getLocation();
+
+	touchLocation = this->convertToNodeSpace(touchLocation);
+
+	auto playerPos = _player->getPosition();
+	auto diff = touchLocation - playerPos;
+	if (abs(diff.x) > abs(diff.y)) {
+		if (diff.x > 0) {
+			playerPos.x += _tileMap->getTileSize().width / 2;
+			_player->runAction(actionTo2);
+		}
+		else {
+			playerPos.x -= _tileMap->getTileSize().width / 2;
+			_player->runAction(actionTo1);
+		}
+	}
+	else {
+		if (diff.y > 0) {
+			playerPos.y += _tileMap->getTileSize().height / 2;
+		}
+		else {
+			playerPos.y -= _tileMap->getTileSize().height / 2;
+		}
+	}
+
+	if (playerPos.x <= (_tileMap->getMapSize().width * _tileMap->getMapSize().width) &&
+		playerPos.y <= (_tileMap->getMapSize().height * _tileMap->getMapSize().height) &&
+		playerPos.y >= 0 &&
+		playerPos.x >= 0)
+	{
+		this->setPlayerPosition(playerPos);
+
+	}
+
+	this->setViewPointCenter(_player->getPosition());
+}
+
+void MainMenuScene::setPlayerPosition(Point position)
+{
+	_player->setPosition(position);
+}
