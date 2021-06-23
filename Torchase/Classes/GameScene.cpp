@@ -35,6 +35,7 @@ Scene* GameScene::createScene()
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
+	Scene_layer->removeChild(Scene_layer->getDefaultCamera());
 
 	scene->addChild(Scene_layer);
 
@@ -50,6 +51,8 @@ bool GameScene::init()
     {
         return false;
     }
+
+	
 
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();

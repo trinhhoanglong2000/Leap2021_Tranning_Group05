@@ -43,24 +43,25 @@ Player::Player(cocos2d::Scene *scene)
 void Player::MoveUp()
 {
 	PlayerSprite->setPosition(Vec2(PlayerSprite->getPositionX(), PlayerSprite->getPositionY() + visibleSize.height*PLAYER_SPEED));
-	auto cam = mainscene->getDefaultCamera();
+	auto cam = Camera::getDefaultCamera();
 	cam->setPosition(PlayerSprite->getPosition());
 }
 void Player::MoveDow()
 {
 	PlayerSprite->setPosition(Vec2(PlayerSprite->getPositionX(), PlayerSprite->getPositionY() - visibleSize.height*PLAYER_SPEED));
-	auto cam = mainscene->getDefaultCamera();
+	auto cam = Camera::getDefaultCamera();
 	cam->setPosition(PlayerSprite->getPosition());
 }
 void Player::MoveLeft()
 {
 	PlayerSprite->setPosition(Vec2(PlayerSprite->getPositionX() - visibleSize.height*PLAYER_SPEED, PlayerSprite->getPositionY()));
-	auto cam = mainscene->getDefaultCamera();
+	auto cam = Camera::getDefaultCamera();
 	cam->setPosition(PlayerSprite->getPosition());
 }
 void Player::MoveRight()
 {
 	PlayerSprite->setPosition(Vec2(PlayerSprite->getPositionX() + visibleSize.height*PLAYER_SPEED, PlayerSprite->getPositionY()));
-	auto cam = mainscene->getDefaultCamera();
+	//auto cam = mainscene->getDefaultCamera();
+	auto cam = Camera::getDefaultCamera();
 	cam->setPosition(PlayerSprite->getPosition());
 }
