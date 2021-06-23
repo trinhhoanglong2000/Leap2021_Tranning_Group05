@@ -28,7 +28,17 @@ USING_NS_CC;
 
 Scene* MainMenuScene::createScene()
 {
-    return MainMenuScene::create();
+    //return MainMenuScene::create();
+	Scene *scene = Scene::create();
+
+	// 'layer' is an autorelease object
+	MainMenuScene *layer = MainMenuScene::create();
+
+	// add layer as a child to scene
+	scene->addChild(layer);
+
+	// return the scene
+	return scene;
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -47,6 +57,33 @@ bool MainMenuScene::init()
     {
         return false;
     }
+
+	_tileMap = new TMXTiledMap();
+	_tileMap->initWithTMXFile("Maptest/TileMap.tmx");
+	_background = _tileMap->getLayer("Background");
+
+	this->addChild(_tileMap);
+
+	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Objects");
+
+	//if (objectGroup == NULL) {
+		//CCLOG("tile map has no objects object layer");
+		//return false;
+	//}
+
+	//auto spawnPoint = objectGroup->getObject("SpawnPoint");
+
+	//int x = spawnPoint["X"].asInt(); 
+	//int y = spawnPoint["Y"].asInt();
+
+	_player = new Sprite();
+	_player->initWithFile("Maptest/Player.png");
+	_player->setPosition(Point(110, 110));
+
+	this->addChild(_player);
+	this->setViewPointCenter(_player->getPosition());
+
+
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -73,3 +110,19 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 
 
 }
+
+void MainMenuScene::setViewPointCenter(Point position) {
+
+	Size winSize = Director::getInstance()->getWinSize();
+
+	int x = MAX(position.x, winSize.width / 2);
+	int y = MAX(position.y, winSize.height / 2);
+	x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
+	y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height / 2);
+	Point actualPosition = Point(x, y);
+
+	Point centerOfView = Point(winSize.width / 2, winSize.height / 2);
+	Point viewPoint = centerOfView - actualPosition;
+	this->setPosition(viewPoint);
+}
+

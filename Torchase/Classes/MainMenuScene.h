@@ -27,8 +27,15 @@
 
 #include "cocos2d.h"
 
+USING_NS_CC;
+
 class MainMenuScene : public cocos2d::Scene
 {
+private:
+	TMXTiledMap *_tileMap;
+	TMXLayer *_background;
+	Sprite *_player;
+
 public:
     static cocos2d::Scene* createScene();
 
@@ -38,6 +45,7 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
 	void addSplashScene(float dt);
     // implement the "static create()" method manually
+	void setViewPointCenter(Point position);
     CREATE_FUNC(MainMenuScene);
 };
 
