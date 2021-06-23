@@ -50,9 +50,8 @@ bool MainMenuScene::init()
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
+	
 	player = new Player(this);
-    
     return true;
 }
 
