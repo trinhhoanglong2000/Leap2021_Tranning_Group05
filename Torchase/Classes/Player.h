@@ -26,16 +26,22 @@
 #define __PLAYER_H__
 
 #include "cocos2d.h"
+#include "ui\CocosGUI.h"
 
 class Player : public cocos2d::Scene
 {
 public:
 	Player(cocos2d::Scene *scene);
 private:
+	void MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 
 	cocos2d::Sprite *PlayerSprite;
+
 };
 
 #endif // __PLAYER_H__
