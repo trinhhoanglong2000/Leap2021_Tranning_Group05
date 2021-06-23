@@ -26,19 +26,32 @@
 #define __GAMESCENE_H__
 
 #include "cocos2d.h"
+#include "Player.h"
+#include "ui\CocosGUI.h"
 
 class GameScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
-
     virtual bool init();
-    
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
-	void GoToMainMenu(float dt);
-    // implement the "static create()" method manually
     CREATE_FUNC(GameScene);
+
+private:
+	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
+	void MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+
+	cocos2d::Size visibleSize;
+	cocos2d::Vec2 origin;
+	cocos2d::ui::Layout *Layout;
+	cocos2d::ui::Button *ButtonUp;
+
+	Player *player;
+	cocos2d::PhysicsWorld *sceneWorld;
+	//static GameScene *Scene_layer;
+
 };
 
 #endif // __GAMESCENE_H__

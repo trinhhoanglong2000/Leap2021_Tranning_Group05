@@ -25,6 +25,7 @@
 #include "SplashScene.h"
 #include "Definitions.h"
 #include "MainMenuScene.h"
+#include "GameScene.h"
 USING_NS_CC;
 
 Scene* SplashScene::createScene()
@@ -67,7 +68,7 @@ bool SplashScene::init()
 }
 void SplashScene::GoToMainMenu(float dt)
 {
-	auto scene = MainMenuScene::createScene();
+	auto scene = GameScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
