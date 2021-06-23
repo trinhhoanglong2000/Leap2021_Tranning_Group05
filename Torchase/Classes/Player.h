@@ -1,4 +1,4 @@
-/****************************************************************************
+	/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -22,26 +22,20 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MAINMENU_SCENE_H__
-#define __MAINMENU_SCENE_H__
+#ifndef __PLAYER_H__
+#define __PLAYER_H__
 
 #include "cocos2d.h"
-#include "Player.h"
 
-class MainMenuScene : public cocos2d::Scene
+class Player : public cocos2d::Scene
 {
 public:
-    static cocos2d::Scene* createScene();
-
-    virtual bool init();
-	CREATE_FUNC(MainMenuScene);
+	Player(cocos2d::Scene *scene);
 private:
+	cocos2d::Size visibleSize;
+	cocos2d::Vec2 origin;
 
-	void menuCloseCallback(cocos2d::Ref* pSender);
-
-	void addSplashScene(float dt);
-
-	Player *player;
+	cocos2d::Sprite *PlayerSprite;
 };
 
-#endif // __MAINMENU_SCENE_H__
+#endif // __PLAYER_H__

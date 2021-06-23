@@ -22,26 +22,16 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MAINMENU_SCENE_H__
-#define __MAINMENU_SCENE_H__
-
-#include "cocos2d.h"
 #include "Player.h"
+#include "Definitions.h"
+USING_NS_CC;
 
-class MainMenuScene : public cocos2d::Scene
+Player::Player(cocos2d::Scene *scene)
 {
-public:
-    static cocos2d::Scene* createScene();
+	visibleSize = Director::getInstance()->getVisibleSize();
+	origin = Director::getInstance()->getVisibleOrigin();
 
-    virtual bool init();
-	CREATE_FUNC(MainMenuScene);
-private:
-
-	void menuCloseCallback(cocos2d::Ref* pSender);
-
-	void addSplashScene(float dt);
-
-	Player *player;
-};
-
-#endif // __MAINMENU_SCENE_H__
+	PlayerSprite = Sprite::create("prefap/Player/redbird-midflap.png");
+	PlayerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	scene->addChild(PlayerSprite);
+}

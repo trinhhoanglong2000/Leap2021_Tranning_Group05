@@ -22,13 +22,14 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#include "GameScene.h"
+#include "Definitions.h"
 #include "MainMenuScene.h"
-
 USING_NS_CC;
 
-Scene* MainMenuScene::createScene()
+Scene* GameScene::createScene()
 {
-    return MainMenuScene::create();
+    return GameScene::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -39,7 +40,7 @@ static void problemLoading(const char* filename)
 }
 
 // on "init" you need to initialize your instance
-bool MainMenuScene::init()
+bool GameScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -51,13 +52,20 @@ bool MainMenuScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	player = new Player(this);
+    /////////////////////////////
+    // 2. add a menu item with "X" image, which is clicked to quit the program
+    //    you may modify it.
+
+    // add a "close" icon to exit the progress. it's an autorelease object
     
+	
+	auto BgSprite = Sprite::create("Splash Screen.png");
+	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	this->addChild(BgSprite);
     return true;
 }
 
-
-void MainMenuScene::menuCloseCallback(Ref* pSender)
+void GameScene::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();
