@@ -22,43 +22,25 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "Player.h"
-#include "Definitions.h"
-#include "ui\CocosGUI.h"
-#include "GameScene.h"
-USING_NS_CC;
-Player::Player() : Actor("prefap/Player/redbird-midflap.png")
-{
-		
-	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->setTag(1);
+#ifndef __Actor_H__
+#define __Actor_H__
 
-}	
-void Player::MoveUp()
-{
-	Actor::MoveUp();
-	
-	auto cam = Camera::getDefaultCamera();
-	cam->setPosition(this->getPosition());
-}
-void Player::MoveDow()
-{
-	Actor::MoveDow();
+#include "cocos2d.h"
 
-	auto cam = Camera::getDefaultCamera();
-	cam->setPosition(this->getPosition());
-}
-void Player::MoveLeft()
+class Actor : public cocos2d::Sprite
 {
-	Actor::MoveLeft();
+public:
+	Actor();
+	Actor(std::string name);
+	void MoveUp();
+	void MoveDow();
+	void MoveLeft();
+	void MoveRight();
+protected:
+	//static cocos2d::Camera *cam;
+	cocos2d::Size visibleSize;
+	cocos2d::Vec2 origin;
 
-	auto cam = Camera::getDefaultCamera();
-	cam->setPosition(this->getPosition());
-}
-void Player::MoveRight()
-{
-	Actor::MoveRight();
+};
 
-	auto cam = Camera::getDefaultCamera();
-	cam->setPosition(this->getPosition());
-}
+#endif // __SPLASH_SCENE_H__

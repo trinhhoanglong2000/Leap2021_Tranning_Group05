@@ -53,10 +53,10 @@ bool MainMenuScene::init()
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-<<<<<<< HEAD
+
 	
-	player = new Player(this);
-=======
+	player = new Player();
+
 
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile("Maptest/TileMap.tmx");
@@ -77,7 +77,7 @@ bool MainMenuScene::init()
 	int y = spawnPoint["y"].asInt();
 
 
->>>>>>> 2b11a16c32b9d738f645ee397c04f7d78b303111
+
     return true;
 }
 

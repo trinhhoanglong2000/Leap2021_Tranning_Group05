@@ -27,23 +27,17 @@
 
 #include "cocos2d.h"
 #include "ui\CocosGUI.h"
+#include"Actor.h"
 
-class Player : public cocos2d::Scene
+class Player : public Actor
 {
 public:
-	Player(cocos2d::Scene *scene);
+	Player();
 	void MoveUp();
 	void MoveDow();
 	void MoveLeft();
 	void MoveRight();
-private:
-	//static cocos2d::Camera *cam;
-	cocos2d::Size visibleSize;
-	cocos2d::Vec2 origin;
-	cocos2d::ui::Layout *Layout;
-	cocos2d::ui::Widget *Panel;
-	cocos2d::Sprite *PlayerSprite;
-	cocos2d::Scene *mainscene;
+
 };
 
 #endif // __PLAYER_H__

@@ -25,54 +25,37 @@
 #include "Minions.h"
 #include "Definitions.h"
 USING_NS_CC;
-Minions::Minions(cocos2d::Scene *scene)
+Minions::Minions():  Actor("prefap/Minions/bluebird-midflap.png")
 {
-	visibleSize = Director::getInstance()->getVisibleSize();
-	origin = Director::getInstance()->getVisibleOrigin();
+	
 
-	MinionSprite = Sprite::create("prefap/Minions/bluebird-midflap.png");
-	MinionSprite->setPosition(Vec2(visibleSize.width/2 + visibleSize.height*0.2 + origin.x, visibleSize.height*0.8));
-	scene->addChild(MinionSprite,2);
-
-	player = scene->getChildByTag(1);
+	this->setPosition(Vec2(visibleSize.width/2 + visibleSize.height*0.2 + origin.x, visibleSize.height*0.8));
+	this->setTag(1);
+	
 	//scene->schedule(CC_SCHEDULE_SELECTOR(Minions::findPlayer), 2.0f);
 }	
-void Minions::findPlayer()
+void Minions::findPlayer(Actor* player)
 {
-	if (MinionSprite->getPositionX() < player->getPositionX())
+	if (this->getPositionX() < player->getPositionX())
 	{
 		
-		Minions::MinionsMoveRight();
+		this->MoveRight();
 		return;
 	}
-	if (MinionSprite->getPositionX() > player->getPositionX())
+	if (this->getPositionX() > player->getPositionX())
 	{
-		Minions::MinionsMoveLeft();
+		this->MoveLeft();
 		return;
 	}
-	if (MinionSprite->getPositionY() < player->getPositionY())
+	if (this->getPositionY() < player->getPositionY())
 	{
-		Minions::MinionsMoveUp();
+		this->MoveUp();
+		
 		return;
 	}
-	if (MinionSprite->getPositionY() > player->getPositionY())
+	if (this->getPositionY() > player->getPositionY())
 	{
-		Minions::MinionsMoveDow();
+		this->MoveDow();
+		return;
 	}
-}
-void Minions::MinionsMoveUp()
-{
-	MinionSprite->setPosition(Vec2(MinionSprite->getPositionX(), MinionSprite->getPositionY() + visibleSize.height*PLAYER_SPEED));
-}
-void Minions::MinionsMoveDow()
-{
-	MinionSprite->setPosition(Vec2(MinionSprite->getPositionX(), MinionSprite->getPositionY() - visibleSize.height*PLAYER_SPEED));
-}
-void Minions::MinionsMoveLeft()
-{
-	MinionSprite->setPosition(Vec2(MinionSprite->getPositionX() - visibleSize.height*PLAYER_SPEED, MinionSprite->getPositionY()));
-}
-void Minions::MinionsMoveRight()
-{
-	MinionSprite->setPosition(Vec2(MinionSprite->getPositionX() + visibleSize.height*PLAYER_SPEED, MinionSprite->getPositionY()));
 }

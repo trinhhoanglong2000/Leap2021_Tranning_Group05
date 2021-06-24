@@ -26,23 +26,17 @@
 #define __MINIONS_H__
 
 #include "cocos2d.h"
+#include"Actor.h"
 
 
-class Minions : public cocos2d::Scene
+class Minions : public Actor
 {
 public:
-	Minions(cocos2d::Scene *scene);
-	void MinionsMoveUp();
-	void MinionsMoveDow();
-	void MinionsMoveLeft();
-	void MinionsMoveRight();
-	void findPlayer();
-private:
-	
-	cocos2d::Size visibleSize;
-	cocos2d::Vec2 origin;
-	cocos2d::Sprite *MinionSprite;
-	cocos2d::Node *player;
+	Minions();
+	void findPlayer(Actor* player);
+
+
+
 };
 
 #endif // __MINIONS_H__

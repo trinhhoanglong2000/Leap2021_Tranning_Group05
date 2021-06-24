@@ -84,8 +84,12 @@ bool GameScene::init()
 	Layout->addChild(ButtonRight);
 	this->addChild(Layout, 5);
 
-	player = new Player(this); // add player
-	minion = new Minions(this); // add enemy
+	
+	player = new Player();
+		
+	this->addChild(player,10);
+	minion = new Minions(); // add enemy
+	this->addChild(minion, 10);
 	gameMap = new GameMap(this); // add gamemap
 
 	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
@@ -93,13 +97,13 @@ bool GameScene::init()
 }
 void GameScene::enemyFind(float dt)
 {
-	minion->findPlayer();
+	minion->findPlayer(player);
 }
 void GameScene::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
-		minion->findPlayer();
+		
 		Layout->setPosition(Vec2(Layout->getPositionX(), Layout->getPositionY() + visibleSize.height*PLAYER_SPEED));
 		player->MoveUp();
 	}
