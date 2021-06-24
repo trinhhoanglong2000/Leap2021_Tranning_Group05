@@ -40,7 +40,6 @@ protected:
 	//static cocos2d::Camera *cam;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-
 };
 
 #endif // __SPLASH_SCENE_H__

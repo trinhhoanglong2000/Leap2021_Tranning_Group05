@@ -12,7 +12,7 @@
  
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,36 +29,49 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 {
-		
+	background = Sprite::create("bg.png");
+	this->addChild(background);
 	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->setTag(1);
-
+	this->setTag(1);	
+	mind = 1;
 }	
 void Player::MoveUp()
 {
+	if(mind == 1)
 	Actor::MoveUp();
-	
-	auto cam = Camera::getDefaultCamera();
-	cam->setPosition(this->getPosition());
+	else
+	{
+		mind = 1;
+		background->setRotation(0);
+	}
 }
 void Player::MoveDow()
 {
+	if(mind == 2 )
 	Actor::MoveDow();
-
-	auto cam = Camera::getDefaultCamera();
-	cam->setPosition(this->getPosition());
+	else
+	{
+		mind = 2;
+		background->setRotation(180);
+	}
 }
 void Player::MoveLeft()
 {
+	if(mind == 3)
 	Actor::MoveLeft();
-
-	auto cam = Camera::getDefaultCamera();
-	cam->setPosition(this->getPosition());
+	else
+	{
+		mind = 3;
+		background->setRotation(-90);
+	}
 }
 void Player::MoveRight()
 {
+	if(mind ==4)
 	Actor::MoveRight();
-
-	auto cam = Camera::getDefaultCamera();
-	cam->setPosition(this->getPosition());
+	else
+	{
+		mind = 4;
+		background->setRotation(90); 
+	}
 }

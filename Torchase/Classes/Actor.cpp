@@ -28,7 +28,6 @@
 USING_NS_CC;
 
 Actor::Actor(std::string name) {
-	
 
 	this->initWithFile(name);
 	visibleSize = Director::getInstance()->getVisibleSize();
@@ -36,22 +35,26 @@ Actor::Actor(std::string name) {
 }
 void Actor::MoveUp()
 {
-	this->setPosition(Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
+	auto moveAction = MoveTo::create(ACTOR_SPEED,Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
+	this->runAction(moveAction);
+	//this->setPosition(Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
 
 }
 void Actor::MoveDow()
 {
-	this->setPosition(Vec2(this->getPositionX(), this->getPositionY() - visibleSize.height * PLAYER_SPEED));
-
+	auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX(), this->getPositionY() - visibleSize.height * PLAYER_SPEED));
+	this->runAction(moveAction);
+	//this->setPosition(Vec2(this->getPositionX(), this->getPositionY() - visibleSize.height * PLAYER_SPEED));
 }
 void Actor::MoveLeft()
 {
-	this->setPosition(Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
-
+	auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
+	this->runAction(moveAction);
+	//this->setPosition(Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
 }
 void Actor::MoveRight()
 {
-	this->setPosition(Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
-	
-
+	auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
+	this->runAction(moveAction);
+	//this->setPosition(Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
 }

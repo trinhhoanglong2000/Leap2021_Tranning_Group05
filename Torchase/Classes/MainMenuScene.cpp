@@ -76,8 +76,6 @@ bool MainMenuScene::init()
 	int x = spawnPoint["x"].asInt(); 
 	int y = spawnPoint["y"].asInt();
 
-
-
     return true;
 }
 

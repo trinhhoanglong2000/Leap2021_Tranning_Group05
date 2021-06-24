@@ -82,14 +82,16 @@ bool GameScene::init()
 	Layout->addChild(ButtonDow);
 	Layout->addChild(ButtonLeft);
 	Layout->addChild(ButtonRight);
-	this->addChild(Layout, 5);
+	this->addChild(Layout, 20);
 
-	
-	player = new Player();
-		
+	player = new Player();	
 	this->addChild(player,10);
+	auto cam = Camera::getDefaultCamera();
+	this->runAction(Follow::create(player));
+
 	minion = new Minions(); // add enemy
-	this->addChild(minion, 10);
+	this->addChild(minion, 5);
+
 	gameMap = new GameMap(this); // add gamemap
 
 	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
@@ -103,8 +105,11 @@ void GameScene::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
-		
-		Layout->setPosition(Vec2(Layout->getPositionX(), Layout->getPositionY() + visibleSize.height*PLAYER_SPEED));
+		if (player->mind == 1)
+		{
+			auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(Layout->getPositionX(), Layout->getPositionY() + visibleSize.height * PLAYER_SPEED));
+			Layout->runAction(moveAction);
+		}
 		player->MoveUp();
 	}
 }
@@ -112,7 +117,11 @@ void GameScene::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 {
 	if(Type== ui::Widget::TouchEventType::BEGAN)
 	{
-		Layout->setPosition(Vec2(Layout->getPositionX(), Layout->getPositionY() - visibleSize.height*PLAYER_SPEED));
+		if (player->mind == 2)
+		{
+			auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(Layout->getPositionX(), Layout->getPositionY() - visibleSize.height * PLAYER_SPEED));
+			Layout->runAction(moveAction);
+		}
 		player->MoveDow(); 
 	}
 	
@@ -121,7 +130,11 @@ void GameScene::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventT
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
-		Layout->setPosition(Vec2(Layout->getPositionX() - visibleSize.height*PLAYER_SPEED, Layout->getPositionY()));
+		if (player->mind == 3)
+		{
+			auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(Layout->getPositionX() - visibleSize.height * PLAYER_SPEED, Layout->getPositionY()));
+			Layout->runAction(moveAction);
+		}
 		player->MoveLeft();
 	}
 }
@@ -129,7 +142,11 @@ void GameScene::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEvent
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
-		Layout->setPosition(Vec2(Layout->getPositionX() + visibleSize.height*PLAYER_SPEED, Layout->getPositionY()));
+		if (player->mind == 4)
+		{
+			auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(Layout->getPositionX() + visibleSize.height * PLAYER_SPEED, Layout->getPositionY()));
+			Layout->runAction(moveAction);
+		}
 		player->MoveRight();
 	}
 }

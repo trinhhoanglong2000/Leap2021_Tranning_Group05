@@ -27,18 +27,12 @@
 USING_NS_CC;
 Minions::Minions():  Actor("prefap/Minions/bluebird-midflap.png")
 {
-	
-
 	this->setPosition(Vec2(visibleSize.width/2 + visibleSize.height*0.2 + origin.x, visibleSize.height*0.8));
-	this->setTag(1);
-	
-	//scene->schedule(CC_SCHEDULE_SELECTOR(Minions::findPlayer), 2.0f);
 }	
 void Minions::findPlayer(Actor* player)
 {
 	if (this->getPositionX() < player->getPositionX())
 	{
-		
 		this->MoveRight();
 		return;
 	}

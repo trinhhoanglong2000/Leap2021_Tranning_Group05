@@ -37,7 +37,10 @@ public:
 	void MoveDow();
 	void MoveLeft();
 	void MoveRight();
-
+	int mind;
+private:
+	cocos2d::Sprite *background;
+	
 };
 
 #endif // __PLAYER_H__

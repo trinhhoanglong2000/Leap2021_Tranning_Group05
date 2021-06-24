@@ -29,6 +29,7 @@
 #define TRANSITION_TIME 0.5
 
 #define PLAYER_SPEED 0.2
+#define ACTOR_SPEED 0.5
 #define BUTTON_SCALE 0.1
 
 #endif // __DEFINITIONS_H__

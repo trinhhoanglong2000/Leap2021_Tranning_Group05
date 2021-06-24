@@ -34,9 +34,6 @@ class Minions : public Actor
 public:
 	Minions();
 	void findPlayer(Actor* player);
-
-
-
 };
 
 #endif // __MINIONS_H__
