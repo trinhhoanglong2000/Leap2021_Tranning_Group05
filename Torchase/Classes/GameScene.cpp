@@ -46,21 +46,12 @@ Scene* GameScene::createScene()
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
-
     if ( !Scene::init() )
     {
         return false;
     }
-
-	
-
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
-
-	auto bg = Sprite::create("Background.png");
-	bg->setScale(2.0f);
-	bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	this->addChild(bg);
 
 	// ui move
 	Layout = ui::Layout::create();
@@ -93,9 +84,10 @@ bool GameScene::init()
 	Layout->addChild(ButtonRight);
 	this->addChild(Layout, 5);
 
-	
 	player = new Player(this); // add player
-	minion = new Minions(this);
+	minion = new Minions(this); // add enemy
+	gameMap = new GameMap(this); // add gamemap
+
 	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
 	return true;
 }

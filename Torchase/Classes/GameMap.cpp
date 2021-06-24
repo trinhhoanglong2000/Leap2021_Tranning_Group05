@@ -22,34 +22,15 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "MainMenuScene.h"
+#include "GameMap.h"
 #include "Definitions.h"
 #include "GameScene.h"
 
 USING_NS_CC;
 
-Scene* MainMenuScene::createScene()
+
+GameMap::GameMap(cocos2d::Scene *scene)
 {
-    //return MainMenuScene::create();
-	Scene *scene = Scene::create();
-
-	// 'layer' is an autorelease object
-	MainMenuScene *layer = MainMenuScene::create();
-
-	// add layer as a child to scene
-	scene->addChild(layer);
-
-	// return the scene
-	return scene;
-}
-
-bool MainMenuScene::init()
-{
-
-    if ( !Scene::init() )
-    {
-        return false;
-    }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -58,31 +39,24 @@ bool MainMenuScene::init()
 	_tileMap->initWithTMXFile("Maptest/TileMap.tmx");
 	_background = _tileMap->getLayer("Background");
 
-	this->addChild(_tileMap);
+	scene->addChild(_tileMap);
 
 	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Object");
 
 	if (objectGroup == NULL) {
 		CCLOG("tile map has no objects object layer");
-		return false;
+		return;
 	}
+	else
+	{
+		auto spawnPoint = objectGroup->getObject("SpawnPoint");
+		int x = spawnPoint["x"].asInt();
+		int y = spawnPoint["y"].asInt();
+	}
+	
 
-	auto spawnPoint = objectGroup->getObject("SpawnPoint");
-
-	int x = spawnPoint["x"].asInt(); 
-	int y = spawnPoint["y"].asInt();
-
-
-    return true;
 }
-
-
-void MainMenuScene::menuCloseCallback(Ref* pSender)
-{ 
-    Director::getInstance()->end();
-}
-
-void MainMenuScene::setViewPointCenter(Point position) {
+void GameMap::setViewPointCenter(Point position) {
 
 	/*Size winSize = Director::getInstance()->getWinSize();
 	//CCLOG("% d %d",position.x,position.y);

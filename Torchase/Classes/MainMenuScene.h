@@ -39,7 +39,6 @@ private:
 
 public:
     static cocos2d::Scene* createScene();
-
     virtual bool init();
 	CREATE_FUNC(MainMenuScene);
 private:
@@ -47,16 +46,13 @@ private:
 	void menuCloseCallback(cocos2d::Ref* pSender);
 
 	void addSplashScene(float dt);
-<<<<<<< HEAD
 
 	Player *player;
-=======
-    // implement the "static create()" method manually
+
 	void setViewPointCenter(Point position);
 	void onTouchEnded(Touch *touch, Event *unused_event);
 	void setPlayerPosition(Point position);
-    CREATE_FUNC(MainMenuScene);
->>>>>>> 8e13b419bd9bf89e1b1643c22614168c2e8a5dfc
+    //CREATE_FUNC(MainMenuScene);
 };
 
 #endif // __MAINMENU_SCENE_H__
