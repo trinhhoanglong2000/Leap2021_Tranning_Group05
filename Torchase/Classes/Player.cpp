@@ -35,6 +35,11 @@ Player::Player(cocos2d::Scene *scene)
 	PlayerSprite = Sprite::create("prefap/Player/redbird-midflap.png");
 	PlayerSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	PlayerSprite->setTag(1);
+
+	auto bg = Sprite::create("background.png");
+	bg->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	PlayerSprite->addChild(bg,10);
+
 	scene->addChild(PlayerSprite,2);
 	mainscene = scene;
 
