@@ -66,29 +66,32 @@ bool GameScene::init()
 	ButtonLeft->setScale(BUTTON_SCALE);
 	ButtonRight->setScale(BUTTON_SCALE);
 
-	ButtonUp->setPosition(Vec2(visibleSize.width / 5 + origin.x, visibleSize.height / 5 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE));
+	ButtonUp->setPosition(Vec2(-visibleSize.width / 4 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE));
 	ButtonUp->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveUp, this));
 
-	ButtonDow->setPosition(Vec2(visibleSize.width / 5 + origin.x, visibleSize.height / 5 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE));
+	ButtonDow->setPosition(Vec2(-visibleSize.width / 4 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE));
 	ButtonDow->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveDow, this));
 
-	ButtonLeft->setPosition(Vec2(visibleSize.width / 5 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE, visibleSize.height / 5 + origin.y));
+	ButtonLeft->setPosition(Vec2(-visibleSize.width / 4 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE, -visibleSize.height / 4 + origin.y));
 	ButtonLeft->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveLeft, this));
 
-	ButtonRight->setPosition(Vec2(visibleSize.width / 5 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE, visibleSize.height / 5 + origin.y));
+	ButtonRight->setPosition(Vec2(-visibleSize.width / 4 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE, -visibleSize.height / 4 + origin.y));
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveRight, this));
 
 	Layout->addChild(ButtonUp);
 	Layout->addChild(ButtonDow);
 	Layout->addChild(ButtonLeft);
 	Layout->addChild(ButtonRight);
-	this->addChild(Layout, 20);
+	//this->addChild(Layout, 20);
 
 	player = new Player();	
 	this->addChild(player,10);
+	player->addChild(Layout, 30);
+	Layout->setPosition(Vec2(0, 0));
+
 	auto cam = Camera::getDefaultCamera();
 	this->runAction(Follow::create(player));
-
+	
 	minion = new Minions(); // add enemy
 	this->addChild(minion, 5);
 
@@ -105,11 +108,11 @@ void GameScene::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
-		if (player->mind == 1)
+		/*if (player->mind == 1)
 		{
 			auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(Layout->getPositionX(), Layout->getPositionY() + visibleSize.height * PLAYER_SPEED));
 			Layout->runAction(moveAction);
-		}
+		}*/
 		player->MoveUp();
 	}
 }
@@ -117,11 +120,11 @@ void GameScene::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 {
 	if(Type== ui::Widget::TouchEventType::BEGAN)
 	{
-		if (player->mind == 2)
+		/*if (player->mind == 2)
 		{
 			auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(Layout->getPositionX(), Layout->getPositionY() - visibleSize.height * PLAYER_SPEED));
 			Layout->runAction(moveAction);
-		}
+		}*/
 		player->MoveDow(); 
 	}
 	
@@ -130,11 +133,11 @@ void GameScene::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventT
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
-		if (player->mind == 3)
+		/*if (player->mind == 3)
 		{
 			auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(Layout->getPositionX() - visibleSize.height * PLAYER_SPEED, Layout->getPositionY()));
 			Layout->runAction(moveAction);
-		}
+		}*/
 		player->MoveLeft();
 	}
 }
@@ -142,11 +145,11 @@ void GameScene::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEvent
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
-		if (player->mind == 4)
+		/*if (player->mind == 4)
 		{
 			auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(Layout->getPositionX() + visibleSize.height * PLAYER_SPEED, Layout->getPositionY()));
 			Layout->runAction(moveAction);
-		}
+		}*/
 		player->MoveRight();
 	}
 }

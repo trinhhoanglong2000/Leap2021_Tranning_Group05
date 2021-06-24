@@ -30,7 +30,7 @@ USING_NS_CC;
 Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 {
 	background = Sprite::create("bg.png");
-	this->addChild(background);
+	this->addChild(background,10);
 	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->setTag(1);	
 	mind = 1;

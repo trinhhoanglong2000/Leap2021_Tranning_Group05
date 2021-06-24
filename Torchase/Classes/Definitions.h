@@ -30,6 +30,6 @@
 
 #define PLAYER_SPEED 0.2
 #define ACTOR_SPEED 0.5
-#define BUTTON_SCALE 0.1
+#define BUTTON_SCALE 0.2
 
 #endif // __DEFINITIONS_H__
