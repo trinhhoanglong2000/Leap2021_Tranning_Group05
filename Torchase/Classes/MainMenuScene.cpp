@@ -23,26 +23,29 @@
  ****************************************************************************/
 
 #include "MainMenuScene.h"
+#include "Definitions.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
 Scene* MainMenuScene::createScene()
 {
-    return MainMenuScene::create();
+    //return MainMenuScene::create();
+	Scene *scene = Scene::create();
+
+	// 'layer' is an autorelease object
+	MainMenuScene *layer = MainMenuScene::create();
+
+	// add layer as a child to scene
+	scene->addChild(layer);
+
+	// return the scene
+	return scene;
 }
 
-// Print useful error message instead of segfaulting when files are not there.
-static void problemLoading(const char* filename)
-{
-    printf("Error while loading: %s\n", filename);
-    printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
-}
-
-// on "init" you need to initialize your instance
 bool MainMenuScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
+
     if ( !Scene::init() )
     {
         return false;
@@ -50,21 +53,52 @@ bool MainMenuScene::init()
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
+<<<<<<< HEAD
 	
 	player = new Player(this);
+=======
+
+	_tileMap = new TMXTiledMap();
+	_tileMap->initWithTMXFile("Maptest/TileMap.tmx");
+	_background = _tileMap->getLayer("Background");
+
+	this->addChild(_tileMap);
+
+	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Object");
+
+	if (objectGroup == NULL) {
+		CCLOG("tile map has no objects object layer");
+		return false;
+	}
+
+	auto spawnPoint = objectGroup->getObject("SpawnPoint");
+
+	int x = spawnPoint["x"].asInt(); 
+	int y = spawnPoint["y"].asInt();
+
+
+>>>>>>> 2b11a16c32b9d738f645ee397c04f7d78b303111
     return true;
 }
 
 
 void MainMenuScene::menuCloseCallback(Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
+{ 
     Director::getInstance()->end();
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }
+
+void MainMenuScene::setViewPointCenter(Point position) {
+
+	/*Size winSize = Director::getInstance()->getWinSize();
+	//CCLOG("% d %d",position.x,position.y);
+	int x = MAX(position.x, winSize.width / 2);
+	int y = MAX(position.y, winSize.height / 2);
+	x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
+	y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height / 2);
+	Point actualPosition = Point(x, y);
+
+	Point centerOfView = Point(winSize.width / 2, winSize.height / 2);
+	Point viewPoint = centerOfView - actualPosition;
+	this->setPosition(viewPoint);*/
+}
+

@@ -24,56 +24,109 @@
 
 #include "GameScene.h"
 #include "Definitions.h"
-#include "MainMenuScene.h"
+#include "AudioEngine.h"
 USING_NS_CC;
-
 Scene* GameScene::createScene()
 {
-    return GameScene::create();
-}
+	auto scene = Scene::createWithPhysics();
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-// Print useful error message instead of segfaulting when files are not there.
-static void problemLoading(const char* filename)
-{
-    printf("Error while loading: %s\n", filename);
-    printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
+	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+
+	auto Scene_layer = GameScene::create();
+	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
+	Scene_layer->removeChild(Scene_layer->getDefaultCamera());
+
+	scene->addChild(Scene_layer);
+
+	return scene;
+	//return GameScene::create();
 }
 
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
     if ( !Scene::init() )
     {
         return false;
     }
+    visibleSize = Director::getInstance()->getVisibleSize();
+    origin = Director::getInstance()->getVisibleOrigin();
 
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	// ui move
+	Layout = ui::Layout::create();
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
+	auto ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
+	auto ButtonDow = ui::Button::create("prefap/Gui/Play-8.png");
+	auto ButtonLeft = ui::Button::create("prefap/Gui/Play-8.png");
+	auto ButtonRight = ui::Button::create("prefap/Gui/Play-8.png");
 
-    // add a "close" icon to exit the progress. it's an autorelease object
-    
-	
-	auto BgSprite = Sprite::create("Splash Screen.png");
-	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(BgSprite);
-    return true;
+	ButtonUp->setScale(BUTTON_SCALE);
+	ButtonDow->setScale(BUTTON_SCALE);
+	ButtonLeft->setScale(BUTTON_SCALE);
+	ButtonRight->setScale(BUTTON_SCALE);
+
+	ButtonUp->setPosition(Vec2(visibleSize.width / 5 + origin.x, visibleSize.height / 5 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE));
+	ButtonUp->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveUp, this));
+
+	ButtonDow->setPosition(Vec2(visibleSize.width / 5 + origin.x, visibleSize.height / 5 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE));
+	ButtonDow->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveDow, this));
+
+	ButtonLeft->setPosition(Vec2(visibleSize.width / 5 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE, visibleSize.height / 5 + origin.y));
+	ButtonLeft->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveLeft, this));
+
+	ButtonRight->setPosition(Vec2(visibleSize.width / 5 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE, visibleSize.height / 5 + origin.y));
+	ButtonRight->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveRight, this));
+
+	Layout->addChild(ButtonUp);
+	Layout->addChild(ButtonDow);
+	Layout->addChild(ButtonLeft);
+	Layout->addChild(ButtonRight);
+	this->addChild(Layout, 5);
+
+	player = new Player(this); // add player
+	minion = new Minions(this); // add enemy
+	gameMap = new GameMap(this); // add gamemap
+
+	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
+	return true;
 }
-
-void GameScene::menuCloseCallback(Ref* pSender)
+void GameScene::enemyFind(float dt)
 {
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
+	minion->findPlayer();
 }
+void GameScene::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
+{
+	if (Type == ui::Widget::TouchEventType::BEGAN)
+	{
+		minion->findPlayer();
+		Layout->setPosition(Vec2(Layout->getPositionX(), Layout->getPositionY() + visibleSize.height*PLAYER_SPEED));
+		player->MoveUp();
+	}
+}
+void GameScene::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
+{
+	if(Type== ui::Widget::TouchEventType::BEGAN)
+	{
+		Layout->setPosition(Vec2(Layout->getPositionX(), Layout->getPositionY() - visibleSize.height*PLAYER_SPEED));
+		player->MoveDow(); 
+	}
+	
+}
+void GameScene::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
+{
+	if (Type == ui::Widget::TouchEventType::BEGAN)
+	{
+		Layout->setPosition(Vec2(Layout->getPositionX() - visibleSize.height*PLAYER_SPEED, Layout->getPositionY()));
+		player->MoveLeft();
+	}
+}
+void GameScene::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
+{
+	if (Type == ui::Widget::TouchEventType::BEGAN)
+	{
+		Layout->setPosition(Vec2(Layout->getPositionX() + visibleSize.height*PLAYER_SPEED, Layout->getPositionY()));
+		player->MoveRight();
+	}
+}
+

@@ -28,11 +28,17 @@
 #include "cocos2d.h"
 #include "Player.h"
 
+USING_NS_CC;
+
 class MainMenuScene : public cocos2d::Scene
 {
+private:
+	TMXTiledMap *_tileMap;
+	TMXLayer *_background;
+	Sprite *_player;
+
 public:
     static cocos2d::Scene* createScene();
-
     virtual bool init();
 	CREATE_FUNC(MainMenuScene);
 private:
@@ -42,6 +48,11 @@ private:
 	void addSplashScene(float dt);
 
 	Player *player;
+
+	void setViewPointCenter(Point position);
+	void onTouchEnded(Touch *touch, Event *unused_event);
+	void setPlayerPosition(Point position);
+    //CREATE_FUNC(MainMenuScene);
 };
 
 #endif // __MAINMENU_SCENE_H__

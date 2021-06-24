@@ -32,16 +32,18 @@ class Player : public cocos2d::Scene
 {
 public:
 	Player(cocos2d::Scene *scene);
+	void MoveUp();
+	void MoveDow();
+	void MoveLeft();
+	void MoveRight();
 private:
-	void MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	//static cocos2d::Camera *cam;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-
+	cocos2d::ui::Layout *Layout;
+	cocos2d::ui::Widget *Panel;
 	cocos2d::Sprite *PlayerSprite;
-
+	cocos2d::Scene *mainscene;
 };
 
 #endif // __PLAYER_H__
