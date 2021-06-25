@@ -31,6 +31,7 @@
 #include "ui\CocosGUI.h"
 #include "GameMap.h"
 #include "Canvas.h"
+#include "Battery.h"
 
 class GameScene : public cocos2d::Scene
 {
@@ -57,6 +58,7 @@ private:
 	int height = 1200;
 
 	Canvas *canvas;
+	Battery *battery;
 };
 
 #endif // __GAMESCENE_H__

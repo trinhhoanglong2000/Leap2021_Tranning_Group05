@@ -29,7 +29,11 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 {
-
+	auto PlayerBody = PhysicsBody::createBox(this->getContentSize());
+	PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
+	PlayerBody->setContactTestBitmask(true);
+	PlayerBody->setDynamic(false);
+	this->setPhysicsBody(PlayerBody);
 	background = DrawNode::create();
 	
 	Vec2 vertices[] =

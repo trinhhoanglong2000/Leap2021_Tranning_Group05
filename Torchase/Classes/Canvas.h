@@ -39,6 +39,7 @@ public:
 	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void reduceenergy(float dt);
+	void plusenergy(int power);
 private:
 	Player *player;
 	cocos2d::DrawNode* background_off;

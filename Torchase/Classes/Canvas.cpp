@@ -124,3 +124,7 @@ void Canvas::reduceenergy(float dt)
 {
 	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
 }
+void Canvas::plusenergy(int power)
+{
+	enegy->setPercent(enegy->getPercent() + power);
+}

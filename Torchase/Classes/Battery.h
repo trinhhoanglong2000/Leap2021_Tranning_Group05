@@ -22,20 +22,20 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __DEFINITIONS_H__
-#define __DEFINITIONS_H__
+#ifndef __BATTERY_H__
+#define __BATTERY_H__
 
-#define DISPLAY_TIME_SPLASH_SCENE 2
-#define TRANSITION_TIME 0.5
+#include "cocos2d.h"
 
-#define PLAYER_SPEED 0.2
-#define ACTOR_SPEED 0.5
-#define BUTTON_SCALE 0.2
+class Battery : public cocos2d::Sprite
+{
+public:
+	Battery();
+	Battery(std::string name);
 
-#define TIME_REDUCE_ENERGY 1
-#define PERCENT_REDUCE 1
-#define MAX_PERCENT 60
+protected:
+	cocos2d::Size visibleSize;
+	cocos2d::Vec2 origin;
+};
 
-#define BATTERY_COLISION_BITMASK 0x000001
-#define PLAYER_COLISION_BITMASK 0x000002
-#endif // __DEFINITIONS_H__
+#endif // __BATTERY_H__

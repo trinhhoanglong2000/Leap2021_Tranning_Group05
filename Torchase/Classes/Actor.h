@@ -42,4 +42,4 @@ protected:
 	cocos2d::Vec2 origin;
 };
 
-#endif // __SPLASH_SCENE_H__
+#endif // __Actor_H__

@@ -84,5 +84,8 @@ bool GameScene::init()
 	canvas->setPosition(Vec2(0, 0));
 	player->addChild(canvas, 50);
 	
+	battery = new Battery("battery.png");
+	battery->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	this->addChild(battery);
 	return true;
 }
