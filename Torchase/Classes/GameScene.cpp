@@ -85,7 +85,30 @@ bool GameScene::init()
 	player->addChild(canvas, 50);
 	
 	battery = new Battery("battery.png");
-	battery->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	battery->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 1.5));
 	this->addChild(battery);
+
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+
+	return true;
+}
+bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
+{
+	PhysicsBody *a = contact.getShapeA()->getBody();
+	PhysicsBody *b = contact.getShapeB()->getBody();
+	if ((BATTERY_COLISION_BITMASK == a->getCollisionBitmask() && PLAYER_COLISION_BITMASK == b->getCollisionBitmask()) || (BATTERY_COLISION_BITMASK == b->getCollisionBitmask() && PLAYER_COLISION_BITMASK == a->getCollisionBitmask()))
+	{
+		canvas->plusenergy(5);
+		if (BATTERY_COLISION_BITMASK == a->getCollisionBitmask()) // remove battery when begin player
+		{
+			this->removeChild(a->getOwner());
+		}
+		else
+		{
+			this->removeChild(b->getOwner());
+		}
+	}
 	return true;
 }

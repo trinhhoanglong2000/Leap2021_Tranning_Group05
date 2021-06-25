@@ -126,5 +126,9 @@ void Canvas::reduceenergy(float dt)
 }
 void Canvas::plusenergy(int power)
 {
-	enegy->setPercent(enegy->getPercent() + power);
+	if(enegy->getPercent() + power<enegy->getMaxPercent())
+		enegy->setPercent(enegy->getPercent() + power);
+	else
+		enegy->setPercent(enegy->getMaxPercent());
+
 }

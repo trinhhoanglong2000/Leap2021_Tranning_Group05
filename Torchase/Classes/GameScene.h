@@ -42,7 +42,7 @@ public:
 	//GameScene *Scene_layer;
 private:
 	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
-
+	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 
