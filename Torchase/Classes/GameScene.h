@@ -45,7 +45,7 @@ private:
 	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-
+	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	cocos2d::ui::Layout *Layout;
