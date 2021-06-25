@@ -29,8 +29,13 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 {
-	background = Sprite::create("bg.png");
-	this->addChild(background,10);
+	background = Sprite::create("Light.png");
+	this->addChild(background, 10);
+	Openbackground = Sprite::create("Openbg.png");
+	Openbackground->setPosition(Vec2(background->getContentSize().width / 2, background->getContentSize().height / 2));
+	background->addChild(Openbackground,11);
+
+	
 	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->setTag(1);	
 	mind = 1;
@@ -73,5 +78,16 @@ void Player::MoveRight()
 	{
 		mind = 4;
 		background->setRotation(90); 
+	}
+}
+void Player::OnOffLight()
+{
+	if (Openbackground->isVisible())
+	{
+		Openbackground->setVisible(false);
+	}
+	else
+	{
+		Openbackground->setVisible(true);
 	}
 }

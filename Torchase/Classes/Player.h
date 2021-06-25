@@ -37,10 +37,12 @@ public:
 	void MoveDow();
 	void MoveLeft();
 	void MoveRight();
+	void OnOffLight();
 	int mind;
 private:
 	cocos2d::Sprite *background;
-	
+	cocos2d::Sprite *Openbackground;
+	cocos2d::Sprite *Eyes;
 };
 
 #endif // __PLAYER_H__
