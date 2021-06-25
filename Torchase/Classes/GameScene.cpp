@@ -53,7 +53,6 @@ bool GameScene::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 
-	// ui move
 	Layout = ui::Layout::create();
 
 	auto ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
@@ -90,19 +89,35 @@ bool GameScene::init()
 	Layout->addChild(ButtonLight);
 
 	player = new Player();	
-	this->addChild(player,10);
+	this->addChild(player,30);
+
 	player->addChild(Layout, 30);
 	Layout->setPosition(Vec2(0, 0));
-
-	auto cam = Camera::getDefaultCamera();
-	this->runAction(Follow::create(player));
+	this->runAction(Follow::create(player)); // add action camera follow player
 	
 	minion = new Minions(); // add enemy
-	this->addChild(minion, 11);
+	this->addChild(minion, 30);
 
 	gameMap = new GameMap(this); // add gamemap
 
 	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
+	background_off = DrawNode::create();
+
+	Vec2 vertices[] =
+	{
+		Vec2(0,height),
+		Vec2(width,height),
+		Vec2(width,0),
+		Vec2(0,0)
+	};
+
+	background_off->setContentSize(Size(width, height));
+	background_off->drawPolygon(vertices, 4, Color4F(Color3B::BLACK, 1), thickness, Color4F(Color3B::BLACK, 1));
+	background_off->setAnchorPoint(Vec2(0.5f, 0.5f));
+	background_off->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
+
+	this->addChild(background_off, 20);
+	background_off->setVisible(false);
 	return true;
 }
 void GameScene::enemyFind(float dt)
@@ -142,6 +157,14 @@ void GameScene::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEven
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
-		player->OnOffLight();
+		//player->OnOffLight();
+		if (background_off->isVisible())
+		{
+			background_off->setVisible(false);
+		}
+		else
+		{
+			background_off->setVisible(true);
+		}
 	}
 }

@@ -53,6 +53,10 @@ private:
 	Minions *minion;
 	GameMap *gameMap;
 	cocos2d::PhysicsWorld *sceneWorld;
+	cocos2d::DrawNode* background_off;
+	int thickness = 400;
+	int width = 1000;
+	int height = 1200;
 };
 
 #endif // __GAMESCENE_H__

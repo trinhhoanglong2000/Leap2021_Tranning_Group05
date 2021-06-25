@@ -31,7 +31,7 @@ Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 {
 
 	background = DrawNode::create();
-	background_off = DrawNode::create();
+	
 	Vec2 vertices[] =
 	{
 		Vec2(0,height),
@@ -44,22 +44,11 @@ Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 	background->setAnchorPoint(Vec2(0.5f, 0.5f));
 	background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
 
-	background_off->setContentSize(Size(width, height));
-	background_off->drawPolygon(vertices, 4, Color4F(Color3B::BLACK, 1), thickness, Color4F(Color3B::BLACK, 1));
-	background_off->setAnchorPoint(Vec2(0.5f, 0.5f));
-	background_off->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
-		
-
-
-
 	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->setTag(1);
-	this->addChild(background_off);
-	this->addChild(background);
-	background_off->setVisible(false);
 
-	background_off->setLocalZOrder(22);
-	this->setLocalZOrder(11);
+	this->addChild(background);
+
 
 	mind = 1;
 }
@@ -114,15 +103,15 @@ void Player::MoveRight()
 }
 void Player::OnOffLight()
 {
-	if (background->isVisible())
+	/*if (background->isVisible())
 	{
 		
 		background->setVisible(false);
-		background_off->setVisible(true);
+	
 	}
 	else
 	{
 		background->setVisible(true);
-		background_off->setVisible(false);
-	}
+		
+	}*/
 }

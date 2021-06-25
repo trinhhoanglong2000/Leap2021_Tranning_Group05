@@ -46,7 +46,7 @@ private:
 	int width = 1000;
 	int height = 1200;
 	cocos2d::DrawNode *background;
-	cocos2d::DrawNode* background_off;
+	
 
 
 };
