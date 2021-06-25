@@ -22,42 +22,27 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __GAMESCENE_H__
-#define __GAMESCENE_H__
+#ifndef __CANVAS_H__
+#define __CANVAS_H__
 
 #include "cocos2d.h"
-#include "Player.h"
-#include "Minions.h"
 #include "ui\CocosGUI.h"
-#include "GameMap.h"
-#include "Canvas.h"
+#include"Player.h"
 
-class GameScene : public cocos2d::Scene
+class Canvas : public cocos2d::ui::Layout
 {
 public:
-    static cocos2d::Scene* createScene();
-    virtual bool init();
-    CREATE_FUNC(GameScene);
-	//GameScene *Scene_layer;
+	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene);
+	void MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 private:
-	void enemyFind(float dt);
-	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
-
+	Player *player;
+	cocos2d::DrawNode* background_off;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-
-	Player *player;
-	Minions *minion;
-	GameMap *gameMap;
-
-	cocos2d::PhysicsWorld *sceneWorld;
-	cocos2d::DrawNode* background_off;
-
-	int thickness = 400;
-	int width = 1000;
-	int height = 1200;
-
-	Canvas *canvas;
 };
 
-#endif // __GAMESCENE_H__
+#endif // __CANVAS_H__

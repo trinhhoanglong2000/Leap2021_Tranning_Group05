@@ -53,48 +53,11 @@ bool GameScene::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 
-	Layout = ui::Layout::create();
-
-	auto ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
-	auto ButtonDow = ui::Button::create("prefap/Gui/Play-8.png");
-	auto ButtonLeft = ui::Button::create("prefap/Gui/Play-8.png");
-	auto ButtonRight = ui::Button::create("prefap/Gui/Play-8.png");
-	auto ButtonLight = ui::Button::create("prefap/Gui/Play-8.png");
-
-	ButtonUp->setScale(BUTTON_SCALE);
-	ButtonDow->setScale(BUTTON_SCALE);
-	ButtonLeft->setScale(BUTTON_SCALE);
-	ButtonRight->setScale(BUTTON_SCALE);
-	ButtonLight->setScale(BUTTON_SCALE);
-
-	ButtonLight->setPosition(Vec2(visibleSize.width / 2.5 + origin.x, -visibleSize.height / 4 + origin.y));
-	ButtonLight->addTouchEventListener(CC_CALLBACK_2(GameScene::OnOffLight, this));
-
-	ButtonUp->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE));
-	ButtonUp->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveUp, this));
-
-	ButtonDow->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE));
-	ButtonDow->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveDow, this));
-
-	ButtonLeft->setPosition(Vec2(-visibleSize.width / 3 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE, -visibleSize.height / 4 + origin.y));
-	ButtonLeft->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveLeft, this));
-
-	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE, -visibleSize.height / 4 + origin.y));
-	ButtonRight->addTouchEventListener(CC_CALLBACK_2(GameScene::MoveRight, this));
-
-	Layout->addChild(ButtonUp);
-	Layout->addChild(ButtonDow);
-	Layout->addChild(ButtonLeft);
-	Layout->addChild(ButtonRight);
-	Layout->addChild(ButtonLight);
-
 	player = new Player();	
 	this->addChild(player,30);
 
-	player->addChild(Layout, 30);
-	Layout->setPosition(Vec2(0, 0));
-	this->runAction(Follow::create(player)); // add action camera follow player
-	
+	this->runAction(Follow::create(player)); // add action camera follow player	
+
 	minion = new Minions(); // add enemy
 	this->addChild(minion, 30);
 
@@ -102,7 +65,6 @@ bool GameScene::init()
 
 	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
 	background_off = DrawNode::create();
-
 	Vec2 vertices[] =
 	{
 		Vec2(0,height),
@@ -110,61 +72,22 @@ bool GameScene::init()
 		Vec2(width,0),
 		Vec2(0,0)
 	};
-
 	background_off->setContentSize(Size(width, height));
 	background_off->drawPolygon(vertices, 4, Color4F(Color3B::BLACK, 1), thickness, Color4F(Color3B::BLACK, 1));
 	background_off->setAnchorPoint(Vec2(0.5f, 0.5f));
 	background_off->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
-
+	
 	this->addChild(background_off, 20);
 	background_off->setVisible(false);
+
+	canvas = new Canvas(player, background_off);
+	canvas->setPosition(Vec2(0, 0));
+	player->addChild(canvas, 50);
+	
 	return true;
 }
 void GameScene::enemyFind(float dt)
 {
-	minion->findPlayer(player);
-}
-void GameScene::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
-{
-	if (Type == ui::Widget::TouchEventType::BEGAN)
-	{
-		player->MoveUp();
-	}
-}
-void GameScene::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
-{
-	if(Type== ui::Widget::TouchEventType::BEGAN)
-	{
-		player->MoveDow(); 
-	}
 	
-}
-void GameScene::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
-{
-	if (Type == ui::Widget::TouchEventType::BEGAN)
-	{
-		player->MoveLeft();
-	}
-}
-void GameScene::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
-{
-	if (Type == ui::Widget::TouchEventType::BEGAN)
-	{
-		player->MoveRight();
-	}
-}
-void GameScene::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
-{
-	if (Type == ui::Widget::TouchEventType::BEGAN)
-	{
-		//player->OnOffLight();
-		if (background_off->isVisible())
-		{
-			background_off->setVisible(false);
-		}
-		else
-		{
-			background_off->setVisible(true);
-		}
-	}
+	minion->findPlayer(player);
 }
