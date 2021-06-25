@@ -98,7 +98,7 @@ bool GameScene::init()
 	this->runAction(Follow::create(player));
 	
 	minion = new Minions(); // add enemy
-	this->addChild(minion, 5);
+	this->addChild(minion, 11);
 
 	gameMap = new GameMap(this); // add gamemap
 
