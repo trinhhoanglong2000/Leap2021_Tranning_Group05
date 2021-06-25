@@ -100,3 +100,7 @@ void Player::MoveRight()
 		background->setRotation(90);
 	}
 }
+void Player::OnOffLight()
+{
+
+}
