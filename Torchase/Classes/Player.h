@@ -40,9 +40,14 @@ public:
 	void OnOffLight();
 	int mind;
 private:
-	cocos2d::Sprite *background;
-	cocos2d::Sprite *Openbackground;
-	cocos2d::Sprite *Eyes;
+
+
+	int thickness = 400;
+	int width = 1000;
+	int height = 1200;
+	cocos2d::DrawNode *background;
+
+
 };
 
 #endif // __PLAYER_H__

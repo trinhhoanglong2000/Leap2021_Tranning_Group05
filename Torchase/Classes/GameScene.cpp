@@ -88,7 +88,6 @@ bool GameScene::init()
 	Layout->addChild(ButtonLeft);
 	Layout->addChild(ButtonRight);
 	Layout->addChild(ButtonLight);
-	//this->addChild(Layout, 20);
 
 	player = new Player();	
 	this->addChild(player,10);
