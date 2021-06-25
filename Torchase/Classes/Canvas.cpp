@@ -65,6 +65,17 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	this->addChild(ButtonLeft);
 	this->addChild(ButtonRight);
 	this->addChild(ButtonLight);
+
+	enegy = ui::Slider::create();
+	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
+	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
+	enegy->loadProgressBarTexture("Slider_PressBar.png");
+	enegy->setPosition(Vec2(-visibleSize.width /3 + origin.x, visibleSize.height /2.5 + origin.y));
+	enegy->setMaxPercent(MAX_PERCENT);
+	enegy->setPercent(enegy->getMaxPercent());
+	enegy->setScale(1.5f);
+	this->addChild(enegy);
+	this->schedule(CC_SCHEDULE_SELECTOR(Canvas::reduceenergy), TIME_REDUCE_ENERGY);
 }
 void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
@@ -108,4 +119,8 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			background_off->setVisible(true);
 		}
 	}
+}
+void Canvas::reduceenergy(float dt)
+{
+	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
 }

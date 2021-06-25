@@ -38,11 +38,13 @@ public:
 	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void reduceenergy(float dt);
 private:
 	Player *player;
 	cocos2d::DrawNode* background_off;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
+	cocos2d::ui::Slider *enegy;
 };
 
 #endif // __CANVAS_H__

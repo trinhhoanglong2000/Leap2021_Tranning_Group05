@@ -25,11 +25,13 @@
 #include "Minions.h"
 #include "Definitions.h"
 USING_NS_CC;
-Minions::Minions():  Actor("prefap/Minions/bluebird-midflap.png")
+Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.png")
 {
+	player = playerScene;
 	this->setPosition(Vec2(visibleSize.width/2 + visibleSize.height*0.2 + origin.x, visibleSize.height*0.8));
+	this->schedule(CC_SCHEDULE_SELECTOR(Minions::findPlayer), 1.0f);
 }	
-void Minions::findPlayer(Actor* player)
+void Minions::findPlayer(float dt)
 {
 	if (this->getPositionX() < player->getPositionX())
 	{

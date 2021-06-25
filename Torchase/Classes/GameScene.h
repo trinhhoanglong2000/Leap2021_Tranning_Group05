@@ -40,7 +40,6 @@ public:
     CREATE_FUNC(GameScene);
 	//GameScene *Scene_layer;
 private:
-	void enemyFind(float dt);
 	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
 
 	cocos2d::Size visibleSize;

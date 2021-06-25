@@ -27,13 +27,15 @@
 
 #include "cocos2d.h"
 #include"Actor.h"
-
+#include "Player.h"
 
 class Minions : public Actor
 {
 public:
-	Minions();
-	void findPlayer(Actor* player);
+	Minions(Player* playerScene);
+	void findPlayer(float dt);
+private:
+	Player *player;
 };
 
 #endif // __MINIONS_H__

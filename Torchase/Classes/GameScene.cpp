@@ -58,12 +58,12 @@ bool GameScene::init()
 
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
-	minion = new Minions(); // add enemy
+	minion = new Minions(player); // add enemy
 	this->addChild(minion, 30);
 
 	gameMap = new GameMap(this); // add gamemap
 
-	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
+	//this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
 	background_off = DrawNode::create();
 	Vec2 vertices[] =
 	{
@@ -85,9 +85,4 @@ bool GameScene::init()
 	player->addChild(canvas, 50);
 	
 	return true;
-}
-void GameScene::enemyFind(float dt)
-{
-	
-	minion->findPlayer(player);
 }

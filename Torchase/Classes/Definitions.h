@@ -32,4 +32,7 @@
 #define ACTOR_SPEED 0.5
 #define BUTTON_SCALE 0.2
 
+#define TIME_REDUCE_ENERGY 1
+#define PERCENT_REDUCE 1
+#define MAX_PERCENT 60
 #endif // __DEFINITIONS_H__
