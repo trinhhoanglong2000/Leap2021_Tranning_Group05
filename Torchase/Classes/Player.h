@@ -39,7 +39,10 @@ public:
 	void MoveRight();
 	int mind;
 private:
-	cocos2d::Sprite *background;
+	int thickness = 400;
+	int width = 1000;
+	int height = 1200;
+	cocos2d::DrawNode *background;
 	
 };
 

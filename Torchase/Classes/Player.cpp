@@ -29,10 +29,26 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 {
-	background = Sprite::create("bg.png");
-	this->addChild(background);
+	background = DrawNode::create();
+
+	Vec2 vertices[] =
+	{
+		Vec2(0,height),
+		Vec2(width,height),
+		Vec2(width,0),
+		Vec2(0,0)
+	};
+	background->setContentSize(Size(width , height ));
+	background->drawPolygon(vertices, 4, Color4F(Color3B::WHITE, 0), thickness, Color4F(Color3B::BLACK, 1));
+	log("%f %f", this->getAnchorPoint().x, this->getAnchorPoint().y);
+	background->setAnchorPoint(Vec2(0.5f, 0.5f));
+	background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2+(height-thickness*2)/4);
+
+
 	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->setTag(1);	
+	this->addChild(background);
+	
 	mind = 1;
 }	
 void Player::MoveUp()
@@ -41,6 +57,8 @@ void Player::MoveUp()
 	Actor::MoveUp();
 	else
 	{
+		background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
+
 		mind = 1;
 		background->setRotation(0);
 	}
@@ -51,6 +69,8 @@ void Player::MoveDow()
 	Actor::MoveDow();
 	else
 	{
+		background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 - (height - thickness * 2) / 4);
+
 		mind = 2;
 		background->setRotation(180);
 	}
@@ -61,7 +81,10 @@ void Player::MoveLeft()
 	Actor::MoveLeft();
 	else
 	{
+		background->setPosition(+this->getBoundingBox().size.width / 2 - (width - thickness * 2) / 2, +this->getBoundingBox().size.height / 4 );
+
 		mind = 3;
+	
 		background->setRotation(-90);
 	}
 }
@@ -71,6 +94,8 @@ void Player::MoveRight()
 	Actor::MoveRight();
 	else
 	{
+		background->setPosition(+this->getBoundingBox().size.width / 2 + (width - thickness * 2) / 2, +this->getBoundingBox().size.height / 2);
+
 		mind = 4;
 		background->setRotation(90); 
 	}
