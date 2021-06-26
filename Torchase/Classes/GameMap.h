@@ -35,15 +35,15 @@ class GameMap : public cocos2d::Scene
 private:
 	
 	TMXTiledMap *_tileMap;
-	TMXLayer *_background;
+	TMXLayer *_meta;
 	Sprite *_player;
 
 public:
 	GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene);
 private:
-	void setViewPointCenter(Point position);
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
+	Sprite * Tile[1000];
 };
 
 #endif // __GAMEMAP_H__

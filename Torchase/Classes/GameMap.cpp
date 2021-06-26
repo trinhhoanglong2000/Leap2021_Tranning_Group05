@@ -37,9 +37,9 @@ GameMap::GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene)
 
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile("Maptest/gamemap.tmx");
-	//_background = _tileMap->getLayer("background");
-	_tileMap->setScale(5.0f);
-	//_tileMap->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	
+
+	_tileMap->setScale(MAP_SCALE);
 	scene->addChild(_tileMap);
 
 	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Player");
@@ -53,24 +53,30 @@ GameMap::GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene)
 		auto spawnPoint = objectGroup->getObject("SpawnPoint");
 		int x = spawnPoint["x"].asInt();
 		int y = spawnPoint["y"].asInt();
-		CCLOG("okeeeeeeee");
-		_player->setPosition(Vec2(x, y));
+		_player->setPosition(Vec2(x, y)*MAP_SCALE);
 	}
-	
 
+	_meta = _tileMap->getLayer("meta");
+
+	for (int i = 0; i <16; i++)
+	{
+		for (int j = 0; j <14; j++) // tile map size 40X40, starting from 0, this loop traverses all tiles
+		{
+			auto tileSprite = _meta->getTileAt(Vec2(i,j));
+			if (tileSprite)
+			{
+				auto PlayerBody = PhysicsBody::createBox(tileSprite->getContentSize()*MAP_SCALE);
+				PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
+				PlayerBody->setContactTestBitmask(true);
+				PlayerBody->setDynamic(false);
+				auto node = Node::create();
+				float x =  _tileMap->getTileSize().width * (i+0.5) * MAP_SCALE;
+				float y = _tileMap->getTileSize().height * (13.5-j)*MAP_SCALE;
+				node->setPosition(Vec2(x, y));
+				node->setPhysicsBody(PlayerBody);
+				scene->addChild(node, 40);
+			}
+		}
+	}
+	_meta->setVisible(false);
 }
-void GameMap::setViewPointCenter(Point position) {
-
-	/*Size winSize = Director::getInstance()->getWinSize();
-	//CCLOG("% d %d",position.x,position.y);
-	int x = MAX(position.x, winSize.width / 2);
-	int y = MAX(position.y, winSize.height / 2);
-	x = MIN(x, (_tileMap->getMapSize().width * this->_tileMap->getTileSize().width) - winSize.width / 2);
-	y = MIN(y, (_tileMap->getMapSize().height * _tileMap->getTileSize().height) - winSize.height / 2);
-	Point actualPosition = Point(x, y);
-
-	Point centerOfView = Point(winSize.width / 2, winSize.height / 2);
-	Point viewPoint = centerOfView - actualPosition;
-	this->setPosition(viewPoint);*/
-}
-

@@ -35,7 +35,7 @@ Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
 	background = DrawNode::create();
-	background->setVisible(false);
+	//background->setVisible(false);
 	Vec2 vertices[] =
 	{
 		Vec2(0,height),
