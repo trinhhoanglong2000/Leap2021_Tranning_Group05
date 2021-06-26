@@ -36,14 +36,14 @@ GameMap::GameMap(cocos2d::Scene *scene)
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("Maptest/TileMap.tmx");
-	_background = _tileMap->getLayer("Background");
+	_tileMap->initWithTMXFile("Maptest/mapscene.tmx");
+	//_background = _tileMap->getLayer("Background");
 
 	scene->addChild(_tileMap);
 
-	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Object");
+	//TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Object");
 
-	if (objectGroup == NULL) {
+	/*if (objectGroup == NULL) {
 		CCLOG("tile map has no objects object layer");
 		return;
 	}
@@ -52,7 +52,7 @@ GameMap::GameMap(cocos2d::Scene *scene)
 		auto spawnPoint = objectGroup->getObject("SpawnPoint");
 		int x = spawnPoint["x"].asInt();
 		int y = spawnPoint["y"].asInt();
-	}
+	}*/
 	
 
 }
