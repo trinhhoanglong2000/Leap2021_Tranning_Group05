@@ -29,21 +29,22 @@
 USING_NS_CC;
 
 
-GameMap::GameMap(cocos2d::Scene *scene)
+GameMap::GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene)
 {
-
+	_player = playerScene;
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("Maptest/mapscene.tmx");
-	//_background = _tileMap->getLayer("Background");
-
+	_tileMap->initWithTMXFile("Maptest/gamemap.tmx");
+	//_background = _tileMap->getLayer("background");
+	_tileMap->setScale(5.0f);
+	//_tileMap->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	scene->addChild(_tileMap);
 
-	//TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Object");
+	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Player");
 
-	/*if (objectGroup == NULL) {
+	if (objectGroup == NULL) {
 		CCLOG("tile map has no objects object layer");
 		return;
 	}
@@ -52,7 +53,9 @@ GameMap::GameMap(cocos2d::Scene *scene)
 		auto spawnPoint = objectGroup->getObject("SpawnPoint");
 		int x = spawnPoint["x"].asInt();
 		int y = spawnPoint["y"].asInt();
-	}*/
+		CCLOG("okeeeeeeee");
+		_player->setPosition(Vec2(x, y));
+	}
 	
 
 }

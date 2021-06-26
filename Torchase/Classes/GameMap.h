@@ -39,7 +39,7 @@ private:
 	Sprite *_player;
 
 public:
-	GameMap(cocos2d::Scene *scene);
+	GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene);
 private:
 	void setViewPointCenter(Point position);
 	cocos2d::Size visibleSize;

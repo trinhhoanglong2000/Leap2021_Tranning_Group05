@@ -61,7 +61,7 @@ bool GameScene::init()
 	minion = new Minions(player); // add enemy
 	this->addChild(minion, 30);
 
-	gameMap = new GameMap(this); // add gamemap
+	gameMap = new GameMap(this,player); // add gamemap
 
 	//this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
 	background_off = DrawNode::create();
