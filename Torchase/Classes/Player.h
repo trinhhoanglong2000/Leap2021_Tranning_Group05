@@ -41,6 +41,7 @@ public:
 	int mind;
 	void setFalseMove();
 	void setTrueMove(float dt);
+	void setBlackVisionBG(cocos2d::Size size);
 private:
 	int thickness = 400;
 	int width = 1000;
@@ -49,6 +50,7 @@ private:
 	cocos2d::Vector<cocos2d::SpriteFrame*> stand;
 	bool checkMove;
 	cocos2d::SEL_SCHEDULE Schedule_reverse;
+	cocos2d::Animate* DeadAnimation;
 };
 
 #endif // __PLAYER_H__
