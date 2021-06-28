@@ -85,8 +85,9 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			{
 				auto PlayerBody = PhysicsBody::createBox(tileSprite->getContentSize()*MAP_SCALE);
 
-				PlayerBody->setCollisionBitmask(MAP_COLISION_BITMASK);
-				PlayerBody->setContactTestBitmask(true);
+				PlayerBody->setCollisionBitmask(WALL_COLISION_BITMASK);
+				PlayerBody->setCategoryBitmask(WALL_CATEGORY_BITMASK);
+				PlayerBody->setContactTestBitmask(WALL_COLISION_BITMASK);
 				PlayerBody->setDynamic(false);
 				auto node = Node::create();
 				float x =  _tileMap->getTileSize().width * (i+0.5) * MAP_SCALE;

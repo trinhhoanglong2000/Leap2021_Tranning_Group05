@@ -82,7 +82,7 @@ bool GameScene::init()
 	player->addChild(canvas, 50);
 	
 	battery = new Battery("battery.png");
-	battery->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 1.5));
+	battery->setPosition(Vec2(visibleSize.width, visibleSize.height / 1.5));
 	this->addChild(battery);
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -96,35 +96,40 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 	PhysicsBody *a = contact.getShapeA()->getBody();
 	PhysicsBody *b = contact.getShapeB()->getBody();
 	
-	if ((BATTERY_COLISION_BITMASK == a->getCollisionBitmask() && PLAYER_COLISION_BITMASK == b->getCollisionBitmask()) || (BATTERY_COLISION_BITMASK == b->getCollisionBitmask() && PLAYER_COLISION_BITMASK == a->getCollisionBitmask()))
+	if ((a->getCollisionBitmask() & b->getCategoryBitmask() != 0) || (b->getCollisionBitmask() & a->getCategoryBitmask() != 0))
 	{
-		canvas->plusenergy(5);
-		if (BATTERY_COLISION_BITMASK == a->getCollisionBitmask()) // remove battery when begin player
+		CCLOG("Overlap");
+		if (a->getCollisionBitmask() == ITEM_COLISION_BITMASK)
 		{
+			canvas->plusenergy(5);
 			this->removeChild(a->getOwner());
 		}
-		else
+		else if (b->getCollisionBitmask() == ITEM_COLISION_BITMASK)
 		{
+			canvas->plusenergy(5);
 			this->removeChild(b->getOwner());
 		}
-		return true;
-	}
-	if ((MAP_COLISION_BITMASK == a->getCollisionBitmask() && PLAYER_COLISION_BITMASK == b->getCollisionBitmask()) || (MAP_COLISION_BITMASK == b->getCollisionBitmask() && PLAYER_COLISION_BITMASK == a->getCollisionBitmask()))
-	{
-		player->removeAction();
-		return true;
-	}
-	if ((ENEMY_COLISION_BITMASK == a->getCollisionBitmask() && PLAYER_COLISION_BITMASK == b->getCollisionBitmask()) || (ENEMY_COLISION_BITMASK == b->getCollisionBitmask() && PLAYER_COLISION_BITMASK == a->getCollisionBitmask()))
-	{
-		/*if (ENEMY_COLISION_BITMASK == a->getCollisionBitmask()) // remove battery when begin player
+
+		//Wall detect collision
+		if (a->getCollisionBitmask() == WALL_COLISION_BITMASK)
 		{
-			a->getOwner();
+			player->removeAction();
 		}
-		else
+		else if (b->getCollisionBitmask() == WALL_COLISION_BITMASK)
 		{
-			
+			player->removeAction();
 		}
-		return true;*/
+
+		//Enemy detect collision
+		if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+		{
+			//player->removeAction();
+		}
+		else if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+		{
+			//player->removeAction();
+		}
+
 	}
 	return true;
 }

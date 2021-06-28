@@ -29,10 +29,10 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 {
-	auto PlayerBody = PhysicsBody::createBox(this->getContentSize());
+	auto PlayerBody = PhysicsBody::createBox(Size(25,25)*MAP_SCALE);//this->getContentSize());
 	PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
-
-	PlayerBody->setContactTestBitmask(true);
+	PlayerBody->setCategoryBitmask(PLAYER_CATEGORY_BITMASK);
+	PlayerBody->setContactTestBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
 	background = DrawNode::create();
