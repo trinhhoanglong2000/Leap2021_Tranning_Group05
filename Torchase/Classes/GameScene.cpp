@@ -90,6 +90,7 @@ bool GameScene::init()
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+	playerdie = false;
 
 	return true;
 }
@@ -124,11 +125,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		// Trap detect colision
 		if (a->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
-			player->Playerdie();
+			if (!playerdie)
+			{
+				playerdie = true;
+				player->Playerdie();
+			}
 		}
 		else if (b->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
-			player->Playerdie();
+			if (!playerdie)
+			{
+				playerdie = true;
+				player->Playerdie();
+			}
 		}
 		//Enemy detect collision
 		if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)

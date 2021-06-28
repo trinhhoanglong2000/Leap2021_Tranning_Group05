@@ -240,8 +240,13 @@ void Player::setFalseMove()
 }
 void Player::Playerdie()
 {
+	this->unscheduleAllCallbacks();
 	checkMove = false;
-	//action die
+	this->schedule(CC_SCHEDULE_SELECTOR(Player::setActionDie), ACTOR_SPEED / 2);
+}
+void Player::setActionDie(float dt)
+{
+	this->unscheduleAllCallbacks();
 	this->stopAllActions();
 	this->runAction(DeadAnimation);
 }

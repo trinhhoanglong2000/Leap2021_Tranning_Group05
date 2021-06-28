@@ -59,6 +59,7 @@ private:
 
 	Canvas *canvas;
 	Battery *battery;
+	bool playerdie;
 };
 
 #endif // __GAMESCENE_H__
