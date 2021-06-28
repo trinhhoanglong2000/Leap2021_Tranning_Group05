@@ -41,6 +41,7 @@ public:
 	int mind;
 	void setFalseMove();
 	void setTrueMove(float dt);
+	void setBlackVisionBG(cocos2d::Size size);
 private:
 	int thickness = 400;
 	int width = 1000;

@@ -36,24 +36,11 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	PlayerBody->setContactTestBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
-	background = DrawNode::create();
-	background->setVisible(false);
-	Vec2 vertices[] =
-	{
-		Vec2(0,height),
-		Vec2(width,height),
-		Vec2(width,0),
-		Vec2(0,0)
-	};
-	background->setContentSize(Size(width, height));
-	background->drawPolygon(vertices, 4, Color4F(Color3B::WHITE, 0), thickness, Color4F(Color3B::BLACK, 1));
-	background->setAnchorPoint(Vec2(0.5f, 0.5f));
-	background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
+	
 
 	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->setTag(1);
 
-	this->addChild(background);
 	//push frame
 	//Look up
 	Vector<SpriteFrame*>  animFrames;
@@ -107,6 +94,30 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	mind = 1;
 	checkMove = true;
 }
+void Player::setBlackVisionBG(cocos2d::Size size) {
+	int max = MAX(size.width, size.height);
+	thickness = (max - speed)/2;
+	log("%f %d %d", speed, max, thickness);
+
+	width = max;
+	height = max + (int)speed;
+	
+	background = DrawNode::create();
+	background->setVisible(true);
+	Vec2 vertices[] =
+	{
+		Vec2(0,height),
+		Vec2(width,height),
+		Vec2(width,0),
+		Vec2(0,0)
+	};
+	background->setContentSize(Size(width, height));
+	background->drawPolygon(vertices, 4, Color4F(Color3B::WHITE, 0), thickness, Color4F(Color3B::BLACK, 1));
+	background->setAnchorPoint(Vec2(0.5f, 0.5f));
+	background->setPosition(+this->getBoundingBox().size.width / 2, (+this->getContentSize().height +speed)/2);
+	this->addChild(background);
+
+}
 void Player::MoveUp()
 {
 	if(checkMove)
@@ -124,7 +135,7 @@ void Player::MoveUp()
 	}
 	else
 	{
-		background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
+		background->setPosition(+this->getBoundingBox().size.width / 2,  +this->getBoundingBox().size.height / 2 + speed / 2);
 		mind = 1;
 		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(0);
@@ -147,7 +158,7 @@ void Player::MoveDow()
 	}
 	else
 	{
-		background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 - (height - thickness * 2) / 4);
+		background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 - speed/2);
 		mind = 2;
 		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(180);
@@ -170,7 +181,7 @@ void Player::MoveLeft()
 	}
 	else
 	{
-		background->setPosition(+this->getBoundingBox().size.width / 2 - (width - thickness * 2) / 2, +this->getBoundingBox().size.height / 4);
+		background->setPosition(+this->getBoundingBox().size.width / 2 - speed / 2, +this->getBoundingBox().size.height / 2);
 		mind = 3;
 		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(-90);
@@ -193,7 +204,7 @@ void Player::MoveRight()
 	}
 	else
 	{
-		background->setPosition(+this->getBoundingBox().size.width / 2 + (width - thickness * 2) / 2, +this->getBoundingBox().size.height / 2);
+		background->setPosition(+this->getBoundingBox().size.width / 2 + speed / 2, +this->getBoundingBox().size.height / 2);
 		mind = 4;
 		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(90);
