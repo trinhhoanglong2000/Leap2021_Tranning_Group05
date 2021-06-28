@@ -39,7 +39,7 @@ public:
 	void MoveRight();
 	void OnOffLight();
 	int mind;
-	cocos2d::Vec2 mindPositison;
+	
 private:
 	int thickness = 400;
 	int width = 1000;

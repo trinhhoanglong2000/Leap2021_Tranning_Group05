@@ -47,5 +47,8 @@ void Minions::findPlayer(float dt)
 	cocos2d::Vec2 pointleft = Vec2(point.x - speed, point.y ) - player->getPosition();
 	cocos2d::Vec2 pointright = Vec2(point.x + speed, point.y) - player->getPosition();
 	
-	if(abs(pointup.x+pointup.y)<abs(pointup.x + pointup.y))*/
+	if (abs(pointup.x + pointup.y) < abs(pointdow + pointup.y))
+	{
+
+	}*/
 }

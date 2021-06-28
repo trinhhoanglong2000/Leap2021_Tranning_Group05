@@ -111,7 +111,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 	}
 	if ((MAP_COLISION_BITMASK == a->getCollisionBitmask() && PLAYER_COLISION_BITMASK == b->getCollisionBitmask()) || (MAP_COLISION_BITMASK == b->getCollisionBitmask() && PLAYER_COLISION_BITMASK == a->getCollisionBitmask()))
 	{
-		player->removeAction(player->mindPositison);
+		player->removeAction();
 		return true;
 	}
 	if ((ENEMY_COLISION_BITMASK == a->getCollisionBitmask() && PLAYER_COLISION_BITMASK == b->getCollisionBitmask()) || (ENEMY_COLISION_BITMASK == b->getCollisionBitmask() && PLAYER_COLISION_BITMASK == a->getCollisionBitmask()))

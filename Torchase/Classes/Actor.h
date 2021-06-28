@@ -36,8 +36,9 @@ public:
 	void MoveDow();
 	void MoveLeft();
 	void MoveRight();
-	void removeAction(cocos2d::Vec2 here);
+	void removeAction();
 	float speed;
+	cocos2d::Vec2 mindPositison;
 protected:
 	//static cocos2d::Camera *cam;
 	cocos2d::Size visibleSize;

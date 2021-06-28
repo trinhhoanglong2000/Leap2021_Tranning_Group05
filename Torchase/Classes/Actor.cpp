@@ -35,6 +35,7 @@ Actor::Actor(std::string name) {
 }
 void Actor::MoveUp()
 {
+	mindPositison = this->getPosition();
 	 moveAction = MoveTo::create(ACTOR_SPEED,Vec2(this->getPositionX(), this->getPositionY() + speed));
 	this->runAction(moveAction);
 	//this->setPosition(Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
@@ -42,25 +43,28 @@ void Actor::MoveUp()
 }
 void Actor::MoveDow()
 {
+	mindPositison = this->getPosition();
 	 moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX(), this->getPositionY() - speed));
 	this->runAction(moveAction);
 	//this->setPosition(Vec2(this->getPositionX(), this->getPositionY() - visibleSize.height * PLAYER_SPEED));
 }
 void Actor::MoveLeft()
 {
+	mindPositison = this->getPosition();
 	 moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX()  - speed, this->getPositionY()));
 	this->runAction(moveAction);
 	//this->setPosition(Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
 }
 void Actor::MoveRight()
 {
+	mindPositison = this->getPosition();
 	 moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() + speed, this->getPositionY()));
 	this->runAction(moveAction);
 	//this->setPosition(Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
 }
-void Actor::removeAction(cocos2d::Vec2 here)
+void Actor::removeAction()
 {
 	this->stopAction(moveAction);
-	auto reverAction = MoveTo::create(ACTOR_SPEED/2, here);
+	auto reverAction = MoveTo::create(ACTOR_SPEED/2, mindPositison);
 	this->runAction(reverAction);
 }
