@@ -76,10 +76,9 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 	}
 	
 	_meta = _tileMap->getLayer("meta");
-
-	for (int i = 0; i <16; i++)
+	for (int i = 0; i < _tileMap->getMapSize().width; i++)
 	{
-		for (int j = 0; j <14; j++) // tile map size 40X40, starting from 0, this loop traverses all tiles
+		for (int j = 0; j < _tileMap->getMapSize().height; j++) // tile map size 40X40, starting from 0, this loop traverses all tiles
 		{
 			auto tileSprite = _meta->getTileAt(Vec2(i,j));
 			if (tileSprite)
@@ -102,5 +101,5 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 }
 cocos2d::Size GameMap::returnSizeMap()
 {
-	return _tileMap->getMapSize()*MAP_SCALE;
+	return _tileMap->getMapSize()*MAP_SCALE*_tileMap->getTileSize().width;
 }
