@@ -25,11 +25,11 @@
 #include "GameMap.h"
 #include "Definitions.h"
 #include "GameScene.h"
-
+#include "Minions.h"
 USING_NS_CC;
 
 
-GameMap::GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene)
+GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 {
 	_player = playerScene;
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -53,8 +53,31 @@ GameMap::GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene)
 		auto spawnPoint = objectGroup->getObject("SpawnPoint");
 		int x = spawnPoint["x"].asInt();
 		int y = spawnPoint["y"].asInt();
+		CCLOG("nhuconcaccccccccccccccc %d           %d", x, y);
+		_player->speed = _tileMap->getTileSize().width*MAP_SCALE;
 		_player->setPosition(Vec2(x, y)*MAP_SCALE);
 	}
+
+	TMXObjectGroup *objectGroupminions = _tileMap->getObjectGroup("minions");
+	if (objectGroupminions == NULL) {
+		
+	}
+	else
+	{
+		auto spawnPointminions = objectGroupminions->getObjects();
+		for each (Value objMinion in spawnPointminions)
+		{
+			int x = objMinion.asValueMap()["x"].asInt();
+			int y = objMinion.asValueMap()["y"].asInt();
+			CCLOG("nhuconcaccccccccccccccc %d           %d", x, y);
+			Minions *minion = new Minions(playerScene);
+			minion->setPosition(Vec2(x, y)*MAP_SCALE);
+			minion->speed = _tileMap->getTileSize().width*MAP_SCALE;
+			scene->addChild(minion, 30);
+		}
+	}
+	
+
 
 	_meta = _tileMap->getLayer("meta");
 
@@ -66,7 +89,8 @@ GameMap::GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene)
 			if (tileSprite)
 			{
 				auto PlayerBody = PhysicsBody::createBox(tileSprite->getContentSize()*MAP_SCALE);
-				PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
+
+				PlayerBody->setCollisionBitmask(MAP_COLISION_BITMASK);
 				PlayerBody->setContactTestBitmask(true);
 				PlayerBody->setDynamic(false);
 				auto node = Node::create();
@@ -79,4 +103,8 @@ GameMap::GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene)
 		}
 	}
 	_meta->setVisible(false);
+}
+cocos2d::Size GameMap::returnSizeMap()
+{
+	return _tileMap->getMapSize()*MAP_SCALE;
 }

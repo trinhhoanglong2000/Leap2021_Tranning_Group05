@@ -36,10 +36,11 @@ private:
 	
 	TMXTiledMap *_tileMap;
 	TMXLayer *_meta;
-	Sprite *_player;
+	Player *_player;
 
 public:
-	GameMap(cocos2d::Scene *scene, cocos2d::Sprite *playerScene);
+	GameMap(cocos2d::Scene *scene, Player *playerScene);
+	cocos2d::Size returnSizeMap();
 private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;

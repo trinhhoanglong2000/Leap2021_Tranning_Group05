@@ -31,11 +31,12 @@ Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 {
 	auto PlayerBody = PhysicsBody::createBox(this->getContentSize());
 	PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
+
 	PlayerBody->setContactTestBitmask(true);
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
 	background = DrawNode::create();
-	//background->setVisible(false);
+	background->setVisible(false);
 	Vec2 vertices[] =
 	{
 		Vec2(0,height),
@@ -58,6 +59,7 @@ Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 }
 void Player::MoveUp()
 {
+	mindPositison = this->getPosition();
 	if (mind == 1)
 		Actor::MoveUp();
 	else
@@ -70,6 +72,7 @@ void Player::MoveUp()
 }
 void Player::MoveDow()
 {
+	mindPositison = this->getPosition();
 	if (mind == 2)
 		Actor::MoveDow();
 	else
@@ -82,6 +85,7 @@ void Player::MoveDow()
 }
 void Player::MoveLeft()
 {
+	mindPositison = this->getPosition();
 	if (mind == 3)
 		Actor::MoveLeft();
 	else
@@ -95,6 +99,7 @@ void Player::MoveLeft()
 }
 void Player::MoveRight()
 {
+	mindPositison = this->getPosition();
 	if (mind == 4)
 		Actor::MoveRight();
 	else
@@ -107,15 +112,5 @@ void Player::MoveRight()
 }
 void Player::OnOffLight()
 {
-	/*if (background->isVisible())
-	{
-		
-		background->setVisible(false);
-	
-	}
-	else
-	{
-		background->setVisible(true);
-		
-	}*/
+
 }

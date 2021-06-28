@@ -58,9 +58,6 @@ bool GameScene::init()
 
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
-	minion = new Minions(player); // add enemy
-	this->addChild(minion, 30);
-
 	gameMap = new GameMap(this,player); // add gamemap
 
 	//this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
@@ -98,6 +95,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 {
 	PhysicsBody *a = contact.getShapeA()->getBody();
 	PhysicsBody *b = contact.getShapeB()->getBody();
+	
 	if ((BATTERY_COLISION_BITMASK == a->getCollisionBitmask() && PLAYER_COLISION_BITMASK == b->getCollisionBitmask()) || (BATTERY_COLISION_BITMASK == b->getCollisionBitmask() && PLAYER_COLISION_BITMASK == a->getCollisionBitmask()))
 	{
 		canvas->plusenergy(5);
@@ -109,6 +107,24 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			this->removeChild(b->getOwner());
 		}
+		return true;
+	}
+	if ((MAP_COLISION_BITMASK == a->getCollisionBitmask() && PLAYER_COLISION_BITMASK == b->getCollisionBitmask()) || (MAP_COLISION_BITMASK == b->getCollisionBitmask() && PLAYER_COLISION_BITMASK == a->getCollisionBitmask()))
+	{
+		player->removeAction(player->mindPositison);
+		return true;
+	}
+	if ((ENEMY_COLISION_BITMASK == a->getCollisionBitmask() && PLAYER_COLISION_BITMASK == b->getCollisionBitmask()) || (ENEMY_COLISION_BITMASK == b->getCollisionBitmask() && PLAYER_COLISION_BITMASK == a->getCollisionBitmask()))
+	{
+		/*if (ENEMY_COLISION_BITMASK == a->getCollisionBitmask()) // remove battery when begin player
+		{
+			a->getOwner();
+		}
+		else
+		{
+			
+		}
+		return true;*/
 	}
 	return true;
 }

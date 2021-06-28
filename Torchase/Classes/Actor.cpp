@@ -35,26 +35,32 @@ Actor::Actor(std::string name) {
 }
 void Actor::MoveUp()
 {
-	auto moveAction = MoveTo::create(ACTOR_SPEED,Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
+	 moveAction = MoveTo::create(ACTOR_SPEED,Vec2(this->getPositionX(), this->getPositionY() + speed));
 	this->runAction(moveAction);
 	//this->setPosition(Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
 
 }
 void Actor::MoveDow()
 {
-	auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX(), this->getPositionY() - visibleSize.height * PLAYER_SPEED));
+	 moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX(), this->getPositionY() - speed));
 	this->runAction(moveAction);
 	//this->setPosition(Vec2(this->getPositionX(), this->getPositionY() - visibleSize.height * PLAYER_SPEED));
 }
 void Actor::MoveLeft()
 {
-	auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
+	 moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX()  - speed, this->getPositionY()));
 	this->runAction(moveAction);
 	//this->setPosition(Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
 }
 void Actor::MoveRight()
 {
-	auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
+	 moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() + speed, this->getPositionY()));
 	this->runAction(moveAction);
 	//this->setPosition(Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
+}
+void Actor::removeAction(cocos2d::Vec2 here)
+{
+	this->stopAction(moveAction);
+	auto reverAction = MoveTo::create(ACTOR_SPEED/2, here);
+	this->runAction(reverAction);
 }

@@ -36,10 +36,14 @@ public:
 	void MoveDow();
 	void MoveLeft();
 	void MoveRight();
+	void removeAction(cocos2d::Vec2 here);
+	float speed;
 protected:
 	//static cocos2d::Camera *cam;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
+	cocos2d::MoveTo *moveAction;
+	
 };
 
 #endif // __Actor_H__
