@@ -87,7 +87,7 @@ bool GameScene::init()
 	player->addChild(canvas, 50);
 	
 	battery = new Battery("battery.png");
-	battery->setPosition(Vec2(visibleSize.width, visibleSize.height / 1.5));
+	battery->setPosition(Vec2(visibleSize.width + 100, visibleSize.height / 1.5));
 	this->addChild(battery);
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -124,7 +124,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			player->removeAction();
 		}
-		// Trap dêtct colision
+		// Trap detect colision
 		if (a->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
 			player->removeAction();
