@@ -104,3 +104,7 @@ cocos2d::Size GameMap::returnSizeMap()
 {
 	return _tileMap->getMapSize()*MAP_SCALE*_tileMap->getTileSize().width;
 }
+cocos2d::Size GameMap::returnSizetile()
+{	
+	return _tileMap->getTileSize()*MAP_SCALE;
+}

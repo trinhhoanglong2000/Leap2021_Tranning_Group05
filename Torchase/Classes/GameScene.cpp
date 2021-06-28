@@ -43,7 +43,6 @@ Scene* GameScene::createScene()
 	//return GameScene::create();
 }
 
-// on "init" you need to initialize your instance
 bool GameScene::init()
 {
     if ( !Scene::init() )
@@ -60,7 +59,6 @@ bool GameScene::init()
 
 	gameMap = new GameMap(this,player); // add gamemap
 
-	//this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
 	background_off = DrawNode::create();
 	Vec2 vertices[] =
 	{

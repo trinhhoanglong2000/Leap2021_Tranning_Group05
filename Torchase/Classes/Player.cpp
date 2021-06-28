@@ -36,6 +36,7 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	PlayerBody->setContactTestBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
+
 	background = DrawNode::create();
 	background->setVisible(false);
 	Vec2 vertices[] =
