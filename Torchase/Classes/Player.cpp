@@ -27,7 +27,7 @@
 #include "ui\CocosGUI.h"
 #include "GameScene.h"
 USING_NS_CC;
-Player::Player() : Actor("prefap/Player/redbird-midflap.png")
+Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 {
 	auto PlayerBody = PhysicsBody::createBox(Size(25,25)*MAP_SCALE);//this->getContentSize());
 	PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
@@ -53,56 +53,166 @@ Player::Player() : Actor("prefap/Player/redbird-midflap.png")
 	this->setTag(1);
 
 	this->addChild(background);
+	//push frame
+	//Look up
+	Vector<SpriteFrame*>  animFrames;
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(360, 1, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(480, 1, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(1, 1, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(120, 1, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(240, 1, 80, 95)));
+	stand.pushBack(animFrames.at(0));
+	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	
+	Animate* animate = Animate::create(animation);
+	Animates.pushBack(animate);
+	//Look down
+	animFrames.clear();
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(360, 242, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(480, 242, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(1, 242, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(120, 242, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(240, 242, 80, 95)));
+	stand.pushBack(animFrames.at(0));
+	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
+	animate = Animate::create(animation);
+	Animates.pushBack(animate);
+	//Left
+	animFrames.clear();
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(360, 119, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(480, 119, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(1, 119, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(120, 119, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(240, 119, 80, 95)));
+	stand.pushBack(animFrames.at(0));
+	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
+	animate = Animate::create(animation);
+	Animates.pushBack(animate);
+
+	//right
+	animFrames.clear();
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(360, 359, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(480, 359, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(1, 359, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(120, 359, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/Player.png", Rect(240, 359, 80, 95)));
+	stand.pushBack(animFrames.at(0));
+	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+
+	animate = Animate::create(animation);
+	Animates.pushBack(animate);
 	mind = 1;
 }
 void Player::MoveUp()
 {
-	if (mind == 1)
-		Actor::MoveUp();
+	if (mind == 1) {
+		//Actor::MoveUp();
+		auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
+		auto animationAction = RepeatForever::create(Animates.at(mind-1));
+
+		auto callback = CallFunc::create([&]() {
+		
+			this->stopAllActions();
+			this->setSpriteFrame(stand.at(mind - 1));
+			
+		});
+		auto sequence = Sequence::create(moveAction, callback,nullptr);
+		this->runAction(animationAction);
+		this->runAction(sequence);
+
+	}
 	else
 	{
 		background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
 
 		mind = 1;
+		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(0);
 	}
 }
 void Player::MoveDow()
 {
-	if (mind == 2)
-		Actor::MoveDow();
+	if (mind == 2) {
+		//Actor::MoveDow();
+		auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX(), this->getPositionY() - visibleSize.height * PLAYER_SPEED));
+		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
+
+		auto callback = CallFunc::create([&]() {
+
+			this->stopAllActions();
+			this->setSpriteFrame(stand.at(mind - 1));
+
+
+		});
+		auto sequence = Sequence::create(moveAction, callback, nullptr);
+		this->runAction(animationAction);
+		this->runAction(sequence);
+
+	}
 	else
 	{
 		background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 - (height - thickness * 2) / 4);
 
 		mind = 2;
+		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(180);
 	}
 }
 void Player::MoveLeft()
 {
-	if (mind == 3)
-		Actor::MoveLeft();
+	if (mind == 3) {
+		//Actor::MoveLeft();
+		auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
+		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
+
+		auto callback = CallFunc::create([&]() {
+
+			this->stopAllActions();
+			this->setSpriteFrame(stand.at(mind - 1));
+
+
+		});
+		auto sequence = Sequence::create(moveAction, callback, nullptr);
+		this->runAction(animationAction);
+		this->runAction(sequence);
+
+	}
 	else
 	{
 		background->setPosition(+this->getBoundingBox().size.width / 2 - (width - thickness * 2) / 2, +this->getBoundingBox().size.height / 4);
 
 		mind = 3;
-
+		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(-90);
 	}
 }
 void Player::MoveRight()
 {
-	if (mind == 4)
-		Actor::MoveRight();
+	if (mind == 4) {
+		//Actor::Moveright();
+		auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
+		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
+
+		auto callback = CallFunc::create([&]() {
+
+			this->stopAllActions();
+			this->setSpriteFrame(stand.at(mind - 1));
+
+
+		});
+		auto sequence = Sequence::create(moveAction, callback, nullptr);
+		this->runAction(animationAction);
+		this->runAction(sequence);
+
+	}
 	else
 	{
 		background->setPosition(+this->getBoundingBox().size.width / 2 + (width - thickness * 2) / 2, +this->getBoundingBox().size.height / 2);
 
 		mind = 4;
+		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(90);
 	}
 }
