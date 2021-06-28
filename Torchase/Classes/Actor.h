@@ -32,6 +32,7 @@ class Actor : public cocos2d::Sprite
 public:
 	Actor();
 	Actor(std::string name);
+	Actor(std::string filename, cocos2d::Rect rect);
 	void MoveUp();
 	void MoveDow();
 	void MoveLeft();
@@ -40,6 +41,9 @@ protected:
 	//static cocos2d::Camera *cam;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
+	cocos2d::Vector< cocos2d::Animate* > Animates;
+	
+
 };
 
 #endif // __Actor_H__

@@ -33,8 +33,17 @@ Actor::Actor(std::string name) {
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 }
+Actor::Actor(std::string filename, cocos2d::Rect rect)
+{
+	this->initWithFile(filename,rect);
+	visibleSize = Director::getInstance()->getVisibleSize();
+	origin = Director::getInstance()->getVisibleOrigin();
+}
+
+
 void Actor::MoveUp()
 {
+	
 	auto moveAction = MoveTo::create(ACTOR_SPEED,Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
 	this->runAction(moveAction);
 	//this->setPosition(Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
