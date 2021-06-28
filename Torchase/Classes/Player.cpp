@@ -29,7 +29,8 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 {
-	auto PlayerBody = PhysicsBody::createBox(Size(25,25)*MAP_SCALE);//this->getContentSize());
+	//auto PlayerBody = PhysicsBody::createBox(Size(25,25)*MAP_SCALE);//this->getContentSize());
+	auto PlayerBody = PhysicsBody::createBox(this->getContentSize());//this->getContentSize());
 	PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setCategoryBitmask(PLAYER_CATEGORY_BITMASK);
 	PlayerBody->setContactTestBitmask(PLAYER_COLISION_BITMASK);
@@ -108,8 +109,7 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 void Player::MoveUp()
 {
 	if (mind == 1) {
-		//Actor::MoveUp();
-		auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX(), this->getPositionY() + visibleSize.height * PLAYER_SPEED));
+		auto moveAction = Actor::MoveUp();
 		auto animationAction = RepeatForever::create(Animates.at(mind-1));
 
 		auto callback = CallFunc::create([&]() {
@@ -135,8 +135,8 @@ void Player::MoveUp()
 void Player::MoveDow()
 {
 	if (mind == 2) {
-		//Actor::MoveDow();
-		auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX(), this->getPositionY() - visibleSize.height * PLAYER_SPEED));
+		auto moveAction = Actor::MoveDow();
+		
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
 
 		auto callback = CallFunc::create([&]() {
@@ -163,8 +163,8 @@ void Player::MoveDow()
 void Player::MoveLeft()
 {
 	if (mind == 3) {
-		//Actor::MoveLeft();
-		auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
+		auto moveAction = Actor::MoveLeft();
+		//auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
 
 		auto callback = CallFunc::create([&]() {
@@ -191,8 +191,8 @@ void Player::MoveLeft()
 void Player::MoveRight()
 {
 	if (mind == 4) {
-		//Actor::Moveright();
-		auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
+		auto moveAction = Actor::MoveRight();
+		//auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
 
 		auto callback = CallFunc::create([&]() {

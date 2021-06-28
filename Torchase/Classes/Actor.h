@@ -33,10 +33,10 @@ public:
 	Actor();
 	Actor(std::string name);
 	Actor(std::string filename, cocos2d::Rect rect);
-	void MoveUp();
-	void MoveDow();
-	void MoveLeft();
-	void MoveRight();
+	cocos2d::MoveTo * MoveUp();
+	cocos2d::MoveTo * MoveDow();
+	cocos2d::MoveTo * MoveLeft();
+	cocos2d::MoveTo * MoveRight();
 	void removeAction();
 	float speed;
 	cocos2d::Vec2 mindPositison;

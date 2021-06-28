@@ -41,35 +41,34 @@ Actor::Actor(std::string filename, cocos2d::Rect rect)
 }
 
 
-void Actor::MoveUp()
+cocos2d::MoveTo * Actor::MoveUp()
 {
 	mindPositison = this->getPosition();
 	moveAction = MoveTo::create(ACTOR_SPEED,Vec2(this->getPositionX(), this->getPositionY() + speed));
-	this->runAction(moveAction);
+	return moveAction;
 }
-void Actor::MoveDow()
+cocos2d::MoveTo * Actor::MoveDow()
 {
 	mindPositison = this->getPosition();
 	moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX(), this->getPositionY() - speed));
-	this->runAction(moveAction);
-	
+	return moveAction;
 }
-void Actor::MoveLeft()
+cocos2d::MoveTo * Actor::MoveLeft()
 {
 	mindPositison = this->getPosition();
 	moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX()  - speed, this->getPositionY()));
-	this->runAction(moveAction);
+	return moveAction;
 }
-void Actor::MoveRight()
+cocos2d::MoveTo * Actor::MoveRight()
 {
 	mindPositison = this->getPosition();
 	moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() + speed, this->getPositionY()));
-	this->runAction(moveAction);
+	return moveAction;
 	
 }
 void Actor::removeAction()
 {
-	this->stopAction(moveAction);
+	this->stopAllActions();
 	auto reverAction = MoveTo::create(ACTOR_SPEED/2, mindPositison);
 	this->runAction(reverAction);
 }
