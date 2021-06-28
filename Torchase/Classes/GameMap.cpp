@@ -53,7 +53,6 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		auto spawnPoint = objectGroup->getObject("SpawnPoint");
 		int x = spawnPoint["x"].asInt();
 		int y = spawnPoint["y"].asInt();
-		CCLOG("nhuconcaccccccccccccccc %d           %d", x, y);
 		_player->speed = _tileMap->getTileSize().width*MAP_SCALE;
 		_player->setPosition(Vec2(x, y)*MAP_SCALE);
 	}
@@ -69,7 +68,6 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		{
 			int x = objMinion.asValueMap()["x"].asInt();
 			int y = objMinion.asValueMap()["y"].asInt();
-			CCLOG("nhuconcaccccccccccccccc %d           %d", x, y);
 			Minions *minion = new Minions(playerScene);
 			minion->setPosition(Vec2(x, y)*MAP_SCALE);
 			minion->speed = _tileMap->getTileSize().width*MAP_SCALE;
@@ -77,8 +75,6 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		}
 	}
 	
-
-
 	_meta = _tileMap->getLayer("meta");
 
 	for (int i = 0; i <16; i++)

@@ -24,6 +24,7 @@
 
 #include "Minions.h"
 #include "Definitions.h"
+
 USING_NS_CC;
 Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.png")
 {
@@ -41,14 +42,24 @@ Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.p
 }	
 void Minions::findPlayer(float dt)
 {
-	/*cocos2d::Vec2 point = this->getPosition();
-	cocos2d::Vec2 pointup = Vec2(point.x, point.y + speed) - player->getPosition();
-	cocos2d::Vec2 pointdow = Vec2(point.x, point.y - speed) - player->getPosition();
-	cocos2d::Vec2 pointleft = Vec2(point.x - speed, point.y ) - player->getPosition();
-	cocos2d::Vec2 pointright = Vec2(point.x + speed, point.y) - player->getPosition();
+	cocos2d::Vec2 point = this->getPosition();
+	cocos2d::Vec2 pointup = Vec2(point.x, point.y + this->speed) - player->getPosition();
+	cocos2d::Vec2 pointdow = Vec2(point.x, point.y - this->speed) - player->getPosition();
+	cocos2d::Vec2 pointleft = Vec2(point.x - this->speed, point.y ) - player->getPosition();
+	cocos2d::Vec2 pointright = Vec2(point.x + this->speed, point.y) - player->getPosition();
 	
-	if (abs(pointup.x + pointup.y) < abs(pointdow + pointup.y))
+	if ((abs(pointup.x) + abs(pointup.y)) > (abs(pointdow.x) + abs(pointdow.y)))
 	{
-
-	}*/
+		pointup = pointdow;
+	}
+	if ((abs(pointup.x) + abs(pointup.y)) > (abs(pointleft.x) + abs(pointleft.y)))
+	{
+		pointup = pointleft;
+	}
+	if ((abs(pointup.x) + abs(pointup.y)) > (abs(pointright.x) + abs(pointright.y)))
+	{
+		pointup = pointright;
+	}
+	auto moveAction = MoveTo::create(MININON_SPEED, pointup + player->getPosition());
+	this->runAction(moveAction);
 }
