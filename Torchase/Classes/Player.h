@@ -39,17 +39,16 @@ public:
 	void MoveRight();
 	void OnOffLight();
 	int mind;
-	
+	void setFalseMove();
+	void setTrueMove(float dt);
 private:
 	int thickness = 400;
 	int width = 1000;
 	int height = 1200;
 	cocos2d::DrawNode *background;
 	cocos2d::Vector<cocos2d::SpriteFrame*> stand;
-
-
-
-
+	bool checkMove;
+	cocos2d::SEL_SCHEDULE Schedule_reverse;
 };
 
 #endif // __PLAYER_H__

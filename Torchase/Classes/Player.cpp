@@ -105,28 +105,26 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	animate = Animate::create(animation);
 	Animates.pushBack(animate);
 	mind = 1;
+	checkMove = true;
 }
 void Player::MoveUp()
 {
+	if(checkMove)
 	if (mind == 1) {
 		auto moveAction = Actor::MoveUp();
 		auto animationAction = RepeatForever::create(Animates.at(mind-1));
-
 		auto callback = CallFunc::create([&]() {
-		
 			this->stopAllActions();
-			this->setSpriteFrame(stand.at(mind - 1));
-			
+			this->setSpriteFrame(stand.at(mind - 1));	
 		});
 		auto sequence = Sequence::create(moveAction, callback,nullptr);
 		this->runAction(animationAction);
 		this->runAction(sequence);
-
+		Player::setFalseMove();
 	}
 	else
 	{
 		background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
-
 		mind = 1;
 		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(0);
@@ -134,27 +132,22 @@ void Player::MoveUp()
 }
 void Player::MoveDow()
 {
+	if (checkMove)
 	if (mind == 2) {
-		auto moveAction = Actor::MoveDow();
-		
+		auto moveAction = Actor::MoveDow();	
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
-
 		auto callback = CallFunc::create([&]() {
-
 			this->stopAllActions();
 			this->setSpriteFrame(stand.at(mind - 1));
-
-
 		});
 		auto sequence = Sequence::create(moveAction, callback, nullptr);
 		this->runAction(animationAction);
 		this->runAction(sequence);
-
+		Player::setFalseMove();
 	}
 	else
 	{
 		background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 - (height - thickness * 2) / 4);
-
 		mind = 2;
 		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(180);
@@ -162,27 +155,22 @@ void Player::MoveDow()
 }
 void Player::MoveLeft()
 {
+	if (checkMove)
 	if (mind == 3) {
 		auto moveAction = Actor::MoveLeft();
-		//auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() - visibleSize.height * PLAYER_SPEED, this->getPositionY()));
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
-
 		auto callback = CallFunc::create([&]() {
-
 			this->stopAllActions();
 			this->setSpriteFrame(stand.at(mind - 1));
-
-
 		});
 		auto sequence = Sequence::create(moveAction, callback, nullptr);
 		this->runAction(animationAction);
 		this->runAction(sequence);
-
+		Player::setFalseMove();
 	}
 	else
 	{
 		background->setPosition(+this->getBoundingBox().size.width / 2 - (width - thickness * 2) / 2, +this->getBoundingBox().size.height / 4);
-
 		mind = 3;
 		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(-90);
@@ -190,27 +178,22 @@ void Player::MoveLeft()
 }
 void Player::MoveRight()
 {
+	if (checkMove)
 	if (mind == 4) {
 		auto moveAction = Actor::MoveRight();
-		//auto moveAction = MoveTo::create(ACTOR_SPEED, Vec2(this->getPositionX() + visibleSize.height * PLAYER_SPEED, this->getPositionY()));
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
-
 		auto callback = CallFunc::create([&]() {
-
 			this->stopAllActions();
 			this->setSpriteFrame(stand.at(mind - 1));
-
-
 		});
 		auto sequence = Sequence::create(moveAction, callback, nullptr);
 		this->runAction(animationAction);
 		this->runAction(sequence);
-
+		Player::setFalseMove();
 	}
 	else
 	{
 		background->setPosition(+this->getBoundingBox().size.width / 2 + (width - thickness * 2) / 2, +this->getBoundingBox().size.height / 2);
-
 		mind = 4;
 		this->setSpriteFrame(stand.at(mind - 1));
 		background->setRotation(90);
@@ -219,4 +202,15 @@ void Player::MoveRight()
 void Player::OnOffLight()
 {
 
+}
+void Player::setTrueMove(float dt)
+{
+	this->unschedule(Schedule_reverse);
+	checkMove = true;
+}
+void Player::setFalseMove()
+{
+	checkMove = false;
+	Schedule_reverse = CC_SCHEDULE_SELECTOR(Player::setTrueMove);
+	this->schedule(Schedule_reverse, ACTOR_SPEED);
 }
