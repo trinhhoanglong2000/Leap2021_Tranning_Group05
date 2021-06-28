@@ -59,14 +59,13 @@ bool GameScene::init()
 
 	gameMap = new GameMap(this,player); // add gamemap
 
-<<<<<<< HEAD
+
 	//this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
 	width = MAX(size.width+visibleSize.width, size.height+visibleSize.height);
 	height = width;
-=======
->>>>>>> 3b8eb98cc834f7f4a283f6fd0057e7301eaeb868
+
 	background_off = DrawNode::create();
 	Vec2 vertices[] =
 	{

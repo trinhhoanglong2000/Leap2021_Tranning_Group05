@@ -36,9 +36,7 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	PlayerBody->setContactTestBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
-<<<<<<< HEAD
-	
-=======
+
 
 	background = DrawNode::create();
 	background->setVisible(false);
@@ -53,7 +51,7 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	background->drawPolygon(vertices, 4, Color4F(Color3B::WHITE, 0), thickness, Color4F(Color3B::BLACK, 1));
 	background->setAnchorPoint(Vec2(0.5f, 0.5f));
 	background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
->>>>>>> 3b8eb98cc834f7f4a283f6fd0057e7301eaeb868
+
 
 	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->setTag(1);
@@ -108,6 +106,18 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 
 	animate = Animate::create(animation);
 	Animates.pushBack(animate);
+
+	//dead
+	animFrames.clear();
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/PlayerDie.png", Rect(18, 12, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/PlayerDie.png", Rect(121, 12, 80, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/PlayerDie.png", Rect(239, 12, 84, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/PlayerDie.png", Rect(341, 12, 92, 95)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/PlayerDie.png", Rect(450, 12, 90, 95)));
+	
+	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	DeadAnimation = Animate::create(animation);
+
 	mind = 1;
 	checkMove = true;
 }
