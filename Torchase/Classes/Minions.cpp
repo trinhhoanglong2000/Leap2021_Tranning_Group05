@@ -31,8 +31,8 @@ Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.p
 
 	auto EnemyBody = PhysicsBody::createBox(this->getContentSize());
 	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
-
-	EnemyBody->setContactTestBitmask(true);
+	EnemyBody->setCategoryBitmask(ENEMY_CATEGORY_BITMASK);
+	EnemyBody->setContactTestBitmask(ENEMY_COLISION_BITMASK);
 	EnemyBody->setDynamic(false);
 	this->setPhysicsBody(EnemyBody);
 

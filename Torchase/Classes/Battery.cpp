@@ -34,8 +34,9 @@ Battery::Battery(std::string name) {
 	origin = Director::getInstance()->getVisibleOrigin();
 	
 	auto BatteryBody = PhysicsBody::createBox(this->getContentSize());
-	BatteryBody->setCollisionBitmask(BATTERY_COLISION_BITMASK);
-	BatteryBody->setContactTestBitmask(true);
+	BatteryBody->setCollisionBitmask(ITEM_COLISION_BITMASK);
+	BatteryBody->setCategoryBitmask(ITEM_CATEGORY_BITMASK);
+	BatteryBody->setContactTestBitmask(ITEM_COLISION_BITMASK);
 	BatteryBody->setDynamic(false);
 	this->setScale(0.2);
 	this->setPhysicsBody(BatteryBody);
