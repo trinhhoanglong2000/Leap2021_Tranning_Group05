@@ -46,6 +46,8 @@ protected:
 	cocos2d::Vec2 origin;
 	cocos2d::MoveTo *moveAction;
 	cocos2d::Vector< cocos2d::Animate* > Animates;
+	cocos2d::Animate* DeadAnimation;
+
 };
 
 #endif // __Actor_H__

@@ -97,9 +97,12 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	animFrames.pushBack(SpriteFrame::create("prefap/Player/PlayerDie.png", Rect(239, 12, 84, 95)));
 	animFrames.pushBack(SpriteFrame::create("prefap/Player/PlayerDie.png", Rect(341, 12, 92, 95)));
 	animFrames.pushBack(SpriteFrame::create("prefap/Player/PlayerDie.png", Rect(450, 12, 90, 95)));
-	
 	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+
+
+
 	DeadAnimation = Animate::create(animation);
+	Animates.pushBack(DeadAnimation);
 
 	mind = 1;
 	checkMove = true;
@@ -107,7 +110,6 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 void Player::setBlackVisionBG(cocos2d::Size size) {
 	int max = MAX(size.width, size.height);
 	thickness = (max - speed)/2;
-	log("%f %d %d", speed, max, thickness);
 
 	width = max;
 	height = max + (int)speed;
@@ -157,7 +159,7 @@ void Player::MoveDow()
 	if (checkMove)
 	if (mind == 2) {
 		auto moveAction = Actor::MoveDow();	
-		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
+		auto animationAction = RepeatForever::create(Animates.at(mind-1));
 		auto callback = CallFunc::create([&]() {
 			this->stopAllActions();
 			this->setSpriteFrame(stand.at(mind - 1));
@@ -240,4 +242,6 @@ void Player::Playerdie()
 {
 	checkMove = false;
 	//action die
+	this->stopAllActions();
+	this->runAction(DeadAnimation);
 }
