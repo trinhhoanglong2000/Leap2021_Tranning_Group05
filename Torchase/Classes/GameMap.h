@@ -36,6 +36,7 @@ private:
 	
 	TMXTiledMap *_tileMap;
 	TMXLayer *_meta;
+	TMXLayer *_Trap;
 	Player *_player;
 
 public:

@@ -117,7 +117,15 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			player->removeAction();
 		}
-
+		// Trap dêtct colision
+		if (a->getCollisionBitmask() == TRAP_COLISION_BITMASK)
+		{
+			player->removeAction();
+		}
+		else if (b->getCollisionBitmask() == TRAP_COLISION_BITMASK)
+		{
+			player->removeAction();
+		}
 		//Enemy detect collision
 		if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
 		{

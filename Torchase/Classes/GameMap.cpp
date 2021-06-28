@@ -56,7 +56,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		_player->speed = _tileMap->getTileSize().width*MAP_SCALE;
 		_player->setPosition(Vec2(x, y)*MAP_SCALE);
 	}
-
+	
 	TMXObjectGroup *objectGroupminions = _tileMap->getObjectGroup("minions");
 	if (objectGroupminions == NULL) {
 		
@@ -74,7 +74,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			scene->addChild(minion, 30);
 		}
 	}
-	
+	// tao wall
 	_meta = _tileMap->getLayer("meta");
 	for (int i = 0; i < _tileMap->getMapSize().width; i++)
 	{
@@ -91,7 +91,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 				PlayerBody->setDynamic(false);
 				auto node = Node::create();
 				float x =  _tileMap->getTileSize().width * (i+0.5) * MAP_SCALE;
-				float y = _tileMap->getTileSize().height * (13.5-j)*MAP_SCALE;
+				float y = _tileMap->getTileSize().height * (_tileMap->getMapSize().height-0.5-j)*MAP_SCALE;
 				node->setPosition(Vec2(x, y));
 				node->setPhysicsBody(PlayerBody);
 				scene->addChild(node, 40);
@@ -99,6 +99,32 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		}
 	}
 	_meta->setVisible(false);
+	// tao trap
+	_Trap = _tileMap->getLayer("Trap");
+	for (int i = 0; i < _tileMap->getMapSize().width; i++)
+	{
+		for (int j = 0; j < _tileMap->getMapSize().height; j++) // tile map size 40X40, starting from 0, this loop traverses all tiles
+		{
+			auto tileSprite = _Trap->getTileAt(Vec2(i, j));
+			if (tileSprite)
+			{
+				auto PlayerBody = PhysicsBody::createBox(tileSprite->getContentSize()*MAP_SCALE);
+
+				PlayerBody->setCollisionBitmask(TRAP_COLISION_BITMASK);
+				PlayerBody->setCategoryBitmask(TRAP_CATEGORY_BITMASK);
+				PlayerBody->setContactTestBitmask(TRAP_COLISION_BITMASK);
+				PlayerBody->setDynamic(false);
+				auto node = Node::create();
+				float x = _tileMap->getTileSize().width * (i + 0.5) * MAP_SCALE;
+				float y = _tileMap->getTileSize().height * (_tileMap->getMapSize().height-0.5 - j)*MAP_SCALE;
+				node->setPosition(Vec2(x, y));
+				node->setPhysicsBody(PlayerBody);
+				scene->addChild(node, 40);
+			}
+		}
+	}
+	_Trap->setVisible(false);
+
 }
 cocos2d::Size GameMap::returnSizeMap()
 {
