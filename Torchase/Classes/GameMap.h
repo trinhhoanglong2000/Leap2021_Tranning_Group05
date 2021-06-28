@@ -41,6 +41,7 @@ private:
 public:
 	GameMap(cocos2d::Scene *scene, Player *playerScene);
 	cocos2d::Size returnSizeMap();
+	cocos2d::Size returnSizetile();
 private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;

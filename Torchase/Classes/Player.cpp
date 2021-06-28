@@ -36,7 +36,24 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	PlayerBody->setContactTestBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
+<<<<<<< HEAD
 	
+=======
+
+	background = DrawNode::create();
+	background->setVisible(false);
+	Vec2 vertices[] =
+	{
+		Vec2(0,height),
+		Vec2(width,height),
+		Vec2(width,0),
+		Vec2(0,0)
+	};
+	background->setContentSize(Size(width, height));
+	background->drawPolygon(vertices, 4, Color4F(Color3B::WHITE, 0), thickness, Color4F(Color3B::BLACK, 1));
+	background->setAnchorPoint(Vec2(0.5f, 0.5f));
+	background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
+>>>>>>> 3b8eb98cc834f7f4a283f6fd0057e7301eaeb868
 
 	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->setTag(1);
