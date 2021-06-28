@@ -37,23 +37,6 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
 
-
-	background = DrawNode::create();
-	background->setVisible(false);
-	Vec2 vertices[] =
-	{
-		Vec2(0,height),
-		Vec2(width,height),
-		Vec2(width,0),
-		Vec2(0,0)
-	};
-	background->setContentSize(Size(width, height));
-	background->drawPolygon(vertices, 4, Color4F(Color3B::WHITE, 0), thickness, Color4F(Color3B::BLACK, 1));
-	background->setAnchorPoint(Vec2(0.5f, 0.5f));
-	background->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
-
-
-	this->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->setTag(1);
 
 	//push frame
@@ -142,6 +125,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 	background->drawPolygon(vertices, 4, Color4F(Color3B::WHITE, 0), thickness, Color4F(Color3B::BLACK, 1));
 	background->setAnchorPoint(Vec2(0.5f, 0.5f));
 	background->setPosition(+this->getBoundingBox().size.width / 2, (+this->getContentSize().height +speed)/2);
+	background->setVisible(false);
 	this->addChild(background);
 
 }
@@ -251,4 +235,9 @@ void Player::setFalseMove()
 	checkMove = false;
 	Schedule_reverse = CC_SCHEDULE_SELECTOR(Player::setTrueMove);
 	this->schedule(Schedule_reverse, ACTOR_SPEED);
+}
+void Player::Playerdie()
+{
+	checkMove = false;
+	//action die
 }

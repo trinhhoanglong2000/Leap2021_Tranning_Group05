@@ -108,7 +108,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			auto tileSprite = _Trap->getTileAt(Vec2(i, j));
 			if (tileSprite)
 			{
-				auto PlayerBody = PhysicsBody::createBox(tileSprite->getContentSize()*MAP_SCALE);
+				auto PlayerBody = PhysicsBody::createBox(tileSprite->getContentSize()*MAP_SCALE/5);
 
 				PlayerBody->setCollisionBitmask(TRAP_COLISION_BITMASK);
 				PlayerBody->setCategoryBitmask(TRAP_CATEGORY_BITMASK);

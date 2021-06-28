@@ -58,9 +58,6 @@ bool GameScene::init()
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
 	gameMap = new GameMap(this,player); // add gamemap
-
-
-	//this->schedule(CC_SCHEDULE_SELECTOR(GameScene::enemyFind), 1.0f);
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
 	width = MAX(size.width+visibleSize.width, size.height+visibleSize.height);
@@ -127,11 +124,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		// Trap detect colision
 		if (a->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
-			player->removeAction();
+			player->Playerdie();
 		}
 		else if (b->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
-			player->removeAction();
+			player->Playerdie();
 		}
 		//Enemy detect collision
 		if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
