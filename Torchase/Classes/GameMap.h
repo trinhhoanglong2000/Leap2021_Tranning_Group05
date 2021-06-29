@@ -27,6 +27,7 @@
 
 #include "cocos2d.h"
 #include "Player.h"
+#include "Minions.h"
 
 USING_NS_CC;
 
@@ -40,7 +41,7 @@ private:
 	Player *_player;
 
 public:
-	GameMap(cocos2d::Scene *scene, Player *playerScene);
+	GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Minions*> &AllMinions);
 	cocos2d::Size returnSizeMap();
 	cocos2d::Size returnSizetile();
 private:

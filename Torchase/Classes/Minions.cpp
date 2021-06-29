@@ -42,6 +42,7 @@ Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.p
 }	
 void Minions::findPlayer(float dt)
 {
+	this->mindPositison = this->getPosition();
 	cocos2d::Vec2 point = this->getPosition();
 	cocos2d::Vec2 pointup = Vec2(point.x, point.y + this->speed) - player->getPosition();
 	cocos2d::Vec2 pointdow = Vec2(point.x, point.y - this->speed) - player->getPosition();

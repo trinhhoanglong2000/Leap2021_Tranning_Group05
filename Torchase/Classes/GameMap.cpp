@@ -30,7 +30,7 @@
 USING_NS_CC;
 
 
-GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
+GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Minions *> &AllMinions)
 {
 	_player = playerScene;
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -69,12 +69,14 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		{
 			int x = objMinion.asValueMap()["x"].asInt();
 			int y = objMinion.asValueMap()["y"].asInt();
-			Minions *minion = new Minions(playerScene);
+			auto minion = new Minions(playerScene);
 			minion->setPosition(Vec2(x, y)*MAP_SCALE);
 			minion->speed = _tileMap->getTileSize().width*MAP_SCALE;
 			scene->addChild(minion, 30);
+			AllMinions.pushBack(minion);
 		}
 	}
+	
 	//creat battery
 	TMXObjectGroup *objectGroupBatery = _tileMap->getObjectGroup("Battery");
 	if (objectGroupBatery == NULL) {

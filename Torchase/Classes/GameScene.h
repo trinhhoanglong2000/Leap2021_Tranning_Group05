@@ -60,6 +60,7 @@ private:
 	Canvas *canvas;
 	Battery *battery;
 	bool playerdie;
+	cocos2d::Vector<Minions*> AllMinions;
 };
 
 #endif // __GAMESCENE_H__
