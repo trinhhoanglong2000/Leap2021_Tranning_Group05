@@ -38,7 +38,7 @@ Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.p
 	this->setPhysicsBody(EnemyBody);
 
 	this->setPosition(Vec2(visibleSize.width/2 + visibleSize.height*0.2 + origin.x, visibleSize.height*0.8));
-	this->schedule(CC_SCHEDULE_SELECTOR(Minions::findPlayer), 1.0f);
+	//this->schedule(CC_SCHEDULE_SELECTOR(Minions::findPlayer), 1.0f);
 }	
 void Minions::findPlayer(float dt)
 {
@@ -48,19 +48,36 @@ void Minions::findPlayer(float dt)
 	cocos2d::Vec2 pointdow = Vec2(point.x, point.y - this->speed) - player->getPosition();
 	cocos2d::Vec2 pointleft = Vec2(point.x - this->speed, point.y ) - player->getPosition();
 	cocos2d::Vec2 pointright = Vec2(point.x + this->speed, point.y) - player->getPosition();
-	
-	if ((abs(pointup.x) + abs(pointup.y)) > (abs(pointdow.x) + abs(pointdow.y)))
+	booltro = &booltop;
+	if (booltop == false)
 	{
 		pointup = pointdow;
+		booltro = &booldow;
 	}
-	if ((abs(pointup.x) + abs(pointup.y)) > (abs(pointleft.x) + abs(pointleft.y)))
+	if ((abs(pointup.x) + abs(pointup.y)) > (abs(pointdow.x) + abs(pointdow.y)) && booldow)
+	{
+		pointup = pointdow;
+		booltro = &booldow;
+	}
+	if ((abs(pointup.x) + abs(pointup.y)) > (abs(pointleft.x) + abs(pointleft.y)) && boolleft)
 	{
 		pointup = pointleft;
+		booltro = &boolleft;
 	}
-	if ((abs(pointup.x) + abs(pointup.y)) > (abs(pointright.x) + abs(pointright.y)))
+	if ((abs(pointup.x) + abs(pointup.y)) > (abs(pointright.x) + abs(pointright.y)) && boolright)
 	{
 		pointup = pointright;
+		booltro = &boolright;
 	}
+	booltop = true;
+	booldow = true;
+	boolleft = true;
+	boolright = true;
 	auto moveAction = MoveTo::create(MININON_SPEED, pointup + player->getPosition());
 	this->runAction(moveAction);
+}
+void Minions::removeAction()
+{
+	Actor::removeAction();
+	*booltro = false;
 }

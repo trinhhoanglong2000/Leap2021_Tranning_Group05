@@ -140,7 +140,6 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == a)
 					{
-
 						AllMinions.at(i)->removeAction();
 						break;
 					}
@@ -195,38 +194,20 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		//Enemy detect collision
 		if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
 		{
-			/*CCLOG("aloooooooooooooo      %d", AllMinions.size());
-			if (b->getCollisionBitmask() == WALL_COLISION_BITMASK)
+			/*if (!playerdie && b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 			{
-				
-				for (int i = 1; i <= AllMinions.size(); i++)
-				{
-					if (AllMinions.at(i)->getPhysicsBody() == a)
-					{
-						
-						/*AllMinions.at(i)->removeAction();
-						break;
-					}
-				}
+				playerdie = true;
+				player->Playerdie();
 			}*/
 		}
 		else if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
 		{
-			//CCLOG("00000000000loooooooooooooo      %d", AllMinions.size());
-			/*if (a->getCollisionBitmask() == WALL_COLISION_BITMASK)
+			/*if (!playerdie && a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 			{
-				
-				for (int i = 1; i <= AllMinions.size(); i++)
-				{
-					if (AllMinions.at(i)->getPhysicsBody() == b)
-					{
-						AllMinions.at(i)->removeAction();
-						break;
-					}
-				}
+				playerdie = true;
+				player->Playerdie();
 			}*/
 		}
-
 	}
 	return true;
 }

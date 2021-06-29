@@ -34,8 +34,14 @@ class Minions : public Actor
 public:
 	Minions(Player* playerScene);
 	void findPlayer(float dt);
+	void removeAction();
 private:
 	Player *player;
+	bool booltop;
+	bool boolright;
+	bool boolleft;
+	bool booldow;
+	bool *booltro;
 };
 
 #endif // __MINIONS_H__
