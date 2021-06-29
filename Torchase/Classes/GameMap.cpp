@@ -83,7 +83,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 	else
 	{
 		auto spawnPointBattery = objectGroupBatery->getObjects();
-		for each (Value objBatery in spawnPointBattery)
+		for (Value objBatery : spawnPointBattery)
 		{
 			int x = objBatery.asValueMap()["x"].asInt();
 			int y = objBatery.asValueMap()["y"].asInt();
