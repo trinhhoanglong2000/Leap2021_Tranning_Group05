@@ -115,7 +115,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 	height = max + (int)speed;
 	
 	background = DrawNode::create();
-	background->setVisible(true);
+	
 	Vec2 vertices[] =
 	{
 		Vec2(0,height),
@@ -127,7 +127,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 	background->drawPolygon(vertices, 4, Color4F(Color3B::WHITE, 0), thickness, Color4F(Color3B::BLACK, 1));
 	background->setAnchorPoint(Vec2(0.5f, 0.5f));
 	background->setPosition(+this->getBoundingBox().size.width / 2, (+this->getContentSize().height +speed)/2);
-	background->setVisible(false);
+	background->setVisible(true);
 	this->addChild(background);
 
 }

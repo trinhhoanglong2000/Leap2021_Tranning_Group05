@@ -64,7 +64,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 	else
 	{
 		auto spawnPointminions = objectGroupminions->getObjects();
-		for each (Value objMinion in spawnPointminions)
+		for (Value objMinion : spawnPointminions)
 		{
 			int x = objMinion.asValueMap()["x"].asInt();
 			int y = objMinion.asValueMap()["y"].asInt();
