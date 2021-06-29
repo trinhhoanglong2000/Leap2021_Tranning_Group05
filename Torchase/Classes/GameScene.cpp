@@ -82,7 +82,7 @@ bool GameScene::init()
 	canvas = new Canvas(player, background_off);
 	canvas->setPosition(Vec2(0, 0));
 	player->addChild(canvas, 50);
-	
+	canvas->AllMinions = AllMinions;
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);

@@ -44,12 +44,12 @@ public:
 	void setActionDie(float dt);
 	void setBlackVisionBG(cocos2d::Size size);
 	void Playerdie();
-
+	cocos2d::DrawNode *background;
 private:
 	int thickness = 400;
 	int width = 1000;
 	int height = 1200;
-	cocos2d::DrawNode *background;
+	
 	cocos2d::Vector<cocos2d::SpriteFrame*> stand;
 	bool checkMove;
 	cocos2d::SEL_SCHEDULE Schedule_reverse;

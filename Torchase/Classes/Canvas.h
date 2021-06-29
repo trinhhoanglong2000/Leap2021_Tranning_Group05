@@ -28,6 +28,7 @@
 #include "cocos2d.h"
 #include "ui\CocosGUI.h"
 #include"Player.h"
+#include "Minions.h"
 
 class Canvas : public cocos2d::ui::Layout
 {
@@ -40,12 +41,15 @@ public:
 	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void reduceenergy(float dt);
 	void plusenergy(int power);
+	cocos2d::Vector<Minions*> AllMinions;
+	void setfindplayer();
 private:
 	Player *player;
 	cocos2d::DrawNode* background_off;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	cocos2d::ui::Slider *enegy;
+	
 };
 
 #endif // __CANVAS_H__
