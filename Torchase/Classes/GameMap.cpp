@@ -26,6 +26,7 @@
 #include "Definitions.h"
 #include "GameScene.h"
 #include "Minions.h"
+#include "Battery.h"
 USING_NS_CC;
 
 
@@ -56,7 +57,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		_player->speed = _tileMap->getTileSize().width*MAP_SCALE;
 		_player->setPosition(Vec2(x, y)*MAP_SCALE);
 	}
-	
+	// create minion
 	TMXObjectGroup *objectGroupminions = _tileMap->getObjectGroup("minions");
 	if (objectGroupminions == NULL) {
 		
@@ -72,6 +73,23 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			minion->setPosition(Vec2(x, y)*MAP_SCALE);
 			minion->speed = _tileMap->getTileSize().width*MAP_SCALE;
 			scene->addChild(minion, 30);
+		}
+	}
+	//creat battery
+	TMXObjectGroup *objectGroupBatery = _tileMap->getObjectGroup("Battery");
+	if (objectGroupBatery == NULL) {
+
+	}
+	else
+	{
+		auto spawnPointBattery = objectGroupBatery->getObjects();
+		for each (Value objBatery in spawnPointBattery)
+		{
+			int x = objBatery.asValueMap()["x"].asInt();
+			int y = objBatery.asValueMap()["y"].asInt();
+			Battery *batery = new Battery();
+			batery->setPosition(Vec2(x, y)*MAP_SCALE);
+			scene->addChild(batery, 30);
 		}
 	}
 	// tao wall

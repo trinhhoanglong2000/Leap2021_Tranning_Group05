@@ -83,9 +83,6 @@ bool GameScene::init()
 	canvas->setPosition(Vec2(0, 0));
 	player->addChild(canvas, 50);
 	
-	battery = new Battery("battery.png");
-	battery->setPosition(Vec2(visibleSize.width + 100, visibleSize.height / 1.5));
-	this->addChild(battery);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
@@ -125,7 +122,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		// Trap detect colision
 		if (a->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
-			if (!playerdie)
+			if (!playerdie && b->getCollisionBitmask()== PLAYER_COLISION_BITMASK)
 			{
 				playerdie = true;
 				player->Playerdie();
@@ -133,7 +130,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		else if (b->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
-			if (!playerdie)
+			if (!playerdie&& a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 			{
 				playerdie = true;
 				player->Playerdie();

@@ -27,9 +27,9 @@
 
 USING_NS_CC;
 
-Battery::Battery(std::string name) {
+Battery::Battery() {
 
-	this->initWithFile(name);
+	this->initWithFile("battery.png");
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	
