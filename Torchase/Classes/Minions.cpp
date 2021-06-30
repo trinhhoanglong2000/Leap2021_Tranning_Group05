@@ -38,7 +38,6 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 	EnemyBody->setContactTestBitmask(ENEMY_COLISION_BITMASK);
 	EnemyBody->setDynamic(false);
 	this->setPhysicsBody(EnemyBody);
-
 	boolFind = false;
 
 	//animation
@@ -171,7 +170,6 @@ void Minions::findPlayer(float dt)
 	auto sequence = Sequence::create(moveAction, callback, nullptr);
 	this->runAction(animationAction);
 	this->runAction(sequence);
-	//this->runAction(moveAction);
 }
 void Minions::removeAction()
 {
