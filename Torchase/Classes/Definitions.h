@@ -29,7 +29,7 @@
 #define TRANSITION_TIME 0.5
 
 #define ACTOR_SPEED 0.5
-#define BUTTON_SCALE 0.2
+#define BUTTON_SCALE 0.35
 #define MININON_SPEED 1
 
 #define TIME_REDUCE_ENERGY 1

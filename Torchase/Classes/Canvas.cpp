@@ -48,16 +48,16 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	ButtonLight->setPosition(Vec2(visibleSize.width / 2.5 + origin.x, -visibleSize.height / 4 + origin.y));
 	ButtonLight->addTouchEventListener(CC_CALLBACK_2(Canvas::OnOffLight, this));
 
-	ButtonUp->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE));
+	ButtonUp->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE/1.3));
 	ButtonUp->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveUp, this));
 
-	ButtonDow->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE));
+	ButtonDow->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE/1.3));
 	ButtonDow->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveDow, this));
 
-	ButtonLeft->setPosition(Vec2(-visibleSize.width / 3 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE, -visibleSize.height / 4 + origin.y));
+	ButtonLeft->setPosition(Vec2(-visibleSize.width / 3 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE/1.3, -visibleSize.height / 4 + origin.y));
 	ButtonLeft->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveLeft, this));
 
-	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE, -visibleSize.height / 4 + origin.y));
+	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE/1.3, -visibleSize.height / 4 + origin.y));
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveRight, this));
 
 	this->addChild(ButtonUp);
@@ -118,6 +118,10 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 		{
 			player->background->getPhysicsBody()->setEnabled(true);
 			background_off->setVisible(false);
+			for (int i = 0; i < AllMinions.size(); i++)
+			{
+				AllMinions.at(i)->lighton();
+			}
 		}
 		else
 		{

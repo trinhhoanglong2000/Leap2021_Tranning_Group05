@@ -98,12 +98,14 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 		animate = Animate::create(animation);
 		Animates.pushBack(animate);
 		animFrames.clear();
-
+		goUp = true;
 	}
 
 }	
 void Minions::findPlayer(float dt)
 {
+	if (goUp == false)
+		return;
 	this->mindPositison = this->getPosition();
 	cocos2d::Vec2 point = this->getPosition();
 	cocos2d::Vec2 pointup = Vec2(point.x, point.y + this->speed) - player->getPosition();
@@ -111,7 +113,7 @@ void Minions::findPlayer(float dt)
 	cocos2d::Vec2 pointleft = Vec2(point.x - this->speed, point.y ) - player->getPosition();
 	cocos2d::Vec2 pointright = Vec2(point.x + this->speed, point.y) - player->getPosition();
 	booltro = &booltop;
-	bool goUp = true;
+	
 	if (booltop == false)
 	{
 		pointup = pointdow;
@@ -169,6 +171,7 @@ void Minions::findPlayer(float dt)
 	auto sequence = Sequence::create(moveAction, callback, nullptr);
 	this->runAction(animationAction);
 	this->runAction(sequence);
+	goUp = true;
 }
 void Minions::removeAction()
 {
@@ -181,13 +184,16 @@ void Minions::Roar(float dt)
 	{
 		this->setLocalZOrder(30);
 		Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayer);
-		this->schedule(Schedule_findPlayer,1.3f,100,1.5f); 
+		this->schedule(Schedule_findPlayer,1.3f,100,1.0f); 
 		boolFind = true;
 	}
 }
 void Minions::lightoff()
 {
-	this->setLocalZOrder(20);
-	boolFind = false;
-	this->unschedule(Schedule_findPlayer);
+	//this->setLocalZOrder(20);
+	goUp = false;
+}
+void Minions::lighton()
+{
+	goUp = true;
 }

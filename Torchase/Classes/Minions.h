@@ -37,6 +37,7 @@ public:
 	void removeAction();
 	void Roar(float dt);
 	void lightoff();
+	void lighton();
 private:
 	Player *player;
 	bool booltop;
@@ -44,6 +45,7 @@ private:
 	bool boolleft;
 	bool booldow;
 	bool *booltro;
+	bool goUp; 
 	cocos2d::SEL_SCHEDULE Schedule_Roar;
 	cocos2d::SEL_SCHEDULE Schedule_findPlayer;
 	cocos2d::SEL_SCHEDULE Schedule_CheckfindPlayer;
