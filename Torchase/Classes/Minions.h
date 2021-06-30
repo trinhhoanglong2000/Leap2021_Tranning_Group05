@@ -36,7 +36,6 @@ public:
 	void findPlayer(float dt);
 	void checkfindPlayer(float dt);
 	void removeAction();
-	void setfindtrue();
 private:
 	Player *player;
 	bool booltop;
