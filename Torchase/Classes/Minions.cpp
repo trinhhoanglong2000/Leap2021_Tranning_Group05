@@ -194,26 +194,11 @@ void Minions::removeAction()
 }
 void Minions::checkfindPlayer(float dt)
 {
-	cocos2d::Vec2 pointup = this->getPosition() - player->getPosition();
+	
 	if ( boolFind == false)
 	{
-		pointup = Vec2(pointup.x - 30, pointup.y - 30);
-		if (pointup.x < 0 && pointup.y >0 && player->background->getRotation() == 0)
-		{
-			Minions::setfindtrue();
-		}
-		if (pointup.x < 0 && pointup.y < 0 && player->background->getRotation() == 180)
-		{
-			Minions::setfindtrue();
-		}
-		if (pointup.x > 0 && pointup.y < 0 && player->background->getRotation() == 90)
-		{
-			Minions::setfindtrue();
-		}
-		if (pointup.x > 0 && pointup.y > 0 && player->background->getRotation() == 270)
-		{
-			Minions::setfindtrue();
-		}
+		Minions::setfindtrue();
+
 	}
 }
 void Minions::setfindtrue()
