@@ -37,15 +37,6 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/bl
 	EnemyBody->setDynamic(false);
 	this->setPhysicsBody(EnemyBody);
 
-	/*auto node = Node::create();
-	this->addChild(node);
-	auto EnemyBodycheck = PhysicsBody::createCircle(speed);
-	EnemyBodycheck->setCollisionBitmask(ENEMY_CHECK_COLISION_BITMASK);
-	EnemyBodycheck->setCategoryBitmask(ENEMY_CHECK_CATEGORY_BITMASK);
-	EnemyBodycheck->setContactTestBitmask(ENEMY_CHECK_COLISION_BITMASK);
-	EnemyBodycheck->setDynamic(false);
-	node->setPhysicsBody(EnemyBodycheck);*/
-
 	this->setPosition(Vec2(visibleSize.width/2 + visibleSize.height*0.2 + origin.x, visibleSize.height*0.8));
 	boolFind = false;
 }	
