@@ -116,10 +116,12 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 	{
 		if (background_off->isVisible())
 		{
+			player->background->getPhysicsBody()->setEnabled(true);
 			background_off->setVisible(false);
 		}
 		else
 		{
+			player->background->getPhysicsBody()->setEnabled(false);
 			background_off->setVisible(true);
 		}
 	}

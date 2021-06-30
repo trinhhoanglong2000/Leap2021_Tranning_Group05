@@ -134,6 +134,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 	backgroundBody->setCategoryBitmask(PLAYER_BG_CATEGORY_BITMASK);
 	backgroundBody->setContactTestBitmask(PLAYER_BG_COLISION_BITMASK);
 	backgroundBody->setDynamic(false);
+	//backgroundBody->setEnabled(false);
 	background->setPhysicsBody(backgroundBody);
 
 	this->addChild(background);

@@ -34,8 +34,8 @@ class Minions : public Actor
 public:
 	Minions(Player* playerScene, float mapspeed);
 	void findPlayer(float dt);
-	void checkfindPlayer(float dt);
 	void removeAction();
+	void Roar(float dt);
 private:
 	Player *player;
 	bool booltop;
@@ -43,6 +43,7 @@ private:
 	bool boolleft;
 	bool booldow;
 	bool *booltro;
+	cocos2d::SEL_SCHEDULE Schedule_Roar;
 	cocos2d::SEL_SCHEDULE Schedule_findPlayer;
 	cocos2d::SEL_SCHEDULE Schedule_CheckfindPlayer;
 	bool boolFind;

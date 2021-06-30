@@ -211,7 +211,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					if (AllMinions.at(i)->getPhysicsBody() == a)
 					{
 
-						AllMinions.at(i)->checkfindPlayer(1);
+						AllMinions.at(i)->Roar(1);
 						break;
 					}
 				}
@@ -229,7 +229,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					if (AllMinions.at(i)->getPhysicsBody() == b)
 					{
 
-						AllMinions.at(i)->checkfindPlayer(1);
+						AllMinions.at(i)->Roar(1);
 						break;
 					}
 				}

@@ -39,7 +39,6 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 	EnemyBody->setDynamic(false);
 	this->setPhysicsBody(EnemyBody);
 	boolFind = false;
-
 	//animation
 	if (type == 0) {
 
@@ -99,7 +98,6 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 		animate = Animate::create(animation);
 		Animates.pushBack(animate);
 		animFrames.clear();
-
 
 	}
 
@@ -176,14 +174,13 @@ void Minions::removeAction()
 	Actor::removeAction();
 	*booltro = false;
 }
-void Minions::checkfindPlayer(float dt)
+void Minions::Roar(float dt)
 {
-
-	if ( boolFind == false)
-	{	
-		Minions::findPlayer(1);
+	//action doa
+	if (boolFind == false)
+	{
 		Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayer);
-		this->schedule(Schedule_findPlayer, 1.0f);
+		this->schedule(Schedule_findPlayer,0.8f,100,2.0f); 
 		boolFind = true;
 	}
 }

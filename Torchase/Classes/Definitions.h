@@ -30,7 +30,7 @@
 
 #define ACTOR_SPEED 0.5
 #define BUTTON_SCALE 0.2
-#define MININON_SPEED 0.5
+#define MININON_SPEED 1
 
 #define TIME_REDUCE_ENERGY 1
 #define PERCENT_REDUCE 1
