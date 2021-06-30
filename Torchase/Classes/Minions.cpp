@@ -26,7 +26,7 @@
 #include "Definitions.h"
 
 USING_NS_CC;
-Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.png")
+Minions::Minions(Player* playerScene) : Actor("prefap/Minions/spider.jpg", Rect(100, 0, 100, 100))
 {
 	player = playerScene;
 
@@ -37,10 +37,68 @@ Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.p
 	EnemyBody->setDynamic(false);
 	this->setPhysicsBody(EnemyBody);
 
-	this->setPosition(Vec2(visibleSize.width/2 + visibleSize.height*0.2 + origin.x, visibleSize.height*0.8));
-	//Schedule_CheckfindPlayer = CC_SCHEDULE_SELECTOR(Minions::checkfindPlayer);
-	//this->schedule(Schedule_CheckfindPlayer, 0.1);
+	this->setPosition(Vec2(visibleSize.width / 2 + visibleSize.height*0.2 + origin.x, visibleSize.height*0.8));
+
 	boolFind = false;
+
+	//animation
+	if (type == 0) {
+
+		//down
+		Vector<SpriteFrame*>  animFrames;
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(200, 0, 100, 100)));
+
+		
+		Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+
+		Animate* animate = Animate::create(animation);
+		Animates.pushBack(animate);
+		//up
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0,   300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0,   300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(200, 300, 100, 100)));
+
+
+		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+
+		animate = Animate::create(animation);
+		Animates.pushBack(animate);
+		//left
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0,   100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0,   100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(200, 100, 100, 100)));
+
+
+		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+
+		animate = Animate::create(animation);
+		Animates.pushBack(animate);
+		//right 
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(200, 200, 100, 100)));
+
+
+		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+
+		animate = Animate::create(animation);
+		Animates.pushBack(animate);
+
+	}
 }	
 void Minions::findPlayer(float dt)
 {
