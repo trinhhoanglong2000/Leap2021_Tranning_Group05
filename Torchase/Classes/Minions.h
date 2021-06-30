@@ -46,6 +46,7 @@ private:
 	cocos2d::SEL_SCHEDULE Schedule_findPlayer;
 	cocos2d::SEL_SCHEDULE Schedule_CheckfindPlayer;
 	bool boolFind;
+	int type= 0;// type of enemy
 };
 
 #endif // __MINIONS_H__
