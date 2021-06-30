@@ -82,7 +82,7 @@ void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType T
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
 		player->MoveUp();
-		Canvas::setfindplayer();
+		
 	}
 }
 void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -90,7 +90,7 @@ void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
 		player->MoveDow();
-		Canvas::setfindplayer();
+		
 	}
 
 }
@@ -99,7 +99,7 @@ void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
 		player->MoveLeft();
-		Canvas::setfindplayer();
+		
 	}
 }
 void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -107,7 +107,7 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
 		player->MoveRight();
-		Canvas::setfindplayer();
+		
 	}
 }
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -135,11 +135,4 @@ void Canvas::plusenergy(int power)
 	else
 		enegy->setPercent(enegy->getMaxPercent());
 
-}
-void Canvas::setfindplayer()
-{
-	for (int i = 0; i < AllMinions.size(); i++)
-	{
-			AllMinions.at(i)->checkfindPlayer(0);
-	}
 }

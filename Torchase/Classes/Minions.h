@@ -32,7 +32,7 @@
 class Minions : public Actor
 {
 public:
-	Minions(Player* playerScene);
+	Minions(Player* playerScene, float mapspeed);
 	void findPlayer(float dt);
 	void checkfindPlayer(float dt);
 	void removeAction();
