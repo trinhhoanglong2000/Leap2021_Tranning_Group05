@@ -69,9 +69,8 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 		{
 			int x = objMinion.asValueMap()["x"].asInt();
 			int y = objMinion.asValueMap()["y"].asInt();
-			auto minion = new Minions(playerScene);
+			auto minion = new Minions(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
 			minion->setPosition(Vec2(x, y)*MAP_SCALE);
-			minion->speed = _tileMap->getTileSize().width*MAP_SCALE;
 			scene->addChild(minion, 30);
 			AllMinions.pushBack(minion);
 		}

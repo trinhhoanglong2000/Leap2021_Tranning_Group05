@@ -128,6 +128,14 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 	background->setAnchorPoint(Vec2(0.5f, 0.5f));
 	background->setPosition(+this->getBoundingBox().size.width / 2, (+this->getContentSize().height +speed)/2);
 	background->setVisible(true);
+
+	auto backgroundBody = PhysicsBody::createBox(Size(speed,speed));
+	backgroundBody->setCollisionBitmask(PLAYER_BG_COLISION_BITMASK);
+	backgroundBody->setCategoryBitmask(PLAYER_BG_CATEGORY_BITMASK);
+	backgroundBody->setContactTestBitmask(PLAYER_BG_COLISION_BITMASK);
+	backgroundBody->setDynamic(false);
+	background->setPhysicsBody(backgroundBody);
+
 	this->addChild(background);
 
 }

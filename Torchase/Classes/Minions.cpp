@@ -26,10 +26,10 @@
 #include "Definitions.h"
 
 USING_NS_CC;
-Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.png")
+Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/bluebird-midflap.png")
 {
 	player = playerScene;
-
+	this->speed = mapspeed;
 	auto EnemyBody = PhysicsBody::createBox(this->getContentSize());
 	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
 	EnemyBody->setCategoryBitmask(ENEMY_CATEGORY_BITMASK);
@@ -37,9 +37,16 @@ Minions::Minions(Player* playerScene):  Actor("prefap/Minions/bluebird-midflap.p
 	EnemyBody->setDynamic(false);
 	this->setPhysicsBody(EnemyBody);
 
+	/*auto node = Node::create();
+	this->addChild(node);
+	auto EnemyBodycheck = PhysicsBody::createCircle(speed);
+	EnemyBodycheck->setCollisionBitmask(ENEMY_CHECK_COLISION_BITMASK);
+	EnemyBodycheck->setCategoryBitmask(ENEMY_CHECK_CATEGORY_BITMASK);
+	EnemyBodycheck->setContactTestBitmask(ENEMY_CHECK_COLISION_BITMASK);
+	EnemyBodycheck->setDynamic(false);
+	node->setPhysicsBody(EnemyBodycheck);*/
+
 	this->setPosition(Vec2(visibleSize.width/2 + visibleSize.height*0.2 + origin.x, visibleSize.height*0.8));
-	//Schedule_CheckfindPlayer = CC_SCHEDULE_SELECTOR(Minions::checkfindPlayer);
-	//this->schedule(Schedule_CheckfindPlayer, 0.1);
 	boolFind = false;
 }	
 void Minions::findPlayer(float dt)
@@ -87,9 +94,9 @@ void Minions::removeAction()
 void Minions::checkfindPlayer(float dt)
 {
 	cocos2d::Vec2 pointup = this->getPosition() - player->getPosition();
-	if (abs(pointup.x) + abs(pointup.y) <= speed + speed / 3 && boolFind == false)
+	if ( boolFind == false)
 	{
-		pointup = Vec2(pointup.x - 20, pointup.y - 20);
+		pointup = Vec2(pointup.x - 30, pointup.y - 30);
 		if (pointup.x < 0 && pointup.y >0 && player->background->getRotation() == 0)
 		{
 			Minions::setfindtrue();
@@ -110,7 +117,6 @@ void Minions::checkfindPlayer(float dt)
 }
 void Minions::setfindtrue()
 {
-	//this->unschedule(Schedule_CheckfindPlayer);
 	Minions::findPlayer(1);
 	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayer);
 	this->schedule(Schedule_findPlayer, 1.0f);

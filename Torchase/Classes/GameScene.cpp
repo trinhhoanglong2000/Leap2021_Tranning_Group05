@@ -101,13 +101,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		CCLOG("Overlap");
 		if (a->getCollisionBitmask() == ITEM_COLISION_BITMASK)
 		{
-			canvas->plusenergy(5);
-			this->removeChild(a->getOwner());
+			if(b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			{
+				canvas->plusenergy(5);
+					this->removeChild(a->getOwner());
+			}
 		}
 		else if (b->getCollisionBitmask() == ITEM_COLISION_BITMASK)
 		{
-			canvas->plusenergy(5);
-			this->removeChild(b->getOwner());
+			if(a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			{
+				canvas->plusenergy(5);
+					this->removeChild(a->getOwner());
+			}
 		}
 
 		//Wall detect collision
@@ -199,6 +205,16 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				playerdie = true;
 				player->Playerdie();
 			}*/
+			if (b->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
+				for (int i = 0; i < AllMinions.size(); i++)
+				{
+					if (AllMinions.at(i)->getPhysicsBody() == a)
+					{
+
+						AllMinions.at(i)->checkfindPlayer(1);
+						break;
+					}
+				}
 		}
 		else if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
 		{
@@ -207,7 +223,18 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				playerdie = true;
 				player->Playerdie();
 			}*/
+			if (a->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
+				for (int i = 0; i < AllMinions.size(); i++)
+				{
+					if (AllMinions.at(i)->getPhysicsBody() == b)
+					{
+
+						AllMinions.at(i)->checkfindPlayer(1);
+						break;
+					}
+				}
 		}
+		
 	}
 	return true;
 }
