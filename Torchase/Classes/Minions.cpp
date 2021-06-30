@@ -159,6 +159,7 @@ void Minions::findPlayer(float dt)
 		}
 	}
 	log("%d", mind);
+	this->stopAllActions();
 	auto moveAction = MoveTo::create(MININON_SPEED, pointup + player->getPosition());
 	auto animationAction = RepeatForever::create(Animates.at(mind-1));
 	auto callback = CallFunc::create([&]() {
@@ -176,11 +177,17 @@ void Minions::removeAction()
 }
 void Minions::Roar(float dt)
 {
-	//action doa
 	if (boolFind == false)
 	{
+		this->setLocalZOrder(30);
 		Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayer);
-		this->schedule(Schedule_findPlayer,0.8f,100,2.0f); 
+		this->schedule(Schedule_findPlayer,1.3f,100,1.5f); 
 		boolFind = true;
 	}
+}
+void Minions::lightoff()
+{
+	this->setLocalZOrder(20);
+	boolFind = false;
+	this->unschedule(Schedule_findPlayer);
 }

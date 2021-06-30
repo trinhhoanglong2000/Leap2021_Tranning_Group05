@@ -36,6 +36,7 @@ public:
 	void findPlayer(float dt);
 	void removeAction();
 	void Roar(float dt);
+	void lightoff();
 private:
 	Player *player;
 	bool booltop;

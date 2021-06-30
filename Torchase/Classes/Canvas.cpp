@@ -123,6 +123,10 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 		{
 			player->background->getPhysicsBody()->setEnabled(false);
 			background_off->setVisible(true);
+			for (int i = 0; i < AllMinions.size(); i++)
+			{
+				AllMinions.at(i)->lightoff();
+			}
 		}
 	}
 }
