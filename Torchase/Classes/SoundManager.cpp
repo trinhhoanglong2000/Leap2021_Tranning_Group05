@@ -36,14 +36,12 @@ SoundManager::SoundManager() {
 	AudioEngine::preload(surprisebackground_sound);
 
 
-
-
 }
 
 void SoundManager::PlayMusic(std::string name) {
-	AudioEngine::play2d("music/softbackground.mp3", true, 1.0f, nullptr);
+	AudioEngine::play2d(name, false, 1.0f, nullptr);
 }
 void SoundManager::PlayMusic(std::string name,bool loop,float volumn) {
-	AudioEngine::play2d("music/softbackground.mp3", loop, volumn, nullptr);
+	AudioEngine::play2d(name, loop, volumn, nullptr);
 }
 SoundManager* SoundManager::mInstancePtr = new SoundManager();

@@ -93,7 +93,7 @@ bool GameScene::init()
 	playerdie = false;
 
 	//sound
-	SoundManager::getInstance()->PlayMusic(softbackground_sound);
+	SoundManager::getInstance()->PlayMusic(softbackground_sound,true,1.0f);
 	//sound = new SoundManager();
 	//sound->getsoftbackground();
 	return true;
