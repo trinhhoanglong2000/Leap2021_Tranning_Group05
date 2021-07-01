@@ -28,6 +28,7 @@
 #include "cocos2d.h"
 #include "ui\CocosGUI.h"
 #include"Actor.h"
+#include "SoundManager.h"
 
 class Player : public Actor
 {
@@ -47,6 +48,7 @@ public:
 	bool checkMove;
 	cocos2d::DrawNode *background;
 private:
+
 	int thickness = 400;
 	int width = 1000;
 	int height = 1200;
@@ -54,6 +56,7 @@ private:
 	
 	cocos2d::SEL_SCHEDULE Schedule_reverse;
 
+	SoundManager *sound;
 };
 
 #endif // __PLAYER_H__

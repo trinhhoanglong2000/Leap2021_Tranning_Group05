@@ -32,6 +32,7 @@
 #include "GameMap.h"
 #include "Canvas.h"
 #include "Battery.h"
+#include "SoundManager.h"
 
 class GameScene : public cocos2d::Scene
 {
@@ -61,6 +62,8 @@ private:
 	Battery *battery;
 	bool playerdie;
 	cocos2d::Vector<Minions*> AllMinions;
+
+	SoundManager *sound;
 };
 
 #endif // __GAMESCENE_H__

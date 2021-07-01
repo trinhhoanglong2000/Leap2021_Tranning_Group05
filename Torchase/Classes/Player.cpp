@@ -98,11 +98,10 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	animFrames.pushBack(SpriteFrame::create("prefap/Player/PlayerDie.png", Rect(450, 12, 90, 95)));
 	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
-
-
 	DeadAnimation = Animate::create(animation);
 	Animates.pushBack(DeadAnimation);
 
+	sound = new SoundManager();
 	mind = 1;
 	checkMove = true;
 }
@@ -153,6 +152,7 @@ void Player::MoveUp()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
+		sound->getPlayerMove();
 	}
 	else
 	{
@@ -176,6 +176,7 @@ void Player::MoveDow()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
+		sound->getPlayerMove();
 	}
 	else
 	{
@@ -199,6 +200,7 @@ void Player::MoveLeft()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
+		sound->getPlayerMove();
 	}
 	else
 	{
@@ -222,6 +224,7 @@ void Player::MoveRight()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
+		sound->getPlayerMove();
 	}
 	else
 	{
@@ -254,6 +257,7 @@ void Player::Playerdie()
 }
 void Player::setActionDie(float dt)
 {
+	sound->getPlayerHitTrap();
 	this->unscheduleAllCallbacks();
 	this->stopAllActions();
 	this->runAction(DeadAnimation);

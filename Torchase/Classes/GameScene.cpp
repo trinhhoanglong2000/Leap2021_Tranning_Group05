@@ -25,6 +25,7 @@
 #include "GameScene.h"
 #include "Definitions.h"
 #include "AudioEngine.h"
+#include "SoundManager.h"
 USING_NS_CC;
 Scene* GameScene::createScene()
 {
@@ -89,6 +90,9 @@ bool GameScene::init()
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 	playerdie = false;
 
+	//sound
+	sound = new SoundManager();
+	sound->getsoftbackground();
 	return true;
 }
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
@@ -207,15 +211,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				player->Playerdie();
 			}
 			if (b->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
+			{
+				sound->getthrillingbackground();
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == a)
 					{
-
+						if (AllMinions.at(i)->boolFind == false)
+							sound->getMinionRoar();
 						AllMinions.at(i)->Roar(1);
 						break;
 					}
 				}
+			}
 		}
 		else if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
 		{
@@ -225,15 +233,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				player->Playerdie();
 			}
 			if (a->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
+			{
+				sound->getthrillingbackground();
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == b)
 					{
-
+						if (AllMinions.at(i)->boolFind == false)
+							sound->getMinionRoar();
 						AllMinions.at(i)->Roar(1);
 						break;
 					}
 				}
+			}
 		}
 		
 	}

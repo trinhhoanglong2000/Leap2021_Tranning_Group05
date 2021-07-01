@@ -38,6 +38,7 @@ public:
 	void Roar(float dt);
 	void lightoff();
 	void lighton();
+	bool boolFind;
 private:
 	Player *player;
 	bool booltop;
@@ -49,7 +50,6 @@ private:
 	cocos2d::SEL_SCHEDULE Schedule_Roar;
 	cocos2d::SEL_SCHEDULE Schedule_findPlayer;
 	cocos2d::SEL_SCHEDULE Schedule_CheckfindPlayer;
-	bool boolFind;
 	int type= 0;// type of enemy
 };
 
