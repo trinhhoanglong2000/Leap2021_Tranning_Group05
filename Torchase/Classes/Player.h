@@ -56,7 +56,7 @@ private:
 	
 	cocos2d::SEL_SCHEDULE Schedule_reverse;
 
-	SoundManager *sound;
+	
 };
 
 #endif // __PLAYER_H__

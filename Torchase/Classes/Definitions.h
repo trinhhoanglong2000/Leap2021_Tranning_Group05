@@ -54,4 +54,16 @@
 //#define ENEMY_COLISION_BITMASK 6
 #define MAP_SCALE 5
 
+
+
+
+
+
+//========================MUSIC LOCATION==============
+#define thrillingbackground_sound "music/thrillingbackground.mp3"
+#define HitTrap_sound "music/playerHitTrap.mp3"
+#define playerMove_sound "music/playerMove.mp3"
+#define Roar_sound "music/roar.mp3"
+#define softbackground_sound "music/softbackground.mp3"
+#define surprisebackground_sound "music/surprisebackground.mp3"
 #endif // __DEFINITIONS_H__

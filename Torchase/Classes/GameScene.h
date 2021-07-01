@@ -63,7 +63,7 @@ private:
 	bool playerdie;
 	cocos2d::Vector<Minions*> AllMinions;
 
-	SoundManager *sound;
+
 };
 
 #endif // __GAMESCENE_H__

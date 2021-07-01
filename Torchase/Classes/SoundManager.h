@@ -27,26 +27,23 @@
 
 #include "cocos2d.h"
 #include "AudioEngine.h"
+#include <string>
 
 class SoundManager 
 {
+private:
+	static SoundManager* mInstancePtr;
 public:
 	SoundManager();
-	void getsoftbackground();
-	void getthrillingbackground();
-	void getMinionRoar();
-	void getPlayerMove();
-	void getPlayerHitTrap();
-	void getPlayerHitminion();
-protected:
-	cocos2d::Size visibleSize;
-	cocos2d::Vec2 origin;
-	cocos2d::Scene *scene;
-	int idsoftbg;
-	int idthrillingbg;
-	int roar;
-	bool thrilling;
+	void PlayMusic(std::string name);
+	void SoundManager::PlayMusic(std::string name, bool loop, float volumn);
+
+	static SoundManager* getInstance() {
+		return mInstancePtr;
+	}
 
 };
+
+
 
 #endif // __SOUNDMANAGER_H__

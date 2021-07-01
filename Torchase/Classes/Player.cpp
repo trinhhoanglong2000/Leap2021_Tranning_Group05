@@ -101,7 +101,7 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	DeadAnimation = Animate::create(animation);
 	Animates.pushBack(DeadAnimation);
 
-	sound = new SoundManager();
+	
 	mind = 1;
 	checkMove = true;
 }
@@ -152,7 +152,7 @@ void Player::MoveUp()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
-		sound->getPlayerMove();
+		SoundManager::getInstance()->PlayMusic(playerMove_sound);
 	}
 	else
 	{
@@ -176,7 +176,7 @@ void Player::MoveDow()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
-		sound->getPlayerMove();
+		SoundManager::getInstance()->PlayMusic(playerMove_sound);
 	}
 	else
 	{
@@ -200,7 +200,7 @@ void Player::MoveLeft()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
-		sound->getPlayerMove();
+		SoundManager::getInstance()->PlayMusic(playerMove_sound);
 	}
 	else
 	{
@@ -224,7 +224,7 @@ void Player::MoveRight()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
-		sound->getPlayerMove();
+		SoundManager::getInstance()->PlayMusic(playerMove_sound);
 	}
 	else
 	{
@@ -257,7 +257,7 @@ void Player::Playerdie()
 }
 void Player::setActionDie(float dt)
 {
-	sound->getPlayerHitTrap();
+	SoundManager::getInstance()->PlayMusic(HitTrap_sound);
 	this->unscheduleAllCallbacks();
 	this->stopAllActions();
 	this->runAction(DeadAnimation);

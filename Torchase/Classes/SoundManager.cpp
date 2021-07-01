@@ -21,45 +21,29 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
-#include "SoundManager.h"
-#include "Definitions.h"
-#include "AudioEngine.h"
-
+ #include "SoundManager.h"
+ #include "Definitions.h"
+ #include "AudioEngine.h"
 USING_NS_CC;
 
 SoundManager::SoundManager() {
+	//preload sound
+	AudioEngine::preload(thrillingbackground_sound);
+	AudioEngine::preload(HitTrap_sound);
+	AudioEngine::preload(playerMove_sound);
+	AudioEngine::preload(Roar_sound);
+	AudioEngine::preload(softbackground_sound);
+	AudioEngine::preload(surprisebackground_sound);
 
-	visibleSize = Director::getInstance()->getVisibleSize();
-	origin = Director::getInstance()->getVisibleOrigin();
-	thrilling = false;
+
+
+
 }
-void SoundManager::getsoftbackground()
-{
-	idsoftbg = AudioEngine::play2d("music/softbackground.mp3", true, 1.0f, nullptr);
+
+void SoundManager::PlayMusic(std::string name) {
+	AudioEngine::play2d("music/softbackground.mp3", true, 1.0f, nullptr);
 }
-void SoundManager::getthrillingbackground()
-{
-	if (thrilling == false)
-	{
-		thrilling = true;
-		//AudioEngine::resume(idthrillingbg);
-		idthrillingbg = AudioEngine::play2d("music/thrillingbackground.mp3", true, 1.0f, nullptr);
-	}
+void SoundManager::PlayMusic(std::string name,bool loop,float volumn) {
+	AudioEngine::play2d("music/softbackground.mp3", loop, volumn, nullptr);
 }
-void SoundManager::getMinionRoar()
-{
-	roar = AudioEngine::play2d("music/roar.mp3", false, 1.0f, nullptr);
-}
-void SoundManager::getPlayerMove()
-{
-	int i = AudioEngine::play2d("music/playerMove.mp3", false, 0.5f, nullptr);
-}
-void SoundManager::getPlayerHitTrap()
-{
-	int i = AudioEngine::play2d("music/playerHitTrap.mp3", false, 1.0f, nullptr);
-}
-void SoundManager::getPlayerHitminion()
-{
-	int i = AudioEngine::play2d("music/playerHitTrap.mp3", false, 1.0f, nullptr);
-}
+SoundManager* SoundManager::mInstancePtr = new SoundManager();
