@@ -42,17 +42,19 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 	EnemyBody->setDynamic(false);
 	this->setPhysicsBody(EnemyBody);
 	boolFind = false;
+	std::string minionname = "prefap/Minions/spider.jpg";
 	//animation
 	if (type == 0) {
 
 		//down
+		
 		Vector<SpriteFrame*>  animFrames;
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(200, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 0, 100, 100)));
 
 		
 		Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
@@ -62,12 +64,12 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 		animFrames.clear();
 
 		//up
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(200, 300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 300, 100, 100)));
 
 		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -76,12 +78,12 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 		animFrames.clear();
 
 		//left
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(200, 100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 100, 100, 100)));
 
 		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -90,12 +92,12 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 		animFrames.clear();
 
 		//right 
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(0, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(100, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/spider.jpg", Rect(200, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 200, 100, 100)));
 
 		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -105,12 +107,13 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 		goUp = true;
 	}
 	else if (type == 1) {
+		minionname = "prefap/Minions/Shadow.png";
 	//down
 		Vector<SpriteFrame*>  animFrames;
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(0, 0, 100,	150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(100, 0, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(200, 0, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(300, 0, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100,	150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 0, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 0, 100, 150)));
 	
 		//default
 		this->setSpriteFrame(animFrames.at(0));
@@ -121,10 +124,10 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 		animFrames.clear();
 
 		//up
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(0,   450, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(100, 450, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(200, 450, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(300, 450, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0,   450, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 450, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 450, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 450, 100, 150)));
 
 		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -133,10 +136,10 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 		animFrames.clear();
 
 		//left
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(0,   150, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(100, 150, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(200, 150, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(300, 150, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0,   150, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 150, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 150, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 150, 100, 150)));
 
 		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -145,10 +148,10 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 		animFrames.clear();
 
 		//right 
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(0,   300, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(100, 300, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(200, 300, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create("prefap/Minions/Shadow.png", Rect(300, 300, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0,   300, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 300, 100, 150)));
+		animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 300, 100, 150)));
 
 		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 

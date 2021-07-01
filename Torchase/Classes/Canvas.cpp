@@ -32,6 +32,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	player = playerScene;
+	endgame = false;
 	background_off = background_offScene;
 	auto ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
 	auto ButtonDow = ui::Button::create("prefap/Gui/Play-8.png");
@@ -78,6 +79,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	Schedule_ReduceEnegy = CC_SCHEDULE_SELECTOR(Canvas::reduceenergy);
 
 	this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
+	
 }
 void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
@@ -141,8 +143,11 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 void Canvas::reduceenergy(float dt)
 {
 	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
-	if (enegy->getPercent() <= 0)
+	if (enegy->getPercent() <= 0 && endgame == false && player->checkMove==true)
+	{
+		endgame = true;
 		player->Playerdie();
+	}
 }
 void Canvas::plusenergy(int power)
 {
