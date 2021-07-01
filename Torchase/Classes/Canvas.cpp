@@ -75,7 +75,9 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	enegy->setPercent(enegy->getMaxPercent());
 	enegy->setScale(1.5f);
 	this->addChild(enegy);
-	this->schedule(CC_SCHEDULE_SELECTOR(Canvas::reduceenergy), TIME_REDUCE_ENERGY);
+	Schedule_ReduceEnegy = CC_SCHEDULE_SELECTOR(Canvas::reduceenergy);
+
+	this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
 }
 void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
@@ -122,6 +124,7 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			{
 				AllMinions.at(i)->lighton();
 			}
+			this->resume();
 		}
 		else
 		{
@@ -131,6 +134,7 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			{
 				AllMinions.at(i)->lightoff();
 			}
+			this->pause();
 		}
 	}
 }
