@@ -141,6 +141,8 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 void Canvas::reduceenergy(float dt)
 {
 	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
+	if (enegy->getPercent() <= 0)
+		player->Playerdie();
 }
 void Canvas::plusenergy(int power)
 {

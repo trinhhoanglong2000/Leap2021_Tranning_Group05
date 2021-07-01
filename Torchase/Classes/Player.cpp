@@ -29,8 +29,7 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 {
-	//auto PlayerBody = PhysicsBody::createBox(Size(25,25)*MAP_SCALE);//this->getContentSize());
-	auto PlayerBody = PhysicsBody::createBox(this->getContentSize());//this->getContentSize());
+	auto PlayerBody = PhysicsBody::createBox(this->getContentSize());
 	PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setCategoryBitmask(PLAYER_CATEGORY_BITMASK);
 	PlayerBody->setContactTestBitmask(PLAYER_COLISION_BITMASK);
@@ -258,4 +257,5 @@ void Player::setActionDie(float dt)
 	this->unscheduleAllCallbacks();
 	this->stopAllActions();
 	this->runAction(DeadAnimation);
+	
 }

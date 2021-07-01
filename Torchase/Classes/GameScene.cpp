@@ -200,11 +200,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		//Enemy detect collision
 		if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
 		{
-			/*if (!playerdie && b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			if (!playerdie && b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 			{
 				playerdie = true;
+				this->stopAllActions();
 				player->Playerdie();
-			}*/
+			}
 			if (b->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
@@ -218,11 +219,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		else if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
 		{
-			/*if (!playerdie && a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			if (!playerdie && a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 			{
 				playerdie = true;
 				player->Playerdie();
-			}*/
+			}
 			if (a->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
 				for (int i = 0; i < AllMinions.size(); i++)
 				{

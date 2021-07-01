@@ -44,15 +44,6 @@ public:
 private:
 
 	void menuCloseCallback(cocos2d::Ref* pSender);
-
-	void addSplashScene(float dt);
-
-	Player *player;
-
-	void setViewPointCenter(Point position);
-	void onTouchEnded(Touch *touch, Event *unused_event);
-	void setPlayerPosition(Point position);
-    //CREATE_FUNC(MainMenuScene);
 };
 
 #endif // __MAINMENU_SCENE_H__
