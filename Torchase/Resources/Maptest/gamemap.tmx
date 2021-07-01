@@ -37,9 +37,9 @@
   <object id="12" name="Battery_1" x="337.333" y="113.333"/>
  </objectgroup>
  <objectgroup id="9" name="minions">
-  <object id="7" name="minion_3" x="111" y="143"/>
-  <object id="9" name="minion_2" x="174.667" y="334.667"/>
-  <object id="10" name="minion_1" x="400" y="206.667"/>
+  <object id="7" name="minion_3" type="0" x="111" y="143"/>
+  <object id="9" name="minion_2" type="1" x="174.667" y="334.667"/>
+  <object id="10" name="minion_1" type="0" x="400" y="206.667"/>
  </objectgroup>
  <objectgroup id="7" name="Player">
   <object id="4" name="SpawnPoint" x="432.667" y="367.333"/>
