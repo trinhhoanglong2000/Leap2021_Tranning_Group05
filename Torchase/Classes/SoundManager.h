@@ -28,18 +28,23 @@
 #include "cocos2d.h"
 #include "AudioEngine.h"
 #include <string>
-
-class SoundManager 
+#include <unordered_map>
+class SoundManager
 {
 private:
 	static SoundManager* mInstancePtr;
+	std::unordered_map<std::string, int> ID;
 public:
 	SoundManager();
+
 	void PlayMusic(std::string name);
 	void SoundManager::PlayMusic(std::string name, bool loop, float volumn);
 
 	static SoundManager* getInstance() {
 		return mInstancePtr;
+	}
+	static getMap() {
+		return ID;
 	}
 
 };
