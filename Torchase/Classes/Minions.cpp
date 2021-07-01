@@ -27,7 +27,7 @@
 
 USING_NS_CC;
 
-Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/Minions/spider.jpg", Rect(100, 0, 100, 100))
+Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
 
 	this->type = type;
@@ -42,7 +42,7 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 	EnemyBody->setDynamic(false);
 	this->setPhysicsBody(EnemyBody);
 	boolFind = false;
-	std::string minionname = "prefap/Minions/spider.jpg";
+	std::string minionname = "prefap/Minions/spider.png";
 	//animation
 	if (type == 0) {
 
