@@ -49,6 +49,7 @@ private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	cocos2d::ui::Slider *enegy;
+	cocos2d::SEL_SCHEDULE Schedule_ReduceEnegy;
 	
 };
 
