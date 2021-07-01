@@ -71,7 +71,6 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 			int y = objMinion.asValueMap()["y"].asInt();
 			int type = objMinion.asValueMap()["type"].asInt();
 
-
 			auto minion = new Minions(playerScene, _tileMap->getTileSize().width*MAP_SCALE,type);
 
 			minion->setPosition(Vec2(x, y)*MAP_SCALE);
