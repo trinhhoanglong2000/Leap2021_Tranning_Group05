@@ -46,4 +46,10 @@ void SoundManager::PlayMusic(std::string name,bool loop,float volumn) {
 	auto id = AudioEngine::play2d(name, loop, volumn, nullptr);
 	ID[name] = id;
 }
+int SoundManager::getID(std::string name) {
+	if (ID.find(name) == ID.end())
+		return -1;
+
+	return ID[name];
+}
 SoundManager* SoundManager::mInstancePtr = new SoundManager();

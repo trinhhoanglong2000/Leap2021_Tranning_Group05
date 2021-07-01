@@ -96,6 +96,7 @@ bool GameScene::init()
 	SoundManager::getInstance()->PlayMusic(softbackground_sound,true,1.0f);
 	//sound = new SoundManager();
 	//sound->getsoftbackground();
+	
 	return true;
 }
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
