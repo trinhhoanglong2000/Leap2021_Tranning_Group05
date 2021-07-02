@@ -279,6 +279,7 @@ void GameScene::shakeScreen(float dt)
 	{
 		map->setPosition(Point(map->getPositionX(), map->getPositionY()));
 		this->unschedule(Schedule_shake);
+		SET_SHAKE_DURATION = 10;
 	}
 }
 float GameScene::rangeRandom(float min, float max)
