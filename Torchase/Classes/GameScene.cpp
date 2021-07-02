@@ -92,11 +92,15 @@ bool GameScene::init()
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 	playerdie = false;
 
-	//sound
 	SoundManager::getInstance()->PlayMusic(softbackground_sound,true,1.0f);
-	//sound = new SoundManager();
-	//sound->getsoftbackground();
 	
+	effect = Sprite::create();
+	effect->setPosition(player->getPosition());
+	//effect->setScale(1.5f);
+	this->addChild(effect, 200);
+
+	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::Lighting), 5.0f);
+
 	return true;
 }
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
@@ -274,7 +278,6 @@ void GameScene::shakeScreen(float dt)
 	map->setPosition(Point(map->getPositionX() + randx, map->getPositionY() + randy));
 
 	SET_SHAKE_DURATION -= 1;
-	CCLOG("sdvd             %d", SET_SHAKE_DURATION);
 	if (SET_SHAKE_DURATION <= 0)
 	{
 		map->setPosition(Point(map->getPositionX(), map->getPositionY()));
@@ -286,4 +289,30 @@ float GameScene::rangeRandom(float min, float max)
 {
 	float rnd = ((float)rand() / (float)RAND_MAX);
 	return rnd * (max - min) + min;
+}
+void GameScene::Lighting(float dt)
+{
+	effect->setVisible(true);
+	Schedule_lighting = CC_SCHEDULE_SELECTOR(GameScene::Lightingstart);
+	this->schedule(Schedule_lighting, 0.5f);
+	Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
+	SET_SHAKE_DURATION = 20;
+	this->schedule(Schedule_shake, 0.1f);
+}
+void GameScene::Lightingstart(float dt)
+{
+	if (SET_LIGHTING_DURATION <=0)
+	{
+		effect->setVisible(false);
+		SET_LIGHTING_DURATION = 3;
+		this->unschedule(Schedule_lighting);
+	}
+
+	SET_LIGHTING_DURATION -= 1;
+	int num = cocos2d::RandomHelper::random_int(1,8);
+	int numpos = cocos2d::RandomHelper::random_int((int)(player->getPositionX()-visibleSize.width/4),(int) (player->getPositionX() + visibleSize.width / 4));
+	effect->setTexture("effect/lingning.png");
+	effect->setTextureRect(Rect(200 * num, 0, 200, 600));
+	//effect->initWithFile("effect/lingning.png", Rect(200*num, 0, 200, 600));
+	effect->setPosition(Vec2(numpos,player->getPositionY()));
 }

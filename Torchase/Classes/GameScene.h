@@ -42,6 +42,8 @@ public:
     CREATE_FUNC(GameScene);
 	void shakeScreen(float dt);
 	float rangeRandom(float min, float max);
+	void Lighting(float dt);
+	void Lightingstart(float dt);
 	//GameScene *Scene_layer;
 private:
 	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
@@ -66,7 +68,11 @@ private:
 	cocos2d::Vector<Minions*> AllMinions;
 
 	int SET_SHAKE_DURATION = 10;
+	int SET_LIGHTING_DURATION = 3;
 
+	cocos2d::Sprite *effect;
+
+	cocos2d::SEL_SCHEDULE Schedule_lighting;
 	cocos2d::SEL_SCHEDULE Schedule_shake;
 };
 
