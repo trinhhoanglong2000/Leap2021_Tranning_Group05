@@ -47,6 +47,7 @@ public:
 	void Playerdie();
 	bool checkMove;
 	cocos2d::DrawNode *background;
+	bool die;
 private:
 
 	int thickness = 400;

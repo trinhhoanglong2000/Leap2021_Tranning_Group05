@@ -32,9 +32,9 @@ USING_NS_CC;
 Scene* GameScene::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -311,8 +311,10 @@ void GameScene::Lightingstart(float dt)
 	SET_LIGHTING_DURATION -= 1;
 	int num = cocos2d::RandomHelper::random_int(1,8);
 	int numpos = cocos2d::RandomHelper::random_int((int)(player->getPositionX()-visibleSize.width/4),(int) (player->getPositionX() + visibleSize.width / 4));
+	int numposY = cocos2d::RandomHelper::random_int((int)(player->getPositionY() - visibleSize.height / 4), (int)(player->getPositionY() + visibleSize.height / 4));
 	effect->setTexture("effect/lingning.png");
 	effect->setTextureRect(Rect(200 * num, 0, 200, 600));
 	//effect->initWithFile("effect/lingning.png", Rect(200*num, 0, 200, 600));
-	effect->setPosition(Vec2(numpos,player->getPositionY()));
+	//effect->setPosition(Vec2(numpos, numposY));
+	effect->setPosition(Vec2(numpos, player->getPositionY()));
 }

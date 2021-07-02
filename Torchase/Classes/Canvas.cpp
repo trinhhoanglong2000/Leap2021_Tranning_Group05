@@ -32,7 +32,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	player = playerScene;
-	endgame = false;
+	endlight = true;
 	background_off = background_offScene;
 	auto ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
 	auto ButtonDow = ui::Button::create("prefap/Gui/Play-8.png");
@@ -116,7 +116,7 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 }
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
-	if (Type == ui::Widget::TouchEventType::BEGAN)
+	if (Type == ui::Widget::TouchEventType::BEGAN && endlight ==true)
 	{
 		if (background_off->isVisible())
 		{
@@ -143,10 +143,22 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 void Canvas::reduceenergy(float dt)
 {
 	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
-	if (enegy->getPercent() <= 0 && endgame == false && player->checkMove==true)
+	if (player->die == true)
 	{
-		endgame = true;
-		player->Playerdie();
+		this->pause();
+		return;
+	}
+	if (enegy->getPercent() <= 0)
+	{
+		endlight = false;
+
+		player->background->getPhysicsBody()->setEnabled(false);
+		background_off->setVisible(true);
+		for (int i = 0; i < AllMinions.size(); i++)
+		{
+			AllMinions.at(i)->lightoff();
+		}
+		this->pause();
 	}
 }
 void Canvas::plusenergy(int power)
@@ -155,5 +167,5 @@ void Canvas::plusenergy(int power)
 		enegy->setPercent(enegy->getPercent() + power);
 	else
 		enegy->setPercent(enegy->getMaxPercent());
-
+	endlight = true;
 }

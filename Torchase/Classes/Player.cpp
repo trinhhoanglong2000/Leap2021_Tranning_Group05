@@ -29,7 +29,7 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 {
-	auto PlayerBody = PhysicsBody::createBox(this->getContentSize());
+	auto PlayerBody = PhysicsBody::createBox(Size(this->getContentSize().width/2,this->getContentSize().height));
 	PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setCategoryBitmask(PLAYER_CATEGORY_BITMASK);
 	PlayerBody->setContactTestBitmask(PLAYER_COLISION_BITMASK);
@@ -136,7 +136,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 	background->setPhysicsBody(backgroundBody);
 
 	this->addChild(background);
-
+	die = false;
 }
 void Player::MoveUp()
 {
@@ -253,6 +253,7 @@ void Player::Playerdie()
 {
 	this->unscheduleAllCallbacks();
 	checkMove = false;
+	die = true;
 	this->schedule(CC_SCHEDULE_SELECTOR(Player::setActionDie), ACTOR_SPEED / 2);
 }
 void Player::setActionDie(float dt)
