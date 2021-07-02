@@ -40,6 +40,8 @@ public:
     static cocos2d::Scene* createScene();
     virtual bool init();
     CREATE_FUNC(GameScene);
+	void shakeScreen(float dt);
+	float rangeRandom(float min, float max);
 	//GameScene *Scene_layer;
 private:
 	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
@@ -63,7 +65,9 @@ private:
 	bool playerdie;
 	cocos2d::Vector<Minions*> AllMinions;
 
+	int SET_SHAKE_DURATION = 10;
 
+	cocos2d::SEL_SCHEDULE Schedule_shake;
 };
 
 #endif // __GAMESCENE_H__

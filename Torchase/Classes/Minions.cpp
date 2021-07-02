@@ -41,9 +41,6 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 	boolFind = false;
 	std::string minionname = "prefap/Minions/spider.png";
 	//animation
-	
-	
-
 }	
 Minions::Minions()
 {

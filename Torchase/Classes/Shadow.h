@@ -34,8 +34,6 @@ public:
 	Shadow(Player* playerScene, float mapspeed);
 private:
 	std::string minionname = "prefap/Minions/Shadow.png";
-	
-
 };
 
 #endif // __Actor_H__

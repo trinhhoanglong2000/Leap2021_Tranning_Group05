@@ -56,11 +56,11 @@ endif()
 
 # add cross-platforms source files and header files 
 #list(APPEND GAME_SOURCE
-    # Classes/AppDelegate.cpp
-    # Classes/HelloWorldScene.cpp
-    # )
+    #Classes/AppDelegate.cpp
+     #Classes/HelloWorldScene.cpp
+     #)
 #list(APPEND GAME_HEADER
-     #Classes/AppDelegate.h
+    # Classes/AppDelegate.h
      #Classes/HelloWorldScene.h
      #)
 file(GLOB GAME_SOURCE

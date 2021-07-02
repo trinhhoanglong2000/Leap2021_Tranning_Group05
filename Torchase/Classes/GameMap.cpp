@@ -43,6 +43,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 	
 
 	_tileMap->setScale(MAP_SCALE);
+	_tileMap->setTag(100);
 	scene->addChild(_tileMap);
 
 	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Player");

@@ -223,7 +223,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					if (AllMinions.at(i)->getPhysicsBody() == a)
 					{
 						if (AllMinions.at(i)->boolFind == false)
+						{
+							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
+							this->schedule(Schedule_shake, 0.1f);
 							SoundManager::getInstance()->PlayMusic(Roar_sound);
+						}
 
 						AllMinions.at(i)->Roar(1);
 						break;
@@ -246,7 +250,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					if (AllMinions.at(i)->getPhysicsBody() == b)
 					{
 						if (AllMinions.at(i)->boolFind == false)
+						{
+							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
+							this->schedule(Schedule_shake, 0.1f);
 							SoundManager::getInstance()->PlayMusic(Roar_sound);
+						}
 						AllMinions.at(i)->Roar(1);
 						break;
 					}
@@ -256,4 +264,25 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		
 	}
 	return true;
+}
+void GameScene::shakeScreen(float dt)
+{
+	float randx = rangeRandom(-5.0f, 5.0);
+	float randy = rangeRandom(-5.0f, 5.0);
+	Node *map = this->getChildByTag(100);
+	map->setPosition(Point(randx, randy));
+	map->setPosition(Point(map->getPositionX() + randx, map->getPositionY() + randy));
+
+	SET_SHAKE_DURATION -= 1;
+	CCLOG("sdvd             %d", SET_SHAKE_DURATION);
+	if (SET_SHAKE_DURATION <= 0)
+	{
+		map->setPosition(Point(map->getPositionX(), map->getPositionY()));
+		this->unschedule(Schedule_shake);
+	}
+}
+float GameScene::rangeRandom(float min, float max)
+{
+	float rnd = ((float)rand() / (float)RAND_MAX);
+	return rnd * (max - min) + min;
 }
