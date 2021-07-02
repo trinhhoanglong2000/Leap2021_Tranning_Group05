@@ -27,11 +27,8 @@
 
 USING_NS_CC;
 
-Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
+Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
-
-	this->type = type;
-
 
 	player = playerScene;
 	this->speed = mapspeed;
@@ -44,125 +41,13 @@ Minions::Minions(Player* playerScene, float mapspeed,int type):  Actor("prefap/M
 	boolFind = false;
 	std::string minionname = "prefap/Minions/spider.png";
 	//animation
-	if (type == 0) {
-
-		//down
-		
-		Vector<SpriteFrame*>  animFrames;
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 0, 100, 100)));
-
-		
-		Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-		Animate* animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
-
-		//up
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 300, 100, 100)));
-
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
-
-		//left
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 100, 100, 100)));
-
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
-
-		//right 
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 200, 100, 100)));
-
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
-		goUp = true;
-	}
-	else if (type == 1) {
-		minionname = "prefap/Minions/Shadow.png";
-	//down
-		Vector<SpriteFrame*>  animFrames;
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100,	150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 0, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 0, 100, 150)));
 	
-		//default
-		this->setSpriteFrame(animFrames.at(0));
-		Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-		Animate* animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
-
-		//up
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0,   450, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 450, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 450, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 450, 100, 150)));
-
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
-
-		//left
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0,   150, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 150, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 150, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 150, 100, 150)));
-
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
-
-		//right 
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0,   300, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 300, 100, 150)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 300, 100, 150)));
-
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
-		goUp = true;
-		
-	}
+	
 
 }	
+Minions::Minions()
+{
+}
 void Minions::findPlayer(float dt)
 {
 	if (goUp == false)

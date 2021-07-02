@@ -1,4 +1,4 @@
-	/****************************************************************************
+/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -22,36 +22,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MINIONS_H__
-#define __MINIONS_H__
+#ifndef __Spider_H__
+#define __Spider_H__
 
 #include "cocos2d.h"
-#include"Actor.h"
-#include "Player.h"
-
-class Minions : public Actor
+#include"Minions.h"
+class Spider : public Minions
 {
 public:
-	Minions();
-	Minions(Player* playerScene, float mapspeed);
-	void findPlayer(float dt);
-	void removeAction();
-	void Roar(float dt);
-	void lightoff();
-	void lighton();
-	bool boolFind;
-protected:
-	Player *player;
-	bool booltop;
-	bool boolright;
-	bool boolleft;
-	bool booldow;
-	bool *booltro;
-	bool goUp; 
-	cocos2d::SEL_SCHEDULE Schedule_Roar;
-	cocos2d::SEL_SCHEDULE Schedule_findPlayer;
-	cocos2d::SEL_SCHEDULE Schedule_CheckfindPlayer;
-	int type= 0;// type of enemy
+
+	Spider(Player* playerScene, float mapspeed);
+private:
+	std::string minionname = "prefap/Minions/spider.png";
+
 };
 
-#endif // __MINIONS_H__
+#endif // __Actor_H__

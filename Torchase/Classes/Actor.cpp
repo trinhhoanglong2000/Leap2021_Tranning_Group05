@@ -26,7 +26,8 @@
 #include "Definitions.h"
 
 USING_NS_CC;
-
+Actor::Actor() {
+}
 Actor::Actor(std::string name) {
 
 	this->initWithFile(name);
