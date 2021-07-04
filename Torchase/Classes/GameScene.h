@@ -44,6 +44,7 @@ public:
 	float rangeRandom(float min, float max);
 	void Lighting(float dt);
 	void Lightingstart(float dt);
+	void Lightingbg(float dt);
 	//GameScene *Scene_layer;
 private:
 	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
@@ -65,10 +66,12 @@ private:
 	Canvas *canvas;
 	Battery *battery;
 	bool playerdie;
+	bool light;
 	cocos2d::Vector<Minions*> AllMinions;
 
 	int SET_SHAKE_DURATION = 10;
 	int SET_LIGHTING_DURATION = 3;
+	int SET_LIGHTINGBG_DURATION = 5;
 
 	cocos2d::Sprite *effect;
 

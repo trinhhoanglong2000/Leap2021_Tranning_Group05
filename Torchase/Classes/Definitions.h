@@ -64,6 +64,9 @@
 #define HitTrap_sound "music/playerHitTrap.mp3"
 #define playerMove_sound "music/playerMove.mp3"
 #define Roar_sound "music/roar.mp3"
-#define softbackground_sound "music/softbackground.mp3"
+//#define softbackground_sound "music/softbackground.mp3"
+#define softbackground_sound "music/background.mp3"
+//#define softbackground_sound "music/BackGround1.mp3"
 #define surprisebackground_sound "music/surprisebackground.mp3"
+#define LIGHTING "music/lighting.mp3"
 #endif // __DEFINITIONS_H__

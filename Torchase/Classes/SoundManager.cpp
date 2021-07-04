@@ -34,6 +34,7 @@ SoundManager::SoundManager() {
 	AudioEngine::preload(Roar_sound);
 	AudioEngine::preload(softbackground_sound);
 	AudioEngine::preload(surprisebackground_sound);
+	AudioEngine::preload(LIGHTING);
 
 
 }

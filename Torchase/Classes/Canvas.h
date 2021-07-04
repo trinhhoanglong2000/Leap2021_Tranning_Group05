@@ -42,14 +42,16 @@ public:
 	void reduceenergy(float dt);
 	void plusenergy(int power);
 	cocos2d::Vector<Minions*> AllMinions;
+	cocos2d::DrawNode* background_off;
+	bool endlight;
+	cocos2d::ui::Slider *enegy;
 private:
 	Player *player;
-	cocos2d::DrawNode* background_off;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-	cocos2d::ui::Slider *enegy;
+	
 	cocos2d::SEL_SCHEDULE Schedule_ReduceEnegy;
-	bool endlight;
+	
 	
 };
 

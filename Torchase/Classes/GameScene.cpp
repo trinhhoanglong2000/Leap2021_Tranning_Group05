@@ -220,8 +220,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			}
 			if (b->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
 			{
-				SoundManager::getInstance()->PlayMusic(thrillingbackground_sound);
-				//sound->getthrillingbackground();
+				//SoundManager::getInstance()->PlayMusic(thrillingbackground_sound, false, 0.2f);
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == a)
@@ -230,7 +229,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 						{
 							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 							this->schedule(Schedule_shake, 0.1f);
-							SoundManager::getInstance()->PlayMusic(Roar_sound);
+							SoundManager::getInstance()->PlayMusic(Roar_sound, false, 0.5f);
 						}
 
 						AllMinions.at(i)->Roar(1);
@@ -248,7 +247,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			}
 			if (a->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
 			{
-				SoundManager::getInstance()->PlayMusic(thrillingbackground_sound);
+				//SoundManager::getInstance()->PlayMusic(thrillingbackground_sound,false,0.2f);
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == b)
@@ -257,7 +256,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 						{
 							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 							this->schedule(Schedule_shake, 0.1f);
-							SoundManager::getInstance()->PlayMusic(Roar_sound);
+							SoundManager::getInstance()->PlayMusic(Roar_sound,false,0.5f);
 						}
 						AllMinions.at(i)->Roar(1);
 						break;
@@ -292,22 +291,37 @@ float GameScene::rangeRandom(float min, float max)
 }
 void GameScene::Lighting(float dt)
 {
-	effect->setVisible(true);
-	Schedule_lighting = CC_SCHEDULE_SELECTOR(GameScene::Lightingstart);
-	this->schedule(Schedule_lighting, 0.5f);
-	Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
-	SET_SHAKE_DURATION = 20;
-	this->schedule(Schedule_shake, 0.1f);
+	int num = cocos2d::RandomHelper::random_int(1, 20);
+	if (num < 18)
+		return;
+	else
+	{
+		canvas->endlight = false;
+		SoundManager::getInstance()->PlayMusic(LIGHTING);
+		if (player->background->isVisible() == true)
+			light = false;
+		else
+			light = true;
+		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::Lightingbg), 0.25);
+		
+		effect->setVisible(true);
+		Schedule_lighting = CC_SCHEDULE_SELECTOR(GameScene::Lightingstart);
+		this->schedule(Schedule_lighting, 0.5f);
+		Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
+		SET_SHAKE_DURATION = 20;
+		this->schedule(Schedule_shake, 0.1f);
+		
+	}
 }
 void GameScene::Lightingstart(float dt)
 {
+
 	if (SET_LIGHTING_DURATION <=0)
 	{
 		effect->setVisible(false);
 		SET_LIGHTING_DURATION = 3;
 		this->unschedule(Schedule_lighting);
 	}
-
 	SET_LIGHTING_DURATION -= 1;
 	int num = cocos2d::RandomHelper::random_int(1,8);
 	int numpos = cocos2d::RandomHelper::random_int((int)(player->getPositionX()-visibleSize.width/4),(int) (player->getPositionX() + visibleSize.width / 4));
@@ -317,4 +331,36 @@ void GameScene::Lightingstart(float dt)
 	//effect->initWithFile("effect/lingning.png", Rect(200*num, 0, 200, 600));
 	//effect->setPosition(Vec2(numpos, numposY));
 	effect->setPosition(Vec2(numpos, player->getPositionY()));
+}
+void GameScene::Lightingbg(float dt)
+{
+	if (SET_LIGHTINGBG_DURATION <= 0)
+	{
+		SET_LIGHTINGBG_DURATION = 5;
+		if (light == false)
+		{
+			player->background->setVisible(true);
+			canvas->background_off->setVisible(false);
+		}
+		else
+		{
+			player->background->setVisible(false);
+			canvas->background_off->setVisible(true);
+		}
+		if(canvas->enegy->getPercent()>0)
+		canvas->endlight = true;
+		this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::Lightingbg));
+		return;
+	}
+	SET_LIGHTINGBG_DURATION -= 1;
+	if (player->background->isVisible() == true || canvas->background_off->isVisible()==true)
+	{
+		player->background->setVisible(false);
+		canvas->background_off->setVisible(false);
+	}
+	else
+	{
+		player->background->setVisible(true);
+		canvas->background_off->setVisible(true);
+	}
 }

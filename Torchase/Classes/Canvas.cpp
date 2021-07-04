@@ -116,11 +116,13 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 }
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
+	
 	if (Type == ui::Widget::TouchEventType::BEGAN && endlight ==true)
 	{
 		if (background_off->isVisible())
 		{
 			player->background->getPhysicsBody()->setEnabled(true);
+			player->background->setVisible(true);
 			background_off->setVisible(false);
 			for (int i = 0; i < AllMinions.size(); i++)
 			{
@@ -131,6 +133,7 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 		else
 		{
 			player->background->getPhysicsBody()->setEnabled(false);
+			player->background->setVisible(false);
 			background_off->setVisible(true);
 			for (int i = 0; i < AllMinions.size(); i++)
 			{
@@ -150,9 +153,10 @@ void Canvas::reduceenergy(float dt)
 	}
 	if (enegy->getPercent() <= 0)
 	{
+		
 		endlight = false;
-
 		player->background->getPhysicsBody()->setEnabled(false);
+		player->background->setVisible(false);
 		background_off->setVisible(true);
 		for (int i = 0; i < AllMinions.size(); i++)
 		{
