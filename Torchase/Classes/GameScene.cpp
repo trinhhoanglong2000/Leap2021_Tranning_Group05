@@ -31,6 +31,7 @@ USING_NS_CC;
 
 Scene* GameScene::createScene()
 {
+	
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
@@ -54,7 +55,8 @@ bool GameScene::init()
     }
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
-
+	level = this->getTag();
+	log("%d", level);
 	player = new Player();	
 	this->addChild(player,30);
 

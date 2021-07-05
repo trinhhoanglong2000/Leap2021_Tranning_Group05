@@ -38,6 +38,7 @@ class GameScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
+	
     virtual bool init();
     CREATE_FUNC(GameScene);
 	void shakeScreen(float dt);
@@ -47,6 +48,7 @@ public:
 	void Lightingbg(float dt);
 	//GameScene *Scene_layer;
 private:
+	int level = 0;
 	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	cocos2d::Size visibleSize;
