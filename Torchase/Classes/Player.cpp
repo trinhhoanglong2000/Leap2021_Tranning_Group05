@@ -258,7 +258,7 @@ void Player::Playerdie()
 }
 void Player::setActionDie(float dt)
 {
-	SoundManager::getInstance()->PlayMusic(HitTrap_sound);
+	SoundManager::getInstance()->PlayMusic(HitTrap_sound,false,0.5f);
 	this->unscheduleAllCallbacks();
 	this->stopAllActions();
 	this->runAction(DeadAnimation);

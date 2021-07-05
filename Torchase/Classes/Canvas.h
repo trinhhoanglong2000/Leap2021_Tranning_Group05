@@ -34,6 +34,11 @@ class Canvas : public cocos2d::ui::Layout
 {
 public:
 	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene);
+
+	bool TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event);
+	bool TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event);
+	bool TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event);
+
 	void MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
@@ -41,6 +46,7 @@ public:
 	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void reduceenergy(float dt);
 	void plusenergy(int power);
+	void AutoMove(float dt);
 	cocos2d::Vector<Minions*> AllMinions;
 	cocos2d::DrawNode* background_off;
 	bool endlight;
@@ -51,7 +57,8 @@ private:
 	cocos2d::Vec2 origin;
 	
 	cocos2d::SEL_SCHEDULE Schedule_ReduceEnegy;
-	
+	int int_move;
+	bool BoolTouch;
 	
 };
 
