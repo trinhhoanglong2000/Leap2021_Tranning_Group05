@@ -101,6 +101,7 @@ bool MainMenuScene::init()
 
 	menu->setAnchorPoint(Vec2(0, 0));
 
+	
 	this->addChild(menu);
 
 
@@ -168,7 +169,71 @@ bool MainMenuScene::init()
 	menuLevel->setVisible(false);
 	this->addChild(menuLevel);
 	
-	//==============================
+	//==============================Option
+	menuArr.clear();
+	//auto layout = ui::Layout::create();
+	//layout->setPosition(400, 400);
+	//layout->setBackGroundColor()
+	layout = DrawNode::create();
+
+	int width = (menu->getPositionX() + myLabel->getBoundingBox().size.width*1.5);
+	int height = menu->getPositionY()*3/4;
+	Vec2 vertices[] =
+	{
+		Vec2(0,height),
+		Vec2(width,height),
+		Vec2(width,0),
+		Vec2(0,0)
+	};
+
+	layout->setContentSize(Size(width, height));
+	layout->drawPolygon(vertices, 4, Color4F(Color3B::GRAY, 0.1f), 2, Color4F(Color3B::GRAY, 0.5));
+	layout->setAnchorPoint(Vec2(0, 0));
+	layout->setPosition(menu->getPositionX()+ myLabel->getBoundingBox().size.width/2,menu->getPositionY()/2);
+	
+	this->addChild(layout);
+	auto start = MenuItemImage::create("On.png", "On.png");
+	auto off = MenuItemImage::create("OFF.png", "OFF.png");
+	auto start1 = MenuItemImage::create("On.png", "On.png");
+	auto off1 = MenuItemImage::create("OFF.png", "OFF.png");
+	
+	auto title1 = MenuItemFont::create("Swipe Gesture");
+	auto title2 = MenuItemFont::create("Controller");
+	start->setColor(Color3B::WHITE);
+	toggle1 = MenuItemToggle::createWithCallback(
+		CC_CALLBACK_1(MainMenuScene::OnOFF, this),
+		start, off, NULL);
+	toggle1->setTag(1);
+	toggle1->setScale(0.5f);
+	toggle2 = MenuItemToggle::createWithCallback(
+		CC_CALLBACK_1(MainMenuScene::OnOFF, this),
+		off1, start1, NULL);
+	toggle2->setTag(2);
+	toggle2->setScale(0.5f);
+
+
+	
+	
+	menuArr.pushBack(title1);
+	menuArr.pushBack(title2);
+
+	menuArr.pushBack(toggle1);
+	
+
+	menuArr.pushBack(toggle2);
+	
+	optionMenu = Menu::createWithArray(menuArr);
+	optionMenu->setContentSize(layout->getContentSize());
+	log("%f", layout->getContentSize().width);
+	layout->addChild(optionMenu);
+	optionMenu->setPosition(layout->getPositionX(), layout->getPositionY());
+	optionMenu->alignItemsInColumns(2,2);
+	toggle1->setPositionX(title1->getPositionX());
+	
+	toggle2->setPositionX(title2->getPositionX());
+
+
+	layout->setVisible(false);
 	return true;
 
 }
@@ -184,20 +249,24 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 
 
 }
+
 void MainMenuScene::PlayMenu(Ref* pSender) {
 	menu->setVisible(false);
 	menuPlay->setVisible(true);
 	menuLevel->setVisible(false);
+	layout->setVisible(false);
 }
 void  MainMenuScene::LevelMenu(cocos2d::Ref* pSender) {
 	menu->setVisible(false);
 	menuPlay->setVisible(false);
 	menuLevel->setVisible(true);
+	layout->setVisible(false);
 }
 void MainMenuScene ::MainMenu(cocos2d::Ref* pSender) {
 	menu->setVisible(true);
 	menuPlay->setVisible(false);
 	menuLevel->setVisible(false);
+	layout->setVisible(false);
 }
 void MainMenuScene::gotoPlayScreen(cocos2d::Ref* pSender) {
 	
@@ -210,6 +279,19 @@ void MainMenuScene::gotoPlayScreen(cocos2d::Ref* pSender) {
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void  MainMenuScene::OptionMenu(cocos2d::Ref* pSender) {
+	layout->setVisible(true);
+}
+void MainMenuScene::OnOFF(cocos2d::Ref* pSender) {
+	auto node = dynamic_cast<Node*>(pSender);
+	int i = toggle1->getSelectedIndex();
+
+	if (node->getTag() == 1) {
+		toggle2->setSelectedIndex(i);
+	}
+	else {
+		toggle1->setSelectedIndex((i+1)%2);
+
+	}
 }
 
 
