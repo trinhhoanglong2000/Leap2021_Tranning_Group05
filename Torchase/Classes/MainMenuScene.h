@@ -32,10 +32,7 @@ USING_NS_CC;
 
 class MainMenuScene : public cocos2d::Scene
 {
-private:
-	TMXTiledMap *_tileMap;
-	TMXLayer *_background;
-	Sprite *_player;
+
 
 public:
     static cocos2d::Scene* createScene();
@@ -43,7 +40,18 @@ public:
 	CREATE_FUNC(MainMenuScene);
 private:
 
+	Menu* menu;
+	Menu* menuPlay;
+	Menu* menuLevel;
+	void PlayMenu(cocos2d::Ref* pSender);
+	void LevelMenu(cocos2d::Ref* pSender);
+	void MainMenu(cocos2d::Ref* pSender);
+	void OptionMenu(cocos2d::Ref* pSender);
+
 	void menuCloseCallback(cocos2d::Ref* pSender);
+	void gotoPlayScreen(cocos2d::Ref* pSender);
+
+
 };
 
 #endif // __MAINMENU_SCENE_H__

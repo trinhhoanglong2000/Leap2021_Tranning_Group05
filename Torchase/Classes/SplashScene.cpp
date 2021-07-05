@@ -61,14 +61,14 @@ bool SplashScene::init()
     
 	this->schedule(CC_SCHEDULE_SELECTOR(SplashScene::GoToMainMenu), DISPLAY_TIME_SPLASH_SCENE);
 
-	auto BgSprite = Sprite::create("Splash Screen.png");
+	auto BgSprite = Sprite::create("coco2d.png");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(BgSprite);
     return true;
 }
 void SplashScene::GoToMainMenu(float dt)
 {
-	auto scene = GameScene::createScene();
+	auto scene = MainMenuScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
