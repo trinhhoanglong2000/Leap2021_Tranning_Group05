@@ -31,6 +31,7 @@
 #define ACTOR_SPEED 0.5
 #define BUTTON_SCALE 0.35
 #define MININON_SPEED 1
+#define AUTO_SPEED 0.2
 
 #define TIME_REDUCE_ENERGY 1
 #define PERCENT_REDUCE 1
@@ -65,7 +66,7 @@
 #define playerMove_sound "music/playerMove.mp3"
 #define Roar_sound "music/roar.mp3"
 //#define softbackground_sound "music/softbackground.mp3"
-#define softbackground_sound "music/background.mp3"
+#define softbackground_sound "music/background2.mp3"
 //#define softbackground_sound "music/BackGround1.mp3"
 #define surprisebackground_sound "music/surprisebackground.mp3"
 #define LIGHTING "music/lighting.mp3"

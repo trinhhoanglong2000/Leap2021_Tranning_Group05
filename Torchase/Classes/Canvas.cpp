@@ -26,6 +26,7 @@
 #include "Definitions.h"
 #include "ui\CocosGUI.h"
 #include "GameScene.h"
+
 USING_NS_CC;
 Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 {
@@ -39,7 +40,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	auto ButtonLeft = ui::Button::create("prefap/Gui/Play-8.png");
 	auto ButtonRight = ui::Button::create("prefap/Gui/Play-8.png");
 	auto ButtonLight = ui::Button::create("prefap/Gui/Play-8.png");
-
+	
 	ButtonUp->setScale(BUTTON_SCALE);
 	ButtonDow->setScale(BUTTON_SCALE);
 	ButtonLeft->setScale(BUTTON_SCALE);
@@ -61,10 +62,10 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE/1.3, -visibleSize.height / 4 + origin.y));
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveRight, this));
 
-	this->addChild(ButtonUp);
+	/*this->addChild(ButtonUp);
 	this->addChild(ButtonDow);
 	this->addChild(ButtonLeft);
-	this->addChild(ButtonRight);
+	this->addChild(ButtonRight);*/
 	this->addChild(ButtonLight);
 
 	enegy = ui::Slider::create();
@@ -79,39 +80,72 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	Schedule_ReduceEnegy = CC_SCHEDULE_SELECTOR(Canvas::reduceenergy);
 
 	this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
-	
+	int_move = 0;
+	BoolTouch = false;
+
+	auto touchListener = EventListenerTouchOneByOne::create();
+	touchListener->setSwallowTouches(true);
+	touchListener->onTouchBegan = CC_CALLBACK_2(Canvas::TouchMoveBegan, this);
+	touchListener->onTouchEnded = CC_CALLBACK_2(Canvas::TouchMoveEnd, this);
+	touchListener->onTouchMoved = CC_CALLBACK_2(Canvas::TouchMoveMove, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
 void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
-	if (Type == ui::Widget::TouchEventType::BEGAN)
+	if (Type == ui::Widget::TouchEventType::BEGAN && int_move == 0 )
 	{
-		player->MoveUp();
 		
+		player->MoveUp();
+		int_move = 1;
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
+	}
+	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 1)
+	{
+		int_move = 0;
+		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 	}
 }
 void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
-	if (Type == ui::Widget::TouchEventType::BEGAN)
+	if (Type == ui::Widget::TouchEventType::BEGAN && int_move == 0)
 	{
 		player->MoveDow();
-		
+		int_move = 2;
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
 	}
-
+	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 2)
+	{
+		int_move = 0;
+		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+	}
 }
 void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
-	if (Type == ui::Widget::TouchEventType::BEGAN)
+	if (Type == ui::Widget::TouchEventType::BEGAN && int_move == 0)
 	{
 		player->MoveLeft();
-		
+		int_move = 3;
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
+	}
+	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 3)
+	{
+		int_move = 0;
+		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 	}
 }
 void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
-	if (Type == ui::Widget::TouchEventType::BEGAN)
+	if (Type == ui::Widget::TouchEventType::BEGAN && int_move == 0)
 	{
 		player->MoveRight();
+		int_move = 4;
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
+	}
+	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 4)
+	{
 		
+		int_move = 0;
+		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 	}
 }
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -172,4 +206,52 @@ void Canvas::plusenergy(int power)
 	else
 		enegy->setPercent(enegy->getMaxPercent());
 	endlight = true;
+}
+void Canvas::AutoMove(float dt)
+{
+	if(int_move==1)
+		player->MoveUp();
+	if (int_move == 2)
+		player->MoveDow();
+	if (int_move == 3)
+		player->MoveLeft();
+	if (int_move == 4)
+		player->MoveRight();
+}
+bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+	if (BoolTouch == false)
+	{
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
+		BoolTouch = true;
+	}
+	return true;
+}
+bool Canvas::TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+	int_move = 0;
+	this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+	BoolTouch = false;
+	return true;
+}
+bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
+{ 
+	cocos2d::Vec2 pointgoc = Vec2(touch->getStartLocation().x, touch->getStartLocation().y + 20) - touch->getStartLocation();
+	cocos2d::Vec2 point = touch->getLocation() - touch->getStartLocation();
+	float radian = (pointgoc.x * point.x + pointgoc.y * point.y) / (sqrt(point.x*point.x + point.y*point.y)*sqrt(pointgoc.x*pointgoc.x + pointgoc.y*pointgoc.y));
+	if (radian > 0.5 || radian < -0.5)
+	{
+		if (point.y < 0)
+			int_move = 2;
+		else
+			int_move = 1;
+	}
+	else
+	{
+		if (point.x < 0)
+			int_move = 3;
+		else
+			int_move = 4;
+	}
+	return true;
 }
