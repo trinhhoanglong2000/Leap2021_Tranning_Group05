@@ -328,7 +328,6 @@ void GameScene::Lightingstart(float dt)
 	int numposY = cocos2d::RandomHelper::random_int((int)(player->getPositionY() - visibleSize.height / 4), (int)(player->getPositionY() + visibleSize.height / 4));
 	effect->setTexture("effect/lingning.png");
 	effect->setTextureRect(Rect(200 * num, 0, 200, 600));
-	//effect->initWithFile("effect/lingning.png", Rect(200*num, 0, 200, 600));
 	//effect->setPosition(Vec2(numpos, numposY));
 	effect->setPosition(Vec2(numpos, player->getPositionY()));
 }
