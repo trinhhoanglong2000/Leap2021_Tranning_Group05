@@ -62,12 +62,13 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE/1.3, -visibleSize.height / 4 + origin.y));
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveRight, this));
 
-	/*this->addChild(ButtonUp);
+	this->addChild(ButtonUp);
 	this->addChild(ButtonDow);
 	this->addChild(ButtonLeft);
-	this->addChild(ButtonRight);*/
+	this->addChild(ButtonRight);
 	this->addChild(ButtonLight);
 
+	// add slider enegy
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
 	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
@@ -83,6 +84,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	int_move = 0;
 	BoolTouch = false;
 
+	// add touch move
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->setSwallowTouches(true);
 	touchListener->onTouchBegan = CC_CALLBACK_2(Canvas::TouchMoveBegan, this);
@@ -162,7 +164,9 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			{
 				AllMinions.at(i)->lighton();
 			}
-			this->resume();
+			Schedule_ReduceEnegy = CC_SCHEDULE_SELECTOR(Canvas::reduceenergy);
+			this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
+			
 		}
 		else
 		{
@@ -173,7 +177,7 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			{
 				AllMinions.at(i)->lightoff();
 			}
-			this->pause();
+			this->unschedule(Schedule_ReduceEnegy);
 		}
 	}
 }
@@ -222,7 +226,6 @@ bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	if (BoolTouch == false)
 	{
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
 		BoolTouch = true;
 	}
 	return true;
@@ -236,6 +239,8 @@ bool Canvas::TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event)
 }
 bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 { 
+	if(int_move==0)
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
 	cocos2d::Vec2 pointgoc = Vec2(touch->getStartLocation().x, touch->getStartLocation().y + 20) - touch->getStartLocation();
 	cocos2d::Vec2 point = touch->getLocation() - touch->getStartLocation();
 	float radian = (pointgoc.x * point.x + pointgoc.y * point.y) / (sqrt(point.x*point.x + point.y*point.y)*sqrt(pointgoc.x*pointgoc.x + pointgoc.y*pointgoc.y));
@@ -253,5 +258,6 @@ bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 		else
 			int_move = 4;
 	}
+	
 	return true;
 }

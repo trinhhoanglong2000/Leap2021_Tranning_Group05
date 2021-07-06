@@ -28,10 +28,10 @@
 #include "SoundManager.h"
 USING_NS_CC;
 
-
-Scene* GameScene::createScene()
+int Level_of_difficult;
+Scene* GameScene::createScene(int Level_of_difficult_Scene)
 {
-	
+	Level_of_difficult = Level_of_difficult_Scene;
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
@@ -55,11 +55,10 @@ bool GameScene::init()
     }
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
-	level = this->getTag();
-	log("%d", level);
+
 	player = new Player();	
 	this->addChild(player,30);
-
+	
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
 	gameMap = new GameMap(this,player, AllMinions); // add gamemap
@@ -95,7 +94,7 @@ bool GameScene::init()
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 	playerdie = false;
 
-	SoundManager::getInstance()->PlayMusic(softbackground_sound,true,1.0f);
+	SoundManager::getInstance()->PlayMusics(softbackground_sound,true,1.0f);
 	
 	effect = Sprite::create();
 	effect->setPosition(player->getPosition());
@@ -232,7 +231,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 						{
 							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 							this->schedule(Schedule_shake, 0.1f);
-							SoundManager::getInstance()->PlayMusic(Roar_sound, false, 0.5f);
+							SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
 						}
 
 						AllMinions.at(i)->Roar(1);
@@ -259,7 +258,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 						{
 							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 							this->schedule(Schedule_shake, 0.1f);
-							SoundManager::getInstance()->PlayMusic(Roar_sound,false,0.5f);
+							SoundManager::getInstance()->PlayMusics(Roar_sound,false,0.5f);
 						}
 						AllMinions.at(i)->Roar(1);
 						break;
@@ -299,14 +298,28 @@ void GameScene::Lighting(float dt)
 		return;
 	else
 	{
-		canvas->endlight = false;
-		SoundManager::getInstance()->PlayMusic(LIGHTING);
+		
+		SoundManager::getInstance()->PlayMusics(LIGHTING);
 		if (player->background->isVisible() == true)
 			light = false;
 		else
 			light = true;
-		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::Lightingbg), 0.25);
-		
+		if (Level_of_difficult != 1)
+		{
+			this->schedule(CC_SCHEDULE_SELECTOR(GameScene::Lightingbg), 0.25);
+			canvas->endlight = false;
+		}
+		if (Level_of_difficult == 2)
+		{
+			SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
+			Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
+			this->schedule(Schedule_shake, 0.1f);
+			for (int i = 0; i < AllMinions.size(); i++)
+			{
+				CCLOG("dddddddddd  aefwfa ",);
+				AllMinions.at(i)->Roar(1);
+			}
+		}
 		effect->setVisible(true);
 		Schedule_lighting = CC_SCHEDULE_SELECTOR(GameScene::Lightingstart);
 		this->schedule(Schedule_lighting, 0.5f);

@@ -37,7 +37,7 @@
 class GameScene : public cocos2d::Scene
 {
 public:
-    static cocos2d::Scene* createScene();
+    static cocos2d::Scene* createScene(int Level_of_difficult_Scene);
 	
     virtual bool init();
     CREATE_FUNC(GameScene);
@@ -79,6 +79,8 @@ private:
 
 	cocos2d::SEL_SCHEDULE Schedule_lighting;
 	cocos2d::SEL_SCHEDULE Schedule_shake;
+
+	
 };
 
 #endif // __GAMESCENE_H__

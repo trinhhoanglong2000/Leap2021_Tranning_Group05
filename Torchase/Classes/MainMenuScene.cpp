@@ -60,7 +60,7 @@ bool MainMenuScene::init()
 
 	// add a "close" icon to exit the progress. it's an autorelease object
 
-	SoundManager::getInstance()->PlayMusic(MAINMENU_SOUND, true, 1);
+	SoundManager::getInstance()->PlayMusics(MAINMENU_SOUND, true, 1);
 
 	auto BgSprite = Sprite::create("dungeon.jpg");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
@@ -273,12 +273,11 @@ void MainMenuScene ::MainMenu(cocos2d::Ref* pSender) {
 void MainMenuScene::gotoPlayScreen(cocos2d::Ref* pSender) {
 	
 	auto node = dynamic_cast<Node*>(pSender);
-	
-
-	auto scene = GameScene::createScene();
-
 
 	SoundManager::getInstance()->stopMusic(MAINMENU_SOUND);
+
+	auto scene = GameScene::createScene(node->getTag());
+
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void  MainMenuScene::OptionMenu(cocos2d::Ref* pSender) {
