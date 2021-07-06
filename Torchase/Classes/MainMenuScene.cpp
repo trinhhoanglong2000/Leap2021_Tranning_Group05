@@ -223,11 +223,13 @@ bool MainMenuScene::init()
 	menuArr.pushBack(toggle2);
 	
 	optionMenu = Menu::createWithArray(menuArr);
-	optionMenu->setContentSize(layout->getContentSize());
-	log("%f", layout->getContentSize().width);
+	optionMenu->setContentSize(layout->getContentSize()*1.5f);
+	log("%f %f", layout->getContentSize().width,layout->getBoundingBox().size.width);
 	layout->addChild(optionMenu);
-	optionMenu->setPosition(layout->getPositionX(), layout->getPositionY());
+	optionMenu->setPosition(layout->getPositionX()+layout->getContentSize().width/9, layout->getPositionY());
 	optionMenu->alignItemsInColumns(2,2);
+	
+	
 	toggle1->setPositionX(title1->getPositionX());
 	
 	toggle2->setPositionX(title2->getPositionX());
