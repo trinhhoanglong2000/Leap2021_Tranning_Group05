@@ -28,12 +28,14 @@
 #include "GameScene.h"
 
 USING_NS_CC;
-Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
+Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller_Scene)
 {
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	player = playerScene;
 	endlight = true;
+	plant = nullptr;
+	controller_canvas = controller_Scene;
 	background_off = background_offScene;
 	auto ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
 	auto ButtonDow = ui::Button::create("prefap/Gui/Play-8.png");
@@ -67,7 +69,13 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	this->addChild(ButtonLeft);
 	this->addChild(ButtonRight);
 	this->addChild(ButtonLight);
-
+	if (controller_Scene == 1)
+	{
+		ButtonUp->setVisible(false);
+		ButtonDow->setVisible(false);
+		ButtonRight->setVisible(false);
+		ButtonLeft->setVisible(false);
+	}
 	// add slider enegy
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
@@ -83,7 +91,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
 	int_move = 0;
 	BoolTouch = false;
-
+	
 	// add touch move
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->setSwallowTouches(true);
@@ -91,12 +99,12 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene)
 	touchListener->onTouchEnded = CC_CALLBACK_2(Canvas::TouchMoveEnd, this);
 	touchListener->onTouchMoved = CC_CALLBACK_2(Canvas::TouchMoveMove, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+	
 }
 void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN && int_move == 0 )
 	{
-		
 		player->MoveUp();
 		int_move = 1;
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
@@ -105,6 +113,7 @@ void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType T
 	{
 		int_move = 0;
 		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+		Canvas::reducePlant();
 	}
 }
 void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -119,6 +128,7 @@ void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 	{
 		int_move = 0;
 		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+		Canvas::reducePlant();
 	}
 }
 void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -133,6 +143,7 @@ void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType
 	{
 		int_move = 0;
 		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+		Canvas::reducePlant();
 	}
 }
 void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -148,6 +159,7 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 		
 		int_move = 0;
 		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+		Canvas::reducePlant();
 	}
 }
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -224,6 +236,8 @@ void Canvas::AutoMove(float dt)
 }
 bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
+	if (controller_canvas == 0)
+		return true;
 	if (BoolTouch == false)
 	{
 		BoolTouch = true;
@@ -232,13 +246,18 @@ bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 }
 bool Canvas::TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event)
 {
+	if (controller_canvas == 0)
+		return true;
 	int_move = 0;
 	this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 	BoolTouch = false;
+	Canvas::reducePlant();
 	return true;
 }
 bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 { 
+	if (controller_canvas == 0)
+		return true;
 	if(int_move==0)
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
 	cocos2d::Vec2 pointgoc = Vec2(touch->getStartLocation().x, touch->getStartLocation().y + 20) - touch->getStartLocation();
@@ -260,4 +279,16 @@ bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 	}
 	
 	return true;
+}
+void Canvas::reducePlant()
+{
+	if (plant != nullptr)
+	{
+		plant->ReduceSlider();
+		if (plant->enegy->getPercent() <= 0)
+		{
+			player->stop = true;
+			plant == nullptr;
+		}
+	}
 }

@@ -104,6 +104,7 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	
 	mind = 1;
 	checkMove = true;
+	stop = true;
 }
 void Player::setBlackVisionBG(cocos2d::Size size) {
 	int max = MAX(size.width, size.height);
@@ -141,7 +142,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 void Player::MoveUp()
 {
 	if(checkMove)
-	if (mind == 1) {
+	if (mind == 1 && stop) {
 		auto moveAction = Actor::MoveUp();
 		auto animationAction = RepeatForever::create(Animates.at(mind-1));
 		auto callback = CallFunc::create([&]() {
@@ -165,7 +166,7 @@ void Player::MoveUp()
 void Player::MoveDow()
 {
 	if (checkMove)
-	if (mind == 2) {
+	if (mind == 2 && stop) {
 		auto moveAction = Actor::MoveDow();	
 		auto animationAction = RepeatForever::create(Animates.at(mind-1));
 		auto callback = CallFunc::create([&]() {
@@ -188,8 +189,8 @@ void Player::MoveDow()
 }
 void Player::MoveLeft()
 {
-	if (checkMove)
-	if (mind == 3) {
+	if (checkMove )
+	if (mind == 3 && stop) {
 		auto moveAction = Actor::MoveLeft();
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
 		auto callback = CallFunc::create([&]() {
@@ -213,7 +214,7 @@ void Player::MoveLeft()
 void Player::MoveRight()
 {
 	if (checkMove)
-	if (mind == 4) {
+	if (mind == 4 && stop) {
 		auto moveAction = Actor::MoveRight();
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
 		auto callback = CallFunc::create([&]() {

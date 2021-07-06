@@ -202,7 +202,7 @@ bool MainMenuScene::init()
 	start->setColor(Color3B::WHITE);
 	toggle1 = MenuItemToggle::createWithCallback(
 		CC_CALLBACK_1(MainMenuScene::OnOFF, this),
-		start, off, NULL);
+		off, start, NULL);
 	toggle1->setTag(1);
 	toggle1->setScale(0.5f);
 	toggle2 = MenuItemToggle::createWithCallback(
@@ -210,7 +210,7 @@ bool MainMenuScene::init()
 		off1, start1, NULL);
 	toggle2->setTag(2);
 	toggle2->setScale(0.5f);
-
+	toggle1->setSelectedIndex(1);
 
 	
 	
@@ -271,7 +271,7 @@ void MainMenuScene ::MainMenu(cocos2d::Ref* pSender) {
 void MainMenuScene::gotoPlayScreen(cocos2d::Ref* pSender) {
 	
 	auto node = dynamic_cast<Node*>(pSender);
-	auto scene = GameScene::createScene(node->getTag());
+	auto scene = GameScene::createScene(node->getTag(), toggle1->getSelectedIndex());
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void  MainMenuScene::OptionMenu(cocos2d::Ref* pSender) {
@@ -280,14 +280,28 @@ void  MainMenuScene::OptionMenu(cocos2d::Ref* pSender) {
 void MainMenuScene::OnOFF(cocos2d::Ref* pSender) {
 	auto node = dynamic_cast<Node*>(pSender);
 	int i = toggle1->getSelectedIndex();
-
-	if (node->getTag() == 1) {
-		toggle2->setSelectedIndex(i);
+	if (node->getTag() == 1 && i == 0)
+	{
+		toggle1->setSelectedIndex(1);
+		toggle2->setSelectedIndex(0);
+		return;
 	}
-	else {
-		toggle1->setSelectedIndex((i+1)%2);
-
+	if (node->getTag() == 2 && i == 0)
+	{
+		toggle1->setSelectedIndex(0);
+		toggle2->setSelectedIndex(1);
+		return;
 	}
+	if (node->getTag() == 1)
+	{
+		toggle2->setSelectedIndex((i+1)%2);
+	}
+	else
+	{
+		toggle1->setSelectedIndex((i + 1) % 2);
+	}
+	
+	
 }
 
 

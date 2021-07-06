@@ -29,9 +29,11 @@
 USING_NS_CC;
 
 int Level_of_difficult;
-Scene* GameScene::createScene(int Level_of_difficult_Scene)
+int controller;
+Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene)
 {
 	Level_of_difficult = Level_of_difficult_Scene;
+	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
@@ -62,6 +64,8 @@ bool GameScene::init()
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
 	gameMap = new GameMap(this,player, AllMinions); // add gamemap
+	AllTrapPlant = gameMap->AllTrapPlant;
+
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
 	width = MAX(size.width+visibleSize.width, size.height+visibleSize.height);
@@ -83,10 +87,11 @@ bool GameScene::init()
 	this->addChild(background_off, 20);
 	background_off->setVisible(false);
 
-	canvas = new Canvas(player, background_off);
+	canvas = new Canvas(player, background_off, controller);
 	canvas->setPosition(Vec2(0, 0));
 	player->addChild(canvas, 50);
 	canvas->AllMinions = AllMinions;
+	
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
@@ -141,7 +146,6 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == b)
 					{
-
 						AllMinions.at(i)->removeAction();
 						break;
 					}
@@ -210,6 +214,47 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				this->removeChild(a->getOwner());
 			}
 		}
+		// plant trap
+		if (a->getCollisionBitmask() == TRAP_PLANT_COLISION_BITMASK)
+		{
+			if (!playerdie && b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			{
+				for (int i = 0; i < AllTrapPlant.size(); i++)
+				{
+					if (AllTrapPlant.at(i)->getPhysicsBody() == a)
+					{
+						canvas->plant = AllTrapPlant.at(i);
+						player->stop = false;
+						AllTrapPlant.at(i)->HitPlayer();
+						break;
+					}
+				}
+			}
+			if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+			{
+
+			}
+		}
+		else if (b->getCollisionBitmask() == TRAP_PLANT_COLISION_BITMASK)
+		{
+			if (!playerdie&& a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			{
+				for (int i = 0; i < AllTrapPlant.size(); i++)
+				{
+					if (AllTrapPlant.at(i)->getPhysicsBody() == b)
+					{
+						canvas->plant = AllTrapPlant.at(i);
+						player->stop = false;
+						AllTrapPlant.at(i)->HitPlayer();
+						break;
+					}
+				}
+			}
+			if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+			{
+
+			}
+		}
 		//Enemy detect collision
 		if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
 		{
@@ -265,7 +310,6 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 			}
 		}
-		
 	}
 	return true;
 }
@@ -315,7 +359,6 @@ void GameScene::Lighting(float dt)
 			this->schedule(Schedule_shake, 0.1f);
 			for (int i = 0; i < AllMinions.size(); i++)
 			{
-				CCLOG("dddddddddd  aefwfa ",);
 				AllMinions.at(i)->Roar(1);
 			}
 		}

@@ -1,4 +1,4 @@
-	/****************************************************************************
+/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -22,48 +22,28 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __CANVAS_H__
-#define __CANVAS_H__
+#ifndef __TRAPPLANT_H__
+#define __TRAPPLANT_H__
 
 #include "cocos2d.h"
 #include "ui\CocosGUI.h"
-#include"Player.h"
-#include "Minions.h"
-#include "TrapPlant.h"
 
-class Canvas : public cocos2d::ui::Layout
+class TrapPlant : public cocos2d::Sprite
 {
 public:
-	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller);
-
-	bool TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event);
-	bool TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event);
-	bool TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event);
-
-	void MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-	void reduceenergy(float dt);
-	void plusenergy(int power);
-	void AutoMove(float dt);
-	void reducePlant();
-	cocos2d::Vector<Minions*> AllMinions;
-	cocos2d::DrawNode* background_off;
-	bool endlight;
+	TrapPlant();
+	TrapPlant(std::string name);
+	TrapPlant(std::string filename, cocos2d::Rect rect);
+	void AddSlider();
+	void HitPlayer();
+	void ReduceSlider();
 	cocos2d::ui::Slider *enegy;
-	TrapPlant *plant;
-private:
-	Player *player;
+protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-	
-	cocos2d::SEL_SCHEDULE Schedule_ReduceEnegy;
-	int int_move;
-	bool BoolTouch;
-	int controller_canvas;
+	cocos2d::Vector< cocos2d::Animate* > Animates;
+	cocos2d::Animate* DeadAnimation;
 	
 };
 
-#endif // __CANVAS_H__
+#endif // __TRAPPLANT_H__

@@ -28,6 +28,7 @@
 #include "cocos2d.h"
 #include "Player.h"
 #include "Minions.h"
+#include "TrapPlant.h"
 
 USING_NS_CC;
 
@@ -38,16 +39,19 @@ private:
 	TMXTiledMap *_tileMap;
 	TMXLayer *_meta;
 	TMXLayer *_Trap;
+	TMXLayer *_TrapPlant;
 	Player *_player;
-
+	
 public:
 	GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Minions*> &AllMinions);
 	cocos2d::Size returnSizeMap();
 	cocos2d::Size returnSizetile();
+	cocos2d::Vector<TrapPlant*> AllTrapPlant;
 private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	Sprite * Tile[1000];
+	
 };
 
 #endif // __GAMEMAP_H__

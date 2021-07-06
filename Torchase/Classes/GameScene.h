@@ -33,11 +33,12 @@
 #include "Canvas.h"
 #include "Battery.h"
 #include "SoundManager.h"
+#include "TrapPlant.h"
 
 class GameScene : public cocos2d::Scene
 {
 public:
-    static cocos2d::Scene* createScene(int Level_of_difficult_Scene);
+    static cocos2d::Scene* createScene(int Level_of_difficult_Scene, int controller_Scene);
 	
     virtual bool init();
     CREATE_FUNC(GameScene);
@@ -69,7 +70,10 @@ private:
 	Battery *battery;
 	bool playerdie;
 	bool light;
+
 	cocos2d::Vector<Minions*> AllMinions;
+	cocos2d::Vector<TrapPlant*> AllTrapPlant;
+	TrapPlant *plant;
 
 	int SET_SHAKE_DURATION = 10;
 	int SET_LIGHTING_DURATION = 3;

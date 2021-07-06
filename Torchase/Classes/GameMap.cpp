@@ -29,6 +29,7 @@
 #include "Shadow.h"
 #include"Spider.h"
 #include "Battery.h"
+#include "TrapPlant.h"
 USING_NS_CC;
 
 
@@ -157,6 +158,24 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 	}
 	_Trap->setVisible(false);
 
+	// add plant_trap
+	_TrapPlant = _tileMap->getLayer("Trap_plant");
+	for (int i = 0; i < _tileMap->getMapSize().width; i++)
+	{
+		for (int j = 0; j < _tileMap->getMapSize().height; j++) // tile map size 40X40, starting from 0, this loop traverses all tiles
+		{
+			auto tileSprite = _TrapPlant->getTileAt(Vec2(i, j));
+			if (tileSprite)
+			{
+				auto node = new TrapPlant();
+				float x = _tileMap->getTileSize().width * (i + 0.5) * MAP_SCALE;
+				float y = _tileMap->getTileSize().height * (_tileMap->getMapSize().height - 0.5 - j)*MAP_SCALE;
+				node->setPosition(Vec2(x, y));
+				AllTrapPlant.pushBack(node);
+				scene->addChild(node, 20);
+			}
+		}
+	}
 }
 cocos2d::Size GameMap::returnSizeMap()
 {
