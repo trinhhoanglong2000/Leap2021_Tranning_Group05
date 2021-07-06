@@ -41,7 +41,8 @@ public:
 	void PlayMusics(std::string name);
 	void PlayMusics(std::string name, bool loop, float volumn);
 	int getID(std::string name);
-
+	void stopMusic(std::string name);
+	void stopALLMusic();
 	static SoundManager* getInstance() {
 		return mInstancePtr;
 	}

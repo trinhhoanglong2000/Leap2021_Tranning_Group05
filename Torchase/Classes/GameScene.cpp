@@ -64,6 +64,7 @@ bool GameScene::init()
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
 	gameMap = new GameMap(this,player, AllMinions); // add gamemap
+
 	AllTrapPlant = gameMap->AllTrapPlant;
 
 	Size size = gameMap->returnSizeMap();
