@@ -63,6 +63,7 @@ bool GameScene::init()
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
 	gameMap = new GameMap(this,player, AllMinions); // add gamemap
+
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
 	width = MAX(size.width+visibleSize.width, size.height+visibleSize.height);

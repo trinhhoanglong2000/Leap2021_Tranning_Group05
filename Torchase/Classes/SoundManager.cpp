@@ -35,7 +35,7 @@ SoundManager::SoundManager() {
 	AudioEngine::preload(softbackground_sound);
 	AudioEngine::preload(surprisebackground_sound);
 	AudioEngine::preload(LIGHTING);
-
+	AudioEngine::preload(MAINMENU_SOUND);
 
 }
 
@@ -52,5 +52,11 @@ int SoundManager::getID(std::string name) {
 		return -1;
 
 	return ID[name];
+}
+void SoundManager::stopMusic(std::string name) {
+	AudioEngine::stop(getID(name));
+}
+void  SoundManager::stopALLMusic() {
+	AudioEngine::stopAll();
 }
 SoundManager* SoundManager::mInstancePtr = new SoundManager();
