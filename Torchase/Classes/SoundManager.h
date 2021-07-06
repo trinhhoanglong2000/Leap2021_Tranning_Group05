@@ -38,8 +38,8 @@ public:
 	SoundManager();
 	//Function will return -1 if key not exist
 
-	void PlayMusic(std::string name);
-	void SoundManager::PlayMusic(std::string name, bool loop, float volumn);
+	void PlayMusics(std::string name);
+	void PlayMusics(std::string name, bool loop, float volumn);
 	int getID(std::string name);
 
 	static SoundManager* getInstance() {

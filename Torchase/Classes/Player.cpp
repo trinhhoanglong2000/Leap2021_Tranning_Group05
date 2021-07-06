@@ -152,7 +152,7 @@ void Player::MoveUp()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
-		SoundManager::getInstance()->PlayMusic(playerMove_sound, false, 0.3f);
+		SoundManager::getInstance()->PlayMusics(playerMove_sound, false, 0.3f);
 	}
 	else
 	{
@@ -176,7 +176,7 @@ void Player::MoveDow()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
-		SoundManager::getInstance()->PlayMusic(playerMove_sound, false, 0.3f);
+		SoundManager::getInstance()->PlayMusics(playerMove_sound, false, 0.3f);
 	}
 	else
 	{
@@ -200,7 +200,7 @@ void Player::MoveLeft()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
-		SoundManager::getInstance()->PlayMusic(playerMove_sound, false, 0.3f);
+		SoundManager::getInstance()->PlayMusics(playerMove_sound, false, 0.3f);
 	}
 	else
 	{
@@ -224,7 +224,7 @@ void Player::MoveRight()
 		this->runAction(animationAction);
 		this->runAction(sequence);
 		Player::setFalseMove();
-		SoundManager::getInstance()->PlayMusic(playerMove_sound,false,0.3f);
+		SoundManager::getInstance()->PlayMusics(playerMove_sound,false,0.3f);
 	}
 	else
 	{
@@ -258,7 +258,7 @@ void Player::Playerdie()
 }
 void Player::setActionDie(float dt)
 {
-	SoundManager::getInstance()->PlayMusic(HitTrap_sound,false,0.5f);
+	SoundManager::getInstance()->PlayMusics(HitTrap_sound,false,0.5f);
 	this->unscheduleAllCallbacks();
 	this->stopAllActions();
 	this->runAction(DeadAnimation);

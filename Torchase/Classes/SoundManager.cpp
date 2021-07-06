@@ -28,22 +28,22 @@ USING_NS_CC;
 
 SoundManager::SoundManager() {
 	//preload sound
-	AudioEngine::preload(thrillingbackground_sound);
+	/*AudioEngine::preload(thrillingbackground_sound);
 	AudioEngine::preload(HitTrap_sound);
 	AudioEngine::preload(playerMove_sound);
 	AudioEngine::preload(Roar_sound);
 	AudioEngine::preload(softbackground_sound);
 	AudioEngine::preload(surprisebackground_sound);
-	AudioEngine::preload(LIGHTING);
+	AudioEngine::preload(LIGHTING);*/
 
-
+		
 }
 
-void SoundManager::PlayMusic(std::string name) {
+void SoundManager::PlayMusics(std::string name) {
 	auto id = AudioEngine::play2d(name, false, 1.0f, nullptr);
 	ID[name] = id;
 }
-void SoundManager::PlayMusic(std::string name,bool loop,float volumn) {
+void SoundManager::PlayMusics(std::string name,bool loop,float volumn) {
 	auto id = AudioEngine::play2d(name, loop, volumn, nullptr);
 	ID[name] = id;
 }

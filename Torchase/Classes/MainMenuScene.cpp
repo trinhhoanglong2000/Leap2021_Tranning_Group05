@@ -202,11 +202,7 @@ void MainMenuScene ::MainMenu(cocos2d::Ref* pSender) {
 void MainMenuScene::gotoPlayScreen(cocos2d::Ref* pSender) {
 	
 	auto node = dynamic_cast<Node*>(pSender);
-	
-
-	auto scene = GameScene::createScene();
-
-	log("%d", node->getTag());
+	auto scene = GameScene::createScene(node->getTag());
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void  MainMenuScene::OptionMenu(cocos2d::Ref* pSender) {
