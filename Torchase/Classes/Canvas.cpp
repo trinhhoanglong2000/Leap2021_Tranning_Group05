@@ -198,7 +198,7 @@ void Canvas::reduceenergy(float dt)
 	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
 	if (player->die == true)
 	{
-		this->pause();
+		//this->pause();
 		return;
 	}
 	if (enegy->getPercent() <= 0)
@@ -212,7 +212,7 @@ void Canvas::reduceenergy(float dt)
 		{
 			AllMinions.at(i)->lightoff();
 		}
-		this->pause();
+		//this->pause();
 	}
 }
 void Canvas::plusenergy(int power)
