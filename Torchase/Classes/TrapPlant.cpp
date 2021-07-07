@@ -32,25 +32,46 @@ TrapPlant::TrapPlant() {
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 
-	this->initWithFile("prefap/Minions/bluebird-midflap.png");
-
+	//this->initWithFile("prefap/trap/Bear_Trap.png", Rect(0,0,32,32));
+	this->initWithFile("prefap/trap/Plant.png", Rect(165, 0, 28, 32));
 	auto PlayerBody = PhysicsBody::createBox(this->getContentSize());
 	PlayerBody->setCollisionBitmask(TRAP_PLANT_COLISION_BITMASK);
 	PlayerBody->setCategoryBitmask(TRAP_PLANT_CATEGORY_BITMASK);
 	PlayerBody->setContactTestBitmask(TRAP_PLANT_COLISION_BITMASK);
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
-
+	this->setScale(MAP_SCALE /2);
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
 	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
 	enegy->loadProgressBarTexture("Slider_PressBar.png");
-	enegy->setPosition(this->getPosition());
+	enegy->setPosition(this->getPosition()+this->getContentSize());
 	enegy->setMaxPercent(10);
 	enegy->setPercent(enegy->getMaxPercent());
 	enegy->setScale(0.5f);
+	enegy->setGlobalZOrder(50);
 	this->addChild(enegy);
 	enegy->setVisible(false);
+
+	//animation
+	//Vector<SpriteFrame*>  animFrames;
+	//animFrames.pushBack(SpriteFrame::create("prefap/trap/Bear_Trap.png", Rect(0,0,32,32)));
+	//animFrames.pushBack(SpriteFrame::create("prefap/trap/Bear_Trap.png", Rect(32, 0, 32, 32)));
+	//animFrames.pushBack(SpriteFrame::create("prefap/trap/Bear_Trap.png", Rect(64, 0, 32, 32)));
+	//animFrames.pushBack(SpriteFrame::create("prefap/trap/Bear_Trap.png", Rect(96, 0, 32, 32)));
+
+
+	//
+	Vector<SpriteFrame*>  animFrames;
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(165, 0, 28, 32)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(133, 0, 28, 32)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(101, 0, 28, 32)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(79, 0, 28, 32)));
+	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	Animate* animate = Animate::create(animation);
+	_Animation.pushBack(animate);
+
+
 }
 TrapPlant::TrapPlant(std::string name) {
 
@@ -74,6 +95,8 @@ void TrapPlant::HitPlayer()
 	
 	TrapPlant::AddSlider();
 	// chay animation
+	auto animationAction = RepeatForever::create(_Animation.at(0));
+	this->runAction(_Animation.at(0));
 }
 void TrapPlant::ReduceSlider()
 {

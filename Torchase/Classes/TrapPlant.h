@@ -41,8 +41,8 @@ public:
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-	cocos2d::Vector< cocos2d::Animate* > Animates;
-	cocos2d::Animate* DeadAnimation;
+	cocos2d::Vector<cocos2d::Animate*> _Animation;
+
 	
 };
 
