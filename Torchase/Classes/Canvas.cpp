@@ -37,10 +37,10 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	plant = nullptr;
 	controller_canvas = controller_Scene;
 	background_off = background_offScene;
-	auto ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
-	auto ButtonDow = ui::Button::create("prefap/Gui/Play-8.png");
-	auto ButtonLeft = ui::Button::create("prefap/Gui/Play-8.png");
-	auto ButtonRight = ui::Button::create("prefap/Gui/Play-8.png");
+	ButtonUp = ui::Button::create("prefap/Gui/Play-8.png");
+	ButtonDow = ui::Button::create("prefap/Gui/Play-8.png");
+	ButtonLeft = ui::Button::create("prefap/Gui/Play-8.png");
+	ButtonRight = ui::Button::create("prefap/Gui/Play-8.png");
 	auto ButtonLight = ui::Button::create("prefap/Gui/Play-8.png");
 	
 	ButtonUp->setScale(BUTTON_SCALE);
@@ -63,7 +63,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 
 	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE/1.3, -visibleSize.height / 4 + origin.y));
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveRight, this));
-
+	
 	this->addChild(ButtonUp);
 	this->addChild(ButtonDow);
 	this->addChild(ButtonLeft);
@@ -105,16 +105,31 @@ void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType T
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN && int_move == 0 )
 	{
+		
+		
 		player->MoveUp();
 		int_move = 1;
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 1)
 	{
+		
 		int_move = 0;
 		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 		Canvas::reducePlant();
 	}
+	if (Type == ui::Widget::TouchEventType::MOVED && int_move == 1)
+	{
+		float x = (ButtonUp->getTouchMovePosition().x - ButtonUp->getTouchBeganPosition().x) * (ButtonUp->getTouchMovePosition().x - ButtonUp->getTouchBeganPosition().x);
+		float y = (ButtonUp->getTouchMovePosition().y - ButtonUp->getTouchBeganPosition().y) * (ButtonUp->getTouchMovePosition().y - ButtonUp->getTouchBeganPosition().y);
+		float pos = sqrt(x + y);
+		if (pos - (ButtonUp->getContentSize().width/2 * BUTTON_SCALE ) > 0)
+		{	
+			int_move = 0;
+			this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+		}
+	}
+	
 }
 void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
@@ -129,6 +144,17 @@ void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 		int_move = 0;
 		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 		Canvas::reducePlant();
+	}
+	if (Type == ui::Widget::TouchEventType::MOVED && int_move == 2)
+	{
+		float x = (ButtonDow->getTouchMovePosition().x - ButtonDow->getTouchBeganPosition().x) * (ButtonDow->getTouchMovePosition().x - ButtonDow->getTouchBeganPosition().x);
+		float y = (ButtonDow->getTouchMovePosition().y - ButtonDow->getTouchBeganPosition().y) * (ButtonDow->getTouchMovePosition().y - ButtonDow->getTouchBeganPosition().y);
+		float pos = sqrt(x + y);
+		if (pos - (ButtonDow->getContentSize().width / 2 * BUTTON_SCALE) > 0)
+		{
+			int_move = 0;
+			this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+		}
 	}
 }
 void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -145,6 +171,17 @@ void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType
 		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 		Canvas::reducePlant();
 	}
+	if (Type == ui::Widget::TouchEventType::MOVED && int_move == 3)
+	{
+		float x = (ButtonLeft->getTouchMovePosition().x - ButtonLeft->getTouchBeganPosition().x) * (ButtonLeft->getTouchMovePosition().x - ButtonLeft->getTouchBeganPosition().x);
+		float y = (ButtonLeft->getTouchMovePosition().y - ButtonLeft->getTouchBeganPosition().y) * (ButtonLeft->getTouchMovePosition().y - ButtonLeft->getTouchBeganPosition().y);
+		float pos = sqrt(x + y);
+		if (pos - (ButtonLeft->getContentSize().width / 2 * BUTTON_SCALE) > 0)
+		{
+			int_move = 0;
+			this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+		}
+	}
 }
 void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
@@ -160,6 +197,17 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 		int_move = 0;
 		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 		Canvas::reducePlant();
+	}
+	if (Type == ui::Widget::TouchEventType::MOVED && int_move == 4)
+	{
+		float x = (ButtonRight->getTouchMovePosition().x - ButtonRight->getTouchBeganPosition().x) * (ButtonRight->getTouchMovePosition().x - ButtonRight->getTouchBeganPosition().x);
+		float y = (ButtonRight->getTouchMovePosition().y - ButtonRight->getTouchBeganPosition().y) * (ButtonRight->getTouchMovePosition().y - ButtonRight->getTouchBeganPosition().y);
+		float pos = sqrt(x + y);
+		if (pos - (ButtonRight->getContentSize().width / 2 * BUTTON_SCALE) > 0)
+		{
+			int_move = 0;
+			this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+		}
 	}
 }
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
@@ -212,7 +260,7 @@ void Canvas::reduceenergy(float dt)
 		{
 			AllMinions.at(i)->lightoff();
 		}
-		this->pause();
+		this->unschedule(Schedule_ReduceEnegy);
 	}
 }
 void Canvas::plusenergy(int power)
@@ -247,7 +295,9 @@ bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 bool Canvas::TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	if (controller_canvas == 0)
+	{
 		return true;
+	}
 	int_move = 0;
 	this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 	BoolTouch = false;
