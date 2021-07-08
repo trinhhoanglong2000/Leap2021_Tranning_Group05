@@ -105,6 +105,7 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	mind = 1;
 	checkMove = true;
 	stop = true;
+	die = false;
 }
 void Player::setBlackVisionBG(cocos2d::Size size) {
 	int max = MAX(size.width, size.height);
@@ -137,7 +138,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 	background->setPhysicsBody(backgroundBody);
 
 	this->addChild(background);
-	die = false;
+	
 }
 void Player::MoveUp()
 {

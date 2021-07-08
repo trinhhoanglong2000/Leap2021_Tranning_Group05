@@ -45,11 +45,11 @@ TrapPlant::TrapPlant() {
 	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
 	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
 	enegy->loadProgressBarTexture("Slider_PressBar.png");
-	enegy->setPosition(this->getPosition()+this->getContentSize());
+	enegy->setPosition(Vec2(this->getPositionX() + enegy->getContentSize().width/3 * 0.25f,this->getPositionY()+this->getContentSize().height/2.5 * 3.0f) );
 	enegy->setMaxPercent(10);
 	enegy->setPercent(enegy->getMaxPercent());
-	enegy->setScale(0.5f);
-	enegy->setGlobalZOrder(50);
+	enegy->setScale(0.25f);
+
 	this->addChild(enegy);
 	enegy->setVisible(false);
 
@@ -117,11 +117,11 @@ void TrapPlant::ReduceSlider()
 	enegy->setPercent(enegy->getPercent() - 1);
 	if (enegy->getPercent() <= 0)
 	{
+		this->setLocalZOrder(20);
 		this->stopAllActions();
 		auto animationAction = RepeatForever::create(_AnimationOut.at(0));
 		this->runAction(_AnimationOut.at(0));
 
-		this->setLocalZOrder(20);
 		this->schedule(CC_SCHEDULE_SELECTOR(TrapPlant::PlusSlider), 1.0f);
 	}
 }

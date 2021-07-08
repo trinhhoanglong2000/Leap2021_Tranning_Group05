@@ -85,7 +85,7 @@ bool GameScene::init()
 	background_off->setAnchorPoint(Vec2(0.5f, 0.5f));
 	background_off->setPosition(+this->getBoundingBox().size.width / 2, +this->getBoundingBox().size.height / 2 + (height - thickness * 2) / 4);
 	
-	this->addChild(background_off, 20);
+	this->addChild(background_off, 25);
 	background_off->setVisible(false);
 
 	canvas = new Canvas(player, background_off, controller);

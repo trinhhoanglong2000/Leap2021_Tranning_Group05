@@ -37,10 +37,10 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	plant = nullptr;
 	controller_canvas = controller_Scene;
 	background_off = background_offScene;
-	auto ButtonUp = ui::Button::create("prefap/Gui/up.png");
-	auto ButtonDow = ui::Button::create("prefap/Gui/down.png");
-	auto ButtonLeft = ui::Button::create("prefap/Gui/left.png");
-	auto ButtonRight = ui::Button::create("prefap/Gui/right.png");
+	ButtonUp = ui::Button::create("prefap/Gui/up.png");
+	ButtonDow = ui::Button::create("prefap/Gui/down.png");
+	ButtonLeft = ui::Button::create("prefap/Gui/left.png");
+	ButtonRight = ui::Button::create("prefap/Gui/right.png");
 	auto ButtonLight = ui::Button::create("prefap/Gui/right.png");
 
 	ButtonUp->setScale(BUTTON_SCALE);
