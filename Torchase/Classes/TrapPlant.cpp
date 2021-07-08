@@ -33,14 +33,14 @@ TrapPlant::TrapPlant() {
 	origin = Director::getInstance()->getVisibleOrigin();
 
 	//this->initWithFile("prefap/trap/Bear_Trap.png", Rect(0,0,32,32));
-	this->initWithFile("prefap/trap/Plant.png", Rect(165, 0, 28, 32));
+	this->initWithFile("prefap/trap/Plant.png", Rect(0, 0, 28, 32));
 	auto PlayerBody = PhysicsBody::createBox(this->getContentSize());
 	PlayerBody->setCollisionBitmask(TRAP_PLANT_COLISION_BITMASK);
 	PlayerBody->setCategoryBitmask(TRAP_PLANT_CATEGORY_BITMASK);
 	PlayerBody->setContactTestBitmask(TRAP_PLANT_COLISION_BITMASK);
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
-	this->setScale(MAP_SCALE /2);
+	this->setScale(3.0f);
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
 	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
@@ -63,11 +63,17 @@ TrapPlant::TrapPlant() {
 
 	//
 	Vector<SpriteFrame*>  animFrames;
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(165, 0, 28, 32)));
+	/*animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(165, 0, 28, 32)));
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(133, 0, 28, 32)));
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(101, 0, 28, 32)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(79, 0, 28, 32)));*/
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(0, 0, 28, 32)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(32, 0, 28, 32)));
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(79, 0, 28, 32)));
-	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(101, 0, 28, 32)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(133, 0, 28, 32)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(165, 0, 28, 32)));
+	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
 	Animate* animate = Animate::create(animation);
 	_Animation.pushBack(animate);
 
@@ -95,10 +101,17 @@ void TrapPlant::HitPlayer()
 	
 	TrapPlant::AddSlider();
 	// chay animation
+	this->setLocalZOrder(40);
 	auto animationAction = RepeatForever::create(_Animation.at(0));
 	this->runAction(_Animation.at(0));
 }
 void TrapPlant::ReduceSlider()
 {
 	enegy->setPercent(enegy->getPercent() - 1);
+	if (enegy->getPercent() <= 0)
+	{
+		this->setLocalZOrder(20);
+		enegy->setVisible(false);
+		enegy->setPercent(enegy->getMaxPercent());
+	}
 }

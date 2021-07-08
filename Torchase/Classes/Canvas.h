@@ -35,7 +35,7 @@ class Canvas : public cocos2d::ui::Layout
 {
 public:
 	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller);
-
+	
 	bool TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event);
 	bool TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event);
 	bool TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event);
@@ -63,7 +63,7 @@ private:
 	int int_move;
 	bool BoolTouch;
 	int controller_canvas;
-	
+	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight;
 };
 
 #endif // __CANVAS_H__

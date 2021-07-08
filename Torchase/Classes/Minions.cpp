@@ -32,7 +32,7 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 
 	player = playerScene;
 	this->speed = mapspeed;
-	auto EnemyBody = PhysicsBody::createBox(this->getContentSize()/2);
+	auto EnemyBody = PhysicsBody::createBox(this->getContentSize());
 	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
 	EnemyBody->setCategoryBitmask(ENEMY_CATEGORY_BITMASK);
 	EnemyBody->setContactTestBitmask(ENEMY_COLISION_BITMASK);

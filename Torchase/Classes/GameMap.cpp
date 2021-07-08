@@ -175,6 +175,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 			}
 		}
 	}
+	_TrapPlant->setVisible(false);
 }
 cocos2d::Size GameMap::returnSizeMap()
 {
