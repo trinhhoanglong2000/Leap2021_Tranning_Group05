@@ -243,12 +243,11 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 }
 void Canvas::reduceenergy(float dt)
 {
-	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
 	if (player->die == true)
 	{
-		this->pause();
 		return;
 	}
+	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
 	if (enegy->getPercent() <= 0)
 	{
 		
@@ -260,7 +259,7 @@ void Canvas::reduceenergy(float dt)
 		{
 			AllMinions.at(i)->lightoff();
 		}
-		this->unschedule(Schedule_ReduceEnegy);
+		this->unschedule(Schedule_ReduceEnegy);	
 	}
 }
 void Canvas::plusenergy(int power)
