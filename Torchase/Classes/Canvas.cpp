@@ -337,7 +337,7 @@ void Canvas::reducePlant()
 		if (plant->enegy->getPercent() <= 0)
 		{
 			player->stop = true;
-			plant == nullptr;
+			plant = nullptr;
 		}
 	}
 }

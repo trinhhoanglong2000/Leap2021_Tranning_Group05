@@ -63,10 +63,7 @@ TrapPlant::TrapPlant() {
 
 	//
 	Vector<SpriteFrame*>  animFrames;
-	/*animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(165, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(133, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(101, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(79, 0, 28, 32)));*/
+
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(0, 0, 28, 32)));
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(32, 0, 28, 32)));
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(79, 0, 28, 32)));
@@ -77,6 +74,16 @@ TrapPlant::TrapPlant() {
 	Animate* animate = Animate::create(animation);
 	_Animation.pushBack(animate);
 
+	Vector<SpriteFrame*>  animFramesOut;
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(165, 0, 28, 32)));
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(133, 0, 28, 32)));
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(101, 0, 28, 32)));
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(79, 0, 28, 32)));
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(32, 0, 28, 32)));
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(0, 0, 28, 32)));
+	Animation* animations = Animation::createWithSpriteFrames(animFramesOut, 0.2f);
+	Animate* animates = Animate::create(animations);
+	_AnimationOut.pushBack(animates);
 
 }
 TrapPlant::TrapPlant(std::string name) {
@@ -98,7 +105,7 @@ void TrapPlant::AddSlider()
 }
 void TrapPlant::HitPlayer()
 {
-	
+	this->stopAllActions();
 	TrapPlant::AddSlider();
 	// chay animation
 	this->setLocalZOrder(40);
@@ -110,8 +117,20 @@ void TrapPlant::ReduceSlider()
 	enegy->setPercent(enegy->getPercent() - 1);
 	if (enegy->getPercent() <= 0)
 	{
+		this->stopAllActions();
+		auto animationAction = RepeatForever::create(_AnimationOut.at(0));
+		this->runAction(_AnimationOut.at(0));
+
 		this->setLocalZOrder(20);
+		this->schedule(CC_SCHEDULE_SELECTOR(TrapPlant::PlusSlider), 1.0f);
+	}
+}
+void TrapPlant::PlusSlider(float dt)
+{
+	enegy->setPercent(enegy->getPercent() + 2);
+	if (enegy->getPercent() >= enegy->getMaxPercent())
+	{
 		enegy->setVisible(false);
-		enegy->setPercent(enegy->getMaxPercent());
+		this->unschedule(CC_SCHEDULE_SELECTOR(TrapPlant::PlusSlider));
 	}
 }

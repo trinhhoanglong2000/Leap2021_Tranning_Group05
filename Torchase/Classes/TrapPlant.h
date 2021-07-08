@@ -37,11 +37,13 @@ public:
 	void AddSlider();
 	void HitPlayer();
 	void ReduceSlider();
+	void PlusSlider(float dt);
 	cocos2d::ui::Slider *enegy;
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	cocos2d::Vector<cocos2d::Animate*> _Animation;
+	cocos2d::Vector<cocos2d::Animate*> _AnimationOut;
 
 	
 };

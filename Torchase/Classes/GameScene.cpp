@@ -224,9 +224,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllTrapPlant.at(i)->getPhysicsBody() == a)
 					{
-						canvas->plant = AllTrapPlant.at(i);
-						player->stop = false;
-						AllTrapPlant.at(i)->HitPlayer();
+						if (AllTrapPlant.at(i)->enegy->isVisible() == false)
+						{
+							canvas->plant = AllTrapPlant.at(i);
+							player->stop = false;
+							AllTrapPlant.at(i)->HitPlayer();
+						}
 						break;
 					}
 				}
@@ -244,9 +247,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllTrapPlant.at(i)->getPhysicsBody() == b)
 					{
-						canvas->plant = AllTrapPlant.at(i);
-						player->stop = false;
-						AllTrapPlant.at(i)->HitPlayer();
+						if (AllTrapPlant.at(i)->enegy->isVisible()==false)
+						{
+							canvas->plant = AllTrapPlant.at(i);
+							player->stop = false;
+							AllTrapPlant.at(i)->HitPlayer();
+						}
 						break;
 					}
 				}
