@@ -26,6 +26,7 @@
 #include "Definitions.h"
 #include "GameScene.h"
 #include "SoundManager.h"
+#include "StoryScene.h"
 USING_NS_CC;
 
 
@@ -108,13 +109,13 @@ bool MainMenuScene::init()
 	//=================PlayLevel
 	menuArr.clear();
 	Label = Label::createWithTTF("Continue", "fonts/Raven Song.ttf", visibleSize.height / 18);
-	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::LevelMenu, this));
+	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::LevelMenuContinue, this));
 	btn->setAnchorPoint(Vec2(0, 1));
 
 	menuArr.pushBack(btn);
 
 	Label = Label::createWithTTF("New Game", "fonts/Raven Song.ttf", visibleSize.height / 18);
-	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::LevelMenu, this));
+	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::LevelMenuNew, this));
 	btn->setAnchorPoint(Vec2(0, 1));
 
 	menuArr.pushBack(btn);
@@ -133,7 +134,7 @@ bool MainMenuScene::init()
 	menuPlay->setVisible(false);
 	this->addChild(menuPlay);
 
-	//=================LevelMenu
+	//=================LevelMenu for Continue
 	menuArr.clear();
 	Label = Label::createWithTTF("Easy", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::gotoPlayScreen, this));
@@ -161,14 +162,50 @@ bool MainMenuScene::init()
 
 	menuArr.pushBack(btn);
 
-	menuLevel = Menu::createWithArray(menuArr);
-	menuLevel->setPosition(Vec2(myLabel->getPositionX(), myLabel->getPositionY() - myLabel->getContentSize().height));
-	menuLevel->alignItemsVerticallyWithPadding(10);
+	menuLevelContinue = Menu::createWithArray(menuArr);
+	menuLevelContinue->setPosition(Vec2(myLabel->getPositionX(), myLabel->getPositionY() - myLabel->getContentSize().height));
+	menuLevelContinue->alignItemsVerticallyWithPadding(10);
 		
-	menuLevel->setAnchorPoint(Vec2(0, 0));
-	menuLevel->setVisible(false);
-	this->addChild(menuLevel);
+	menuLevelContinue->setAnchorPoint(Vec2(0, 0));
+	menuLevelContinue->setVisible(false);
+	this->addChild(menuLevelContinue);
 	
+	//=================LevelMenu for New
+	menuArr.clear();
+	Label = Label::createWithTTF("Easyy", "fonts/Raven Song.ttf", visibleSize.height / 18);
+	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::gotoStoryScreen, this));
+	btn->setAnchorPoint(Vec2(0, 1));
+	btn->setTag(3);
+	menuArr.pushBack(btn);
+
+	Label = Label::createWithTTF("Normall", "fonts/Raven Song.ttf", visibleSize.height / 18);
+	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::gotoStoryScreen, this));
+	btn->setAnchorPoint(Vec2(0, 1));
+	btn->setTag(4);
+
+	menuArr.pushBack(btn);
+
+	Label = Label::createWithTTF("Hardd", "fonts/Raven Song.ttf", visibleSize.height / 18);
+	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::gotoStoryScreen, this));
+	btn->setAnchorPoint(Vec2(0, 1));
+	btn->setTag(5);
+
+	menuArr.pushBack(btn);
+
+	Label = Label::createWithTTF("Back", "fonts/Raven Song.ttf", visibleSize.height / 18);
+	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::MainMenu, this));
+	btn->setAnchorPoint(Vec2(0, 1));
+
+	menuArr.pushBack(btn);
+
+	menuLevelNew = Menu::createWithArray(menuArr);
+	menuLevelNew->setPosition(Vec2(myLabel->getPositionX(), myLabel->getPositionY() - myLabel->getContentSize().height));
+	menuLevelNew->alignItemsVerticallyWithPadding(10);
+
+	menuLevelNew->setAnchorPoint(Vec2(0, 0));
+	menuLevelNew->setVisible(false);
+	this->addChild(menuLevelNew);
+
 	//==============================Option
 	menuArr.clear();
 	//auto layout = ui::Layout::create();
@@ -255,25 +292,42 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 void MainMenuScene::PlayMenu(Ref* pSender) {
 	menu->setVisible(false);
 	menuPlay->setVisible(true);
-	menuLevel->setVisible(false);
+	menuLevelContinue->setVisible(false);
+	menuLevelNew->setVisible(false);
 	layout->setVisible(false);
 }
-void  MainMenuScene::LevelMenu(cocos2d::Ref* pSender) {
+void MainMenuScene::LevelMenuContinue(cocos2d::Ref* pSender) {
 	menu->setVisible(false);
 	menuPlay->setVisible(false);
-	menuLevel->setVisible(true);
+	menuLevelContinue->setVisible(true);
+	menuLevelNew->setVisible(false);
+	layout->setVisible(false);
+}
+void MainMenuScene::LevelMenuNew(cocos2d::Ref* pSender) {
+	menu->setVisible(false);
+	menuPlay->setVisible(false);
+	menuLevelContinue->setVisible(false);
+	menuLevelNew->setVisible(true);
 	layout->setVisible(false);
 }
 void MainMenuScene ::MainMenu(cocos2d::Ref* pSender) {
 	menu->setVisible(true);
 	menuPlay->setVisible(false);
-	menuLevel->setVisible(false);
+	menuLevelContinue->setVisible(false);
+	menuLevelNew->setVisible(false);
 	layout->setVisible(false);
 }
 void MainMenuScene::gotoPlayScreen(cocos2d::Ref* pSender) {
 	
 	auto node = dynamic_cast<Node*>(pSender);
 	auto scene = GameScene::createScene(node->getTag(), toggle1->getSelectedIndex());
+	SoundManager::getInstance()->stopMusic(MAINMENU_SOUND);
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+void MainMenuScene::gotoStoryScreen(cocos2d::Ref* pSender) {
+
+	auto node = dynamic_cast<Node*>(pSender);
+	auto scene = StoryScene::createScene(node->getTag(), toggle1->getSelectedIndex());
 	SoundManager::getInstance()->stopMusic(MAINMENU_SOUND);
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }

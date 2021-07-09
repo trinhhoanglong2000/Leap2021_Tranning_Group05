@@ -22,44 +22,26 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MAINMENU_SCENE_H__
-#define __MAINMENU_SCENE_H__
+#ifndef __STORY_SCENE_H__
+#define __STORY_SCENE_H__
 
 #include "cocos2d.h"
-#include "Player.h"
 
 USING_NS_CC;
 
-class MainMenuScene : public cocos2d::Scene
+class StoryScene : public cocos2d::Scene
 {
-
-
 public:
-    static cocos2d::Scene* createScene();
+    static cocos2d::Scene* createScene(int Level_of_difficult_Scene, int controller_Scene);
+
     virtual bool init();
-	CREATE_FUNC(MainMenuScene);
-private:
-
-	Menu* menu;
-	Menu* menuPlay;
-	Menu* menuLevelContinue;
-	Menu* menuLevelNew;
-	Menu* optionMenu;
-	DrawNode* layout;
-	MenuItemToggle* toggle1, *toggle2;
-
-	void PlayMenu(cocos2d::Ref* pSender);
-	void LevelMenuContinue(cocos2d::Ref* pSender);
-	void LevelMenuNew(cocos2d::Ref* pSender);
-	void MainMenu(cocos2d::Ref* pSender);
-	void OptionMenu(cocos2d::Ref* pSender);
-
-	void menuCloseCallback(cocos2d::Ref* pSender);
-	void gotoPlayScreen(cocos2d::Ref* pSender);
-	void gotoStoryScreen(cocos2d::Ref* pSender);
-	void OnOFF(cocos2d::Ref* pSender);
-	
-
+    
+    // a selector callback
+    void menuCloseCallback(cocos2d::Ref* pSender);
+	void gotoPlayScreen(Ref* pSender);
+	Menu* btnSkip;
+    // implement the "static create()" method manually
+    CREATE_FUNC(StoryScene);
 };
 
-#endif // __MAINMENU_SCENE_H__
+#endif // __STORY_SCENE_H__
