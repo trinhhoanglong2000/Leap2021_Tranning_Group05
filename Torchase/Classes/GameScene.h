@@ -47,6 +47,7 @@ public:
 	void Lighting(float dt);
 	void Lightingstart(float dt);
 	void Lightingbg(float dt);
+	
 	//GameScene *Scene_layer;
 private:
 	int level = 0;

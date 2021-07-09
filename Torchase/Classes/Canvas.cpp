@@ -105,8 +105,6 @@ void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType T
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN && int_move == 0 )
 	{
-		
-		
 		player->MoveUp();
 		int_move = 1;
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
@@ -120,8 +118,9 @@ void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType T
 	}
 	if (Type == ui::Widget::TouchEventType::MOVED && int_move == 1)
 	{
-		float x = (ButtonUp->getTouchMovePosition().x - ButtonUp->getTouchBeganPosition().x) * (ButtonUp->getTouchMovePosition().x - ButtonUp->getTouchBeganPosition().x);
-		float y = (ButtonUp->getTouchMovePosition().y - ButtonUp->getTouchBeganPosition().y) * (ButtonUp->getTouchMovePosition().y - ButtonUp->getTouchBeganPosition().y);
+		Vec2 *pointGoc = new Vec2(ButtonUp->getPositionX() + 600, ButtonUp->getPositionY() + 315);
+		float x = (ButtonUp->getTouchMovePosition().x - pointGoc->x) * (ButtonUp->getTouchMovePosition().x - pointGoc->x);
+		float y = (ButtonUp->getTouchMovePosition().y - pointGoc->y) * (ButtonUp->getTouchMovePosition().y - pointGoc->y);
 		float pos = sqrt(x + y);
 		if (pos - (ButtonUp->getContentSize().width/2 * BUTTON_SCALE ) > 0)
 		{	
@@ -135,6 +134,7 @@ void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN && int_move == 0)
 	{
+		
 		player->MoveDow();
 		int_move = 2;
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
@@ -147,8 +147,9 @@ void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 	}
 	if (Type == ui::Widget::TouchEventType::MOVED && int_move == 2)
 	{
-		float x = (ButtonDow->getTouchMovePosition().x - ButtonDow->getTouchBeganPosition().x) * (ButtonDow->getTouchMovePosition().x - ButtonDow->getTouchBeganPosition().x);
-		float y = (ButtonDow->getTouchMovePosition().y - ButtonDow->getTouchBeganPosition().y) * (ButtonDow->getTouchMovePosition().y - ButtonDow->getTouchBeganPosition().y);
+		Vec2 *pointGoc = new Vec2(ButtonDow->getPositionX() + 600, ButtonDow->getPositionY() + 315);
+		float x = (ButtonDow->getTouchMovePosition().x - pointGoc->x) * (ButtonDow->getTouchMovePosition().x - pointGoc->x);
+		float y = (ButtonDow->getTouchMovePosition().y - pointGoc->y) * (ButtonDow->getTouchMovePosition().y - pointGoc->y);
 		float pos = sqrt(x + y);
 		if (pos - (ButtonDow->getContentSize().width / 2 * BUTTON_SCALE) > 0)
 		{
@@ -161,6 +162,7 @@ void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN && int_move == 0)
 	{
+		
 		player->MoveLeft();
 		int_move = 3;
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
@@ -173,8 +175,9 @@ void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType
 	}
 	if (Type == ui::Widget::TouchEventType::MOVED && int_move == 3)
 	{
-		float x = (ButtonLeft->getTouchMovePosition().x - ButtonLeft->getTouchBeganPosition().x) * (ButtonLeft->getTouchMovePosition().x - ButtonLeft->getTouchBeganPosition().x);
-		float y = (ButtonLeft->getTouchMovePosition().y - ButtonLeft->getTouchBeganPosition().y) * (ButtonLeft->getTouchMovePosition().y - ButtonLeft->getTouchBeganPosition().y);
+		Vec2 *pointGoc = new Vec2(ButtonLeft->getPositionX() + 600, ButtonLeft->getPositionY() + 315);
+		float x = (ButtonLeft->getTouchMovePosition().x - pointGoc->x) * (ButtonLeft->getTouchMovePosition().x - pointGoc->x);
+		float y = (ButtonLeft->getTouchMovePosition().y - pointGoc->y) * (ButtonLeft->getTouchMovePosition().y - pointGoc->y);
 		float pos = sqrt(x + y);
 		if (pos - (ButtonLeft->getContentSize().width / 2 * BUTTON_SCALE) > 0)
 		{
@@ -200,8 +203,9 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 	}
 	if (Type == ui::Widget::TouchEventType::MOVED && int_move == 4)
 	{
-		float x = (ButtonRight->getTouchMovePosition().x - ButtonRight->getTouchBeganPosition().x) * (ButtonRight->getTouchMovePosition().x - ButtonRight->getTouchBeganPosition().x);
-		float y = (ButtonRight->getTouchMovePosition().y - ButtonRight->getTouchBeganPosition().y) * (ButtonRight->getTouchMovePosition().y - ButtonRight->getTouchBeganPosition().y);
+		Vec2 *pointGoc = new Vec2(ButtonRight->getPositionX() + 600, ButtonRight->getPositionY() + 315);
+		float x = (ButtonRight->getTouchMovePosition().x - pointGoc->x) * (ButtonRight->getTouchMovePosition().x - pointGoc->x);
+		float y = (ButtonRight->getTouchMovePosition().y - pointGoc->y) * (ButtonRight->getTouchMovePosition().y - pointGoc->y);
 		float pos = sqrt(x + y);
 		if (pos - (ButtonRight->getContentSize().width / 2 * BUTTON_SCALE) > 0)
 		{
@@ -231,7 +235,7 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			}
 			Schedule_ReduceEnegy = CC_SCHEDULE_SELECTOR(Canvas::reduceenergy);
 			this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
-			
+			this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::autoplusenergy));
 		}
 		else
 		{
@@ -243,6 +247,7 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 				AllMinions.at(i)->lightoff();
 			}
 			this->unschedule(Schedule_ReduceEnegy);
+			this->schedule(CC_SCHEDULE_SELECTOR(Canvas::autoplusenergy), 1.0f);
 		}
 	}
 }
@@ -264,8 +269,17 @@ void Canvas::reduceenergy(float dt)
 		{
 			AllMinions.at(i)->lightoff();
 		}
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::autoplusenergy), 1.0f);
 		this->unschedule(Schedule_ReduceEnegy);	
 	}
+}
+void Canvas::autoplusenergy(float dt)
+{
+	if (enegy->getPercent() + AUTOPLUSHENEGY < enegy->getMaxPercent())
+		enegy->setPercent(enegy->getPercent() + AUTOPLUSHENEGY);
+	else
+		enegy->setPercent(enegy->getMaxPercent());
+	endlight = true;
 }
 void Canvas::plusenergy(int power)
 {

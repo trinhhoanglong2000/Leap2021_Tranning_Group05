@@ -47,6 +47,7 @@ private:
 	Menu* optionMenu;
 	DrawNode* layout;
 	MenuItemToggle* toggle1, *toggle2;
+	UserDefault *def;
 
 	void PlayMenu(cocos2d::Ref* pSender);
 	void LevelMenuContinue(cocos2d::Ref* pSender);
@@ -58,6 +59,7 @@ private:
 	void gotoPlayScreen(cocos2d::Ref* pSender);
 	void gotoStoryScreen(cocos2d::Ref* pSender);
 	void OnOFF(cocos2d::Ref* pSender);
+	void setoption();
 	
 
 };

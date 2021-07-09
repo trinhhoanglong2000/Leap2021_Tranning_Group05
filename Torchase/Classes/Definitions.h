@@ -58,7 +58,7 @@
 //#define ENEMY_COLISION_BITMASK 6
 #define MAP_SCALE 5
 
-
+#define AUTOPLUSHENEGY 2
 
 
 

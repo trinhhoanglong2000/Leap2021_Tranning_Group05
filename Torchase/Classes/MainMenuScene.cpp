@@ -247,9 +247,13 @@ bool MainMenuScene::init()
 		off1, start1, NULL);
 	toggle2->setTag(2);
 	toggle2->setScale(0.5f);
-	toggle1->setSelectedIndex(1);
 
-	
+	def = UserDefault::getInstance();
+	auto MindControll = def->getIntegerForKey("CONTROLLER", 0);
+	def->flush();
+
+	toggle2->setSelectedIndex(MindControll);
+	toggle1->setSelectedIndex((MindControll+1)%2);
 	
 	menuArr.pushBack(title1);
 	menuArr.pushBack(title2);
@@ -357,8 +361,10 @@ void MainMenuScene::OnOFF(cocos2d::Ref* pSender) {
 	{
 		toggle1->setSelectedIndex((i + 1) % 2);
 	}
-	
-	
+	MainMenuScene::setoption();
 }
-
+void MainMenuScene::setoption()
+{
+	def->setIntegerForKey("CONTROLLER", toggle2->getSelectedIndex());
+}
 

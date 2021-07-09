@@ -46,6 +46,7 @@ public:
 	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void reduceenergy(float dt);
+	void autoplusenergy(float dt);
 	void plusenergy(int power);
 	void AutoMove(float dt);
 	void reducePlant();
