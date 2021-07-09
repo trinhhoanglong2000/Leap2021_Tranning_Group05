@@ -40,8 +40,13 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
 	void gotoPlayScreen(Ref* pSender);
 	Menu* btnSkip;
+	bool TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event);
     // implement the "static create()" method manually
     CREATE_FUNC(StoryScene);
+private:
+	std::vector<std::string> story;
+	int num_story;
+	cocos2d::Label *LableStory;
 };
 
 #endif // __STORY_SCENE_H__

@@ -64,19 +64,27 @@ bool StoryScene::init()
 	BgSprite->setScale(visibleSize.width / BgSprite->getContentSize().width, visibleSize.height / BgSprite->getContentSize().height);
 	this->addChild(BgSprite);
 
-	auto Story = Label::createWithTTF("The story is about a father and his son named John and Tommy. The father\nworks as a night guard for a museum in the city.One day, Tommy's aunt was away and couldn't \nhelp his father taking care of him so the father took his son with him on duty.\nWith the curiosity of a child, Tommy accidentally activated an ancient treasure and was\nimprisoned in the building. You must help John find his way to Tommy's cell by collecting items\nthat are left somewhere in the rooms.\nBe careful of the monsters along the way and kill them by luring them into traps with your\nTourch. Note that the Torch's battery is limited and we don't have much time left to\nsave Tommy.", "fonts/Raven Song.ttf", 25);
-	Story->setPosition(Point(visibleSize.width / 22, visibleSize.height * 4 / 5));
-	Story->setAnchorPoint(Vec2(0, 1));
-	this->addChild(Story,20);
+	LableStory = Label::createWithTTF("The story is about a father and his son named John and Tommy. The father\n\nworks as a night guard for a museum in the city.One day, Tommy's aunt was \n\naway and couldn't help his father taking care of him.", "fonts/Raven Song.ttf", 27);
+	LableStory->setPosition(Point(visibleSize.width / 22, visibleSize.height * 3.5 / 5));
+	LableStory->setAnchorPoint(Vec2(0, 1));
+	this->addChild(LableStory,20);
 
 
 	auto Label = Label::createWithTTF("Play", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	auto btn = MenuItemLabel::create(Label, CC_CALLBACK_1(StoryScene::gotoPlayScreen, this));
 	btnSkip = Menu::create(btn,NULL);
-	btnSkip->setPosition(visibleSize.width * 9 / 10, visibleSize.height / 8);
-
+	btnSkip->setPosition(visibleSize.width * 9 / 10, visibleSize.height / 7);
+	btnSkip->setVisible(false);
 	this->addChild(btnSkip,50);
 
+	auto touchListener = EventListenerTouchOneByOne::create();
+	touchListener->setSwallowTouches(true);
+	touchListener->onTouchBegan = CC_CALLBACK_2(StoryScene::TouchMoveBegan, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+
+	story.push_back("So the father took his son with him on duty. With the curiosity of a child, \n\nTommy accidentally activated an ancient treasure and was imprisoned in the \n\nbuilding. You must help John find his way to Tommy's cell by collecting items");
+	story.push_back("that are left somewhere in the rooms. Be careful of the monsters along \n\nthe way and kill them by luring them into traps with your Tourch. Note that \n\nthe Torch's battery is limited and we don't have much time left to save Tommy.");
+	num_story = 0;
 
     return true;
 }
@@ -98,6 +106,19 @@ void StoryScene::menuCloseCallback(Ref* pSender)
 
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }
+bool StoryScene::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+	if (num_story > 1)
+	{
+		auto scene = GameScene::createScene(Level_of_difficult_temp, controller_temp);
+		SoundManager::getInstance()->stopMusic(MAINMENU_SOUND);
+		Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+		return true;
+	}
+	LableStory->setString(story.at(num_story));
+	if(num_story==1)
+		btnSkip->setVisible(true);
+	num_story++;
+	return true;
+}	
