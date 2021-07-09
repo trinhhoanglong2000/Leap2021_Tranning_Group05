@@ -179,6 +179,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 }
 cocos2d::Size GameMap::returnSizeMap()
 {
+	CCLOG("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa    %f", _tileMap->getMapSize().width);
 	return _tileMap->getMapSize()*MAP_SCALE*_tileMap->getTileSize().width;
 }
 cocos2d::Size GameMap::returnSizetile()

@@ -140,3 +140,17 @@ void Minions::lighton()
 {
 	goUp = true;
 }
+void Minions::die()
+{
+	this->unscheduleAllCallbacks();
+	goUp = false;
+	this->schedule(CC_SCHEDULE_SELECTOR(Minions::actiondie),0.5f, 0, 0.5f);
+}
+void Minions::actiondie(float dt)
+{
+	this->setLocalZOrder(20);
+	SoundManager::getInstance()->PlayMusics(HitTrap_sound, false, 0.5f);
+	this->stopAllActions();
+	auto animationAction = RepeatForever::create(Animates.at(4));
+	this->runAction(Animates.at(4));
+}

@@ -86,6 +86,17 @@ Shadow::Shadow(Player * playerScene, float mapspeed):	Minions( playerScene, maps
 	animFrames.clear();
 	goUp = true;
 
-	
-	
+	// die
+	std::string minionnamedie = "prefap/Minions/ShadowDie.png";
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 144, 152)));
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(144, 0, 144, 152)));
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(288, 0, 144, 152)));
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(432, 0, 144, 152)));
+
+	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+
+	animate = Animate::create(animation);
+	Animates.pushBack(animate);
+	animFrames.clear();
+
 }
