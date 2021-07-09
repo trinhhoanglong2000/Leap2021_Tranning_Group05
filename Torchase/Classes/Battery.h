@@ -36,6 +36,8 @@ public:
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
+private:
+	int enegy;
 };
 
 #endif // __BATTERY_H__

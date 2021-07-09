@@ -40,4 +40,5 @@ Battery::Battery() {
 	BatteryBody->setDynamic(false);
 	this->setScale(0.2);
 	this->setPhysicsBody(BatteryBody);
+	enegy = 30;
 }

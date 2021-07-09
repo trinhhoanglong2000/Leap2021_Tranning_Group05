@@ -122,7 +122,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if(b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 			{
-				canvas->plusenergy(5);
+				canvas->plusenergy((int)canvas->enegy->getMaxPercent()/3);
 					this->removeChild(a->getOwner());
 			}
 		}
@@ -130,7 +130,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if(a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 			{
-				canvas->plusenergy(5);
+				canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
 					this->removeChild(a->getOwner());
 			}
 		}
