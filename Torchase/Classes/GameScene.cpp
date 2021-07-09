@@ -69,7 +69,7 @@ bool GameScene::init()
 
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
-	width = MAX(size.width+visibleSize.width, size.height+visibleSize.height);
+	width = MAX(size.width*2+visibleSize.width, size.height*2+visibleSize.height);
 	height = width;
 
 	background_off = DrawNode::create();
