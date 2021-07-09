@@ -93,4 +93,16 @@ Spider::Spider(Player * playerScene, float mapspeed):	Minions( playerScene, maps
 		animFrames.clear();
 		goUp = true;
 	
+
+		// die
+		std::string minionnamedie = "prefap/Minions/spiderDie.png";
+		animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(100, 0, 100, 100)));
+		animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(200, 0, 100, 100)));
+
+		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+
+		animate = Animate::create(animation);
+		Animates.pushBack(animate);
+		animFrames.clear();
 }

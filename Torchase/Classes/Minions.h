@@ -40,6 +40,8 @@ public:
 	void lightoff();
 	void lighton();
 	bool boolFind;
+	void die();
+	void actiondie(float dt);
 protected:
 	Player *player;
 	bool booltop;

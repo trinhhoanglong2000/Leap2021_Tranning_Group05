@@ -35,9 +35,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -185,12 +185,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == b)
 					{
-
+						
+						AllMinions.at(i)->die();
 						AllMinions.erase(AllMinions.begin() + i);
 						break;
 					}
 				}
-				this->removeChild(b->getOwner());
 			}
 		}
 		else if (b->getCollisionBitmask() == TRAP_COLISION_BITMASK)
@@ -207,12 +207,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == a)
 					{
-
+						AllMinions.at(i)->die();
 						AllMinions.erase(AllMinions.begin() + i);
 						break;
 					}
 				}
-				this->removeChild(a->getOwner());
+
 			}
 		}
 		// plant trap

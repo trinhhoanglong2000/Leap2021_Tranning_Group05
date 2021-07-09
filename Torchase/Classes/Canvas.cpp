@@ -213,8 +213,13 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
 	
-	if (Type == ui::Widget::TouchEventType::BEGAN && endlight ==true)
+	if (Type == ui::Widget::TouchEventType::BEGAN && endlight ==true )
 	{
+		if (enegy->getPercent() <= 0)
+		{
+			Canvas::reduceenergy(1);
+			return;
+		}
 		if (background_off->isVisible())
 		{
 			player->background->getPhysicsBody()->setEnabled(true);
