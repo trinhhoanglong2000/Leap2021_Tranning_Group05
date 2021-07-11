@@ -64,13 +64,13 @@ bool StoryScene::init()
 	BgSprite->setScale(visibleSize.width / BgSprite->getContentSize().width, visibleSize.height / BgSprite->getContentSize().height);
 	this->addChild(BgSprite);
 
-	LableStory = Label::createWithTTF("The story is about a father and his son named John and Tommy. The father\n\nworks as a night guard for a museum in the city.One day, Tommy's aunt was \n\naway and couldn't help his father taking care of him.", "fonts/Raven Song.ttf", 27);
+	LableStory = Label::createWithTTF("The story is about a father John and his son Tommy. The father works as \n\na night guard for a museum in the city. One day, Tommy's aunt was away \n\nand couldn't help his father taking care of him.", "fonts/Balsoon.ttf", visibleSize.height / 15);
 	LableStory->setPosition(Point(visibleSize.width / 22, visibleSize.height * 3.5 / 5));
 	LableStory->setAnchorPoint(Vec2(0, 1));
 	this->addChild(LableStory,20);
 
 
-	auto Label = Label::createWithTTF("Play", "fonts/Raven Song.ttf", visibleSize.height / 18);
+	auto Label = Label::createWithTTF("Play", "fonts/Balsoon.ttf", visibleSize.height / 10);
 	auto btn = MenuItemLabel::create(Label, CC_CALLBACK_1(StoryScene::gotoPlayScreen, this));
 	btnSkip = Menu::create(btn,NULL);
 	btnSkip->setPosition(visibleSize.width * 9 / 10, visibleSize.height / 7);
