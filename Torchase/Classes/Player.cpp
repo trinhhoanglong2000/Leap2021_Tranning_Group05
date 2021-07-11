@@ -149,11 +149,13 @@ void Player::MoveUp()
 		auto callback = CallFunc::create([&]() {
 			this->stopAllActions();
 			this->setSpriteFrame(stand.at(mind - 1));	
+			checkMove = true;
 		});
 		auto sequence = Sequence::create(moveAction, callback,nullptr);
 		this->runAction(animationAction);
 		this->runAction(sequence);
-		Player::setFalseMove();
+		checkMove = false;
+		//Player::setFalseMove();
 		SoundManager::getInstance()->PlayMusics(playerMove_sound, false, 0.3f);
 	}
 	else
@@ -173,11 +175,13 @@ void Player::MoveDow()
 		auto callback = CallFunc::create([&]() {
 			this->stopAllActions();
 			this->setSpriteFrame(stand.at(mind - 1));
+			checkMove = true;
 		});
 		auto sequence = Sequence::create(moveAction, callback, nullptr);
 		this->runAction(animationAction);
 		this->runAction(sequence);
-		Player::setFalseMove();
+		checkMove = false;
+		//Player::setFalseMove();
 		SoundManager::getInstance()->PlayMusics(playerMove_sound, false, 0.3f);
 	}
 	else
@@ -197,11 +201,13 @@ void Player::MoveLeft()
 		auto callback = CallFunc::create([&]() {
 			this->stopAllActions();
 			this->setSpriteFrame(stand.at(mind - 1));
+			checkMove = true;
 		});
 		auto sequence = Sequence::create(moveAction, callback, nullptr);
 		this->runAction(animationAction);
 		this->runAction(sequence);
-		Player::setFalseMove();
+		checkMove = false;
+		//Player::setFalseMove();
 		SoundManager::getInstance()->PlayMusics(playerMove_sound, false, 0.3f);
 	}
 	else
@@ -221,11 +227,13 @@ void Player::MoveRight()
 		auto callback = CallFunc::create([&]() {
 			this->stopAllActions();
 			this->setSpriteFrame(stand.at(mind - 1));
+			checkMove = true;
 		});
 		auto sequence = Sequence::create(moveAction, callback, nullptr);
 		this->runAction(animationAction);
 		this->runAction(sequence);
-		Player::setFalseMove();
+		checkMove = false;
+		//Player::setFalseMove();
 		SoundManager::getInstance()->PlayMusics(playerMove_sound,false,0.3f);
 	}
 	else

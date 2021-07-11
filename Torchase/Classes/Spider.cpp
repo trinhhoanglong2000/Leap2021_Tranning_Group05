@@ -34,75 +34,75 @@ Spider::Spider(Player * playerScene, float mapspeed):	Minions( playerScene, maps
 {
 	
 		//down
+	type = 0;
+	Vector<SpriteFrame*>  animFrames;
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 0, 100, 100)));
 
-		Vector<SpriteFrame*>  animFrames;
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 0, 100, 100)));
 
+	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
-		Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	Animate* animate = Animate::create(animation);
+	Animates.pushBack(animate);
+	animFrames.clear();
 
-		Animate* animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
+	//up
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 300, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 300, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 300, 100, 100)));
 
-		//up
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 300, 100, 100)));
+	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	animate = Animate::create(animation);
+	Animates.pushBack(animate);
+	animFrames.clear();
 
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
+	//left
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 100, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 100, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 100, 100, 100)));
 
-		//left
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 100, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 100, 100, 100)));
+	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	animate = Animate::create(animation);
+	Animates.pushBack(animate);
+	animFrames.clear();
 
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
+	//right 
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 200, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 200, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 200, 100, 100)));
 
-		//right 
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 200, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 200, 100, 100)));
+	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
-		goUp = true;
+	animate = Animate::create(animation);
+	Animates.pushBack(animate);
+	animFrames.clear();
+	goUp = true;
 	
 
-		// die
-		std::string minionnamedie = "prefap/Minions/spiderDie.png";
-		animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(100, 0, 100, 100)));
-		animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(200, 0, 100, 100)));
+	// die
+	std::string minionnamedie = "prefap/Minions/spiderDie.png";
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(100, 0, 100, 100)));
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(200, 0, 100, 100)));
 
-		animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
-		animate = Animate::create(animation);
-		Animates.pushBack(animate);
-		animFrames.clear();
+	animate = Animate::create(animation);
+	Animates.pushBack(animate);
+	animFrames.clear();
 }

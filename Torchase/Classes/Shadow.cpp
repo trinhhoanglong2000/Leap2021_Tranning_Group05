@@ -33,7 +33,7 @@ USING_NS_CC;
 Shadow::Shadow(Player * playerScene, float mapspeed):	Minions( playerScene, mapspeed)
 {
 	
-
+	type = 1;
 	//down
 	Vector<SpriteFrame*>  animFrames;
 	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 150)));

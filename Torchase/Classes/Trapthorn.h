@@ -22,38 +22,27 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __GAMEMAP_H__
-#define __GAMEMAP_H__
+#ifndef __TRAPTHORN_H__
+#define __TRAPTHORN_H__
 
 #include "cocos2d.h"
-#include "Player.h"
-#include "Minions.h"
-#include "TrapPlant.h"
-#include "Trapthorn.h"
+#include "ui\CocosGUI.h"
 #include "Trap.h"
 
-USING_NS_CC;
-
-class GameMap : public cocos2d::Scene
+class Trapthorn : public Trap
 {
-private:
-	
-	TMXTiledMap *_tileMap;
-	TMXLayer *_meta;
-	TMXLayer *_Trap;
-	TMXLayer *_TrapPlant;
-	Player *_player;
-	
 public:
-	GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Minions*> &AllMinions);
-	cocos2d::Size returnSizeMap();
-	cocos2d::Size returnSizetile();
-	cocos2d::Vector<Trap*> AllTrap;
-private:
+	Trapthorn();
+	Trapthorn(std::string name);
+	Trapthorn(std::string filename, cocos2d::Rect rect);
+
+protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-	Sprite * Tile[1000];
+	cocos2d::Vector<cocos2d::Animate*> _Animation;
+	cocos2d::Vector<cocos2d::Animate*> _AnimationOut;
+
 	
 };
 
-#endif // __GAMEMAP_H__
+#endif // __TRAPTHORN_H__

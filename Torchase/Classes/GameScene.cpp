@@ -35,9 +35,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -65,7 +65,7 @@ bool GameScene::init()
 
 	gameMap = new GameMap(this,player, AllMinions); // add gamemap
 
-	AllTrapPlant = gameMap->AllTrapPlant;
+	AllTrap = gameMap->AllTrap;
 
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
@@ -173,93 +173,86 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		// Trap detect colision
 		if (a->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
-			if (!playerdie && b->getCollisionBitmask()== PLAYER_COLISION_BITMASK)
+			for (int i = 0; i < AllTrap.size(); i++)
 			{
-				playerdie = true;
-				player->Playerdie();
-			}
-			if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
-			{
-				
-				for (int i = 0; i < AllMinions.size(); i++)
+				if (AllTrap.at(i)->getPhysicsBody() == a)
 				{
-					if (AllMinions.at(i)->getPhysicsBody() == b)
+					if (AllTrap.at(i)->type == 0)
 					{
-						
-						AllMinions.at(i)->die();
-						AllMinions.erase(AllMinions.begin() + i);
-						break;
+						if (!playerdie && b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+						{
+							playerdie = true;
+							player->Playerdie();
+						}
+						if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+						{
+
+							for (int i = 0; i < AllMinions.size(); i++)
+							{
+								if (AllMinions.at(i)->getPhysicsBody() == b)
+								{
+
+									AllMinions.at(i)->die();
+									AllMinions.erase(AllMinions.begin() + i);
+									break;
+								}
+							}
+						}
 					}
+					if (AllTrap.at(i)->type == 1)
+					{
+						TrapPlant *trapPlant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
+						if (trapPlant->enegy->isVisible() == false)
+						{
+							canvas->plant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
+							player->stop = false;
+							trapPlant->HitPlayer();
+						}
+					}
+					break;
 				}
 			}
 		}
 		else if (b->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
-			if (!playerdie&& a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			for (int i = 0; i < AllTrap.size(); i++)
 			{
-				playerdie = true;
-				player->Playerdie();
-			}
-			if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
-			{
-
-				for (int i = 0; i < AllMinions.size(); i++)
+				if (AllTrap.at(i)->getPhysicsBody() == b)
 				{
-					if (AllMinions.at(i)->getPhysicsBody() == a)
+					if (AllTrap.at(i)->type == 0)
 					{
-						AllMinions.at(i)->die();
-						AllMinions.erase(AllMinions.begin() + i);
-						break;
-					}
-				}
-
-			}
-		}
-		// plant trap
-		if (a->getCollisionBitmask() == TRAP_PLANT_COLISION_BITMASK)
-		{
-			if (!playerdie && b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
-			{
-				for (int i = 0; i < AllTrapPlant.size(); i++)
-				{
-					if (AllTrapPlant.at(i)->getPhysicsBody() == a)
-					{
-						if (AllTrapPlant.at(i)->enegy->isVisible() == false)
+						if (!playerdie && a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 						{
-							canvas->plant = AllTrapPlant.at(i);
-							player->stop = false;
-							AllTrapPlant.at(i)->HitPlayer();
+							playerdie = true;
+							player->Playerdie();
 						}
-						break;
-					}
-				}
-			}
-			if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
-			{
-
-			}
-		}
-		else if (b->getCollisionBitmask() == TRAP_PLANT_COLISION_BITMASK)
-		{
-			if (!playerdie&& a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
-			{
-				for (int i = 0; i < AllTrapPlant.size(); i++)
-				{
-					if (AllTrapPlant.at(i)->getPhysicsBody() == b)
-					{
-						if (AllTrapPlant.at(i)->enegy->isVisible()==false)
+						if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
 						{
-							canvas->plant = AllTrapPlant.at(i);
-							player->stop = false;
-							AllTrapPlant.at(i)->HitPlayer();
-						}
-						break;
-					}
-				}
-			}
-			if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
-			{
 
+							for (int i = 0; i < AllMinions.size(); i++)
+							{
+								if (AllMinions.at(i)->getPhysicsBody() == a)
+								{
+
+									AllMinions.at(i)->die();
+									AllMinions.erase(AllMinions.begin() + i);
+									break;
+								}
+							}
+						}
+					}
+					if (AllTrap.at(i)->type == 1)
+					{
+						TrapPlant *trapPlant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
+						if (trapPlant->enegy->isVisible() == false)
+						{
+							canvas->plant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
+							player->stop = false;
+							trapPlant->HitPlayer();
+						}
+					}
+					break;
+				}
 			}
 		}
 		//Enemy detect collision
@@ -280,11 +273,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					{
 						if (AllMinions.at(i)->boolFind == false)
 						{
+							AllMinions.at(i)->boolFind = true;
 							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 							this->schedule(Schedule_shake, 0.1f);
 							SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
 						}
-
+						if(AllMinions.at(i)->type == 1)
 						AllMinions.at(i)->Roar(1);
 						break;
 					}
@@ -307,11 +301,13 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					{
 						if (AllMinions.at(i)->boolFind == false)
 						{
+							AllMinions.at(i)->boolFind = true;
 							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 							this->schedule(Schedule_shake, 0.1f);
 							SoundManager::getInstance()->PlayMusics(Roar_sound,false,0.5f);
 						}
-						AllMinions.at(i)->Roar(1);
+						if (AllMinions.at(i)->type == 1)
+							AllMinions.at(i)->Roar(1);
 						break;
 					}
 				}

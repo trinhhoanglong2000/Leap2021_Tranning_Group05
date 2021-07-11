@@ -34,6 +34,7 @@
 #include "Battery.h"
 #include "SoundManager.h"
 #include "TrapPlant.h"
+#include "Trap.h"
 
 class GameScene : public cocos2d::Scene
 {
@@ -73,8 +74,7 @@ private:
 	bool light;
 
 	cocos2d::Vector<Minions*> AllMinions;
-	cocos2d::Vector<TrapPlant*> AllTrapPlant;
-	TrapPlant *plant;
+	cocos2d::Vector<Trap*> AllTrap;
 
 	int SET_SHAKE_DURATION = 10;
 	int SET_LIGHTING_DURATION = 3;

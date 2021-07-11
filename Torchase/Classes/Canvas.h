@@ -29,6 +29,7 @@
 #include "ui\CocosGUI.h"
 #include"Player.h"
 #include "Minions.h"
+#include "Trap.h"
 #include "TrapPlant.h"
 
 class Canvas : public cocos2d::ui::Layout

@@ -42,6 +42,7 @@ public:
 	bool boolFind;
 	void die();
 	void actiondie(float dt);
+	int type;
 protected:
 	Player *player;
 	bool booltop;
@@ -53,7 +54,7 @@ protected:
 	cocos2d::SEL_SCHEDULE Schedule_Roar;
 	cocos2d::SEL_SCHEDULE Schedule_findPlayer;
 	cocos2d::SEL_SCHEDULE Schedule_CheckfindPlayer;
-	int type= 0;// type of enemy
+	// type of enemy
 };
 
 #endif // __MINIONS_H__

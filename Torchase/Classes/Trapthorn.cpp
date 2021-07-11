@@ -22,28 +22,17 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "TrapPlant.h"
+#include "Trapthorn.h"
 #include "Definitions.h"
 #include "ui\CocosGUI.h"
 
 USING_NS_CC;
-TrapPlant::TrapPlant() : Trap("prefap/trap/Plant.png", Rect(0, 0, 28, 32)) {
+Trapthorn::Trapthorn() : Trap("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)) {
 
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-	type = 1;
+	type = 0;
 	this->setScale(3.0f);
-	enegy = ui::Slider::create();
-	enegy->loadBarTexture("Slider_Back.png"); 
-	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
-	enegy->loadProgressBarTexture("Slider_PressBar.png");
-	enegy->setPosition(Vec2(this->getPositionX() + enegy->getContentSize().width/3 * 0.25f,this->getPositionY()+this->getContentSize().height/2.5 * 3.0f) );
-	enegy->setMaxPercent(10);
-	enegy->setPercent(enegy->getMaxPercent());
-	enegy->setScale(0.25f);
-
-	this->addChild(enegy);
-	enegy->setVisible(false);
 
 	Vector<SpriteFrame*>  animFrames;
 
@@ -69,51 +58,15 @@ TrapPlant::TrapPlant() : Trap("prefap/trap/Plant.png", Rect(0, 0, 28, 32)) {
 	_AnimationOut.pushBack(animates);
 
 }
-TrapPlant::TrapPlant(std::string name) {
+Trapthorn::Trapthorn(std::string name) {
 
 	this->initWithFile(name);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 }
-TrapPlant::TrapPlant(std::string filename, cocos2d::Rect rect)
+Trapthorn::Trapthorn(std::string filename, cocos2d::Rect rect)
 {
 	this->initWithFile(filename,rect);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-}
-void TrapPlant::AddSlider()
-{
-	//add animation trap_plant
-	enegy->setVisible(true);
-}
-void TrapPlant::HitPlayer()
-{
-	this->stopAllActions();
-	TrapPlant::AddSlider();
-	// chay animation
-	this->setLocalZOrder(40);
-	auto animationAction = RepeatForever::create(_Animation.at(0));
-	this->runAction(_Animation.at(0));
-}
-void TrapPlant::ReduceSlider()
-{
-	enegy->setPercent(enegy->getPercent() - 1);
-	if (enegy->getPercent() <= 0)
-	{
-		this->setLocalZOrder(20);
-		this->stopAllActions();
-		auto animationAction = RepeatForever::create(_AnimationOut.at(0));
-		this->runAction(_AnimationOut.at(0));
-
-		this->schedule(CC_SCHEDULE_SELECTOR(TrapPlant::PlusSlider), 1.0f);
-	}
-}
-void TrapPlant::PlusSlider(float dt)
-{
-	enegy->setPercent(enegy->getPercent() + 2);
-	if (enegy->getPercent() >= enegy->getMaxPercent())
-	{
-		enegy->setVisible(false);
-		this->unschedule(CC_SCHEDULE_SELECTOR(TrapPlant::PlusSlider));
-	}
 }

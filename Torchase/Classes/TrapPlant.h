@@ -27,8 +27,9 @@
 
 #include "cocos2d.h"
 #include "ui\CocosGUI.h"
+#include "Trap.h"
 
-class TrapPlant : public cocos2d::Sprite
+class TrapPlant : public Trap
 {
 public:
 	TrapPlant();

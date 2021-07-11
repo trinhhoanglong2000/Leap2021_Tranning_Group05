@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,38 +22,36 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __GAMEMAP_H__
-#define __GAMEMAP_H__
-
-#include "cocos2d.h"
-#include "Player.h"
-#include "Minions.h"
-#include "TrapPlant.h"
-#include "Trapthorn.h"
 #include "Trap.h"
+#include "Definitions.h"
 
 USING_NS_CC;
+Trap::Trap() {
+}
+Trap::Trap(std::string name) {
 
-class GameMap : public cocos2d::Scene
+	this->initWithFile(name);
+	visibleSize = Director::getInstance()->getVisibleSize();
+	origin = Director::getInstance()->getVisibleOrigin();
+
+	auto PlayerBody = PhysicsBody::createBox(this->getContentSize()/2);
+	PlayerBody->setCollisionBitmask(TRAP_COLISION_BITMASK);
+	PlayerBody->setCategoryBitmask(TRAP_CATEGORY_BITMASK);
+	PlayerBody->setContactTestBitmask(TRAP_COLISION_BITMASK);
+	PlayerBody->setDynamic(false);
+	this->setPhysicsBody(PlayerBody);
+
+}
+Trap::Trap(std::string filename, cocos2d::Rect rect)
 {
-private:
-	
-	TMXTiledMap *_tileMap;
-	TMXLayer *_meta;
-	TMXLayer *_Trap;
-	TMXLayer *_TrapPlant;
-	Player *_player;
-	
-public:
-	GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Minions*> &AllMinions);
-	cocos2d::Size returnSizeMap();
-	cocos2d::Size returnSizetile();
-	cocos2d::Vector<Trap*> AllTrap;
-private:
-	cocos2d::Size visibleSize;
-	cocos2d::Vec2 origin;
-	Sprite * Tile[1000];
-	
-};
+	this->initWithFile(filename,rect);
+	visibleSize = Director::getInstance()->getVisibleSize();
+	origin = Director::getInstance()->getVisibleOrigin();
 
-#endif // __GAMEMAP_H__
+	auto PlayerBody = PhysicsBody::createBox(this->getContentSize()/2);
+	PlayerBody->setCollisionBitmask(TRAP_COLISION_BITMASK);
+	PlayerBody->setCategoryBitmask(TRAP_CATEGORY_BITMASK);
+	PlayerBody->setContactTestBitmask(TRAP_COLISION_BITMASK);
+	PlayerBody->setDynamic(false);
+	this->setPhysicsBody(PlayerBody);
+}

@@ -128,7 +128,7 @@ void Minions::Roar(float dt)
 		this->setLocalZOrder(30);
 		Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayer);
 		this->schedule(Schedule_findPlayer,1.3f,100,1.0f); 
-		boolFind = true;
+		//boolFind = true;
 	}
 }
 void Minions::lightoff()

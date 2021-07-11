@@ -30,6 +30,7 @@
 #include"Spider.h"
 #include "Battery.h"
 #include "TrapPlant.h"
+#include "Trapthorn.h"
 USING_NS_CC;
 
 
@@ -132,7 +133,31 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 	}
 	_meta->setVisible(false);
 	// tao trap
-	_Trap = _tileMap->getLayer("Trap");
+	TMXObjectGroup *objectGroupTrap = _tileMap->getObjectGroup("Trap");
+	if (objectGroupminions == NULL) {
+
+	}
+	else
+	{
+		auto spawnPointTrap = objectGroupTrap->getObjects();
+		for (Value objTrap : spawnPointTrap)
+		{
+			int x = objTrap.asValueMap()["x"].asInt();
+			int y = objTrap.asValueMap()["y"].asInt();
+			int type = objTrap.asValueMap()["type"].asInt();
+			Trap* trap;
+			if (type == 0) {
+				trap = new Trapthorn();
+			}
+			else if (type == 1) {
+				trap = new TrapPlant();
+			}
+			trap->setPosition(Vec2(x, y)*MAP_SCALE);
+			scene->addChild(trap, 25);
+			AllTrap.pushBack(trap);
+		}
+	}
+	/*_Trap = _tileMap->getLayer("Trap");
 	for (int i = 0; i < _tileMap->getMapSize().width; i++)
 	{
 		for (int j = 0; j < _tileMap->getMapSize().height; j++) // tile map size 40X40, starting from 0, this loop traverses all tiles
@@ -151,14 +176,15 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 				float y = _tileMap->getTileSize().height * (_tileMap->getMapSize().height-0.5 - j)*MAP_SCALE;
 				node->setPosition(Vec2(x, y));
 				node->setPhysicsBody(PlayerBody);
+				AllTrap.pushBack(node);
 				scene->addChild(node, 40);
 			}
 		}
 	}
-	_Trap->setVisible(false);
+	_Trap->setVisible(false);*/
 
 	// add plant_trap
-	_TrapPlant = _tileMap->getLayer("Trap_plant");
+	/*_TrapPlant = _tileMap->getLayer("Trap_plant");
 	for (int i = 0; i < _tileMap->getMapSize().width; i++)
 	{
 		for (int j = 0; j < _tileMap->getMapSize().height; j++) // tile map size 40X40, starting from 0, this loop traverses all tiles
@@ -175,11 +201,10 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 			}
 		}
 	}
-	_TrapPlant->setVisible(false);
+	_TrapPlant->setVisible(false);*/
 }
 cocos2d::Size GameMap::returnSizeMap()
 {
-	CCLOG("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa    %f", _tileMap->getMapSize().width);
 	return _tileMap->getMapSize()*MAP_SCALE*_tileMap->getTileSize().width;
 }
 cocos2d::Size GameMap::returnSizetile()
