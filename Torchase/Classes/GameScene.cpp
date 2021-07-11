@@ -117,21 +117,25 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 {
 	PhysicsBody *a = contact.getShapeA()->getBody();
 	PhysicsBody *b = contact.getShapeB()->getBody();
+	CCLOG("Overlap on");
+	CCLOG("%d %d", a->getCategoryBitmask(), b->getCategoryBitmask());
+	CCLOG("%d %d", a->getCollisionBitmask(), b->getCollisionBitmask());
+	//CCLOG("%d", a->getCollisionBitmask() & b->getCategoryBitmask());
+	//if ((a->getCollisionBitmask() & b->getCategoryBitmask() != 0) || (b->getCollisionBitmask() & a->getCategoryBitmask() != 0))
 	
-	if ((a->getCollisionBitmask() & b->getCategoryBitmask() != 0) || (b->getCollisionBitmask() & a->getCategoryBitmask() != 0))
-	{
 		CCLOG("Overlap");
-		if (a->getCollisionBitmask() == ITEM_COLISION_BITMASK)
+		//Get item
+		if (a->getCategoryBitmask() == ITEM_CATEGORY_BITMASK)
 		{
-			if(b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			if(b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				canvas->plusenergy((int)canvas->enegy->getMaxPercent()/3);
 					this->removeChild(a->getOwner());
 			}
 		}
-		else if (b->getCollisionBitmask() == ITEM_COLISION_BITMASK)
+		else if (b->getCategoryBitmask() == ITEM_CATEGORY_BITMASK)
 		{
-			if(a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			if(a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
 					this->removeChild(a->getOwner());
@@ -139,13 +143,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 
 		//Wall detect collision
-		if (a->getCollisionBitmask() == WALL_COLISION_BITMASK)
+		if (a->getCategoryBitmask() == WALL_CATEGORY_BITMASK)
 		{
-			if(b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			if(b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			player->removeAction();
 
-			if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+			if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
+				CCLOG("Hit wall");
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == b)
@@ -156,13 +161,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 			}
 		}
-		else if (b->getCollisionBitmask() == WALL_COLISION_BITMASK)
+		else if (b->getCategoryBitmask() == WALL_CATEGORY_BITMASK)
 		{
-			if (a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			if (a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			player->removeAction();
 
-			if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+			if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
+				CCLOG("Hit wall");
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
 					if (AllMinions.at(i)->getPhysicsBody() == a)
@@ -174,7 +180,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			}
 		}
 		// Trap detect colision
-		if (a->getCollisionBitmask() == TRAP_COLISION_BITMASK)
+		if (a->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 		{
 			for (int i = 0; i < AllTrap.size(); i++)
 			{
@@ -192,14 +198,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 								trapbear->HitPlayer();
 							}
 						}
-						if (!playerdie && b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+						if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 						{
 							playerdie = true;
 							player->Playerdie();
 						}
-						if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+						if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 						{
-
+							CCLOG("ene die");
 							for (int i = 0; i < AllMinions.size(); i++)
 							{
 								if (AllMinions.at(i)->getPhysicsBody() == b)
@@ -212,7 +218,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 							}
 						}
 					}
-					if (AllTrap.at(i)->type == 1)
+					if (AllTrap.at(i)->type == 1 && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 					{
 						TrapPlant *trapPlant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
 						if (trapPlant->enegy->isVisible() == false)
@@ -226,9 +232,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 			}
 		}
-		else if (b->getCollisionBitmask() == TRAP_COLISION_BITMASK)
+		else if (b->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 		{
-			
+		
 			for (int i = 0; i < AllTrap.size(); i++)
 			{
 				if (AllTrap.at(i)->getPhysicsBody() == b)
@@ -245,14 +251,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 								trapbear->HitPlayer();
 							}
 						}
-						if (!playerdie && a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+						if (!playerdie && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 						{
 							playerdie = true;
 							player->Playerdie();
 						}
-						if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+						if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 						{
-
+							CCLOG("ene die");
 							for (int i = 0; i < AllMinions.size(); i++)
 							{
 								if (AllMinions.at(i)->getPhysicsBody() == a)
@@ -265,7 +271,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 							}
 						}
 					}
-					if (AllTrap.at(i)->type == 1)
+					if (AllTrap.at(i)->type == 1 && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 					{
 						TrapPlant *trapPlant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
 						if (trapPlant->enegy->isVisible() == false)
@@ -280,16 +286,18 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			}
 		}
 		//Enemy detect collision
-		if (a->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+		if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 		{
-			if (!playerdie && b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			CCLOG("enemy");
+			if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				playerdie = true;
 				this->stopAllActions();
 				player->Playerdie();
 			}
-			if (b->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
+			if (b->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
 			{
+				CCLOG("activated");
 				//SoundManager::getInstance()->PlayMusic(thrillingbackground_sound, false, 0.2f);
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
@@ -318,15 +326,17 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 			}
 		}
-		else if (b->getCollisionBitmask() == ENEMY_COLISION_BITMASK)
+		else if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 		{
-			if (!playerdie && a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
+			CCLOG("enemy");
+			if (!playerdie && a->getCategoryBitmask() == PLAYER_COLISION_BITMASK)
 			{
 				playerdie = true;
 				player->Playerdie();
 			}
-			if (a->getCollisionBitmask() == PLAYER_BG_COLISION_BITMASK)
+			if (a->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
 			{
+				CCLOG("activated");
 				//SoundManager::getInstance()->PlayMusic(thrillingbackground_sound,false,0.2f);
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
@@ -354,7 +364,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 			}
 		}
-	}
+	
 	return true;
 }
 void GameScene::shakeScreen(float dt)
