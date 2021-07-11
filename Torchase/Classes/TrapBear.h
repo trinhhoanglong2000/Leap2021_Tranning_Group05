@@ -1,4 +1,4 @@
-	/****************************************************************************
+/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -22,44 +22,28 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __PLAYER_H__
-#define __PLAYER_H__
+#ifndef __TRAPBEAR_H__
+#define __TRAPBEAR_H__
 
 #include "cocos2d.h"
 #include "ui\CocosGUI.h"
-#include"Actor.h"
-#include "SoundManager.h"
+#include "Trap.h"
 
-class Player : public Actor
+class TrapBear : public Trap
 {
 public:
-	Player();
-	void MoveUp();
-	void MoveDow();
-	void MoveLeft();
-	void MoveRight();
-	void OnOffLight();
-	void removeAction();
-	int mind;
-	void setFalseMove();
-	void setTrueMove(float dt);
-	void setActionDie(float dt);
-	void setBlackVisionBG(cocos2d::Size size);
-	void Playerdie();
-	bool checkMove;
-	bool stop;
-	cocos2d::DrawNode *background;
-	bool die;
-private:
+	TrapBear();
+	TrapBear(std::string name);
+	TrapBear(std::string filename, cocos2d::Rect rect);
+	void HitPlayer();
+	bool work = true;
+protected:
+	cocos2d::Size visibleSize;
+	cocos2d::Vec2 origin;
+	cocos2d::Vector<cocos2d::Animate*> _Animation;
+	cocos2d::Vector<cocos2d::Animate*> _AnimationOut;
+	std::string name = "prefap/trap/Bear_Trap.png";
 
-	int thickness = 400;
-	int width = 1000;
-	int height = 1200;
-	cocos2d::Vector<cocos2d::SpriteFrame*> stand;
-	
-	cocos2d::SEL_SCHEDULE Schedule_reverse;
-
-	
 };
 
-#endif // __PLAYER_H__
+#endif // __TRAPBEAR_H__

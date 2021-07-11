@@ -35,6 +35,7 @@ public:
 	Minions();
 	Minions(Player* playerScene, float mapspeed);
 	void findPlayer(float dt);
+	void findPlayerType0(float dt);
 	void removeAction();
 	void Roar(float dt);
 	void lightoff();

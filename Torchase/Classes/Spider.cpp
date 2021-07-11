@@ -106,3 +106,14 @@ Spider::Spider(Player * playerScene, float mapspeed):	Minions( playerScene, maps
 	Animates.pushBack(animate);
 	animFrames.clear();
 }
+void Spider::Roar(float dt)
+{
+	Minions::Roar(1);
+	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Spider::findPlayer);
+	this->schedule(Schedule_findPlayer, 1.3f, 100, 1.0f);
+}
+void Spider::findPlayer(float dt)
+{
+	// add audio
+	Minions::findPlayer(1);
+}

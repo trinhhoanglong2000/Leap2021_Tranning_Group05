@@ -26,6 +26,9 @@
 #include "Definitions.h"
 #include "AudioEngine.h"
 #include "SoundManager.h"
+#include "Shadow.h"
+#include "Spider.h"
+#include "TrapBear.h"
 USING_NS_CC;
 
 int Level_of_difficult;
@@ -88,11 +91,11 @@ bool GameScene::init()
 	this->addChild(background_off, 25);
 	background_off->setVisible(false);
 
-	canvas = new Canvas(player, background_off, controller);
+	canvas = new Canvas(player, background_off, controller,this);
 	canvas->setPosition(Vec2(0, 0));
 	player->addChild(canvas, 50);
 	canvas->AllMinions = AllMinions;
-	
+	canvas->AllTrap = &AllTrap;
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
@@ -177,8 +180,18 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			{
 				if (AllTrap.at(i)->getPhysicsBody() == a)
 				{
-					if (AllTrap.at(i)->type == 0)
+					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2)
 					{
+						if (AllTrap.at(i)->type == 2)
+						{
+							TrapBear *trapbear = dynamic_cast<TrapBear*>(AllTrap.at(i));
+							if (trapbear->work == false)
+								break;
+							else
+							{
+								trapbear->HitPlayer();
+							}
+						}
 						if (!playerdie && b->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 						{
 							playerdie = true;
@@ -215,12 +228,23 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		else if (b->getCollisionBitmask() == TRAP_COLISION_BITMASK)
 		{
+			
 			for (int i = 0; i < AllTrap.size(); i++)
 			{
 				if (AllTrap.at(i)->getPhysicsBody() == b)
 				{
-					if (AllTrap.at(i)->type == 0)
+					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2)
 					{
+						if (AllTrap.at(i)->type == 2)
+						{
+							TrapBear *trapbear = dynamic_cast<TrapBear*>(AllTrap.at(i));
+							if (trapbear->work == false)
+								break;
+							else
+							{
+								trapbear->HitPlayer();
+							}
+						}
 						if (!playerdie && a->getCollisionBitmask() == PLAYER_COLISION_BITMASK)
 						{
 							playerdie = true;
@@ -277,9 +301,18 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 							this->schedule(Schedule_shake, 0.1f);
 							SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
+
+							if (AllMinions.at(i)->type == 0)
+							{
+								auto minion = dynamic_cast<Spider*>(AllMinions.at(i));
+								minion->Roar(1);
+							}
+							if (AllMinions.at(i)->type == 1)
+							{
+								auto minion = dynamic_cast<Shadow*>(AllMinions.at(i));
+								minion->Roar(1);
+							}
 						}
-						if(AllMinions.at(i)->type == 1)
-						AllMinions.at(i)->Roar(1);
 						break;
 					}
 				}
@@ -305,9 +338,17 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 							this->schedule(Schedule_shake, 0.1f);
 							SoundManager::getInstance()->PlayMusics(Roar_sound,false,0.5f);
+							if (AllMinions.at(i)->type == 0)
+							{
+								auto minion = dynamic_cast<Spider*>(AllMinions.at(i));
+								minion->Roar(1);
+							}
+							if (AllMinions.at(i)->type == 1)
+							{
+								auto minion = dynamic_cast<Shadow*>(AllMinions.at(i));
+								minion->Roar(1);
+							}
 						}
-						if (AllMinions.at(i)->type == 1)
-							AllMinions.at(i)->Roar(1);
 						break;
 					}
 				}

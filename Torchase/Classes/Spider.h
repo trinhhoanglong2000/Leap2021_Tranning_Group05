@@ -32,6 +32,8 @@ class Spider : public Minions
 public:
 
 	Spider(Player* playerScene, float mapspeed);
+	void Roar(float dt);
+	void findPlayer(float dt);
 private:
 	std::string minionname = "prefap/Minions/spider.png";
 

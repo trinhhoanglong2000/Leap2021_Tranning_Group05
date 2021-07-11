@@ -32,6 +32,7 @@ class Shadow : public Minions
 public:
 
 	Shadow(Player* playerScene, float mapspeed);
+	void Roar(float dt);
 private:
 	std::string minionname = "prefap/Minions/Shadow.png";
 };

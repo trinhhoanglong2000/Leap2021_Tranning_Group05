@@ -100,3 +100,10 @@ Shadow::Shadow(Player * playerScene, float mapspeed):	Minions( playerScene, maps
 	animFrames.clear();
 
 }
+void Shadow::Roar(float dt)
+{
+	Minions::Roar(1);
+	this->setLocalZOrder(30);
+	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayer);
+	this->schedule(Schedule_findPlayer, 1.3f, 100, 1.0f);
+}

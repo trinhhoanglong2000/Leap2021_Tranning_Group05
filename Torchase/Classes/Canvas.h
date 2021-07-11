@@ -35,7 +35,7 @@
 class Canvas : public cocos2d::ui::Layout
 {
 public:
-	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller);
+	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller, cocos2d::Scene *sceneGame);
 	
 	bool TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event);
 	bool TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event);
@@ -46,12 +46,14 @@ public:
 	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void reduceenergy(float dt);
 	void autoplusenergy(float dt);
 	void plusenergy(int power);
 	void AutoMove(float dt);
 	void reducePlant();
 	cocos2d::Vector<Minions*> AllMinions;
+	cocos2d::Vector<Trap*> *AllTrap;
 	cocos2d::DrawNode* background_off;
 	bool endlight;
 	cocos2d::ui::Slider *enegy;
@@ -63,9 +65,11 @@ private:
 	
 	cocos2d::SEL_SCHEDULE Schedule_ReduceEnegy;
 	int int_move;
+	int mind_move;
 	bool BoolTouch;
 	int controller_canvas;
 	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight;
+	cocos2d::Scene *scene;
 };
 
 #endif // __CANVAS_H__

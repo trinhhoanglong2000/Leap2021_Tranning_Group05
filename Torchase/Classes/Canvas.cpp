@@ -26,10 +26,12 @@
 #include "Definitions.h"
 #include "ui\CocosGUI.h"
 #include "GameScene.h"
+#include "TrapBear.h"
 
 USING_NS_CC;
-Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller_Scene)
+Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller_Scene, cocos2d::Scene *sceneGame)
 {
+	scene = sceneGame;
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	player = playerScene;
@@ -42,13 +44,18 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonLeft = ui::Button::create("prefap/Gui/left.png");
 	ButtonRight = ui::Button::create("prefap/Gui/right.png");
 	auto ButtonLight = ui::Button::create("prefap/Gui/right.png");
+	auto ButtonTrap = ui::Button::create("prefap/Gui/right.png");
 
 	ButtonUp->setScale(BUTTON_SCALE);
 	ButtonDow->setScale(BUTTON_SCALE);
 	ButtonLeft->setScale(BUTTON_SCALE);
 	ButtonRight->setScale(BUTTON_SCALE);
 	ButtonLight->setScale(BUTTON_SCALE);
+	ButtonTrap->setScale(BUTTON_SCALE);
 
+	ButtonTrap->setPosition(Vec2(visibleSize.width / 2.3 + origin.x, -visibleSize.height / 10 + origin.y));
+	ButtonTrap->addTouchEventListener(CC_CALLBACK_2(Canvas::PutTrap, this));
+	  
 	ButtonLight->setPosition(Vec2(visibleSize.width / 2.5 + origin.x, -visibleSize.height / 4 + origin.y));
 	ButtonLight->addTouchEventListener(CC_CALLBACK_2(Canvas::OnOffLight, this));
 
@@ -69,6 +76,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	this->addChild(ButtonLeft);
 	this->addChild(ButtonRight);
 	this->addChild(ButtonLight);
+	this->addChild(ButtonTrap);
 	if (controller_Scene == 1)
 	{
 		ButtonUp->setVisible(false);
@@ -90,6 +98,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 
 	this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
 	int_move = 0;
+	mind_move = 1;
 	BoolTouch = false;
 	
 	// add touch move
@@ -107,6 +116,7 @@ void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType T
 	{
 		player->MoveUp();
 		int_move = 1;
+		mind_move = 1;
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 1)
@@ -137,6 +147,7 @@ void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 		
 		player->MoveDow();
 		int_move = 2;
+		mind_move = 2;
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 2)
@@ -165,6 +176,7 @@ void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType
 		
 		player->MoveLeft();
 		int_move = 3;
+		mind_move = 3;
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 3)
@@ -192,6 +204,7 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 	{
 		player->MoveRight();
 		int_move = 4;
+		mind_move = 4;
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 4)
@@ -345,7 +358,7 @@ bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 		else
 			int_move = 4;
 	}
-	
+	mind_move = int_move;
 	return true;
 }
 void Canvas::reducePlant()
@@ -357,6 +370,44 @@ void Canvas::reducePlant()
 		{
 			player->stop = true;
 			plant = nullptr;
+		}
+	}
+}
+void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
+{
+	if (Type == ui::Widget::TouchEventType::BEGAN)
+	{
+		auto trap = new TrapBear();
+		
+		AllTrap->pushBack(trap);
+		switch (mind_move)
+		{
+		case 1:
+		{
+			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() + player->speed));
+			scene->addChild(trap, 25);
+			break;
+		}
+		case 2:
+		{
+			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() - player->speed));
+			scene->addChild(trap, 25);
+			break;
+		}
+		case 3:
+		{
+			trap->setPosition(Vec2(player->getPositionX() - player->speed, player->getPositionY()));
+			scene->addChild(trap, 25);
+			break;
+		}
+		case 4:
+		{
+			trap->setPosition(Vec2(player->getPositionX() + player->speed, player->getPositionY()));
+			scene->addChild(trap, 25);
+			break;
+		}
+		default:
+			break;
 		}
 	}
 }

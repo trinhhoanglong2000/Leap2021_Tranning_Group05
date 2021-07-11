@@ -103,7 +103,6 @@ void Minions::findPlayer(float dt)
 			mind = 1;
 		}
 	}
-	log("%d", mind);
 	this->stopAllActions();
 	auto moveAction = MoveTo::create(MININON_SPEED, pointup + player->getPosition());
 	auto animationAction = RepeatForever::create(Animates.at(mind-1));
@@ -118,18 +117,30 @@ void Minions::findPlayer(float dt)
 }
 void Minions::removeAction()
 {
-	Actor::removeAction();
-	*booltro = false;
+	if (type == 1)
+	{
+		Actor::removeAction();
+		*booltro = false;
+	}
+	if (type == 0)
+	{
+		this->stopAllActions();
+		Minions::die();
+	}
 }
 void Minions::Roar(float dt)
 {
-	if (boolFind == false)
+	//this->setLocalZOrder(30);
+	/*if (type == 1)
 	{
-		this->setLocalZOrder(30);
 		Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayer);
-		this->schedule(Schedule_findPlayer,1.3f,100,1.0f); 
-		//boolFind = true;
+		this->schedule(Schedule_findPlayer, 1.3f, 100, 1.0f);
 	}
+	if (type == 0)
+	{
+		Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayerType0);
+		this->schedule(Schedule_findPlayer, 1.3f, 0, 1.0f);
+	}*/
 }
 void Minions::lightoff()
 {
@@ -145,6 +156,7 @@ void Minions::die()
 	this->unscheduleAllCallbacks();
 	goUp = false;
 	this->schedule(CC_SCHEDULE_SELECTOR(Minions::actiondie),0.5f, 0, 0.5f);
+	
 }
 void Minions::actiondie(float dt)
 {
@@ -153,4 +165,17 @@ void Minions::actiondie(float dt)
 	this->stopAllActions();
 	auto animationAction = RepeatForever::create(Animates.at(4));
 	this->runAction(Animates.at(4));
+}
+void Minions::findPlayerType0(float dt)
+{
+	this->stopAllActions();
+	auto moveAction = MoveTo::create(MININON_SPEED*10, Vec2(player->getPositionX()-this->getPositionX(), player->getPositionY() - this->getPositionY()) *10);
+	auto animationAction = RepeatForever::create(Animates.at(3));
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+
+	});
+	auto sequence = Sequence::create(moveAction, callback, nullptr);
+	this->runAction(animationAction);
+	this->runAction(sequence);
 }

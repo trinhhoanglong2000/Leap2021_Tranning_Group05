@@ -48,7 +48,8 @@ public:
 	void Lighting(float dt);
 	void Lightingstart(float dt);
 	void Lightingbg(float dt);
-	
+	cocos2d::Vector<Minions*> AllMinions;
+	cocos2d::Vector<Trap*> AllTrap;
 	//GameScene *Scene_layer;
 private:
 	int level = 0;
@@ -72,9 +73,6 @@ private:
 	Battery *battery;
 	bool playerdie;
 	bool light;
-
-	cocos2d::Vector<Minions*> AllMinions;
-	cocos2d::Vector<Trap*> AllTrap;
 
 	int SET_SHAKE_DURATION = 10;
 	int SET_LIGHTING_DURATION = 3;

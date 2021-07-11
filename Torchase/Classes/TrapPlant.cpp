@@ -83,7 +83,6 @@ TrapPlant::TrapPlant(std::string filename, cocos2d::Rect rect)
 }
 void TrapPlant::AddSlider()
 {
-	//add animation trap_plant
 	enegy->setVisible(true);
 }
 void TrapPlant::HitPlayer()

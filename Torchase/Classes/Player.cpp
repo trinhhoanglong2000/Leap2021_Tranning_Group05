@@ -142,7 +142,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 }
 void Player::MoveUp()
 {
-	if(checkMove)
+	if(checkMove && die==false)
 	if (mind == 1 && stop) {
 		auto moveAction = Actor::MoveUp();
 		auto animationAction = RepeatForever::create(Animates.at(mind-1));
@@ -168,7 +168,7 @@ void Player::MoveUp()
 }
 void Player::MoveDow()
 {
-	if (checkMove)
+	if (checkMove && die == false)
 	if (mind == 2 && stop) {
 		auto moveAction = Actor::MoveDow();	
 		auto animationAction = RepeatForever::create(Animates.at(mind-1));
@@ -194,7 +194,7 @@ void Player::MoveDow()
 }
 void Player::MoveLeft()
 {
-	if (checkMove )
+	if (checkMove && die == false)
 	if (mind == 3 && stop) {
 		auto moveAction = Actor::MoveLeft();
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
@@ -220,7 +220,7 @@ void Player::MoveLeft()
 }
 void Player::MoveRight()
 {
-	if (checkMove)
+	if (checkMove && die == false)
 	if (mind == 4 && stop) {
 		auto moveAction = Actor::MoveRight();
 		auto animationAction = RepeatForever::create(Animates.at(mind - 1));
@@ -262,7 +262,6 @@ void Player::setFalseMove()
 void Player::Playerdie()
 {
 	this->unscheduleAllCallbacks();
-	checkMove = false;
 	die = true;
 	this->schedule(CC_SCHEDULE_SELECTOR(Player::setActionDie), ACTOR_SPEED / 2);
 }
@@ -273,4 +272,18 @@ void Player::setActionDie(float dt)
 	this->stopAllActions();
 	this->runAction(DeadAnimation);
 	
+}
+void Player::removeAction()
+{
+	this->stopAllActions();
+	auto reverAction = MoveTo::create(ACTOR_SPEED / 2, mindPositison);
+	auto animationAction = RepeatForever::create(Animates.at(mind - 1));
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+		this->setSpriteFrame(stand.at(mind - 1));
+		checkMove = true;
+	});
+	auto sequence = Sequence::create(reverAction, callback, nullptr);
+	this->runAction(animationAction);
+	this->runAction(sequence);
 }
