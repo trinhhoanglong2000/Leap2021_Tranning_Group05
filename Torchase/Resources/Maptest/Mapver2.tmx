@@ -24,7 +24,7 @@
  </layer>
  <objectgroup id="8" name="minions">
   <object id="14" name="shadow_12" type="0" x="848" y="1456"/>
-  <object id="17" name="shadow_11" type="0" x="720" y="1552"/>
+  <object id="17" name="shadow_11" type="1" x="720" y="1552"/>
   <object id="18" name="shadow_10" type="0" x="560" y="1232"/>
   <object id="19" name="shadow_9" type="0" x="400" y="1168"/>
   <object id="20" name="shadow_8" type="0" x="240" y="1232"/>
