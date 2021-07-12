@@ -39,6 +39,7 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 	EnemyBody->setDynamic(false);
 	this->setPhysicsBody(EnemyBody);
 	boolFind = false;
+	Booldie = false;
 	std::string minionname = "prefap/Minions/spider.png";
 	//animation
 }	
@@ -117,16 +118,16 @@ void Minions::findPlayer(float dt)
 }
 void Minions::removeAction()
 {
-	if (type == 1)
-	{
+	/*if (type == 1)
+	{*/
 		Actor::removeAction();
 		*booltro = false;
-	}
+	/*}
 	if (type == 0)
 	{
 		this->stopAllActions();
 		Minions::die();
-	}
+	}*/
 }
 void Minions::Roar(float dt)
 {
@@ -153,6 +154,7 @@ void Minions::lighton()
 }
 void Minions::die()
 {
+	Booldie = true;
 	this->unscheduleAllCallbacks();
 	goUp = false;
 	this->schedule(CC_SCHEDULE_SELECTOR(Minions::actiondie),0.5f, 0, 0.5f);
@@ -160,7 +162,7 @@ void Minions::die()
 }
 void Minions::actiondie(float dt)
 {
-	this->setLocalZOrder(20);
+	//this->setLocalZOrder(20);
 	SoundManager::getInstance()->PlayMusics(HitTrap_sound, false, 0.5f);
 	this->stopAllActions();
 	auto animationAction = RepeatForever::create(Animates.at(4));

@@ -25,15 +25,16 @@
 #ifndef __CANVAS_H__
 #define __CANVAS_H__
 
-#include "cocos2d.h"
 #include "ui\CocosGUI.h"
 #include"Player.h"
 #include "Minions.h"
 #include "Trap.h"
 #include "TrapPlant.h"
+#include "cocos2d.h"
 
 class Canvas : public cocos2d::ui::Layout
 {
+	
 public:
 	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller, cocos2d::Scene *sceneGame);
 	
@@ -58,11 +59,12 @@ public:
 	bool endlight;
 	cocos2d::ui::Slider *enegy;
 	TrapPlant *plant;
+	cocos2d::TMXLayer *_meta;
+	int maxmap;
 private:
 	Player *player;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-	
 	cocos2d::SEL_SCHEDULE Schedule_ReduceEnegy;
 	int int_move;
 	int mind_move;

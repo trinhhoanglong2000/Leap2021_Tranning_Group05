@@ -44,6 +44,7 @@ public:
 	void die();
 	void actiondie(float dt);
 	int type;
+	bool Booldie;
 protected:
 	Player *player;
 	bool booltop;
@@ -52,6 +53,7 @@ protected:
 	bool booldow;
 	bool *booltro;
 	bool goUp; 
+	
 	cocos2d::SEL_SCHEDULE Schedule_Roar;
 	cocos2d::SEL_SCHEDULE Schedule_findPlayer;
 	cocos2d::SEL_SCHEDULE Schedule_CheckfindPlayer;

@@ -33,7 +33,7 @@ TrapBear::TrapBear() : Trap("prefap/trap/Bear_Trap.png", Rect(0, 0, 32, 32)) {
 	origin = Director::getInstance()->getVisibleOrigin();
 	type = 2;
 	this->setScale(4.0f);
-
+	this->setLocalZOrder(20);
 	Vector<SpriteFrame*>  animFrames;
 
 	animFrames.pushBack(SpriteFrame::create(name, Rect(0, 0, 32, 32)));
@@ -71,7 +71,7 @@ TrapBear::TrapBear(std::string filename, cocos2d::Rect rect)
 void TrapBear::HitPlayer()
 {
 	// chay animation
-	this->setLocalZOrder(40);
+	//this->setLocalZOrder(40);
 	auto animationAction = RepeatForever::create(_Animation.at(0));
 	this->runAction(_Animation.at(0));
 	work = false;

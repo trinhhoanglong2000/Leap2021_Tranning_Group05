@@ -96,6 +96,8 @@ bool GameScene::init()
 	player->addChild(canvas, 50);
 	canvas->AllMinions = AllMinions;
 	canvas->AllTrap = &AllTrap;
+	canvas->_meta = gameMap->_meta;
+	canvas->maxmap = (int)(gameMap->_tileMap->getMapSize().height);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
@@ -188,6 +190,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2)
 					{
+						AllTrap.at(i)->setLocalZOrder(40);
 						if (AllTrap.at(i)->type == 2)
 						{
 							TrapBear *trapbear = dynamic_cast<TrapBear*>(AllTrap.at(i));
@@ -205,7 +208,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 						}
 						if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 						{
-							CCLOG("ene die");
+							
 							for (int i = 0; i < AllMinions.size(); i++)
 							{
 								if (AllMinions.at(i)->getPhysicsBody() == b)
@@ -241,6 +244,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2)
 					{
+						AllTrap.at(i)->setLocalZOrder(40);
 						if (AllTrap.at(i)->type == 2)
 						{
 							TrapBear *trapbear = dynamic_cast<TrapBear*>(AllTrap.at(i));
@@ -291,9 +295,18 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			CCLOG("enemy");
 			if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				playerdie = true;
-				this->stopAllActions();
-				player->Playerdie();
+				for (int i = 0; i < AllMinions.size(); i++)
+				{
+					if (AllMinions.at(i)->getPhysicsBody() == a)
+					{
+						if (AllMinions.at(i)->Booldie == false)
+						{
+							playerdie = true;
+							this->stopAllActions();
+							player->Playerdie();
+						}
+					}
+				}
 			}
 			if (b->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
 			{
@@ -331,8 +344,18 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			CCLOG("enemy");
 			if (!playerdie && a->getCategoryBitmask() == PLAYER_COLISION_BITMASK)
 			{
-				playerdie = true;
-				player->Playerdie();
+				for (int i = 0; i < AllMinions.size(); i++)
+				{
+					if (AllMinions.at(i)->getPhysicsBody() == b)
+					{
+						if (AllMinions.at(i)->Booldie == false)
+						{
+							playerdie = true;
+							this->stopAllActions();
+							player->Playerdie();
+						}
+					}
+				}
 			}
 			if (a->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
 			{
