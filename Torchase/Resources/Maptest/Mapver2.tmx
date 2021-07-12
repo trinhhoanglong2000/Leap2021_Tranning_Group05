@@ -23,19 +23,18 @@
   </data>
  </layer>
  <objectgroup id="8" name="minions">
-  <object id="14" name="shadow_12" type="0" x="848" y="1456"/>
+  <object id="14" name="shadow_12" type="1" x="848" y="1456"/>
   <object id="17" name="shadow_11" type="1" x="720" y="1552"/>
-  <object id="18" name="shadow_10" type="0" x="560" y="1232"/>
-  <object id="19" name="shadow_9" type="0" x="400" y="1168"/>
-  <object id="20" name="shadow_8" type="0" x="240" y="1232"/>
-  <object id="21" name="shadow_7" type="0" x="112" y="1104"/>
-  <object id="22" name="shadow_6" type="0" x="368" y="1040"/>
-  <object id="23" name="shadow_5" type="0" x="176" y="912"/>
-  <object id="24" name="shadow_4" type="0" x="368" y="848"/>
-  <object id="26" name="shadow_3" type="0" x="592" y="1392"/>
-  <object id="29" name="shadow_2" type="0" x="592" y="1552"/>
-  <object id="30" name="shadow_1" type="0" x="592" y="1488"/>
-  <object id="33" x="710" y="1767"/>
+  <object id="18" name="shadow_10" type="1" x="560" y="1232"/>
+  <object id="19" name="shadow_9" type="1" x="400" y="1168"/>
+  <object id="20" name="shadow_8" type="1" x="240" y="1232"/>
+  <object id="21" name="shadow_7" type="1" x="112" y="1104"/>
+  <object id="22" name="shadow_6" type="1" x="368" y="1040"/>
+  <object id="23" name="shadow_5" type="1" x="176" y="912"/>
+  <object id="24" name="shadow_4" type="1" x="368" y="848"/>
+  <object id="26" name="shadow_3" type="1" x="592" y="1392"/>
+  <object id="29" name="shadow_2" type="1" x="592" y="1552"/>
+  <object id="30" name="shadow_1" type="1" x="592" y="1488"/>
  </objectgroup>
  <objectgroup id="7" name="Battery">
   <object id="32" name="battery_1" x="464" y="1424"/>
