@@ -1,4 +1,4 @@
-	/****************************************************************************
+/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -22,43 +22,40 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MINIONS_H__
-#define __MINIONS_H__
+#ifndef __MINIONMANAGER_H__
+#define __MINIONMANAGER_H__
 
 #include "cocos2d.h"
-#include"Actor.h"
-#include "Player.h"
-
-class Minions : public Actor
+#include "AudioEngine.h"
+#include <string>
+#include <unordered_map>
+#include "Shadow.h"
+#include "Spider.h"
+#include "MinionBoss.h"
+#include "Minions.h"
+class MinionManager
 {
-public:
-	Minions();
-	Minions(Player* playerScene, float mapspeed);
-	void findPlayer(float dt);
-	void findPlayerType0(float dt);
-	void removeAction();
-	void Roar(float dt);
-	void lightoff();
-	void lighton();
-	bool boolFind;
-	void die();
-	void actiondie(float dt);
-	void setplayer(Player* playerScene, float mapspeed);
-	int type;
-	bool Booldie;
-protected:
-	Player *player;
-	bool booltop;
-	bool boolright;
-	bool boolleft;
-	bool booldow;
-	bool *booltro;
-	bool goUp; 
+private:
+	static MinionManager* mInstancePtr;
+	std::unordered_map<std::string, int> ID;
 	
-	cocos2d::SEL_SCHEDULE Schedule_Roar;
-	cocos2d::SEL_SCHEDULE Schedule_findPlayer;
-	cocos2d::SEL_SCHEDULE Schedule_CheckfindPlayer;
-	// type of enemy
+public:
+	MinionManager();
+	//Function will return -1 if key not exist
+
+	void CreateAllMinion();
+	void SetFalseAllMinion();
+	cocos2d::Vector<Minions *> AllMinions;
+	Minions *CreateMinion(int Type);
+
+	static MinionManager* getInstance() {
+		return mInstancePtr;
+	}
+
+
+
 };
 
-#endif // __MINIONS_H__
+
+
+#endif // __MINIONMANAGER_H__

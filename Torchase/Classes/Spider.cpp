@@ -32,8 +32,28 @@ USING_NS_CC;
 
 Spider::Spider(Player * playerScene, float mapspeed):	Minions( playerScene, mapspeed)
 {
-	
-		//down
+	Spider::setAnimation();
+
+}
+Spider::Spider() : Minions()
+{
+	Spider::setAnimation();
+}
+void Spider::Roar(float dt)
+{
+	Minions::Roar(1);
+	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Spider::findPlayer);
+	this->schedule(Schedule_findPlayer, 1.3f, 100, 1.0f);
+}
+void Spider::findPlayer(float dt)
+{
+	// add audio
+	Minions::findPlayer(1);
+}
+void Spider::setAnimation()
+{
+
+	//down
 	type = 0;
 	Vector<SpriteFrame*>  animFrames;
 	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 100)));
@@ -92,7 +112,7 @@ Spider::Spider(Player * playerScene, float mapspeed):	Minions( playerScene, maps
 	Animates.pushBack(animate);
 	animFrames.clear();
 	goUp = true;
-	
+
 
 	// die
 	std::string minionnamedie = "prefap/Minions/spiderDie.png";
@@ -105,15 +125,4 @@ Spider::Spider(Player * playerScene, float mapspeed):	Minions( playerScene, maps
 	animate = Animate::create(animation);
 	Animates.pushBack(animate);
 	animFrames.clear();
-}
-void Spider::Roar(float dt)
-{
-	Minions::Roar(1);
-	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Spider::findPlayer);
-	this->schedule(Schedule_findPlayer, 1.3f, 100, 1.0f);
-}
-void Spider::findPlayer(float dt)
-{
-	// add audio
-	Minions::findPlayer(1);
 }

@@ -43,8 +43,17 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 	std::string minionname = "prefap/Minions/spider.png";
 	//animation
 }	
-Minions::Minions()
+Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
+	auto EnemyBody = PhysicsBody::createBox(this->getContentSize());
+	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
+	EnemyBody->setCategoryBitmask(ENEMY_CATEGORY_BITMASK);
+	EnemyBody->setContactTestBitmask(ENEMY_COLISION_BITMASK);
+	EnemyBody->setDynamic(false);
+	this->setPhysicsBody(EnemyBody);
+	boolFind = false;
+	Booldie = false;
+	std::string minionname = "prefap/Minions/spider.png";
 }
 void Minions::findPlayer(float dt)
 {
@@ -180,4 +189,9 @@ void Minions::findPlayerType0(float dt)
 	auto sequence = Sequence::create(moveAction, callback, nullptr);
 	this->runAction(animationAction);
 	this->runAction(sequence);
+}
+void Minions::setplayer(Player* playerScene, float mapspeed)
+{
+	player = playerScene;
+	this->speed = mapspeed;
 }

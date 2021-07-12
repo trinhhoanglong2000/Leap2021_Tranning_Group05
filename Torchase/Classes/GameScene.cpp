@@ -26,6 +26,7 @@
 #include "Definitions.h"
 #include "AudioEngine.h"
 #include "SoundManager.h"
+#include "MinionManager.h"
 #include "Shadow.h"
 #include "Spider.h"
 #include "TrapBear.h"
@@ -60,6 +61,8 @@ bool GameScene::init()
     }
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
+
+	MinionManager::getInstance()->SetFalseAllMinion();
 
 	player = new Player();	
 	this->addChild(player,30);

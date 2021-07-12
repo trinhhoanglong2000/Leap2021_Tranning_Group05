@@ -26,6 +26,7 @@
 #include "Definitions.h"
 #include "MainMenuScene.h"
 #include "GameScene.h"
+#include "MinionManager.h"
 USING_NS_CC;
 
 Scene* SplashScene::createScene()
@@ -49,6 +50,9 @@ bool SplashScene::init()
     {
         return false;
     }
+	//khoi tao all minion
+	MinionManager::getInstance()->CreateAllMinion();
+
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();

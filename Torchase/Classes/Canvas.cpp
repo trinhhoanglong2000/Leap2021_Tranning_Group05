@@ -117,7 +117,7 @@ void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType T
 		player->MoveUp();
 		int_move = 1;
 		mind_move = 1;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 2);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 1)
 	{
@@ -148,7 +148,7 @@ void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 		player->MoveDow();
 		int_move = 2;
 		mind_move = 2;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 2);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 2)
 	{
@@ -177,7 +177,7 @@ void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType
 		player->MoveLeft();
 		int_move = 3;
 		mind_move = 3;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 2);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 3)
 	{
@@ -205,7 +205,7 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 		player->MoveRight();
 		int_move = 4;
 		mind_move = 4;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 2);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 4)
 	{
@@ -230,7 +230,7 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
 	
-	if (Type == ui::Widget::TouchEventType::BEGAN && endlight ==true )
+	if (Type == ui::Widget::TouchEventType::BEGAN && endlight ==true && enegy->getPercent()>0)
 	{
 		if (enegy->getPercent() <= 0)
 		{
@@ -274,7 +274,7 @@ void Canvas::reduceenergy(float dt)
 	if (enegy->getPercent() <= 0)
 	{
 		
-		endlight = false;
+		//endlight = false;
 		player->background->getPhysicsBody()->setEnabled(false);
 		player->background->setVisible(false);
 		background_off->setVisible(true);
@@ -292,7 +292,7 @@ void Canvas::autoplusenergy(float dt)
 		enegy->setPercent(enegy->getPercent() + AUTOPLUSHENEGY);
 	else
 		enegy->setPercent(enegy->getMaxPercent());
-	endlight = true;
+	//endlight = true;
 }
 void Canvas::plusenergy(int power)
 {
@@ -300,7 +300,7 @@ void Canvas::plusenergy(int power)
 		enegy->setPercent(enegy->getPercent() + power);
 	else
 		enegy->setPercent(enegy->getMaxPercent());
-	endlight = true;
+	//endlight = true;
 }
 void Canvas::AutoMove(float dt)
 {
@@ -340,7 +340,7 @@ bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 	if (controller_canvas == 0)
 		return true;
 	if(int_move==0)
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), 0);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED/2);
 	cocos2d::Vec2 pointgoc = Vec2(touch->getStartLocation().x, touch->getStartLocation().y + 20) - touch->getStartLocation();
 	cocos2d::Vec2 point = touch->getLocation() - touch->getStartLocation();
 	float radian = (pointgoc.x * point.x + pointgoc.y * point.y) / (sqrt(point.x*point.x + point.y*point.y)*sqrt(pointgoc.x*pointgoc.x + pointgoc.y*pointgoc.y));

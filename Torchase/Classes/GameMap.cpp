@@ -31,6 +31,8 @@
 #include "Battery.h"
 #include "TrapPlant.h"
 #include "Trapthorn.h"
+#include "MinionBoss.h"
+#include "MinionManager.h"
 USING_NS_CC;
 
 
@@ -75,14 +77,22 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 			int y = objMinion.asValueMap()["y"].asInt();
 			int type = objMinion.asValueMap()["type"].asInt();
 			Minions* minion;
-			if (type == 0) {
+			/*if (type == 0) {
 				minion = new Spider(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
 
 			}
-		
 			else if (type==1){
-				minion = new Shadow(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
+				minion = MinionManager::getInstance()->CreateMinion(1);
+				minion->setplayer(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
+				//minion = new Shadow(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
 			}
+			if (type == 2)
+			{
+				minion = new MinionBoss(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
+			}*/
+
+			minion = MinionManager::getInstance()->CreateMinion(type);
+			minion->setplayer(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
 
 			minion->setPosition(Vec2(x, y)*MAP_SCALE);
 			scene->addChild(minion, 20);

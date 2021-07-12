@@ -22,32 +22,26 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "Shadow.h"
+#include "MinionBoss.h"
 #include "Definitions.h"
 
 USING_NS_CC;
 
-
-
-
-Shadow::Shadow(Player * playerScene, float mapspeed):	Minions( playerScene, mapspeed)
+MinionBoss::MinionBoss(Player * playerScene, float mapspeed):	Minions( playerScene, mapspeed)
 {
-	Shadow::setAnimation();
+	MinionBoss::setAnimation();
 }
-Shadow::Shadow() : Minions()
+MinionBoss::MinionBoss() : Minions()
 {
-	Shadow::setAnimation();
+	MinionBoss::setAnimation();
 }
-void Shadow::Roar(float dt)
+void MinionBoss::Roar(float dt)
 {
-	Minions::Roar(1);
-	this->setLocalZOrder(30);
-	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayer);
-	this->schedule(Schedule_findPlayer, 1.3f, 100, 1.0f);
+	
 }
-void Shadow::setAnimation()
+void MinionBoss::setAnimation()
 {
-	type = 1;
+	type = 2;
 	//down
 	Vector<SpriteFrame*>  animFrames;
 	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 150)));
