@@ -37,7 +37,7 @@
 USING_NS_CC;
 
 
-GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Minions *> &AllMinions)
+GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 {
 	_player = playerScene;
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -97,7 +97,6 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
 
 			minion->setPosition(Vec2(x, y)*MAP_SCALE);
 			scene->addChild(minion, 20);
-			AllMinions.pushBack(minion);
 		}
 	}
 	

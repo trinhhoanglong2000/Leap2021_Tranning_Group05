@@ -24,7 +24,6 @@
 
 #include "MinionBoss.h"
 #include "Definitions.h"
-
 USING_NS_CC;
 
 MinionBoss::MinionBoss(Player * playerScene, float mapspeed):	Minions( playerScene, mapspeed)

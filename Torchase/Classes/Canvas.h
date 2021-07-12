@@ -54,7 +54,7 @@ public:
 	void AutoMove(float dt);
 	void reducePlant();
 	cocos2d::Vector<Minions*> AllMinions;
-	cocos2d::Vector<Trap*> *AllTrap;
+	cocos2d::Vector<Trap*> AllTrap;
 	cocos2d::DrawNode* background_off;
 	bool endlight;
 	cocos2d::ui::Slider *enegy;

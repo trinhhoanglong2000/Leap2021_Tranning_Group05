@@ -27,6 +27,7 @@
 #include "AudioEngine.h"
 #include "SoundManager.h"
 #include "MinionManager.h"
+#include "TrapManager.h"
 #include "Shadow.h"
 #include "Spider.h"
 #include "TrapBear.h"
@@ -69,9 +70,7 @@ bool GameScene::init()
 	
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
-	gameMap = new GameMap(this,player, AllMinions); // add gamemap
-
-	AllTrap = gameMap->AllTrap;
+	gameMap = new GameMap(this,player); // add gamemap
 
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
@@ -97,8 +96,6 @@ bool GameScene::init()
 	canvas = new Canvas(player, background_off, controller,this);
 	canvas->setPosition(Vec2(0, 0));
 	player->addChild(canvas, 50);
-	canvas->AllMinions = AllMinions;
-	canvas->AllTrap = &AllTrap;
 	canvas->_meta = gameMap->_meta;
 	canvas->maxmap = (int)(gameMap->_tileMap->getMapSize().height);
 
@@ -113,13 +110,15 @@ bool GameScene::init()
 	effect->setPosition(player->getPosition());
 	//effect->setScale(1.5f);
 	this->addChild(effect, 200);
-
+	
 	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::Lighting), 5.0f);
-
+	
 	return true;
 }
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 {
+	AllMinions = MinionManager::getInstance()->AllMinions;
+	AllTrap = TrapManager::getInstance()->AllTrap;
 	PhysicsBody *a = contact.getShapeA()->getBody();
 	PhysicsBody *b = contact.getShapeB()->getBody();
 	CCLOG("Overlap on");
@@ -218,7 +217,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 								{
 
 									AllMinions.at(i)->die();
-									AllMinions.erase(AllMinions.begin() + i);
+									//AllMinions.erase(AllMinions.begin() + i);
 									break;
 								}
 							}
@@ -272,7 +271,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 								{
 
 									AllMinions.at(i)->die();
-									AllMinions.erase(AllMinions.begin() + i);
+									//AllMinions.erase(AllMinions.begin() + i);
 									break;
 								}
 							}
@@ -344,7 +343,6 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		else if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 		{
-			CCLOG("enemy");
 			if (!playerdie && a->getCategoryBitmask() == PLAYER_COLISION_BITMASK)
 			{
 				for (int i = 0; i < AllMinions.size(); i++)
@@ -362,7 +360,6 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			}
 			if (a->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
 			{
-				CCLOG("activated");
 				//SoundManager::getInstance()->PlayMusic(thrillingbackground_sound,false,0.2f);
 				for (int i = 0; i < AllMinions.size(); i++)
 				{

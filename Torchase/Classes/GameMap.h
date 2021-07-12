@@ -44,7 +44,7 @@ private:
 	Player *_player;
 	
 public:
-	GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Minions*> &AllMinions);
+	GameMap(cocos2d::Scene *scene, Player *playerScene);
 	cocos2d::Size returnSizeMap();
 	cocos2d::Size returnSizetile();
 	cocos2d::Vector<Trap*> AllTrap;

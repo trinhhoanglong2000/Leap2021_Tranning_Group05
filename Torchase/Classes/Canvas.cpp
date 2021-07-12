@@ -27,6 +27,8 @@
 #include "ui\CocosGUI.h"
 #include "GameScene.h"
 #include "TrapBear.h"
+#include "MinionManager.h"
+#include "TrapManager.h"
 
 USING_NS_CC;
 Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller_Scene, cocos2d::Scene *sceneGame)
@@ -229,7 +231,7 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 }
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
-	
+	AllMinions = MinionManager::getInstance()->AllMinions;
 	if (Type == ui::Widget::TouchEventType::BEGAN && endlight ==true && enegy->getPercent()>0)
 	{
 		if (enegy->getPercent() <= 0)
@@ -273,7 +275,7 @@ void Canvas::reduceenergy(float dt)
 	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
 	if (enegy->getPercent() <= 0)
 	{
-		
+		AllMinions = MinionManager::getInstance()->AllMinions;
 		//endlight = false;
 		player->background->getPhysicsBody()->setEnabled(false);
 		player->background->setVisible(false);
@@ -377,7 +379,6 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN && player->die==false)
 	{
-		auto trap = new TrapBear();
 		switch (mind_move)
 		{
 		case 1:
@@ -386,6 +387,7 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 			auto tileSprite = _meta->getTileAt(Vec2((int)((player->getPositionX() / player->speed)-0.5), (int)(maxmap -0.5- (player->getPositionY() + player->speed)/ player->speed)+1));
 			if (tileSprite)
 				return;
+			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() + player->speed));
 			scene->addChild(trap, 25);
 			break;
@@ -395,6 +397,7 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 			auto tileSprite = _meta->getTileAt(Vec2((int)((player->getPositionX() / player->speed) - 0.5), (int)(maxmap - 0.5 - (player->getPositionY() - player->speed) / player->speed)+1));
 			if (tileSprite)
 				return;
+			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() - player->speed));
 			scene->addChild(trap, 25);
 			break;
@@ -404,6 +407,7 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 			auto tileSprite = _meta->getTileAt(Vec2((int)(((player->getPositionX() - player->speed) / player->speed) - 0.5), (int)(maxmap - 0.5 - player->getPositionY() / player->speed)+1));
 			if (tileSprite)
 				return;
+			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX() - player->speed, player->getPositionY()));
 			scene->addChild(trap, 25);
 			break;
@@ -413,6 +417,7 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 			auto tileSprite = _meta->getTileAt(Vec2((int)(((player->getPositionX() + player->speed) / player->speed) - 0.5), (int)(maxmap - 0.5 - player->getPositionY() / player->speed)+1));
 			if (tileSprite)
 				return;
+			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX() + player->speed, player->getPositionY()));
 			scene->addChild(trap);
 			break;
@@ -420,6 +425,5 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 		default:
 			break;
 		}
-		AllTrap->pushBack(trap);
 	}
 }
