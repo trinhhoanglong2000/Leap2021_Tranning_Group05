@@ -375,7 +375,7 @@ void Canvas::reducePlant()
 }
 void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
-	if (Type == ui::Widget::TouchEventType::BEGAN)
+	if (Type == ui::Widget::TouchEventType::BEGAN && player->die==false)
 	{
 		auto trap = new TrapBear();
 		switch (mind_move)
@@ -414,7 +414,7 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 			if (tileSprite)
 				return;
 			trap->setPosition(Vec2(player->getPositionX() + player->speed, player->getPositionY()));
-			scene->addChild(trap, 25);
+			scene->addChild(trap);
 			break;
 		}
 		default:
