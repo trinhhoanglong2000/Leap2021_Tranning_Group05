@@ -38,8 +38,7 @@ class GameMap : public cocos2d::Scene
 {
 private:
 	
-	TMXTiledMap *_tileMap;
-	TMXLayer *_meta;
+	
 	TMXLayer *_Trap;
 	TMXLayer *_TrapPlant;
 	Player *_player;
@@ -49,6 +48,8 @@ public:
 	cocos2d::Size returnSizeMap();
 	cocos2d::Size returnSizetile();
 	cocos2d::Vector<Trap*> AllTrap;
+	TMXLayer *_meta;
+	TMXTiledMap *_tileMap;
 private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;

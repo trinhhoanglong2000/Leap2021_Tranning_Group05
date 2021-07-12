@@ -378,30 +378,41 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
 		auto trap = new TrapBear();
-		
-		AllTrap->pushBack(trap);
 		switch (mind_move)
 		{
 		case 1:
 		{
+
+			auto tileSprite = _meta->getTileAt(Vec2((int)((player->getPositionX() / player->speed)-0.5), (int)(maxmap -0.5- (player->getPositionY() + player->speed)/ player->speed)+1));
+			if (tileSprite)
+				return;
 			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() + player->speed));
 			scene->addChild(trap, 25);
 			break;
 		}
 		case 2:
 		{
+			auto tileSprite = _meta->getTileAt(Vec2((int)((player->getPositionX() / player->speed) - 0.5), (int)(maxmap - 0.5 - (player->getPositionY() - player->speed) / player->speed)+1));
+			if (tileSprite)
+				return;
 			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() - player->speed));
 			scene->addChild(trap, 25);
 			break;
 		}
 		case 3:
 		{
+			auto tileSprite = _meta->getTileAt(Vec2((int)(((player->getPositionX() - player->speed) / player->speed) - 0.5), (int)(maxmap - 0.5 - player->getPositionY() / player->speed)+1));
+			if (tileSprite)
+				return;
 			trap->setPosition(Vec2(player->getPositionX() - player->speed, player->getPositionY()));
 			scene->addChild(trap, 25);
 			break;
 		}
 		case 4:
 		{
+			auto tileSprite = _meta->getTileAt(Vec2((int)(((player->getPositionX() + player->speed) / player->speed) - 0.5), (int)(maxmap - 0.5 - player->getPositionY() / player->speed)+1));
+			if (tileSprite)
+				return;
 			trap->setPosition(Vec2(player->getPositionX() + player->speed, player->getPositionY()));
 			scene->addChild(trap, 25);
 			break;
@@ -409,5 +420,6 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 		default:
 			break;
 		}
+		AllTrap->pushBack(trap);
 	}
 }

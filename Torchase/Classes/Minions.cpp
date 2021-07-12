@@ -117,16 +117,16 @@ void Minions::findPlayer(float dt)
 }
 void Minions::removeAction()
 {
-	if (type == 1)
-	{
+	/*if (type == 1)
+	{*/
 		Actor::removeAction();
 		*booltro = false;
-	}
+	/*}
 	if (type == 0)
 	{
 		this->stopAllActions();
 		Minions::die();
-	}
+	}*/
 }
 void Minions::Roar(float dt)
 {

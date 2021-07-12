@@ -96,6 +96,8 @@ bool GameScene::init()
 	player->addChild(canvas, 50);
 	canvas->AllMinions = AllMinions;
 	canvas->AllTrap = &AllTrap;
+	canvas->_meta = gameMap->_meta;
+	canvas->maxmap = (int)(gameMap->_tileMap->getMapSize().height);
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
