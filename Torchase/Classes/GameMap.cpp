@@ -41,7 +41,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Vector<Min
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("Maptest/MapLevel1.tmx");
+	_tileMap->initWithTMXFile("Maptest/Mapver2.tmx");
 
 	_tileMap->setScale(MAP_SCALE);
 	_tileMap->setTag(100);

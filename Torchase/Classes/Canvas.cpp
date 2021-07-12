@@ -340,7 +340,7 @@ bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 	if (controller_canvas == 0)
 		return true;
 	if(int_move==0)
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), 0);
 	cocos2d::Vec2 pointgoc = Vec2(touch->getStartLocation().x, touch->getStartLocation().y + 20) - touch->getStartLocation();
 	cocos2d::Vec2 point = touch->getLocation() - touch->getStartLocation();
 	float radian = (pointgoc.x * point.x + pointgoc.y * point.y) / (sqrt(point.x*point.x + point.y*point.y)*sqrt(pointgoc.x*pointgoc.x + pointgoc.y*pointgoc.y));
