@@ -27,22 +27,20 @@
 
 #include "cocos2d.h"
 #include "ui\CocosGUI.h"
-class Trap : public cocos2d::Sprite
+#include "Actor.h"
+class Trap : public Actor
 {
 public:
 	Trap();
 	Trap(std::string name);
 	Trap(std::string filename, cocos2d::Rect rect);
-	/*void HitPlayer();
-	cocos2d::ui::Slider *enegy;
-	void ReduceSlider();*/
-
+	void removeAction();
+	int checkmove;
 	int type;
 protected:
-	//static cocos2d::Camera *cam;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-
+	bool BoolMove;
 
 };
 

@@ -25,38 +25,38 @@
 #include "TrapRock.h"
 #include "Definitions.h"
 #include "ui\CocosGUI.h"
+#include "Actor.h"
+#include "Trap.h"
 
 USING_NS_CC;
-TrapRock::TrapRock() : Trap("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)) {
+TrapRock::TrapRock() : Trap("prefap/trap/Trap_Rock.png", Rect(0, 0, 51, 51)) {
 
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-	type = 0;
-	this->setScale(3.0f);
-
+	type = 3;
+	this->setScale(2.0f);
+	checkmove = 3;
+	BoolMove = false;
 	Vector<SpriteFrame*>  animFrames;
 
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(0, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(32, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(79, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(101, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(133, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(165, 0, 28, 32)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Rock.png", Rect(0, 0, 51, 51)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Rock.png", Rect(51, 0, 51, 51)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Rock.png", Rect(102, 0, 51, 51)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Rock.png", Rect(153, 0, 51, 51)));
 	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
 	Animate* animate = Animate::create(animation);
 	_Animation.pushBack(animate);
 
 	Vector<SpriteFrame*>  animFramesOut;
-	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(165, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(133, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(101, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(79, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(32, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(0, 0, 28, 32)));
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Trap_Rock.png", Rect(153, 0, 51, 51)));
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Trap_Rock.png", Rect(102, 0, 51, 51)));
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Trap_Rock.png", Rect(51, 0, 51, 51)));
+	animFramesOut.pushBack(SpriteFrame::create("prefap/trap/Trap_Rock.png", Rect(0, 0, 51, 51)));
 	Animation* animations = Animation::createWithSpriteFrames(animFramesOut, 0.2f);
 	Animate* animates = Animate::create(animations);
 	_AnimationOut.pushBack(animates);
-
+	//this->schedule(CC_SCHEDULE_SELECTOR(TrapRock::atack), 0);
+	//TrapRock::atack(1);
 }
 TrapRock::TrapRock(std::string name) {
 
@@ -69,4 +69,103 @@ TrapRock::TrapRock(std::string filename, cocos2d::Rect rect)
 	this->initWithFile(filename,rect);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
+}
+void TrapRock::atack(float dt)
+{
+	if (BoolMove == false)
+	{
+		if (checkmove == 1)
+		{
+			auto moveAction = Actor::MoveRight();
+			auto animationAction = RepeatForever::create(_Animation.at(0));
+			auto callback = CallFunc::create([&]() {
+				this->stopAllActions();
+				BoolMove = false;
+				TrapRock::atack(1);
+			});
+			auto sequence = Sequence::create(moveAction, callback, nullptr);
+			this->runAction(animationAction);
+			this->runAction(sequence);
+			BoolMove = true;
+		}
+		if (checkmove == 2)
+		{
+			auto moveAction = Actor::MoveLeft();
+			auto animationAction = RepeatForever::create(_AnimationOut.at(0));
+			auto callback = CallFunc::create([&]() {
+				this->stopAllActions();
+				BoolMove = false;
+				TrapRock::atack(1);
+			});
+			auto sequence = Sequence::create(moveAction, callback, nullptr);
+			this->runAction(animationAction);
+			this->runAction(sequence);
+			BoolMove = true;
+		}
+		if (checkmove == 3)
+		{
+			auto moveAction = Actor::MoveUp();
+			auto animationAction = RepeatForever::create(_Animation.at(0));
+			auto callback = CallFunc::create([&]() {
+				this->stopAllActions();
+				BoolMove = false;
+				TrapRock::atack(1);
+			});
+			auto sequence = Sequence::create(moveAction, callback, nullptr);
+			this->runAction(animationAction);
+			this->runAction(sequence);
+			
+			BoolMove = true;
+		}
+		if (checkmove == 4)
+		{
+			auto moveAction = Actor::MoveDow();
+			auto animationAction = RepeatForever::create(_AnimationOut.at(0));
+			auto callback = CallFunc::create([&]() {
+				this->stopAllActions();
+				BoolMove = false;
+				TrapRock::atack(1);
+			});
+			auto sequence = Sequence::create(moveAction, callback, nullptr);
+			this->runAction(animationAction);
+			this->runAction(sequence);
+			BoolMove = true;
+		}
+	}
+}
+void TrapRock::setspeed(float speedScene)
+{
+	speed = speedScene;
+	//TrapRock::atack(1);
+}
+void TrapRock::removeTrap()
+{
+	BoolMove = false;
+	this->stopAllActions();
+	switch (checkmove)
+	{
+	case 1:
+	{
+		checkmove = 2;
+		break;
+	}
+	case 2:
+	{
+		checkmove = 1;
+		break;
+	}
+	case 3:
+	{
+		checkmove = 4;
+		break;
+	}
+	case 4:
+	{
+		checkmove = 3;
+		break;
+	}
+	default:
+		break;
+	}
+	TrapRock::atack(1);
 }

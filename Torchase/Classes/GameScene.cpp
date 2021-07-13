@@ -31,6 +31,7 @@
 #include "Shadow.h"
 #include "Spider.h"
 #include "TrapBear.h"
+#include "TrapRock.h"
 USING_NS_CC;
 
 int Level_of_difficult;
@@ -164,6 +165,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					}
 				}
 			}
+			if (b->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
+			{
+				CCLOG("Hit wall");
+				for (int i = 0; i < AllTrap.size(); i++)
+				{
+					if (AllTrap.at(i)->getPhysicsBody() == b)
+					{
+						auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
+						trap->removeTrap();
+						break;
+					}
+				}
+			}
 		}
 		else if (b->getCategoryBitmask() == WALL_CATEGORY_BITMASK)
 		{
@@ -178,6 +192,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					if (AllMinions.at(i)->getPhysicsBody() == a)
 					{
 						AllMinions.at(i)->removeAction();
+						break;
+					}
+				}
+			}
+			if (a->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
+			{
+				CCLOG("Hit wall");
+				for (int i = 0; i < AllTrap.size(); i++)
+				{
+					if (AllTrap.at(i)->getPhysicsBody() == a)
+					{
+						auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
+						trap->removeTrap();
 						break;
 					}
 				}

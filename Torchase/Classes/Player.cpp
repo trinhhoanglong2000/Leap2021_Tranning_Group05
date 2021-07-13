@@ -138,7 +138,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 
 	this->addChild(background);
 	
-	auto Edge = Sprite::create("prefap/Player/redbird-midflap.png");
+	auto Edge = Node::create();
 	auto EdgeBody = PhysicsBody::createBox(Size(speed*2, speed*2));
 	EdgeBody->setCollisionBitmask(PLAYER_EDGE_COLISION_BITMASK);
 	EdgeBody->setCategoryBitmask(PLAYER_EDGE_CATEGORY_BITMASK);

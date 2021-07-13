@@ -27,6 +27,8 @@
 
 USING_NS_CC;
 Actor::Actor() {
+	visibleSize = Director::getInstance()->getVisibleSize();
+	origin = Director::getInstance()->getVisibleOrigin();
 }
 Actor::Actor(std::string name) {
 
@@ -40,8 +42,6 @@ Actor::Actor(std::string filename, cocos2d::Rect rect)
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 }
-
-
 cocos2d::MoveTo * Actor::MoveUp()
 {
 	mindPositison = this->getPosition();

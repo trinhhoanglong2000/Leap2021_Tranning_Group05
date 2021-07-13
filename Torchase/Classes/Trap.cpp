@@ -55,3 +55,35 @@ Trap::Trap(std::string filename, cocos2d::Rect rect)
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
 }
+void Trap::removeAction()
+{
+	BoolMove = false;
+	Actor::removeAction();
+	this->stopAllActions();
+	switch (checkmove)
+	{
+	case 1:
+	{
+		checkmove = 2;
+		break;
+	}
+	case 2:
+	{
+		checkmove = 1;
+		break;
+	}
+	case 3:
+	{
+		checkmove = 4;
+		break;
+	}
+	case 4:
+	{
+		checkmove = 3;
+		break;
+	}
+	default:
+		break;
+	}
+
+}

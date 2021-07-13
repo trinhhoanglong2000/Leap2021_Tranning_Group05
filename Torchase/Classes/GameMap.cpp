@@ -34,6 +34,7 @@
 #include "MinionBoss.h"
 #include "MinionManager.h"
 #include "TrapManager.h"
+#include "TrapRock.h"
 USING_NS_CC;
 
 
@@ -144,7 +145,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 	_meta->setVisible(false);
 	// tao trap
 	TMXObjectGroup *objectGroupTrap = _tileMap->getObjectGroup("Trap");
-	if (objectGroupminions == NULL) {
+	if (objectGroupTrap == NULL) {
 
 	}
 	else
@@ -163,6 +164,13 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 				trap = new TrapPlant();
 			}*/
 			trap->setPosition(Vec2(x, y)*MAP_SCALE);
+
+			if (type == 3)
+			{
+				auto traptemp = dynamic_cast<TrapRock*>(trap);
+				traptemp->setspeed(_tileMap->getTileSize().width*MAP_SCALE);
+			}
+
 			scene->addChild(trap, 25);
 			AllTrap.pushBack(trap);
 		}

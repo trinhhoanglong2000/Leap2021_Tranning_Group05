@@ -35,6 +35,9 @@ public:
 	TrapRock();
 	TrapRock(std::string name);
 	TrapRock(std::string filename, cocos2d::Rect rect);
+	void atack(float dt);
+	void setspeed(float speedScene);
+	void removeTrap();
 
 protected:
 	cocos2d::Size visibleSize;
