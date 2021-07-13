@@ -36,7 +36,6 @@ TrapRock::TrapRock() : Trap("prefap/trap/Trap_Rock.png", Rect(0, 0, 51, 51)) {
 	type = 3;
 	this->setScale(2.0f);
 	checkmove = 3;
-	BoolMove = false;
 	Vector<SpriteFrame*>  animFrames;
 
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Rock.png", Rect(0, 0, 51, 51)));
@@ -72,66 +71,59 @@ TrapRock::TrapRock(std::string filename, cocos2d::Rect rect)
 }
 void TrapRock::atack(float dt)
 {
-	if (BoolMove == false)
+
+	if (checkmove == 1)
 	{
-		if (checkmove == 1)
-		{
-			auto moveAction = Actor::MoveRight();
-			auto animationAction = RepeatForever::create(_Animation.at(0));
-			auto callback = CallFunc::create([&]() {
-				this->stopAllActions();
-				BoolMove = false;
-				TrapRock::atack(1);
-			});
-			auto sequence = Sequence::create(moveAction, callback, nullptr);
-			this->runAction(animationAction);
-			this->runAction(sequence);
-			BoolMove = true;
-		}
-		if (checkmove == 2)
-		{
-			auto moveAction = Actor::MoveLeft();
-			auto animationAction = RepeatForever::create(_AnimationOut.at(0));
-			auto callback = CallFunc::create([&]() {
-				this->stopAllActions();
-				BoolMove = false;
-				TrapRock::atack(1);
-			});
-			auto sequence = Sequence::create(moveAction, callback, nullptr);
-			this->runAction(animationAction);
-			this->runAction(sequence);
-			BoolMove = true;
-		}
-		if (checkmove == 3)
-		{
-			auto moveAction = Actor::MoveUp();
-			auto animationAction = RepeatForever::create(_Animation.at(0));
-			auto callback = CallFunc::create([&]() {
-				this->stopAllActions();
-				BoolMove = false;
-				TrapRock::atack(1);
-			});
-			auto sequence = Sequence::create(moveAction, callback, nullptr);
-			this->runAction(animationAction);
-			this->runAction(sequence);
-			
-			BoolMove = true;
-		}
-		if (checkmove == 4)
-		{
-			auto moveAction = Actor::MoveDow();
-			auto animationAction = RepeatForever::create(_AnimationOut.at(0));
-			auto callback = CallFunc::create([&]() {
-				this->stopAllActions();
-				BoolMove = false;
-				TrapRock::atack(1);
-			});
-			auto sequence = Sequence::create(moveAction, callback, nullptr);
-			this->runAction(animationAction);
-			this->runAction(sequence);
-			BoolMove = true;
-		}
+		auto moveAction = Actor::MoveRight();
+		auto animationAction = RepeatForever::create(_Animation.at(0));
+		auto callback = CallFunc::create([&]() {
+			this->stopAllActions();
+			TrapRock::atack(1);
+		});
+		auto sequence = Sequence::create(moveAction, callback, nullptr);
+		this->runAction(animationAction);
+		this->runAction(sequence);
+
 	}
+	if (checkmove == 2)
+	{
+		auto moveAction = Actor::MoveLeft();
+		auto animationAction = RepeatForever::create(_AnimationOut.at(0));
+		auto callback = CallFunc::create([&]() {
+			this->stopAllActions();
+			TrapRock::atack(1);
+		});
+		auto sequence = Sequence::create(moveAction, callback, nullptr);
+		this->runAction(animationAction);
+		this->runAction(sequence);
+
+	}
+	if (checkmove == 3)
+	{
+		auto moveAction = Actor::MoveUp();
+		auto animationAction = RepeatForever::create(_Animation.at(0));
+		auto callback = CallFunc::create([&]() {
+			this->stopAllActions();
+			TrapRock::atack(1);
+		});
+		auto sequence = Sequence::create(moveAction, callback, nullptr);
+		this->runAction(animationAction);
+		this->runAction(sequence);
+			
+	}
+	if (checkmove == 4)
+	{
+		auto moveAction = Actor::MoveDow();
+		auto animationAction = RepeatForever::create(_AnimationOut.at(0));
+		auto callback = CallFunc::create([&]() {
+			this->stopAllActions();
+			TrapRock::atack(1);
+		});
+		auto sequence = Sequence::create(moveAction, callback, nullptr);
+		this->runAction(animationAction);
+		this->runAction(sequence);
+	}
+	
 }
 void TrapRock::setspeed(float speedScene)
 {
@@ -140,7 +132,6 @@ void TrapRock::setspeed(float speedScene)
 }
 void TrapRock::removeTrap()
 {
-	BoolMove = false;
 	this->stopAllActions();
 	switch (checkmove)
 	{

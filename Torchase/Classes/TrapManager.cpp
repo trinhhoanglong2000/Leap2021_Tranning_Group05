@@ -29,6 +29,7 @@
 #include "TrapPlant.h"
 #include "Trapthorn.h"
 #include "TrapRock.h"
+#include "TrapCheckBoss.h"
 USING_NS_CC;
 
 TrapManager::TrapManager() {
@@ -50,10 +51,14 @@ void TrapManager::CreateAllTrap()
 		auto traprock = new TrapRock();
 		traprock->setVisible(false);
 
+		auto trapCheckBoss = new TrapCheckBoss();
+		trapCheckBoss->setVisible(false);
+
 		AllTrap.pushBack(trapBear);
 		AllTrap.pushBack(trapPlant);
 		AllTrap.pushBack(trapthorn);
 		AllTrap.pushBack(traprock);
+		AllTrap.pushBack(trapCheckBoss);
 
 	}
 }
@@ -79,7 +84,6 @@ Trap *TrapManager::CreateTrap(int Type)
 	}
 	case 1:
 	{
-		
 		auto trapPlant = new TrapPlant();
 		trapPlant->setVisible(true);
 		AllTrap.pushBack(trapPlant);
@@ -88,7 +92,6 @@ Trap *TrapManager::CreateTrap(int Type)
 	}
 	case 2:
 	{
-		
 		auto trapBear = new TrapBear();
 		trapBear->setVisible(true);
 		AllTrap.pushBack(trapBear);
@@ -102,6 +105,14 @@ Trap *TrapManager::CreateTrap(int Type)
 		traprock->setVisible(true);
 		AllTrap.pushBack(traprock);
 		return traprock;
+		break;
+	}
+	case 4:
+	{
+		auto trapCheckBoss = new TrapCheckBoss();
+		trapCheckBoss->setVisible(false);
+		AllTrap.pushBack(trapCheckBoss);
+		return trapCheckBoss;
 		break;
 	}
 	default:

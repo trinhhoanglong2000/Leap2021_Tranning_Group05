@@ -35,6 +35,7 @@
 #include "MinionManager.h"
 #include "TrapManager.h"
 #include "TrapRock.h"
+#include "TrapCheckBoss.h"
 USING_NS_CC;
 
 
@@ -170,9 +171,14 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 				auto traptemp = dynamic_cast<TrapRock*>(trap);
 				traptemp->setspeed(_tileMap->getTileSize().width*MAP_SCALE);
 			}
+			if (type == 4)
+			{
+				trap->setVisible(false);
+				auto traptemp = dynamic_cast<TrapCheckBoss*>(trap);
+				traptemp->taget = objTrap.asValueMap()["taget"].asInt();
+			}
 
 			scene->addChild(trap, 25);
-			AllTrap.pushBack(trap);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="56">
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="60">
  <tileset firstgid="1" source="GamemapObject.tsx"/>
  <tileset firstgid="321" source="meta_tiles.tsx"/>
  <layer id="1" name="Floor" width="50" height="50">
@@ -47,7 +47,7 @@
   <object id="34" name="battery_1" x="688" y="1552"/>
  </objectgroup>
  <objectgroup id="6" name="Player">
-  <object id="53" name="SpawnPoint" x="656" y="912"/>
+  <object id="59" name="SpawnPoint" x="656" y="912"/>
  </objectgroup>
  <objectgroup id="5" name="Trap">
   <object id="1" name="thorn_16" type="0" x="336" y="1264"/>
@@ -66,7 +66,6 @@
   <object id="15" name="thorn_3" type="0" x="880" y="1520"/>
   <object id="16" name="thorn_2" type="0" x="784" y="1488"/>
   <object id="27" name="thorn_1" type="0" x="624" y="1424"/>
-  <object id="42" name="traprock_8" type="3" x="720" y="848"/>
   <object id="43" name="traprock_7" type="3" x="752" y="976"/>
   <object id="44" name="traprock_6" type="3" x="784" y="848"/>
   <object id="45" name="traprock_5" type="3" x="848" y="848"/>
@@ -74,5 +73,10 @@
   <object id="48" name="traprock_3" type="3" x="944" y="976"/>
   <object id="49" name="traprock_2" type="3" x="880" y="976"/>
   <object id="50" name="traprock_1" type="3" x="816" y="976"/>
+  <object id="56" name="trap_checkboss" type="4" x="688" y="912">
+   <properties>
+    <property name="taget" type="int" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

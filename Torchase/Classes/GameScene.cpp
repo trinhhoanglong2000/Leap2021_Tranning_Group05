@@ -32,6 +32,7 @@
 #include "Spider.h"
 #include "TrapBear.h"
 #include "TrapRock.h"
+#include "TrapCheckBoss.h"
 USING_NS_CC;
 
 int Level_of_difficult;
@@ -41,9 +42,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -172,8 +173,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllTrap.at(i)->getPhysicsBody() == b)
 					{
-						auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
-						trap->removeTrap();
+						if (AllTrap.at(i)->type == 3)
+						{
+							auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
+							trap->removeTrap();
+						}
 						break;
 					}
 				}
@@ -203,8 +207,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					if (AllTrap.at(i)->getPhysicsBody() == a)
 					{
-						auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
-						trap->removeTrap();
+						if (AllTrap.at(i)->type == 3)
+						{
+							auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
+							trap->removeTrap();
+						}
 						break;
 					}
 				}
@@ -217,7 +224,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			{
 				if (AllTrap.at(i)->getPhysicsBody() == a)
 				{
-					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2)
+					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2 || AllTrap.at(i)->type == 3)
 					{
 						AllTrap.at(i)->setLocalZOrder(40);
 						if (AllTrap.at(i)->type == 2)
@@ -260,6 +267,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 							trapPlant->HitPlayer();
 						}
 					}
+					if (AllTrap.at(i)->type == 4)
+					{
+						canvas->goup(1);
+						auto trap = dynamic_cast<TrapCheckBoss*>(AllTrap.at(i));
+						trap->hitplayer(this);
+					}
 					break;
 				}
 			}
@@ -271,7 +284,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			{
 				if (AllTrap.at(i)->getPhysicsBody() == b)
 				{
-					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2)
+					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2 || AllTrap.at(i)->type == 3)
 					{
 						AllTrap.at(i)->setLocalZOrder(40);
 						if (AllTrap.at(i)->type == 2)
@@ -313,6 +326,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 							player->stop = false;
 							trapPlant->HitPlayer();
 						}
+					}
+					if (AllTrap.at(i)->type == 4)
+					{
+						canvas->goup(1);
+						auto trap = dynamic_cast<TrapCheckBoss*>(AllTrap.at(i));
+						trap->hitplayer(this);
 					}
 					break;
 				}

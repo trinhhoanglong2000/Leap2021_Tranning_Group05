@@ -211,7 +211,6 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 4)
 	{
-		
 		int_move = 0;
 		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 		Canvas::reducePlant();
@@ -306,13 +305,13 @@ void Canvas::plusenergy(int power)
 }
 void Canvas::AutoMove(float dt)
 {
-	if(int_move==1)
+	if(mind_move ==1)
 		player->MoveUp();
-	if (int_move == 2)
+	if (mind_move == 2)
 		player->MoveDow();
-	if (int_move == 3)
+	if (mind_move == 3)
 		player->MoveLeft();
-	if (int_move == 4)
+	if (mind_move == 4)
 		player->MoveRight();
 }
 bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
@@ -383,47 +382,65 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 		{
 		case 1:
 		{
-
-			auto tileSprite = _meta->getTileAt(Vec2((int)((player->getPositionX() / player->speed)-0.5), (int)(maxmap -0.5- (player->getPositionY() + player->speed)/ player->speed)+1));
+			auto tileSprite = _meta->getTileAt(Vec2((int)((player->getPositionX() / player->speed)-0.5), (int)(maxmap -0.5- (player->getPositionY() + player->speed)/ player->speed)));
 			if (tileSprite)
 				return;
 			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() + player->speed));
-			scene->addChild(trap, 25);
+			scene->addChild(trap, 20);
 			break;
 		}
 		case 2:
 		{
-			auto tileSprite = _meta->getTileAt(Vec2((int)((player->getPositionX() / player->speed) - 0.5), (int)(maxmap - 0.5 - (player->getPositionY() - player->speed) / player->speed)+1));
+			auto tileSprite = _meta->getTileAt(Vec2((int)((player->getPositionX() / player->speed) - 0.5), (int)(maxmap - 0.5 - (player->getPositionY() - player->speed) / player->speed)));
 			if (tileSprite)
 				return;
 			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() - player->speed));
-			scene->addChild(trap, 25);
+			scene->addChild(trap, 20);
 			break;
 		}
 		case 3:
 		{
-			auto tileSprite = _meta->getTileAt(Vec2((int)(((player->getPositionX() - player->speed) / player->speed) - 0.5), (int)(maxmap - 0.5 - player->getPositionY() / player->speed)+1));
+			auto tileSprite = _meta->getTileAt(Vec2((int)(((player->getPositionX() - player->speed) / player->speed) - 0.5), (int)(maxmap - 0.5 - player->getPositionY() / player->speed)));
 			if (tileSprite)
 				return;
 			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX() - player->speed, player->getPositionY()));
-			scene->addChild(trap, 25);
+			scene->addChild(trap, 20);
 			break;
 		}
 		case 4:
 		{
-			auto tileSprite = _meta->getTileAt(Vec2((int)(((player->getPositionX() + player->speed) / player->speed) - 0.5), (int)(maxmap - 0.5 - player->getPositionY() / player->speed)+1));
+			auto tileSprite = _meta->getTileAt(Vec2((int)(((player->getPositionX() + player->speed) / player->speed) - 0.5), (int)(maxmap - 0.5 - player->getPositionY() / player->speed)));
 			if (tileSprite)
 				return;
 			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX() + player->speed, player->getPositionY()));
-			scene->addChild(trap);
+			scene->addChild(trap,20);
 			break;
 		}
 		default:
 			break;
 		}
 	}
+}
+void Canvas::goup(float dt)
+{
+	int_move = 5;
+	BoolTouch = false;
+	this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
+	this->unschedule(Schedule_ReduceEnegy);	
+	this->unschedule(Schedule_ReduceEnegy);
+	this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::autoplusenergy));
+	if (player->checkMove == true)
+	{
+		player->background->getPhysicsBody()->setEnabled(false);
+		player->background->setVisible(false);
+		background_off->setVisible(false);
+		Canvas::AutoMove(1);
+		int_move = 0;
+		return;
+	}
+	this->schedule(CC_SCHEDULE_SELECTOR(Canvas::goup), 0.1f, 0, 0);
 }

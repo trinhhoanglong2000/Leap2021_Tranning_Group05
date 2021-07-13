@@ -22,24 +22,32 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TRAP_H__
-#define __TRAP_H__
+#ifndef __TRAPCHECKBOSS_H__
+#define __TRAPCHECKBOSS_H__
 
 #include "cocos2d.h"
 #include "ui\CocosGUI.h"
-#include "Actor.h"
-class Trap : public Actor
+#include "Trap.h"
+#include "Minions.h"
+
+class TrapCheckBoss : public Trap
 {
 public:
-	Trap();
-	Trap(std::string name);
-	Trap(std::string filename, cocos2d::Rect rect);
-	void removeAction();
-	int checkmove;
-	int type;
+	TrapCheckBoss();
+	TrapCheckBoss(std::string name);
+	TrapCheckBoss(std::string filename, cocos2d::Rect rect);
+	int taget;
+	void hitplayer(cocos2d::Scene *sceneGame);
+	void addtrap(float dt);
 protected:
+	cocos2d::Scene *scene;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
+	cocos2d::Vector<cocos2d::Animate*> _Animation;
+	cocos2d::Vector<cocos2d::Animate*> _AnimationOut;
+	cocos2d::Vector<Minions*> AllMinions;
+	cocos2d::Vector<Trap*> AllTrap;
+	
 };
 
-#endif // __TRAP_H__
+#endif // __TRAPCHECKBOSS_H__

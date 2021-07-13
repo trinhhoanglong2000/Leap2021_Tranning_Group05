@@ -22,67 +22,52 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "Trap.h"
+#include "TrapCheckBoss.h"
 #include "Definitions.h"
-
+#include "ui\CocosGUI.h"
+#include "TrapManager.h"
+#include "TrapRock.h"
 USING_NS_CC;
-Trap::Trap() {
+TrapCheckBoss::TrapCheckBoss() : Trap("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)) {
+
+	visibleSize = Director::getInstance()->getVisibleSize();
+	origin = Director::getInstance()->getVisibleOrigin();
+	type = 4;
+	this->setScale(3.0f);
 }
-Trap::Trap(std::string name) {
+TrapCheckBoss::TrapCheckBoss(std::string name) {
 
 	this->initWithFile(name);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-
-	auto PlayerBody = PhysicsBody::createBox(this->getContentSize()/2);
-	PlayerBody->setCollisionBitmask(TRAP_COLISION_BITMASK);
-	PlayerBody->setCategoryBitmask(TRAP_CATEGORY_BITMASK);
-	PlayerBody->setContactTestBitmask(TRAP_COLISION_BITMASK);
-	PlayerBody->setDynamic(false);
-	this->setPhysicsBody(PlayerBody);
-
 }
-Trap::Trap(std::string filename, cocos2d::Rect rect)
+TrapCheckBoss::TrapCheckBoss(std::string filename, cocos2d::Rect rect)
 {
 	this->initWithFile(filename,rect);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-
-	auto PlayerBody = PhysicsBody::createBox(this->getContentSize()/2);
-	PlayerBody->setCollisionBitmask(TRAP_COLISION_BITMASK);
-	PlayerBody->setCategoryBitmask(TRAP_CATEGORY_BITMASK);
-	PlayerBody->setContactTestBitmask(TRAP_COLISION_BITMASK);
-	PlayerBody->setDynamic(false);
-	this->setPhysicsBody(PlayerBody);
 }
-void Trap::removeAction()
+void TrapCheckBoss::hitplayer(cocos2d::Scene *sceneGame)
 {
-	Actor::removeAction();
-	this->stopAllActions();
-	switch (checkmove)
+	AllTrap = TrapManager::getInstance()->AllTrap;
+	if (taget == 1)
 	{
-	case 1:
-	{
-		checkmove = 2;
-		break;
+		for (int i = 0; i < AllTrap.size(); i++)
+		{
+			if (AllTrap.at(i)->type == 3 && AllTrap.at(i)->isVisible() == true)
+			{
+				auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
+				trap->atack(1);
+			}
+		}
 	}
-	case 2:
-	{
-		checkmove = 1;
-		break;
-	}
-	case 3:
-	{
-		checkmove = 4;
-		break;
-	}
-	case 4:
-	{
-		checkmove = 3;
-		break;
-	}
-	default:
-		break;
-	}
-
+	scene = sceneGame;
+	TrapCheckBoss::addtrap(0);
+	this->schedule(CC_SCHEDULE_SELECTOR(TrapCheckBoss::addtrap), 0.5f);
+}
+void TrapCheckBoss::addtrap(float dt)
+{
+	auto trap = TrapManager::getInstance()->CreateTrap(0);
+	trap->setPosition(this->getPosition());
+	scene->addChild(trap, 25);
 }
