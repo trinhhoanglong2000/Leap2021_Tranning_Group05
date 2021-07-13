@@ -35,7 +35,6 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 	PlayerBody->setContactTestBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setDynamic(false);
 	this->setPhysicsBody(PlayerBody);
-
 	this->setTag(1);
 
 	//push frame
@@ -139,6 +138,15 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 
 	this->addChild(background);
 	
+	auto Edge = Sprite::create("prefap/Player/redbird-midflap.png");
+	auto EdgeBody = PhysicsBody::createBox(Size(speed*2, speed*2));
+	EdgeBody->setCollisionBitmask(PLAYER_EDGE_COLISION_BITMASK);
+	EdgeBody->setCategoryBitmask(PLAYER_EDGE_CATEGORY_BITMASK);
+	EdgeBody->setContactTestBitmask(PLAYER_EDGE_COLISION_BITMASK);
+	EdgeBody->setDynamic(false);
+	Edge->setPhysicsBody(EdgeBody);
+	this->addChild(Edge);
+	Edge->setPosition(Vec2(40, 50));
 }
 void Player::MoveUp()
 {

@@ -343,7 +343,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		else if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 		{
-			if (!playerdie && a->getCategoryBitmask() == PLAYER_COLISION_BITMASK)
+			if (!playerdie && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				for (int i = 0; i < AllMinions.size(); i++)
 				{
@@ -387,7 +387,20 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 			}
 		}
-	
+		if (a->getCategoryBitmask() == PLAYER_EDGE_CATEGORY_BITMASK)
+		{
+			if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+			{
+				CCLOG("aaaaaaaaaaaaaaaaaaaaaaaa");
+			}
+		}
+		else if (b->getCategoryBitmask() == PLAYER_EDGE_CATEGORY_BITMASK)
+		{
+			if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+			{
+				CCLOG("aaaaaaaaaaaaaaaaaaaaaaaa");
+			}
+		}
 	return true;
 }
 void GameScene::shakeScreen(float dt)
