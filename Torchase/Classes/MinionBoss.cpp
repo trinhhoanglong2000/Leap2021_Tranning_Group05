@@ -24,6 +24,8 @@
 
 #include "MinionBoss.h"
 #include "Definitions.h"
+#include "MinionManager.h"
+#include "ui\CocosGUI.h"
 USING_NS_CC;
 
 MinionBoss::MinionBoss(Player * playerScene, float mapspeed):	Minions( playerScene, mapspeed)
@@ -33,10 +35,33 @@ MinionBoss::MinionBoss(Player * playerScene, float mapspeed):	Minions( playerSce
 MinionBoss::MinionBoss() : Minions()
 {
 	MinionBoss::setAnimation();
+
+	enegy = ui::Slider::create();
+	enegy->loadBarTexture("Slider_Back.png");
+	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
+	enegy->loadProgressBarTexture("Slider_PressBar.png");
+	enegy->setPosition(Vec2(this->getPositionX() + enegy->getContentSize().width / 3 * 0.25f, this->getPositionY() + this->getContentSize().height / 2.5 * 3.0f));
+	enegy->setMaxPercent(10);
+	enegy->setPercent(enegy->getMaxPercent());
+	enegy->setScale(0.25f);
+
+	this->addChild(enegy);
+	enegy->setVisible(false);
 }
 void MinionBoss::Roar(float dt)
 {
 	
+}
+void MinionBoss::CreateMinion(float dt)
+{
+	auto minion = MinionManager::getInstance()->CreateMinion(0);
+
+}
+void MinionBoss::reduceEnegy(float dame)
+{
+	enegy->setPercent(enegy->getPercent() - dame);
+	if (enegy->getPercent() <= 0)
+		this->die();
 }
 void MinionBoss::setAnimation()
 {

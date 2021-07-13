@@ -22,25 +22,27 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MINIONBOSS_H__
-#define __MINIONBOSS_H__
+#ifndef __TRAPROCK_H__
+#define __TRAPROCK_H__
 
 #include "cocos2d.h"
-#include"Minions.h"
 #include "ui\CocosGUI.h"
-class MinionBoss : public Minions
+#include "Trap.h"
+
+class TrapRock : public Trap
 {
 public:
+	TrapRock();
+	TrapRock(std::string name);
+	TrapRock(std::string filename, cocos2d::Rect rect);
 
-	MinionBoss(Player* playerScene, float mapspeed);
-	void Roar(float dt);
-	MinionBoss();
-	void setAnimation();
-	void CreateMinion(float dt);
-	void reduceEnegy(float dame);
-private:
-	std::string minionname = "prefap/Minions/Shadow.png";
-	cocos2d::ui::Slider *enegy;
+protected:
+	cocos2d::Size visibleSize;
+	cocos2d::Vec2 origin;
+	cocos2d::Vector<cocos2d::Animate*> _Animation;
+	cocos2d::Vector<cocos2d::Animate*> _AnimationOut;
+
+	
 };
 
-#endif // __MINIONBOSS_H__
+#endif // __TRAPTHORN_H__

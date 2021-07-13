@@ -103,6 +103,7 @@ bool GameScene::init()
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 	playerdie = false;
+	checkLighting = true;
 
 	SoundManager::getInstance()->PlayMusics(softbackground_sound,true,1.0f);
 	
@@ -111,7 +112,6 @@ bool GameScene::init()
 	//effect->setScale(1.5f);
 	this->addChild(effect, 200);
 	
-	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::Lighting), 5.0f);
 	
 	return true;
 }
@@ -391,14 +391,40 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
-				CCLOG("aaaaaaaaaaaaaaaaaaaaaaaa");
+				for (int i = 0; i < AllMinions.size(); i++)
+				{
+					if (AllMinions.at(i)->getPhysicsBody() == b )
+					{
+						if (AllMinions.at(i)->Booldie == true)
+							break;
+						if (checkLighting == true)
+						{
+							checkLighting = false;
+							this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), 10.0f, 0, 0);
+							GameScene::Lighting(1);
+						}
+					}
+				}
 			}
 		}
 		else if (b->getCategoryBitmask() == PLAYER_EDGE_CATEGORY_BITMASK)
 		{
 			if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
-				CCLOG("aaaaaaaaaaaaaaaaaaaaaaaa");
+				for (int i = 0; i < AllMinions.size(); i++)
+				{
+					if (AllMinions.at(i)->getPhysicsBody() == a)
+					{
+						if (AllMinions.at(i)->Booldie == true)
+							break;
+						if (checkLighting == true)
+						{
+							checkLighting = false;
+							this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), 10.0f, 0, 0);
+							GameScene::Lighting(1);
+						}
+					}
+				}
 			}
 		}
 	return true;
@@ -426,8 +452,8 @@ float GameScene::rangeRandom(float min, float max)
 }
 void GameScene::Lighting(float dt)
 {
-	int num = cocos2d::RandomHelper::random_int(1, 20);
-	if (num < 18)
+	int num = cocos2d::RandomHelper::random_int(1, 10);
+	if (num < 7)
 		return;
 	else
 	{
@@ -510,4 +536,8 @@ void GameScene::Lightingbg(float dt)
 		player->background->setVisible(true);
 		canvas->background_off->setVisible(true);
 	}
+}
+void GameScene::setcheckLighting(float dt)
+{
+	checkLighting = true;
 }
