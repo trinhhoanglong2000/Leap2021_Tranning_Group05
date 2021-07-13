@@ -63,6 +63,9 @@ bool GameScene::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 
+	gameState = STATE_PLAYING;
+	CCLOG("gamescene init %d", gameState);
+
 	MinionManager::getInstance()->SetFalseAllMinion();
 
 	player = new Player();	
@@ -93,7 +96,7 @@ bool GameScene::init()
 	this->addChild(background_off, 25);
 	background_off->setVisible(false);
 
-	canvas = new Canvas(player, background_off, controller,this);
+	canvas = new Canvas(player, background_off, controller,this,gameState);
 	canvas->setPosition(Vec2(0, 0));
 	player->addChild(canvas, 50);
 	canvas->_meta = gameMap->_meta;
