@@ -22,22 +22,22 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __BATTERY_H__
-#define __BATTERY_H__
+#ifndef __ITEAM_H__
+#define __ITEAM_H__
 
 #include "cocos2d.h"
-#include "Iteam.h"
-class Battery : public Iteam
+
+class Iteam : public cocos2d::Sprite
 {
 public:
-	Battery();
-	Battery(std::string name);
-
+	Iteam();
+	int type;
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-private:
-	int enegy;
+
+
+
 };
 
-#endif // __BATTERY_H__
+#endif // __ITEAM_H__

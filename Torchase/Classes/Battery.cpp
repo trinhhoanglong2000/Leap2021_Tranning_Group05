@@ -32,7 +32,7 @@ Battery::Battery() {
 	this->initWithFile("battery.png");
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-	
+	type = 1;
 	auto BatteryBody = PhysicsBody::createBox(this->getContentSize());
 	BatteryBody->setCollisionBitmask(ITEM_COLISION_BITMASK);
 	BatteryBody->setCategoryBitmask(ITEM_CATEGORY_BITMASK);

@@ -36,6 +36,7 @@
 #include "TrapManager.h"
 #include "TrapRock.h"
 #include "TrapCheckBoss.h"
+#include "Door.h"
 USING_NS_CC;
 
 
@@ -101,7 +102,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			scene->addChild(minion, 20);
 		}
 	}
-	
+
 	//creat battery
 	TMXObjectGroup *objectGroupBatery = _tileMap->getObjectGroup("Battery");
 	if (objectGroupBatery == NULL) {
@@ -119,6 +120,10 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			scene->addChild(batery, 20);
 		}
 	}
+	//create door
+	auto door = new Door();
+	door->setmeta(_tileMap->getLayer("door"), _tileMap);
+	scene->addChild(door, 25);
 	// tao wall
 	_meta = _tileMap->getLayer("meta");
 	for (int i = 0; i < _tileMap->getMapSize().width; i++)

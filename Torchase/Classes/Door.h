@@ -22,22 +22,22 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __BATTERY_H__
-#define __BATTERY_H__
+#ifndef __DOOR_H__
+#define __DOOR_H__
 
 #include "cocos2d.h"
 #include "Iteam.h"
-class Battery : public Iteam
+class Door : public cocos2d::Node
 {
 public:
-	Battery();
-	Battery(std::string name);
-
+	Door();
+	void setmeta(cocos2d::TMXLayer *objectGroupDoorGame, cocos2d::TMXTiledMap *_tileMapGame);
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-private:
-	int enegy;
+	cocos2d::TMXLayer *_meta;
+	cocos2d::TMXTiledMap *_tileMap;
+
 };
 
-#endif // __BATTERY_H__
+#endif // __Actor_H__

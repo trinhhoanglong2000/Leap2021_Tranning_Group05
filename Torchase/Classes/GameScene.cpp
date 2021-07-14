@@ -33,6 +33,7 @@
 #include "TrapBear.h"
 #include "TrapRock.h"
 #include "TrapCheckBoss.h"
+#include "Iteam.h"
 USING_NS_CC;
 
 int Level_of_difficult;
@@ -42,9 +43,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -135,19 +136,41 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if(b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				canvas->plusenergy((int)canvas->enegy->getMaxPercent()/3);
+				auto item = dynamic_cast<Iteam*>(a->getOwner());
+				if (item->type == 1)
+				{
+					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
 					this->removeChild(a->getOwner());
+				}
 			}
 		}
 		else if (b->getCategoryBitmask() == ITEM_CATEGORY_BITMASK)
 		{
 			if(a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
+				auto item = dynamic_cast<Iteam*>(b->getOwner());
+				if (item->type == 1)
+				{
+					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
 					this->removeChild(a->getOwner());
+				}
 			}
 		}
-
+		// door detect collision
+		if (a->getCategoryBitmask() == DOOR_CATEGORY_BITMASK)
+		{
+			if (b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+			{
+				CCLOG("aaaaaaaaaaaaaaa");
+			}
+		}
+		else if (b->getCategoryBitmask() == DOOR_CATEGORY_BITMASK)
+		{
+			if (a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+			{
+				CCLOG("aaaaaaaaaaaaaaa");
+			}
+		}
 		//Wall detect collision
 		if (a->getCategoryBitmask() == WALL_CATEGORY_BITMASK)
 		{
@@ -157,29 +180,17 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
 				CCLOG("Hit wall");
-				for (int i = 0; i < AllMinions.size(); i++)
-				{
-					if (AllMinions.at(i)->getPhysicsBody() == b)
-					{
-						AllMinions.at(i)->removeAction();
-						break;
-					}
-				}
+				auto minion = dynamic_cast<Minions*>(b->getOwner());
+				minion->removeAction();
 			}
 			if (b->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 			{
 				CCLOG("Hit wall");
-				for (int i = 0; i < AllTrap.size(); i++)
+				auto trap = dynamic_cast<Trap*>(b->getOwner());
+				if (trap->type == 3)
 				{
-					if (AllTrap.at(i)->getPhysicsBody() == b)
-					{
-						if (AllTrap.at(i)->type == 3)
-						{
-							auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
-							trap->removeTrap();
-						}
-						break;
-					}
+					auto traprock = dynamic_cast<TrapRock*>(trap);
+					traprock->removeTrap();
 				}
 			}
 		}
@@ -190,151 +201,105 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 
 			if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
-				CCLOG("Hit wall");
-				for (int i = 0; i < AllMinions.size(); i++)
-				{
-					if (AllMinions.at(i)->getPhysicsBody() == a)
-					{
-						AllMinions.at(i)->removeAction();
-						break;
-					}
-				}
+				auto minion = dynamic_cast<Minions*>(a->getOwner());
+				minion->removeAction();
 			}
 			if (a->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 			{
 				CCLOG("Hit wall");
-				for (int i = 0; i < AllTrap.size(); i++)
+				auto trap = dynamic_cast<Trap*>(a->getOwner());
+				if (trap->type == 3)
 				{
-					if (AllTrap.at(i)->getPhysicsBody() == a)
-					{
-						if (AllTrap.at(i)->type == 3)
-						{
-							auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
-							trap->removeTrap();
-						}
-						break;
-					}
+					auto traprock = dynamic_cast<TrapRock*>(trap);
+					traprock->removeTrap();
 				}
 			}
 		}
 		// Trap detect colision
 		if (a->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 		{
-			for (int i = 0; i < AllTrap.size(); i++)
+			auto trap = dynamic_cast<Trap*>(a->getOwner());
+			if (trap->type == 0 || trap->type == 2 || trap->type == 3)
 			{
-				if (AllTrap.at(i)->getPhysicsBody() == a)
+				trap->setLocalZOrder(40);
+				if (trap->type == 2)
 				{
-					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2 || AllTrap.at(i)->type == 3)
+					TrapBear *trapbear = dynamic_cast<TrapBear*>(trap);
+					if (trapbear->work != false)
 					{
-						AllTrap.at(i)->setLocalZOrder(40);
-						if (AllTrap.at(i)->type == 2)
-						{
-							TrapBear *trapbear = dynamic_cast<TrapBear*>(AllTrap.at(i));
-							if (trapbear->work == false)
-								break;
-							else
-							{
-								trapbear->HitPlayer();
-							}
-						}
-						if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
-						{
-							playerdie = true;
-							player->Playerdie();
-						}
-						if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
-						{
-							
-							for (int i = 0; i < AllMinions.size(); i++)
-							{
-								if (AllMinions.at(i)->getPhysicsBody() == b)
-								{
-
-									AllMinions.at(i)->die();
-									//AllMinions.erase(AllMinions.begin() + i);
-									break;
-								}
-							}
-						}
+						trapbear->HitPlayer();
 					}
-					if (AllTrap.at(i)->type == 1 && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
-					{
-						TrapPlant *trapPlant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
-						if (trapPlant->enegy->isVisible() == false)
-						{
-							canvas->plant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
-							player->stop = false;
-							trapPlant->HitPlayer();
-						}
-					}
-					if (AllTrap.at(i)->type == 4)
-					{
-						canvas->goup(1);
-						auto trap = dynamic_cast<TrapCheckBoss*>(AllTrap.at(i));
-						trap->hitplayer(this);
-					}
-					break;
 				}
+				if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+				{
+					playerdie = true;
+					player->Playerdie();
+				}
+				if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+				{
+					auto minion = dynamic_cast<Minions*>(b->getOwner());
+					minion->die();
+				}
+			}
+			if (trap->type == 1 && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+			{
+				TrapPlant *trapPlant = dynamic_cast<TrapPlant*>(trap);
+				if (trapPlant->enegy->isVisible() == false)
+				{
+					canvas->plant = dynamic_cast<TrapPlant*>(trap);
+					player->stop = false;
+					trapPlant->HitPlayer();
+				}
+			}
+			if (trap->type == 4)
+			{
+				canvas->goup(1);
+				auto trapCheckBoss = dynamic_cast<TrapCheckBoss*>(trap);
+				trapCheckBoss->hitplayer(this);
 			}
 		}
 		else if (b->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 		{
-		
-			for (int i = 0; i < AllTrap.size(); i++)
+			auto trap = dynamic_cast<Trap*>(b->getOwner());
+			if (trap->type == 0 || trap->type == 2 || trap->type == 3)
 			{
-				if (AllTrap.at(i)->getPhysicsBody() == b)
+				trap->setLocalZOrder(40);
+				if (trap->type == 2)
 				{
-					if (AllTrap.at(i)->type == 0 || AllTrap.at(i)->type == 2 || AllTrap.at(i)->type == 3)
+					TrapBear *trapbear = dynamic_cast<TrapBear*>(trap);
+					if (trapbear->work == false)
+						return true;
+					else
 					{
-						AllTrap.at(i)->setLocalZOrder(40);
-						if (AllTrap.at(i)->type == 2)
-						{
-							TrapBear *trapbear = dynamic_cast<TrapBear*>(AllTrap.at(i));
-							if (trapbear->work == false)
-								break;
-							else
-							{
-								trapbear->HitPlayer();
-							}
-						}
-						if (!playerdie && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
-						{
-							playerdie = true;
-							player->Playerdie();
-						}
-						if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
-						{
-							CCLOG("ene die");
-							for (int i = 0; i < AllMinions.size(); i++)
-							{
-								if (AllMinions.at(i)->getPhysicsBody() == a)
-								{
-
-									AllMinions.at(i)->die();
-									//AllMinions.erase(AllMinions.begin() + i);
-									break;
-								}
-							}
-						}
+						trapbear->HitPlayer();
 					}
-					if (AllTrap.at(i)->type == 1 && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
-					{
-						TrapPlant *trapPlant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
-						if (trapPlant->enegy->isVisible() == false)
-						{
-							canvas->plant = dynamic_cast<TrapPlant*>(AllTrap.at(i));
-							player->stop = false;
-							trapPlant->HitPlayer();
-						}
-					}
-					if (AllTrap.at(i)->type == 4)
-					{
-						canvas->goup(1);
-						auto trap = dynamic_cast<TrapCheckBoss*>(AllTrap.at(i));
-						trap->hitplayer(this);
-					}
-					break;
 				}
+				if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+				{
+					playerdie = true;
+					player->Playerdie();
+				}
+				if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+				{
+					auto minion = dynamic_cast<Minions*>(a->getOwner());
+					minion->die();
+				}
+			}
+			if (trap->type == 1 && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+			{
+				TrapPlant *trapPlant = dynamic_cast<TrapPlant*>(trap);
+				if (trapPlant->enegy->isVisible() == false)
+				{
+					canvas->plant = dynamic_cast<TrapPlant*>(trap);
+					player->stop = false;
+					trapPlant->HitPlayer();
+				}
+			}
+			if (trap->type == 4)
+			{
+				canvas->goup(1);
+				auto trapCheckBoss = dynamic_cast<TrapCheckBoss*>(trap);
+				trapCheckBoss->hitplayer(this);
 			}
 		}
 		//Enemy detect collision
@@ -343,46 +308,33 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			CCLOG("enemy");
 			if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				for (int i = 0; i < AllMinions.size(); i++)
+				auto minion = dynamic_cast<Minions*>(a->getOwner());
+				if (minion->Booldie == false)
 				{
-					if (AllMinions.at(i)->getPhysicsBody() == a)
-					{
-						if (AllMinions.at(i)->Booldie == false)
-						{
-							playerdie = true;
-							this->stopAllActions();
-							player->Playerdie();
-						}
-					}
+					playerdie = true;
+					this->stopAllActions();
+					player->Playerdie();
 				}
 			}
 			if (b->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
 			{
-				CCLOG("activated");
-				//SoundManager::getInstance()->PlayMusic(thrillingbackground_sound, false, 0.2f);
-				for (int i = 0; i < AllMinions.size(); i++)
+				auto minion = dynamic_cast<Minions*>(a->getOwner());
+				if (minion->boolFind == false)
 				{
-					if (AllMinions.at(i)->getPhysicsBody() == a)
-					{
-						if (AllMinions.at(i)->boolFind == false)
-						{
-							AllMinions.at(i)->boolFind = true;
-							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
-							this->schedule(Schedule_shake, 0.1f);
-							SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
+					minion->boolFind = true;
+					Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
+					this->schedule(Schedule_shake, 0.1f);
+					SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
 
-							if (AllMinions.at(i)->type == 0)
-							{
-								auto minion = dynamic_cast<Spider*>(AllMinions.at(i));
-								minion->Roar(1);
-							}
-							if (AllMinions.at(i)->type == 1)
-							{
-								auto minion = dynamic_cast<Shadow*>(AllMinions.at(i));
-								minion->Roar(1);
-							}
-						}
-						break;
+					if (minion->type == 0)
+					{
+						auto spider = dynamic_cast<Spider*>(minion);
+						spider->Roar(1);
+					}
+					if (minion->type == 1)
+					{
+						auto shadow = dynamic_cast<Shadow*>(minion);
+						shadow->Roar(1);
 					}
 				}
 			}
@@ -391,44 +343,33 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if (!playerdie && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				for (int i = 0; i < AllMinions.size(); i++)
+				auto minion = dynamic_cast<Minions*>(b->getOwner());
+				if (minion->Booldie == false)
 				{
-					if (AllMinions.at(i)->getPhysicsBody() == b)
-					{
-						if (AllMinions.at(i)->Booldie == false)
-						{
-							playerdie = true;
-							this->stopAllActions();
-							player->Playerdie();
-						}
-					}
+					playerdie = true;
+					this->stopAllActions();
+					player->Playerdie();
 				}
 			}
 			if (a->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
 			{
-				//SoundManager::getInstance()->PlayMusic(thrillingbackground_sound,false,0.2f);
-				for (int i = 0; i < AllMinions.size(); i++)
+				auto minion = dynamic_cast<Minions*>(b->getOwner());
+				if (minion->boolFind == false)
 				{
-					if (AllMinions.at(i)->getPhysicsBody() == b)
+					minion->boolFind = true;
+					Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
+					this->schedule(Schedule_shake, 0.1f);
+					SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
+
+					if (minion->type == 0)
 					{
-						if (AllMinions.at(i)->boolFind == false)
-						{
-							AllMinions.at(i)->boolFind = true;
-							Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
-							this->schedule(Schedule_shake, 0.1f);
-							SoundManager::getInstance()->PlayMusics(Roar_sound,false,0.5f);
-							if (AllMinions.at(i)->type == 0)
-							{
-								auto minion = dynamic_cast<Spider*>(AllMinions.at(i));
-								minion->Roar(1);
-							}
-							if (AllMinions.at(i)->type == 1)
-							{
-								auto minion = dynamic_cast<Shadow*>(AllMinions.at(i));
-								minion->Roar(1);
-							}
-						}
-						break;
+						auto spider = dynamic_cast<Spider*>(minion);
+						spider->Roar(1);
+					}
+					if (minion->type == 1)
+					{
+						auto shadow = dynamic_cast<Shadow*>(minion);
+						shadow->Roar(1);
 					}
 				}
 			}
@@ -437,19 +378,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
-				for (int i = 0; i < AllMinions.size(); i++)
+				auto minion = dynamic_cast<Minions*>(b->getOwner());
+				if (minion->Booldie == true)
+					return true;
+				if (checkLighting == true)
 				{
-					if (AllMinions.at(i)->getPhysicsBody() == b )
-					{
-						if (AllMinions.at(i)->Booldie == true)
-							break;
-						if (checkLighting == true)
-						{
-							checkLighting = false;
-							this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), 10.0f, 0, 0);
-							GameScene::Lighting(1);
-						}
-					}
+					checkLighting = false;
+					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), 10.0f, 0, 0);
+					GameScene::Lighting(1);
 				}
 			}
 		}
@@ -457,19 +393,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
-				for (int i = 0; i < AllMinions.size(); i++)
+				auto minion = dynamic_cast<Minions*>(a->getOwner());
+				if (minion->Booldie == true)
+					return true;
+				if (checkLighting == true)
 				{
-					if (AllMinions.at(i)->getPhysicsBody() == a)
-					{
-						if (AllMinions.at(i)->Booldie == true)
-							break;
-						if (checkLighting == true)
-						{
-							checkLighting = false;
-							this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), 10.0f, 0, 0);
-							GameScene::Lighting(1);
-						}
-					}
+					checkLighting = false;
+					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), 10.0f, 0, 0);
+					GameScene::Lighting(1);
 				}
 			}
 		}

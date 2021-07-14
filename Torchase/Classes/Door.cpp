@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,22 +22,41 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __BATTERY_H__
-#define __BATTERY_H__
+#include "Door.h"
+#include "Definitions.h"
 
-#include "cocos2d.h"
-#include "Iteam.h"
-class Battery : public Iteam
+USING_NS_CC;
+Door::Door() {
+
+	
+}
+void Door::setmeta(cocos2d::TMXLayer *objectGroupDoorGame, cocos2d::TMXTiledMap *_tileMapGame)
 {
-public:
-	Battery();
-	Battery(std::string name);
+	_meta = objectGroupDoorGame;
+	_tileMap = _tileMapGame;
+	visibleSize = Director::getInstance()->getVisibleSize();
+	origin = Director::getInstance()->getVisibleOrigin();
+	//type = 2;
+		for (int i = 0; i < _tileMap->getMapSize().width; i++)
+		{
+			for (int j = 0; j < _tileMap->getMapSize().height; j++) // tile map size 40X40, starting from 0, this loop traverses all tiles
+			{
+				auto tileSprite = _meta->getTileAt(Vec2(i, j));
+				if (tileSprite)
+				{
+					auto DoorBody = PhysicsBody::createBox(tileSprite->getContentSize()*MAP_SCALE);
 
-protected:
-	cocos2d::Size visibleSize;
-	cocos2d::Vec2 origin;
-private:
-	int enegy;
-};
-
-#endif // __BATTERY_H__
+					DoorBody->setCollisionBitmask(DOOR_COLISION_BITMASK);
+					DoorBody->setCategoryBitmask(DOOR_CATEGORY_BITMASK);
+					DoorBody->setContactTestBitmask(DOOR_COLISION_BITMASK);
+					DoorBody->setDynamic(false);
+					auto node = Node::create();
+					float x = _tileMap->getTileSize().width * (i + 0.5) * MAP_SCALE;
+					float y = _tileMap->getTileSize().height * (_tileMap->getMapSize().height - 0.5 - j)*MAP_SCALE;
+					node->setPosition(Vec2(x, y));
+					node->setPhysicsBody(DoorBody);
+					this->addChild(node, 40);
+				}
+			}
+		}
+}
