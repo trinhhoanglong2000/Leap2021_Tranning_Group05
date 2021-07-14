@@ -22,21 +22,16 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "Iteam.h"
+#include "Key.h"
 #include "Definitions.h"
 
 USING_NS_CC;
-Iteam::Iteam(std::string name) {
 
-	this->initWithFile(name);
+Key::Key() :Iteam("prefap/Iteam/Key.png") {
+
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-
-	auto BatteryBody = PhysicsBody::createBox(this->getContentSize());
-	BatteryBody->setCollisionBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setCategoryBitmask(ITEM_CATEGORY_BITMASK);
-	BatteryBody->setContactTestBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setDynamic(false);
-	this->setPhysicsBody(BatteryBody);
-
+	type = 2;
+	this->setScale(0.15f);
+	this->setTag(10);
 }

@@ -31,6 +31,7 @@
 #include "TrapPlant.h"
 #include "Trapthorn.h"
 #include "Trap.h"
+#include "Door.h"
 
 USING_NS_CC;
 
@@ -50,10 +51,13 @@ public:
 	cocos2d::Vector<Trap*> AllTrap;
 	TMXLayer *_meta;
 	TMXTiledMap *_tileMap;
+	Door *door;
 private:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	Sprite * Tile[1000];
+	int numberkey = 0;
+	
 	
 };
 

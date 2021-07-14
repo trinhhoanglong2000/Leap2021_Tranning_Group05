@@ -34,6 +34,7 @@
 #include "TrapRock.h"
 #include "TrapCheckBoss.h"
 #include "Iteam.h"
+#include "GameOver.h"
 USING_NS_CC;
 
 int Level_of_difficult;
@@ -74,7 +75,7 @@ bool GameScene::init()
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
 	gameMap = new GameMap(this,player); // add gamemap
-
+	door = gameMap->door;
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
 	width = MAX(size.width*2+visibleSize.width, size.height*2+visibleSize.height);
@@ -142,6 +143,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
 					this->removeChild(a->getOwner());
 				}
+				if (item->type == 2)
+				{
+					this->removeChild(a->getOwner());
+					door->reduceNumberKey();
+				}
 			}
 		}
 		else if (b->getCategoryBitmask() == ITEM_CATEGORY_BITMASK)
@@ -154,6 +160,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
 					this->removeChild(a->getOwner());
 				}
+				if (item->type == 2)
+				{
+					this->removeChild(a->getOwner());
+					door->reduceNumberKey();
+				}
 			}
 		}
 		// door detect collision
@@ -161,14 +172,20 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if (b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				CCLOG("aaaaaaaaaaaaaaa");
+				if(door->numberkey<=0)
+					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE/2);
+				else
+					player->removeAction();
 			}
 		}
 		else if (b->getCategoryBitmask() == DOOR_CATEGORY_BITMASK)
 		{
 			if (a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				CCLOG("aaaaaaaaaaaaaaa");
+				if (door->numberkey <= 0)
+					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE / 2);
+				else
+					player->removeAction();
 			}
 		}
 		//Wall detect collision
@@ -517,4 +534,9 @@ void GameScene::Lightingbg(float dt)
 void GameScene::setcheckLighting(float dt)
 {
 	checkLighting = true;
+}
+void  GameScene::GoToGameOver(float dt)
+{
+	auto scene = GameOver::createScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }

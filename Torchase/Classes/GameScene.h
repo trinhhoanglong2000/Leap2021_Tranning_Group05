@@ -35,6 +35,7 @@
 #include "SoundManager.h"
 #include "TrapPlant.h"
 #include "Trap.h"
+#include "Door.h"
 
 class GameScene : public cocos2d::Scene
 {
@@ -51,6 +52,7 @@ public:
 	void setcheckLighting(float dt);
 	cocos2d::Vector<Minions*> AllMinions;
 	cocos2d::Vector<Trap*> AllTrap;
+	void GoToGameOver(float dt);
 	//GameScene *Scene_layer;
 private:
 	int level = 0;
@@ -58,6 +60,7 @@ private:
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
+	Door *door;
 
 	Player *player;
 	Minions *minion;

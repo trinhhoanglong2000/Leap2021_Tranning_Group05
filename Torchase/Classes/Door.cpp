@@ -30,33 +30,37 @@ Door::Door() {
 
 	
 }
-void Door::setmeta(cocos2d::TMXLayer *objectGroupDoorGame, cocos2d::TMXTiledMap *_tileMapGame)
+void Door::setmeta(cocos2d::TMXLayer *objectGroupDoorGame, cocos2d::TMXTiledMap *_tileMapGame, int numberKeyGame)
 {
 	_meta = objectGroupDoorGame;
 	_tileMap = _tileMapGame;
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-	//type = 2;
-		for (int i = 0; i < _tileMap->getMapSize().width; i++)
+	numberkey = numberKeyGame;
+	for (int i = 0; i < _tileMap->getMapSize().width; i++)
+	{
+		for (int j = 0; j < _tileMap->getMapSize().height; j++) 
 		{
-			for (int j = 0; j < _tileMap->getMapSize().height; j++) // tile map size 40X40, starting from 0, this loop traverses all tiles
+			auto tileSprite = _meta->getTileAt(Vec2(i, j));
+			if (tileSprite)
 			{
-				auto tileSprite = _meta->getTileAt(Vec2(i, j));
-				if (tileSprite)
-				{
-					auto DoorBody = PhysicsBody::createBox(tileSprite->getContentSize()*MAP_SCALE);
-
-					DoorBody->setCollisionBitmask(DOOR_COLISION_BITMASK);
-					DoorBody->setCategoryBitmask(DOOR_CATEGORY_BITMASK);
-					DoorBody->setContactTestBitmask(DOOR_COLISION_BITMASK);
-					DoorBody->setDynamic(false);
-					auto node = Node::create();
-					float x = _tileMap->getTileSize().width * (i + 0.5) * MAP_SCALE;
-					float y = _tileMap->getTileSize().height * (_tileMap->getMapSize().height - 0.5 - j)*MAP_SCALE;
-					node->setPosition(Vec2(x, y));
-					node->setPhysicsBody(DoorBody);
-					this->addChild(node, 40);
-				}
+				auto DoorBody = PhysicsBody::createBox(tileSprite->getContentSize()*MAP_SCALE);
+				DoorBody->setCollisionBitmask(DOOR_COLISION_BITMASK);
+				DoorBody->setCategoryBitmask(DOOR_CATEGORY_BITMASK);
+				DoorBody->setContactTestBitmask(DOOR_COLISION_BITMASK);
+				DoorBody->setDynamic(false);
+				float x = _tileMap->getTileSize().width * (i + 0.5) * MAP_SCALE;
+				float y = _tileMap->getTileSize().height * (_tileMap->getMapSize().height - 0.5 - j)*MAP_SCALE;
+				auto node = Node::create();
+				node = Node::create();
+				node->setPosition(Vec2(x, y));
+				node->setPhysicsBody(DoorBody);
+				this->addChild(node, 40);
 			}
 		}
+	}
+}
+void Door::reduceNumberKey()
+{
+	numberkey--;
 }

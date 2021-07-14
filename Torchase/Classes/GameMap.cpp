@@ -37,6 +37,8 @@
 #include "TrapRock.h"
 #include "TrapCheckBoss.h"
 #include "Door.h"
+#include "Key.h"
+#include "IteamManager.h"
 USING_NS_CC;
 
 
@@ -81,19 +83,6 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			int y = objMinion.asValueMap()["y"].asInt();
 			int type = objMinion.asValueMap()["type"].asInt();
 			Minions* minion;
-			/*if (type == 0) {
-				minion = new Spider(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
-
-			}
-			else if (type==1){
-				minion = MinionManager::getInstance()->CreateMinion(1);
-				minion->setplayer(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
-				//minion = new Shadow(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
-			}
-			if (type == 2)
-			{
-				minion = new MinionBoss(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
-			}*/
 
 			minion = MinionManager::getInstance()->CreateMinion(type);
 			minion->setplayer(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
@@ -103,8 +92,8 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		}
 	}
 
-	//creat battery
-	TMXObjectGroup *objectGroupBatery = _tileMap->getObjectGroup("Battery");
+	//creat Iteam
+	TMXObjectGroup *objectGroupBatery = _tileMap->getObjectGroup("Iteam");
 	if (objectGroupBatery == NULL) {
 
 	}
@@ -115,14 +104,18 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		{
 			int x = objBatery.asValueMap()["x"].asInt();
 			int y = objBatery.asValueMap()["y"].asInt();
-			Battery *batery = new Battery();
-			batery->setPosition(Vec2(x, y)*MAP_SCALE);
-			scene->addChild(batery, 20);
+			int type = objBatery.asValueMap()["type"].asInt();
+			if (type == 2)
+				numberkey++;
+			auto item = IteamManager::getInstance()->CreateIteam(type);
+			
+			item->setPosition(Vec2(x, y)*MAP_SCALE);
+			scene->addChild(item, 20);
 		}
 	}
 	//create door
-	auto door = new Door();
-	door->setmeta(_tileMap->getLayer("door"), _tileMap);
+	door = new Door();
+	door->setmeta(_tileMap->getLayer("door"), _tileMap, numberkey);
 	scene->addChild(door, 25);
 	// tao wall
 	_meta = _tileMap->getLayer("meta");

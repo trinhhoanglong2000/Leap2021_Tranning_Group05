@@ -47,6 +47,7 @@ public:
 	void setBlackVisionBG(cocos2d::Size size);
 	void Playerdie();
 	bool checkMove;
+	void  GoToGameOver(float dt);
 	bool stop;
 	cocos2d::DrawNode *background;
 	bool die;

@@ -22,18 +22,17 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "SplashScene.h"
+#include "GameOver.h"
 #include "Definitions.h"
 #include "MainMenuScene.h"
 #include "GameScene.h"
 #include "MinionManager.h"
 #include "TrapManager.h"
-#include "IteamManager.h"
 USING_NS_CC;
 
-Scene* SplashScene::createScene()
+Scene* GameOver::createScene()
 {
-    return SplashScene::create();
+    return GameOver::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -44,7 +43,7 @@ static void problemLoading(const char* filename)
 }
 
 // on "init" you need to initialize your instance
-bool SplashScene::init()
+bool GameOver::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -55,7 +54,6 @@ bool SplashScene::init()
 	//khoi tao all minion
 	MinionManager::getInstance()->CreateAllMinion();
 	TrapManager::getInstance()->CreateAllTrap();
-	IteamManager::getInstance()->CreateAllIteam();
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -66,21 +64,21 @@ bool SplashScene::init()
 
     // add a "close" icon to exit the progress. it's an autorelease object
     
-	this->schedule(CC_SCHEDULE_SELECTOR(SplashScene::GoToMainMenu), DISPLAY_TIME_SPLASH_SCENE);
+	
 
 	auto BgSprite = Sprite::create("coco2d.png");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(BgSprite);
     return true;
 }
-void SplashScene::GoToMainMenu(float dt)
+void GameOver::GoToMainMenu(float dt)
 {
 	auto scene = MainMenuScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 
 }
 
-void SplashScene::menuCloseCallback(Ref* pSender)
+void GameOver::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();

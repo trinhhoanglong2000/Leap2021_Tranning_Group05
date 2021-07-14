@@ -26,6 +26,7 @@
 #include "Definitions.h"
 #include "ui\CocosGUI.h"
 #include "GameScene.h"
+#include "GameOver.h"
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 {
@@ -279,7 +280,7 @@ void Player::setActionDie(float dt)
 	this->unscheduleAllCallbacks();
 	this->stopAllActions();
 	this->runAction(DeadAnimation);
-	
+	this->schedule(CC_SCHEDULE_SELECTOR(Player::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE);
 }
 void Player::removeAction()
 {
@@ -294,4 +295,9 @@ void Player::removeAction()
 	auto sequence = Sequence::create(reverAction, callback, nullptr);
 	this->runAction(animationAction);
 	this->runAction(sequence);
+}
+void  Player::GoToGameOver(float dt)
+{
+	auto scene = GameOver::createScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }

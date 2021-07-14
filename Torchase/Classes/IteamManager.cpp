@@ -21,22 +21,70 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
-#include "Iteam.h"
-#include "Definitions.h"
-
+ #include "IteamManager.h"
+ #include "Definitions.h"
+ #include "AudioEngine.h"
+#include "Battery.h"
+#include "Key.h"
+#include"Iteam.h"
 USING_NS_CC;
-Iteam::Iteam(std::string name) {
 
-	this->initWithFile(name);
-	visibleSize = Director::getInstance()->getVisibleSize();
-	origin = Director::getInstance()->getVisibleOrigin();
-
-	auto BatteryBody = PhysicsBody::createBox(this->getContentSize());
-	BatteryBody->setCollisionBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setCategoryBitmask(ITEM_CATEGORY_BITMASK);
-	BatteryBody->setContactTestBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setDynamic(false);
-	this->setPhysicsBody(BatteryBody);
-
+IteamManager::IteamManager() {
+	
 }
+void IteamManager::CreateAllIteam()
+{
+	for (int i = 0; i < 3; i++)
+	{
+
+		auto battery = new Battery();
+		battery->setVisible(false);
+
+		auto key = new Key();
+		key->setVisible(false);
+
+		AllIteam.pushBack(battery);
+		AllIteam.pushBack(key);
+	}
+}
+Iteam *IteamManager::CreateIteam(int Type)
+{
+	for (int i = 0; i < AllIteam.size(); i++)
+	{
+		if (AllIteam.at(i)->type == Type && AllIteam.at(i)->isVisible() == false)
+		{
+			AllIteam.at(i)->setVisible(true);
+				return AllIteam.at(i);
+		}
+	}
+	switch (Type)
+	{
+	case 1:
+	{
+		auto battery = new Battery();
+		battery->setVisible(true);
+		AllIteam.pushBack(battery);
+		return battery;
+		break;
+	}
+	case 2:
+	{
+		
+		auto key = new Key();
+		key->setVisible(true);
+		AllIteam.pushBack(key);
+		return key;
+		break;
+	}
+	default:
+		break;
+	}
+}
+void IteamManager::SetFalseAllIteam()
+{
+	for (int i = 0; i < AllIteam.size(); i++)
+	{
+		AllIteam.at(i)->setVisible(false);
+	}
+}
+IteamManager* IteamManager::mInstancePtr = new IteamManager();

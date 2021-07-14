@@ -27,18 +27,11 @@
 
 USING_NS_CC;
 
-Battery::Battery() {
+Battery::Battery():Iteam("prefap/Iteam/battery1.png") {
 
-	this->initWithFile("battery.png");
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-	type = 1;
-	auto BatteryBody = PhysicsBody::createBox(this->getContentSize());
-	BatteryBody->setCollisionBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setCategoryBitmask(ITEM_CATEGORY_BITMASK);
-	BatteryBody->setContactTestBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setDynamic(false);
 	this->setScale(0.2);
-	this->setPhysicsBody(BatteryBody);
+	type = 1;
 	enegy = 30;
 }

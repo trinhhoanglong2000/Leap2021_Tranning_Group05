@@ -31,13 +31,14 @@ class Door : public cocos2d::Node
 {
 public:
 	Door();
-	void setmeta(cocos2d::TMXLayer *objectGroupDoorGame, cocos2d::TMXTiledMap *_tileMapGame);
+	void setmeta(cocos2d::TMXLayer *objectGroupDoorGame, cocos2d::TMXTiledMap *_tileMapGame,int numberKeyGame);
+	void reduceNumberKey();
+	int numberkey;
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	cocos2d::TMXLayer *_meta;
 	cocos2d::TMXTiledMap *_tileMap;
-
 };
 
 #endif // __Actor_H__

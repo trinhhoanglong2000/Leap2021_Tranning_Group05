@@ -30,7 +30,7 @@
 class Iteam : public cocos2d::Sprite
 {
 public:
-	Iteam();
+	Iteam(std::string name);
 	int type;
 protected:
 	cocos2d::Size visibleSize;
