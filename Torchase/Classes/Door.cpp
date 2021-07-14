@@ -32,6 +32,7 @@ Door::Door() {
 }
 void Door::setmeta(cocos2d::TMXLayer *objectGroupDoorGame, cocos2d::TMXTiledMap *_tileMapGame, int numberKeyGame)
 {
+	
 	_meta = objectGroupDoorGame;
 	_tileMap = _tileMapGame;
 	visibleSize = Director::getInstance()->getVisibleSize();

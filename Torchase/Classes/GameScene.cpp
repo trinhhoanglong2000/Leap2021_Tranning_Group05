@@ -238,6 +238,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			auto trap = dynamic_cast<Trap*>(a->getOwner());
 			if (trap->type == 0 || trap->type == 2 || trap->type == 3)
 			{
+				
 				trap->setLocalZOrder(40);
 				if (trap->type == 2)
 				{
@@ -246,6 +247,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					{
 						trapbear->HitPlayer();
 					}
+					else
+						return true;
 				}
 				if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{
@@ -277,6 +280,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		else if (b->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 		{
+			
 			auto trap = dynamic_cast<Trap*>(b->getOwner());
 			if (trap->type == 0 || trap->type == 2 || trap->type == 3)
 			{
@@ -291,12 +295,12 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 						trapbear->HitPlayer();
 					}
 				}
-				if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+				if (!playerdie && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{
 					playerdie = true;
 					player->Playerdie();
 				}
-				if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+				if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 				{
 					auto minion = dynamic_cast<Minions*>(a->getOwner());
 					minion->die();

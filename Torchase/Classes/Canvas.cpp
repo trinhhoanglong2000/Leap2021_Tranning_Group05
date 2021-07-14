@@ -275,7 +275,6 @@ void Canvas::reduceenergy(float dt)
 	if (enegy->getPercent() <= 0)
 	{
 		AllMinions = MinionManager::getInstance()->AllMinions;
-		//endlight = false;
 		player->background->getPhysicsBody()->setEnabled(false);
 		player->background->setVisible(false);
 		background_off->setVisible(true);
@@ -293,7 +292,6 @@ void Canvas::autoplusenergy(float dt)
 		enegy->setPercent(enegy->getPercent() + AUTOPLUSHENEGY);
 	else
 		enegy->setPercent(enegy->getMaxPercent());
-	//endlight = true;
 }
 void Canvas::plusenergy(int power)
 {
@@ -301,7 +299,6 @@ void Canvas::plusenergy(int power)
 		enegy->setPercent(enegy->getPercent() + power);
 	else
 		enegy->setPercent(enegy->getMaxPercent());
-	//endlight = true;
 }
 void Canvas::AutoMove(float dt)
 {
