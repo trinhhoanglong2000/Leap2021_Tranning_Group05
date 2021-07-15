@@ -62,7 +62,8 @@ bool GameOver::init()
 
     // add a "close" icon to exit the progress. it's an autorelease object
     
-	SoundManager::getInstance()->PlayMusics(EVIL_LAUGH, true, 1);
+	SoundManager::getInstance()->PlayMusics(EVIL_LAUGH, false, 1);
+	SoundManager::getInstance()->PlayMusics(GAME_OVER_SOUND, true, 1.0f);
 
 	auto BgSprite = Sprite::create("coco2d.png");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
