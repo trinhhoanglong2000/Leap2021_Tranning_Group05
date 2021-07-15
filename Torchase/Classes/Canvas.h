@@ -36,7 +36,7 @@ class Canvas : public cocos2d::ui::Layout
 {
 	
 public:
-	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller, cocos2d::Scene *sceneGame);
+	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller, cocos2d::Scene *sceneGame, int &_gameState);
 	
 	bool TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event);
 	bool TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event);
@@ -46,6 +46,9 @@ public:
 	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void GotoMainMenu(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	//void ResumeScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void reduceenergy(float dt);
@@ -70,9 +73,16 @@ private:
 	int int_move;
 	int mind_move;
 	bool BoolTouch;
+	bool touchpause = false;
 	int controller_canvas;
-	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight;
+	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight,
+						*ButtonPause, *ButtonResume, *ButtonHome, *ButtonLight, *ButtonTrap;
 	cocos2d::Scene *scene;
+	
+	int *gameState;
+	cocos2d::Menu *pauseMenu;
+	cocos2d::Sprite *pauseBackgr;
+
 };
 
 #endif // __CANVAS_H__

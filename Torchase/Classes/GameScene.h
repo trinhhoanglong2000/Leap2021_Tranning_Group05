@@ -83,6 +83,8 @@ private:
 	int SET_LIGHTING_DURATION = 3;
 	int SET_LIGHTINGBG_DURATION = 5;
 
+	int gameState;
+
 	cocos2d::Sprite *effect;
 
 	cocos2d::SEL_SCHEDULE Schedule_lighting;
