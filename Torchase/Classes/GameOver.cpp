@@ -26,9 +26,10 @@
 #include "Definitions.h"
 #include "MainMenuScene.h"
 #include "GameScene.h"
-#include "MinionManager.h"
-#include "TrapManager.h"
 USING_NS_CC;
+
+extern int Level_of_difficult;
+extern int controller;
 
 Scene* GameOver::createScene()
 {
@@ -51,9 +52,6 @@ bool GameOver::init()
     {
         return false;
     }
-	//khoi tao all minion
-	MinionManager::getInstance()->CreateAllMinion();
-	TrapManager::getInstance()->CreateAllTrap();
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -64,18 +62,54 @@ bool GameOver::init()
 
     // add a "close" icon to exit the progress. it's an autorelease object
     
-	
+	SoundManager::getInstance()->PlayMusics(EVIL_LAUGH, true, 1);
 
 	auto BgSprite = Sprite::create("coco2d.png");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(BgSprite);
+
+	auto myLabel = Label::createWithTTF("You Lose!!!", "fonts/Raven Song.ttf", visibleSize.height / 9);
+	myLabel->setAnchorPoint(Vec2(0.5, 0));
+	myLabel->setPosition(visibleSize.width / 2, visibleSize.height - myLabel->getBoundingBox().size.height * 3 / 2);
+	this->addChild(myLabel);
+	//========================Menu
+	Vector<MenuItem*> menuArr;
+	auto Label = Label::createWithTTF("Replay", "fonts/Raven Song.ttf", visibleSize.height / 18);
+	auto btn = MenuItemLabel::create(Label, CC_CALLBACK_1(GameOver::GoToGameScene, this));
+	btn->setAnchorPoint(Vec2(0, 1));
+
+	menuArr.pushBack(btn);
+
+	Label = Label::createWithTTF("Home", "fonts/Raven Song.ttf", visibleSize.height / 18);
+	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(GameOver::GoToMainMenu, this));
+	btn->setAnchorPoint(Vec2(0, 1));
+
+	menuArr.pushBack(btn);
+
+	menu = Menu::createWithArray(menuArr);
+	menu->setPosition(Vec2(visibleSize.width / 20, myLabel->getPositionY() - myLabel->getContentSize().height));
+	menu->alignItemsVerticallyWithPadding(30);
+
+	menu->setAnchorPoint(Vec2(0, 0));
+
+
+	this->addChild(menu);
+
+
     return true;
 }
-void GameOver::GoToMainMenu(float dt)
+void GameOver::GoToMainMenu(cocos2d::Ref* pSender)
 {
+	SoundManager::getInstance()->stopMusic(EVIL_LAUGH);
 	auto scene = MainMenuScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
 
+void GameOver::GoToGameScene(cocos2d::Ref* pSender)
+{
+	SoundManager::getInstance()->stopMusic(EVIL_LAUGH);
+	auto scene = GameScene::createScene(Level_of_difficult,controller);
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 void GameOver::menuCloseCallback(Ref* pSender)

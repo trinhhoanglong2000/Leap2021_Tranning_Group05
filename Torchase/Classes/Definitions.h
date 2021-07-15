@@ -86,5 +86,6 @@
 #define surprisebackground_sound "music/surprisebackground.mp3"
 #define LIGHTING "music/lighting.mp3"
 #define MAINMENU_SOUND "music/Mainmenu.mp3"
+#define EVIL_LAUGH "music/evil_laugh.mp3"
 
 #endif // __DEFINITIONS_H__

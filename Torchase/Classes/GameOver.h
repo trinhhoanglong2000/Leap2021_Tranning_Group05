@@ -26,6 +26,7 @@
 #define __GAMEOVER_H__
 
 #include "cocos2d.h"
+USING_NS_CC;
 
 class GameOver : public cocos2d::Scene
 {
@@ -36,9 +37,13 @@ public:
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
-	void GoToMainMenu(float dt);
+	void GoToMainMenu(cocos2d::Ref* pSender);
+	void GoToGameScene(cocos2d::Ref* pSender);
     // implement the "static create()" method manually
     CREATE_FUNC(GameOver);
+private:
+	//int Level_of_difficult, controller;
+	Menu* menu;
 };
 
 #endif // __GAMEOVER_H__

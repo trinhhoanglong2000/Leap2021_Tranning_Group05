@@ -293,7 +293,7 @@ void Player::setActionDie(float dt)
 	this->stopAllActions();
 	this->runAction(DeadAnimation);
 	if(NumHeal==0)
-		this->schedule(CC_SCHEDULE_SELECTOR(Player::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE);
+		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE);
 	else
 		this->schedule(CC_SCHEDULE_SELECTOR(Player::GoToAgain), DISPLAY_TIME_SPLASH_SCENE,0,0);
 }
@@ -310,11 +310,6 @@ void Player::removeAction()
 	auto sequence = Sequence::create(reverAction, callback, nullptr);
 	this->runAction(animationAction);
 	this->runAction(sequence);
-}
-void  Player::GoToGameOver(float dt)
-{
-	auto scene = GameOver::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void Player::createHeal()
 {

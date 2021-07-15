@@ -48,7 +48,7 @@ public:
 	void setBlackVisionBG(cocos2d::Size size);
 	void Playerdie();
 	bool checkMove;
-	void  GoToGameOver(float dt);
+	//void  GoToGameOver(float dt);
 	void createHeal();
 	bool stop;
 	void changeTravelTime(float value);
