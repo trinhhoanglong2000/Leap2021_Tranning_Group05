@@ -76,7 +76,8 @@ private:
 	bool touchpause = false;
 	int controller_canvas;
 	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight,
-						*ButtonPause, *ButtonResume, *ButtonHome, *ButtonLight, *ButtonTrap;
+						*ButtonPause, *ButtonResume, *ButtonHome, *ButtonLight, *ButtonTrap, *ButtonConvert;
+	cocos2d::ui::Text *TXT_Number;
 	cocos2d::Scene *scene;
 	
 	int *gameState;

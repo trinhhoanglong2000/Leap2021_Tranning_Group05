@@ -28,6 +28,7 @@
 #include "Key.h"
 #include"Iteam.h"
 #include "IteamBox.h"
+#include "IteamSaveGame.h"
 USING_NS_CC;
 
 IteamManager::IteamManager() {
@@ -47,9 +48,13 @@ void IteamManager::CreateAllIteam()
 		auto iteamBox = new IteamBox();
 		iteamBox->setVisible(false);
 
+		auto iteamSaveGame = new IteamSaveGame();
+		iteamSaveGame->setVisible(false);
+
 		AllIteam.pushBack(battery);
 		AllIteam.pushBack(key);
 		AllIteam.pushBack(iteamBox);
+		AllIteam.pushBack(iteamSaveGame);
 	}
 }
 Iteam *IteamManager::CreateIteam(int Type)
@@ -88,6 +93,15 @@ Iteam *IteamManager::CreateIteam(int Type)
 		iteamBox->setVisible(true);
 		AllIteam.pushBack(iteamBox);
 		return iteamBox;
+		break;
+	}
+	case 4:
+	{
+
+		auto iteamSaveGame = new IteamSaveGame();
+		iteamSaveGame->setVisible(false);
+		AllIteam.pushBack(iteamSaveGame);
+		return iteamSaveGame;
 		break;
 	}
 	default:

@@ -30,6 +30,8 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 {
+	NumHeal = 3;
+	Player::createHeal();
 	auto PlayerBody = PhysicsBody::createBox(Size(this->getContentSize().width/2,this->getContentSize().height));
 	PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
 	PlayerBody->setCategoryBitmask(PLAYER_CATEGORY_BITMASK);
@@ -112,7 +114,7 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 	thickness = (max - speed)/2 - speed / 4;
 
 	width = max;
-	height = max + (int)speed;
+	height = max + (int)speed - (int)speed/2;
 	
 	background = DrawNode::create();
 	
@@ -276,11 +278,23 @@ void Player::Playerdie()
 }
 void Player::setActionDie(float dt)
 {
+	NumHeal--;
+	for (int i = 0; i < vecHeal.size(); i++)
+	{
+		if (i >= NumHeal)
+		{
+			vecHeal.at(i)->setTexture("prefap/Player/Heal.png");
+			vecHeal.at(i)->setTextureRect(Rect(0, 622, 318, 311));
+		}
+	}
 	SoundManager::getInstance()->PlayMusics(HitTrap_sound,false,0.5f);
 	this->unscheduleAllCallbacks();
 	this->stopAllActions();
 	this->runAction(DeadAnimation);
-	this->schedule(CC_SCHEDULE_SELECTOR(Player::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE);
+	if(NumHeal==0)
+		this->schedule(CC_SCHEDULE_SELECTOR(Player::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE);
+	else
+		this->schedule(CC_SCHEDULE_SELECTOR(Player::GoToAgain), DISPLAY_TIME_SPLASH_SCENE,0,0);
 }
 void Player::removeAction()
 {
@@ -300,4 +314,28 @@ void  Player::GoToGameOver(float dt)
 {
 	auto scene = GameOver::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+void Player::createHeal()
+{
+	for (int i = 0; i < NumHeal; i++)
+	{
+		auto node = Sprite::create("prefap/Player/Heal.png",Rect(0,0,318,311));
+		node->setPosition(Vec2(-visibleSize.width / 2.3 + i * node->getContentSize().width*0.2f, visibleSize.height / 2.15));
+		node->setScale(0.2f);
+		vecHeal.pushBack(node);
+		this->addChild(node, 200);
+	}
+}
+void Player::GoToAgain(float dt)
+{
+	def = UserDefault::getInstance();
+
+	auto PosX = def->getIntegerForKey("INGAME_PLAYERPOSX",0);
+	auto PosY = def->getIntegerForKey("INGAME_PLAYERPOSY",0);
+	def->flush();
+
+	die = false;
+	this->setPosition(Vec2(PosX, PosY));
+	this->setTexture("prefap/Player/Player.png");
+	this->setTextureRect(Rect(360, 1, 80, 95));
 }

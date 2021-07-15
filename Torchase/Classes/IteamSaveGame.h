@@ -1,4 +1,4 @@
-	/****************************************************************************
+/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -22,47 +22,20 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __PLAYER_H__
-#define __PLAYER_H__
+#ifndef __ITEAMSAVEGAME_H__
+#define __ITEAMSAVEGAME_H__
 
 #include "cocos2d.h"
-#include "ui\CocosGUI.h"
-#include"Actor.h"
-#include "SoundManager.h"
-
-class Player : public Actor
+#include "Iteam.h"
+class IteamSaveGame : public Iteam
 {
 public:
-	Player();
-	void MoveUp();
-	void MoveDow();
-	void MoveLeft();
-	void MoveRight();
-	void OnOffLight();
-	void removeAction();
-	void GoToAgain(float dt);
-	int mind;
-	void setFalseMove();
-	void setTrueMove(float dt);
-	void setActionDie(float dt);
-	void setBlackVisionBG(cocos2d::Size size);
-	void Playerdie();
-	bool checkMove;
-	void  GoToGameOver(float dt);
-	void createHeal();
-	bool stop;
-	cocos2d::DrawNode *background;
-	bool die;
-	int NumHeal;
-private:
-	cocos2d::UserDefault *def;
-	int thickness = 400;
-	int width = 1000;
-	int height = 1200;
-	cocos2d::Vector<cocos2d::SpriteFrame*> stand;
-	cocos2d::SEL_SCHEDULE Schedule_reverse;
-	cocos2d::Vector<cocos2d::Sprite*> vecHeal;
-	
+	IteamSaveGame();
+	IteamSaveGame(std::string name);
+
+protected:
+	cocos2d::Size visibleSize;
+	cocos2d::Vec2 origin;
 };
 
-#endif // __PLAYER_H__
+#endif // __ITEAMSAVEGAME_H__

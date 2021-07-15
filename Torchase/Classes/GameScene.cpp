@@ -113,7 +113,7 @@ bool GameScene::init()
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-	playerdie = false;
+	
 	checkLighting = true;
 
 	SoundManager::getInstance()->PlayMusics(softbackground_sound,true,1.0f);
@@ -165,6 +165,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 						itemBox->HitPlater();
 					}
 				}
+				if (item->type == 4)
+				{
+					def = UserDefault::getInstance();
+
+					auto PosX = def->getIntegerForKey("INGAME_PLAYERPOSX", item->getPositionX());
+					auto PosY = def->getIntegerForKey("INGAME_PLAYERPOSY", item->getPositionY());
+
+					def->setIntegerForKey("INGAME_PLAYERPOSX", item->getPositionX());
+					def->setIntegerForKey("INGAME_PLAYERPOSY", item->getPositionY());
+					def->flush();
+					item->setVisible(false);
+					this->removeChild(item);
+				}
 			}
 		}
 		else if (b->getCategoryBitmask() == ITEM_CATEGORY_BITMASK)
@@ -191,6 +204,19 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					{
 						itemBox->HitPlater();
 					}
+				}
+				if (item->type == 4)
+				{
+					def = UserDefault::getInstance();
+
+					auto PosX = def->getIntegerForKey("INGAME_PLAYERPOSX", item->getPositionX());
+					auto PosY = def->getIntegerForKey("INGAME_PLAYERPOSY", item->getPositionY());
+
+					def->setIntegerForKey("INGAME_PLAYERPOSX", item->getPositionX());
+					def->setIntegerForKey("INGAME_PLAYERPOSY", item->getPositionY());
+					def->flush();
+					item->setVisible(false);
+					this->removeChild(item);
 				}
 			}
 		}
@@ -277,9 +303,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					else
 						return true;
 				}
-				if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+				if (!player->die && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{
-					playerdie = true;
 					player->Playerdie();
 				}
 				if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
@@ -322,9 +347,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 						trapbear->HitPlayer();
 					}
 				}
-				if (!playerdie && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+				if (!player->die && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{
-					playerdie = true;
 					player->Playerdie();
 				}
 				if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
@@ -354,12 +378,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 		{
 			CCLOG("enemy");
-			if (!playerdie && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+			if (!player->die && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				auto minion = dynamic_cast<Minions*>(a->getOwner());
 				if (minion->Booldie == false)
 				{
-					playerdie = true;
 					this->stopAllActions();
 					player->Playerdie();
 				}
@@ -389,12 +412,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		else if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 		{
-			if (!playerdie && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+			if (!player->die && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				auto minion = dynamic_cast<Minions*>(b->getOwner());
 				if (minion->Booldie == false)
 				{
-					playerdie = true;
 					this->stopAllActions();
 					player->Playerdie();
 				}

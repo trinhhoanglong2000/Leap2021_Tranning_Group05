@@ -55,6 +55,7 @@ public:
 	void GoToGameOver(float dt);
 	//GameScene *Scene_layer;
 private:
+	UserDefault *def;
 	int level = 0;
 	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
@@ -75,7 +76,6 @@ private:
 
 	Canvas *canvas;
 	Battery *battery;
-	bool playerdie;
 	bool light;
 	bool checkLighting;
 

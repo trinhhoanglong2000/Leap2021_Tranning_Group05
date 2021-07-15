@@ -49,19 +49,15 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonDow = ui::Button::create("prefap/Gui/down.png");
 	ButtonLeft = ui::Button::create("prefap/Gui/left.png");
 	ButtonRight = ui::Button::create("prefap/Gui/right.png");
-	ButtonPause = ui::Button::create("prefap/Gui/right.png");
-	ButtonResume = ui::Button::create("prefap/Gui/right.png");
-	ButtonHome = ui::Button::create("prefap/Gui/down.png");
 	ButtonLight = ui::Button::create("prefap/Gui/right.png");
 	ButtonTrap = ui::Button::create("prefap/Gui/right.png");
+	ButtonConvert = ui::Button::create("prefap/Gui/right.png");
+
+	ButtonPause = ui::Button::create("prefap/Gui/right.png");
+	ButtonResume = ui::Button::create("prefap/Gui/right.png");
+	ButtonHome = ui::Button::create("prefap/Gui/left.png");
 	ButtonResume->setVisible(false);
 	ButtonHome->setVisible(false);
-
-	/*MenuItemSprite *pauseItem = MenuItemSprite::create(Sprite::create("prefap/Gui/up.png"), Sprite::create("prefap/Gui/up.png"), CC_CALLBACK_1(Canvas::PauseScene, this));
-	pauseItem->setPosition(Vec2(origin.x, origin.y ));
-	pauseItem->setScale(BUTTON_SCALE);
-	Menu *pausebtn = Menu::create(pauseItem, NULL);
-	this->addChild(pausebtn);*/
 
 	pauseBackgr = Sprite::create("SplatterGray.png");
 	pauseBackgr->setScale(0.15f);
@@ -69,17 +65,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	pauseBackgr->setOpacity(0);
 	this->addChild(pauseBackgr);
 
-	/*MenuItemImage *pauseMenuItem = MenuItemImage::create("SplatterGray.png", "SplatterGray.png", "SplatterGray.png", NULL);
-	pauseMenuItem->setScale(visibleSize.width / pauseMenuItem->getContentSize().width / 2, visibleSize.height / pauseMenuItem->getContentSize().height / 1.5);
-	//MenuItemSprite *resumeItem = MenuItemSprite::create(Sprite::create("prefap/Gui/right.png"), Sprite::create("prefap/Gui/left.png"), CC_CALLBACK_2(Canvas::PauseScene, this));
-	resumeItem->setPosition(Vec2(origin.x, origin.y));
-
-	pauseMenu = Menu::create(pauseMenuItem, resumeItem, NULL);
-	pauseMenu->setPosition(Vec2(origin.x, origin.y + visibleSize.height));
-
-	this->addChild(pauseMenu);*/
-
-
+	ButtonConvert->setScale(BUTTON_SCALE);
 	ButtonUp->setScale(BUTTON_SCALE);
 	ButtonDow->setScale(BUTTON_SCALE);
 	ButtonLeft->setScale(BUTTON_SCALE);
@@ -90,10 +76,13 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonTrap->setScale(BUTTON_SCALE);
 	ButtonHome->setScale(BUTTON_SCALE);
 
-	ButtonTrap->setPosition(Vec2(visibleSize.width / 2.3 + origin.x, -visibleSize.height / 10 + origin.y));
+	ButtonConvert->setPosition(Vec2(visibleSize.width / 2.2 + origin.x, -visibleSize.height / 10 + origin.y));
+	ButtonConvert->addTouchEventListener(CC_CALLBACK_2(Canvas::PutTrap, this));
+
+	ButtonTrap->setPosition(Vec2(visibleSize.width / 2.7 + origin.x, -visibleSize.height / 4 + origin.y));
 	ButtonTrap->addTouchEventListener(CC_CALLBACK_2(Canvas::PutTrap, this));
 	  
-	ButtonLight->setPosition(Vec2(visibleSize.width / 2.5 + origin.x, -visibleSize.height / 4 + origin.y));
+	ButtonLight->setPosition(Vec2(visibleSize.width / 2.2 + origin.x, -visibleSize.height / 4 + origin.y));
 	ButtonLight->addTouchEventListener(CC_CALLBACK_2(Canvas::OnOffLight, this));
 
 	ButtonUp->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE/1.3));
@@ -108,7 +97,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE/1.3, -visibleSize.height / 4 + origin.y));
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveRight, this));
 
-	ButtonPause->setPosition(Vec2(visibleSize.width * 3 / 10, visibleSize.height * 1 / 5));
+	ButtonPause->setPosition(Vec2(visibleSize.width /2.3 , visibleSize.height /2.5 ));
 	ButtonPause->addTouchEventListener(CC_CALLBACK_2(Canvas::PauseScene, this));
 
 	ButtonResume->setPosition(Vec2(visibleSize.width * 3 / 10,origin.y));
@@ -117,17 +106,19 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonHome->setPosition(Vec2(-visibleSize.width * 3 / 10, origin.y));
 	ButtonHome->addTouchEventListener(CC_CALLBACK_2(Canvas::GotoMainMenu, this));
 
-	
 	this->addChild(ButtonUp);
 	this->addChild(ButtonDow);
 	this->addChild(ButtonLeft);
 	this->addChild(ButtonRight);
+	this->addChild(ButtonConvert);
 	this->addChild(ButtonPause);
 	this->addChild(ButtonResume);
 	this->addChild(ButtonLight);
 	this->addChild(ButtonTrap);
 	this->addChild(ButtonHome);
 	
+
+
 	if (controller_Scene == 1)
 	{
 		ButtonUp->setVisible(false);
@@ -135,6 +126,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 		ButtonRight->setVisible(false);
 		ButtonLeft->setVisible(false);
 	}
+
 	// add slider enegy
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
@@ -309,10 +301,14 @@ void Canvas::PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			CCLOG("resume %d", *gameState);
 			pauseBackgr->runAction(FadeOut::create(PAUSE_BACKGROUND_FADE_IN_TIME));
 			//EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y + visibleSize.height)));
-			ButtonDow->setVisible(true);
-			ButtonUp->setVisible(true);
-			ButtonLeft->setVisible(true);
-			ButtonRight->setVisible(true);
+			
+			if (controller_canvas != 1)
+			{
+				ButtonUp->setVisible(true);
+				ButtonDow->setVisible(true);
+				ButtonRight->setVisible(true);
+				ButtonLeft->setVisible(true);
+			}
 			ButtonLight->setVisible(true);
 			ButtonTrap->setVisible(true);
 			ButtonPause->setVisible(true);
@@ -320,44 +316,16 @@ void Canvas::PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			ButtonHome->setVisible(false);
 		}
 	}
-	//Game paused
-	//Director::getInstance()->pause();
-
-	//Create a pause interface
-	//PauseLayer* pauseLayer = PauseLayer::create();
-	//pauseLayer->setTag(1);//Set label
-
-	//Turn off the music
-	//AudioEngine::pauseAll();
-
-	//Display restore button
-	//ButtonResume->setVisible(true);
-
-	//Hide the pause button
-	//ButtonPause->setVisible(false);
 }
 void Canvas::GotoMainMenu(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
+		Director::getInstance()->resume();
 		auto scene = MainMenuScene::createScene();
 		Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 	}
 }
-/*void Canvas::ResumeScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
-{
-	//Game resume
-	Director::getInstance()->resume();
-
-	//Remove the pause interface
-	//this->removeChildByTag(1);//Remove the node with label 1
-
-	//Hide the restore button
-	ButtonResume->setVisible(false);
-
-	//Display pause button
-	ButtonPause->setVisible(true);
-}*/
 void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
 	AllMinions = MinionManager::getInstance()->AllMinions;
