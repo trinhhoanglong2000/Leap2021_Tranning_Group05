@@ -58,21 +58,21 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	Menu *pausebtn = Menu::create(pauseItem, NULL);
 	this->addChild(pausebtn);*/
 
-	pauseBackgr = Sprite::create("city_night.png");
-	pauseBackgr->setScale(visibleSize.width / pauseBackgr->getContentSize().width, visibleSize.height / pauseBackgr->getContentSize().height);
+	pauseBackgr = Sprite::create("SplatterGray.png");
+	pauseBackgr->setScale(0.15f);
 	pauseBackgr->setPosition(Vec2(origin.x,origin.y));
 	pauseBackgr->setOpacity(0);
 	this->addChild(pauseBackgr);
 
-	MenuItemImage *pauseMenuItem = MenuItemImage::create("SplatterGray.png", "SplatterGray.png", "SplatterGray.png", NULL);
+	/*MenuItemImage *pauseMenuItem = MenuItemImage::create("SplatterGray.png", "SplatterGray.png", "SplatterGray.png", NULL);
 	pauseMenuItem->setScale(visibleSize.width / pauseMenuItem->getContentSize().width / 2, visibleSize.height / pauseMenuItem->getContentSize().height / 1.5);
-	MenuItemSprite *resumeItem = MenuItemSprite::create(Sprite::create("prefap/Gui/right.png"), Sprite::create("prefap/Gui/left.png"), CC_CALLBACK_1(Canvas::PauseScene, this));
+	//MenuItemSprite *resumeItem = MenuItemSprite::create(Sprite::create("prefap/Gui/right.png"), Sprite::create("prefap/Gui/left.png"), CC_CALLBACK_2(Canvas::PauseScene, this));
 	resumeItem->setPosition(Vec2(origin.x, origin.y));
 
 	pauseMenu = Menu::create(pauseMenuItem, resumeItem, NULL);
 	pauseMenu->setPosition(Vec2(origin.x, origin.y + visibleSize.height));
 
-	this->addChild(pauseMenu);
+	this->addChild(pauseMenu);*/
 
 
 	ButtonUp->setScale(BUTTON_SCALE);
@@ -102,7 +102,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveRight, this));
 
 	ButtonPause->setPosition(Vec2(visibleSize.width * 3 / 10, visibleSize.height * 1 / 5));
-	ButtonPause->addTouchEventListener(CC_CALLBACK_1(Canvas::PauseScene, this));
+	ButtonPause->addTouchEventListener(CC_CALLBACK_2(Canvas::PauseScene, this));
 
 	
 	this->addChild(ButtonUp);
@@ -263,30 +263,30 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 		}
 	}
 }
-void Canvas::PauseScene(cocos2d::Ref * sender)
+void Canvas::PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
-	if (STATE_PLAYING == *gameState)
+	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
-		*gameState = STATE_PAUSE;
-		//Game paused
-		CCLOG("pause %d",*gameState);
-		pauseBackgr->runAction(FadeIn::create(PAUSE_BACKGROUND_FADE_IN_TIME));
-		EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y)));
-		pauseMenu->runAction(menuActionEase);
-		Director::getInstance()->pause();
-		//Sleep(1500);
-		touchpause = false;
-	}
-	else if (STATE_PAUSE == *gameState)
-	{
-		*gameState = STATE_PLAYING;
-		Director::getInstance()->resume();
-		CCLOG("resume %d",*gameState);
-		pauseBackgr->runAction(FadeOut::create(PAUSE_BACKGROUND_FADE_IN_TIME));
-		EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y+visibleSize.height)));
-		pauseMenu->runAction(menuActionEase);
-		//Sleep(1500);
-		touchpause = false;
+		if (STATE_PLAYING == *gameState)
+		{
+			auto callback = CallFunc::create([&]() {
+				Director::getInstance()->pause();
+			});
+			*gameState = STATE_PAUSE;
+			CCLOG("pause %d", *gameState);
+			auto moveAction = FadeIn::create(PAUSE_BACKGROUND_FADE_IN_TIME);
+			auto sequence = Sequence::create(moveAction, callback, nullptr);
+			pauseBackgr->runAction(sequence);
+			EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y)));
+		}
+		else if (STATE_PAUSE == *gameState)
+		{
+			*gameState = STATE_PLAYING;
+			Director::getInstance()->resume();
+			CCLOG("resume %d", *gameState);
+			pauseBackgr->runAction(FadeOut::create(PAUSE_BACKGROUND_FADE_IN_TIME));
+			EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y + visibleSize.height)));
+		}
 	}
 	//Game paused
 	//Director::getInstance()->pause();

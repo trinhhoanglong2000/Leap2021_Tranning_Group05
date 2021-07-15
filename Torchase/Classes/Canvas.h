@@ -46,7 +46,7 @@ public:
 	void MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
-	void PauseScene(cocos2d::Ref * sender);
+	void PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	//void ResumeScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
