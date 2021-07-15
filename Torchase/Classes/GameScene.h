@@ -53,6 +53,9 @@ public:
 	cocos2d::Vector<Minions*> AllMinions;
 	cocos2d::Vector<Trap*> AllTrap;
 	void GoToGameOver(float dt);
+	void GotoAgain(float dt);
+	void SaveInGame(cocos2d::Node *item);
+	void checkdie();
 	//GameScene *Scene_layer;
 private:
 	UserDefault *def;

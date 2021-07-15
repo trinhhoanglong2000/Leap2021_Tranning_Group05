@@ -167,14 +167,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 				if (item->type == 4)
 				{
-					def = UserDefault::getInstance();
-
-					auto PosX = def->getIntegerForKey("INGAME_PLAYERPOSX", item->getPositionX());
-					auto PosY = def->getIntegerForKey("INGAME_PLAYERPOSY", item->getPositionY());
-
-					def->setIntegerForKey("INGAME_PLAYERPOSX", item->getPositionX());
-					def->setIntegerForKey("INGAME_PLAYERPOSY", item->getPositionY());
-					def->flush();
+					GameScene::SaveInGame(item);
 					item->setVisible(false);
 					this->removeChild(item);
 				}
@@ -207,14 +200,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 				if (item->type == 4)
 				{
-					def = UserDefault::getInstance();
-
-					auto PosX = def->getIntegerForKey("INGAME_PLAYERPOSX", item->getPositionX());
-					auto PosY = def->getIntegerForKey("INGAME_PLAYERPOSY", item->getPositionY());
-
-					def->setIntegerForKey("INGAME_PLAYERPOSX", item->getPositionX());
-					def->setIntegerForKey("INGAME_PLAYERPOSY", item->getPositionY());
-					def->flush();
+					GameScene::SaveInGame(item);
 					item->setVisible(false);
 					this->removeChild(item);
 				}
@@ -306,6 +292,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (!player->die && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{
 					player->Playerdie();
+					GameScene::checkdie();
 				}
 				if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 				{
@@ -350,6 +337,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (!player->die && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{
 					player->Playerdie();
+					GameScene::checkdie();
 				}
 				if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 				{
@@ -383,8 +371,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				auto minion = dynamic_cast<Minions*>(a->getOwner());
 				if (minion->Booldie == false)
 				{
-					this->stopAllActions();
 					player->Playerdie();
+					GameScene::checkdie();
 				}
 			}
 			if (b->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
@@ -417,8 +405,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				auto minion = dynamic_cast<Minions*>(b->getOwner());
 				if (minion->Booldie == false)
 				{
-					this->stopAllActions();
 					player->Playerdie();
+					GameScene::checkdie();
 				}
 			}
 			if (a->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
@@ -591,4 +579,28 @@ void  GameScene::GoToGameOver(float dt)
 {
 	auto scene = GameOver::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+void GameScene::SaveInGame(cocos2d::Node *item)
+{
+	def = UserDefault::getInstance();
+
+	auto PosX = def->getFloatForKey("INGAME_PLAYERPOSX", item->getPositionX());
+	auto PosY = def->getFloatForKey("INGAME_PLAYERPOSY", item->getPositionY());
+	auto enegy = def->getFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
+
+	def->setFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
+	def->setFloatForKey("INGAME_PLAYERPOSX", item->getPositionX());
+	def->setFloatForKey("INGAME_PLAYERPOSY", item->getPositionY());
+	def->flush();
+	
+}
+void GameScene::checkdie()
+{
+	if (player->NumHeal > 1)
+		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GotoAgain), DISPLAY_TIME_SPLASH_SCENE, 0, 0);
+}
+void GameScene::GotoAgain(float dt)
+{
+	auto enegy = def->getFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
+	canvas->enegy->setPercent(enegy);
 }

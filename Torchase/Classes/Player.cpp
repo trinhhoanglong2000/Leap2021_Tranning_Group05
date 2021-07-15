@@ -330,8 +330,8 @@ void Player::GoToAgain(float dt)
 {
 	def = UserDefault::getInstance();
 
-	auto PosX = def->getIntegerForKey("INGAME_PLAYERPOSX",0);
-	auto PosY = def->getIntegerForKey("INGAME_PLAYERPOSY",0);
+	auto PosX = def->getFloatForKey("INGAME_PLAYERPOSX",0);
+	auto PosY = def->getFloatForKey("INGAME_PLAYERPOSY",0);
 	def->flush();
 
 	die = false;
