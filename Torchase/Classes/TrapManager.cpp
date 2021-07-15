@@ -110,7 +110,7 @@ Trap *TrapManager::CreateTrap(int Type)
 	case 4:
 	{
 		auto trapCheckBoss = new TrapCheckBoss();
-		trapCheckBoss->setVisible(false);
+		trapCheckBoss->setVisible(true);
 		AllTrap.pushBack(trapCheckBoss);
 		return trapCheckBoss;
 		break;

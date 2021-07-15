@@ -28,6 +28,7 @@
 #include "SoundManager.h"
 #include "MinionManager.h"
 #include "TrapManager.h"
+#include "IteamManager.h"
 #include "Shadow.h"
 #include "Spider.h"
 #include "TrapBear.h"
@@ -35,6 +36,7 @@
 #include "TrapCheckBoss.h"
 #include "Iteam.h"
 #include "GameOver.h"
+#include "IteamBox.h"
 USING_NS_CC;
 
 int Level_of_difficult;
@@ -44,9 +46,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -68,6 +70,8 @@ bool GameScene::init()
     origin = Director::getInstance()->getVisibleOrigin();
 
 	MinionManager::getInstance()->SetFalseAllMinion();
+	TrapManager::getInstance()->SetFalseAllTrap();
+	IteamManager::getInstance()->SetFalseAllIteam();
 
 	player = new Player();	
 	this->addChild(player,30);
@@ -148,6 +152,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					this->removeChild(a->getOwner());
 					door->reduceNumberKey();
 				}
+				if (item->type == 3)
+				{
+					auto itemBox = dynamic_cast<IteamBox*>(item);
+					if (itemBox->check == false)
+					{
+						itemBox->HitPlater();
+					}
+				}
 			}
 		}
 		else if (b->getCategoryBitmask() == ITEM_CATEGORY_BITMASK)
@@ -164,6 +176,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					this->removeChild(a->getOwner());
 					door->reduceNumberKey();
+				}
+				if (item->type == 3)
+				{
+					auto itemBox = dynamic_cast<IteamBox*>(item);
+					if (itemBox->check == false)
+					{
+						itemBox->HitPlater();
+					}
 				}
 			}
 		}

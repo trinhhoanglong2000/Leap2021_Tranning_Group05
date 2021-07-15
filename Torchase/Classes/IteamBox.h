@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
-
+ 
  http://www.cocos2d-x.org
-
+ 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
-
+ 
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,34 +22,27 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#ifndef _ITEAMBOX_H__
+#define _ITEAMBOX_H__
+
+#include "cocos2d.h"
 #include "Iteam.h"
-#include "Definitions.h"
-
-USING_NS_CC;
-Iteam::Iteam(std::string name) {
-
-	this->initWithFile(name);
-	visibleSize = Director::getInstance()->getVisibleSize();
-	origin = Director::getInstance()->getVisibleOrigin();
-
-	auto BatteryBody = PhysicsBody::createBox(this->getContentSize());
-	BatteryBody->setCollisionBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setCategoryBitmask(ITEM_CATEGORY_BITMASK);
-	BatteryBody->setContactTestBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setDynamic(false);
-	this->setPhysicsBody(BatteryBody);
-
-}
-Iteam::Iteam(std::string filename, cocos2d::Rect rect)
+class IteamBox : public Iteam
 {
-	this->initWithFile(filename, rect);
-	visibleSize = Director::getInstance()->getVisibleSize();
-	origin = Director::getInstance()->getVisibleOrigin();
+public:
+	IteamBox();
+	IteamBox(std::string name);
+	void setAnimation();
+	void HitPlater();
+	bool check = false;
+protected:
+	cocos2d::Size visibleSize;
+	cocos2d::Vec2 origin;
+	cocos2d::Vector<cocos2d::Animate*> _Animation;
+	
+private:
+	std::string name;
+	
+};
 
-	auto BatteryBody = PhysicsBody::createBox(this->getContentSize());
-	BatteryBody->setCollisionBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setCategoryBitmask(ITEM_CATEGORY_BITMASK);
-	BatteryBody->setContactTestBitmask(ITEM_COLISION_BITMASK);
-	BatteryBody->setDynamic(false);
-	this->setPhysicsBody(BatteryBody);
-}
+#endif // _ITEAMBOX_H__

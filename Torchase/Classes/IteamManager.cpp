@@ -27,6 +27,7 @@
 #include "Battery.h"
 #include "Key.h"
 #include"Iteam.h"
+#include "IteamBox.h"
 USING_NS_CC;
 
 IteamManager::IteamManager() {
@@ -43,8 +44,12 @@ void IteamManager::CreateAllIteam()
 		auto key = new Key();
 		key->setVisible(false);
 
+		auto iteamBox = new IteamBox();
+		iteamBox->setVisible(false);
+
 		AllIteam.pushBack(battery);
 		AllIteam.pushBack(key);
+		AllIteam.pushBack(iteamBox);
 	}
 }
 Iteam *IteamManager::CreateIteam(int Type)
@@ -74,6 +79,15 @@ Iteam *IteamManager::CreateIteam(int Type)
 		key->setVisible(true);
 		AllIteam.pushBack(key);
 		return key;
+		break;
+	}
+	case 3:
+	{
+
+		auto iteamBox = new IteamBox();
+		iteamBox->setVisible(true);
+		AllIteam.pushBack(iteamBox);
+		return iteamBox;
 		break;
 	}
 	default:

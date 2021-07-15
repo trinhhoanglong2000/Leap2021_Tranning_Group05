@@ -22,57 +22,55 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "TrapBear.h"
+#include "IteamBox.h"
 #include "Definitions.h"
-#include "ui\CocosGUI.h"
 
 USING_NS_CC;
-TrapBear::TrapBear() : Trap("prefap/trap/Bear_Trap.png", Rect(0, 0, 32, 32)) {
 
+IteamBox::IteamBox() :Iteam("prefap/Iteam/RandomBox.png", Rect(256, 0, 32, 32)) {
+	name = "prefap/Iteam/RandomBox.png";
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-	type = 2;
-	this->setScale(3.0f);
-	this->setLocalZOrder(20);
+	type = 3;
+	this->setScale(3.5f);
+	IteamBox::setAnimation();
+}
+void IteamBox::setAnimation()
+{
 	Vector<SpriteFrame*>  animFrames;
-
+	animFrames.pushBack(SpriteFrame::create(name, Rect(0, 0, 32, 32)));
+	animFrames.pushBack(SpriteFrame::create(name, Rect(0, 0, 32, 32)));
+	animFrames.pushBack(SpriteFrame::create(name, Rect(0, 0, 32, 32)));
 	animFrames.pushBack(SpriteFrame::create(name, Rect(0, 0, 32, 32)));
 	animFrames.pushBack(SpriteFrame::create(name, Rect(32, 0, 32, 32)));
 	animFrames.pushBack(SpriteFrame::create(name, Rect(64, 0, 32, 32)));
 	animFrames.pushBack(SpriteFrame::create(name, Rect(96, 0, 32, 32)));
+	animFrames.pushBack(SpriteFrame::create(name, Rect(128, 0, 32, 32)));
 	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
 	Animate* animate = Animate::create(animation);
 	_Animation.pushBack(animate);
 
-	Vector<SpriteFrame*>  animFramesOut;
-	animFramesOut.pushBack(SpriteFrame::create(name, Rect(165, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create(name, Rect(133, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create(name, Rect(101, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create(name, Rect(79, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create(name, Rect(32, 0, 28, 32)));
-	animFramesOut.pushBack(SpriteFrame::create(name, Rect(0, 0, 28, 32)));
-	Animation* animations = Animation::createWithSpriteFrames(animFramesOut, 0.2f);
-	Animate* animates = Animate::create(animations);
-	_AnimationOut.pushBack(animates);
+	animFrames.clear();
+	animFrames.pushBack(SpriteFrame::create(name, Rect(256, 0, 32, 32)));
+	animFrames.pushBack(SpriteFrame::create(name, Rect(288, 0, 32, 32)));
+	animFrames.pushBack(SpriteFrame::create(name, Rect(320, 0, 32, 32)));
+	animFrames.pushBack(SpriteFrame::create(name, Rect(352, 0, 32, 32)));
+	animFrames.pushBack(SpriteFrame::create(name, Rect(384, 0, 32, 32)));
+	animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
+	animate = Animate::create(animation);
+	_Animation.pushBack(animate);
 
-}
-TrapBear::TrapBear(std::string name) {
-
-	this->initWithFile(name);
-	visibleSize = Director::getInstance()->getVisibleSize();
-	origin = Director::getInstance()->getVisibleOrigin();
-}
-TrapBear::TrapBear(std::string filename, cocos2d::Rect rect)
-{
-	this->initWithFile(filename,rect);
-	visibleSize = Director::getInstance()->getVisibleSize();
-	origin = Director::getInstance()->getVisibleOrigin();
-}
-void TrapBear::HitPlayer()
-{
-	// chay animation
-	//this->setLocalZOrder(40);
 	auto animationAction = RepeatForever::create(_Animation.at(0));
-	this->runAction(_Animation.at(0));
-	work = false;
+	this->runAction(animationAction);
+}
+void IteamBox::HitPlater()
+{
+	check = true;
+	this->stopAllActions();
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+		this->removeFromParent();
+	});
+	auto sequence = Sequence::create(_Animation.at(1), callback, nullptr);
+	this->runAction(sequence);
 }

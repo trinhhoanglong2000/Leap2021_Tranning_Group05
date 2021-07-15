@@ -31,6 +31,7 @@ class Iteam : public cocos2d::Sprite
 {
 public:
 	Iteam(std::string name);
+	Iteam(std::string filename, cocos2d::Rect rect);
 	int type;
 protected:
 	cocos2d::Size visibleSize;
