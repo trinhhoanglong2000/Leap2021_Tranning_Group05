@@ -47,6 +47,7 @@ void Shadow::Roar(float dt)
 }
 void Shadow::setAnimation()
 {
+	this->setScale(0.6f);
 	type = 1;
 	//down
 	Vector<SpriteFrame*>  animFrames;

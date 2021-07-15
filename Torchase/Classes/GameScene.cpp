@@ -46,9 +46,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -131,7 +131,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 	PhysicsBody *b = contact.getShapeB()->getBody();
 	CCLOG("Overlap on");
 	CCLOG("%d %d", a->getCategoryBitmask(), b->getCategoryBitmask());
-	CCLOG("%d %d", a->getCollisionBitmask(), b->getCollisionBitmask());
+	//CCLOG("%d %d", a->getCategoryBitmask(), b->getCategoryBitmask());
 	//CCLOG("%d", a->getCollisionBitmask() & b->getCategoryBitmask());
 	//if ((a->getCollisionBitmask() & b->getCategoryBitmask() != 0) || (b->getCollisionBitmask() & a->getCategoryBitmask() != 0))
 	
@@ -145,12 +145,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (item->type == 1)
 				{
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
-					this->removeChild(a->getOwner());
+					this->removeChild(item);
+					item->setVisible(false);
 				}
 				if (item->type == 2)
 				{
-					this->removeChild(a->getOwner());
+					this->removeChild(item);
 					door->reduceNumberKey();
+					item->setVisible(false);
 				}
 				if (item->type == 3)
 				{
@@ -170,12 +172,14 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (item->type == 1)
 				{
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
-					this->removeChild(a->getOwner());
+					this->removeChild(item);
+					item->setVisible(false);
 				}
 				if (item->type == 2)
 				{
-					this->removeChild(a->getOwner());
+					this->removeChild(item);
 					door->reduceNumberKey();
+					item->setVisible(false);
 				}
 				if (item->type == 3)
 				{
@@ -425,7 +429,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (checkLighting == true)
 				{
 					checkLighting = false;
-					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), 10.0f, 0, 0);
+					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), CHECK_LIGHTING, 0, 0);
 					GameScene::Lighting(1);
 				}
 			}
@@ -440,7 +444,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (checkLighting == true)
 				{
 					checkLighting = false;
-					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), 10.0f, 0, 0);
+					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), CHECK_LIGHTING, 0, 0);
 					GameScene::Lighting(1);
 				}
 			}
@@ -481,10 +485,10 @@ void GameScene::Lighting(float dt)
 			light = false;
 		else
 			light = true;
+		canvas->endlight = false;
 		if (Level_of_difficult != 1)
 		{
 			this->schedule(CC_SCHEDULE_SELECTOR(GameScene::Lightingbg), 0.25);
-			canvas->endlight = false;
 		}
 		if (Level_of_difficult == 2)
 		{
@@ -538,7 +542,6 @@ void GameScene::Lightingbg(float dt)
 			player->background->setVisible(false);
 			canvas->background_off->setVisible(true);
 		}
-		if(canvas->enegy->getPercent()>0)
 		canvas->endlight = true;
 		this->unschedule(CC_SCHEDULE_SELECTOR(GameScene::Lightingbg));
 		return;

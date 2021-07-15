@@ -109,7 +109,7 @@ Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 }
 void Player::setBlackVisionBG(cocos2d::Size size) {
 	int max = MAX(size.width, size.height);
-	thickness = (max - speed)/2;
+	thickness = (max - speed)/2 - speed / 4;
 
 	width = max;
 	height = max + (int)speed;

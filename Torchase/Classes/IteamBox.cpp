@@ -70,6 +70,7 @@ void IteamBox::HitPlater()
 	auto callback = CallFunc::create([&]() {
 		this->stopAllActions();
 		this->removeFromParent();
+		this->setVisible(false);
 	});
 	auto sequence = Sequence::create(_Animation.at(1), callback, nullptr);
 	this->runAction(sequence);

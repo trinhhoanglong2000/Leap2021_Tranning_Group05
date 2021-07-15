@@ -249,6 +249,8 @@ bool MainMenuScene::init()
 	toggle2->setScale(0.5f);
 
 	def = UserDefault::getInstance();
+	
+//	def->getDataForKey("minion",)
 	auto MindControll = def->getIntegerForKey("CONTROLLER", 0);
 	def->flush();
 
