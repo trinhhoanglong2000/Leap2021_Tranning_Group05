@@ -110,7 +110,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	this->addChild(ButtonDow);
 	this->addChild(ButtonLeft);
 	this->addChild(ButtonRight);
-	this->addChild(ButtonConvert);
+	//this->addChild(ButtonConvert);
 	this->addChild(ButtonPause);
 	this->addChild(ButtonResume);
 	this->addChild(ButtonLight);
@@ -345,7 +345,6 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			{
 				if (AllMinions.at(i)->boolFind == true && AllMinions.at(i))
 				{
-					CCLOG("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 					AllMinions.at(i)->lighton(1);
 				}
 			}

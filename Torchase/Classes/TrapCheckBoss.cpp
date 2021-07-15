@@ -70,4 +70,6 @@ void TrapCheckBoss::addtrap(float dt)
 	auto trap = TrapManager::getInstance()->CreateTrap(0);
 	trap->setPosition(this->getPosition());
 	scene->addChild(trap, 25);
+	this->setVisible(false);
+	this->removeFromParent();
 }

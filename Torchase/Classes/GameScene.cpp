@@ -46,9 +46,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -69,6 +69,7 @@ bool GameScene::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 
+	def = UserDefault::getInstance();
 	gameState = STATE_PLAYING;
 	CCLOG("gamescene init %d", gameState);
 
@@ -597,7 +598,6 @@ void  GameScene::GoToGameOver(float dt)
 }
 void GameScene::SaveInGame(cocos2d::Node *item)
 {
-	def = UserDefault::getInstance();
 	//player
 	auto PosX = def->getFloatForKey("INGAME_PLAYERPOSX", item->getPositionX());
 	auto PosY = def->getFloatForKey("INGAME_PLAYERPOSY", item->getPositionY());
@@ -617,11 +617,11 @@ void GameScene::SaveInGame(cocos2d::Node *item)
 		if (AllMinions.at(i)->isVisible() == true)
 		{
 			Num++;
-			auto MinionPosx = def->getFloatForKey("INGAME_MinionPOSX" + Num, AllMinions.at(i)->mindPositison.x);
+			/*auto MinionPosx = def->getFloatForKey("INGAME_MinionPOSX" + Num, AllMinions.at(i)->mindPositison.x);
 			auto MinionPosy = def->getFloatForKey("INGAME_MinionPOSY" + Num, AllMinions.at(i)->mindPositison.y);
 			auto MinionBoolfind = def->getBoolForKey("INGAME_MinionBoolFind" + Num, AllMinions.at(i)->boolFind);
 			auto MinionDie = def->getBoolForKey("INGAME_MinionDie" + Num, AllMinions.at(i)->Booldie);
-			auto MInionType = def->getIntegerForKey("INGAME_MinionType" + Num, AllMinions.at(i)->type);
+			auto MInionType = def->getIntegerForKey("INGAME_MinionType" + Num, AllMinions.at(i)->type);*/
 
 			def->setFloatForKey("INGAME_MinionPOSX" + Num, AllMinions.at(i)->mindPositison.x);
 			def->setFloatForKey("INGAME_MinionPOSY" + Num, AllMinions.at(i)->mindPositison.y);
@@ -632,13 +632,45 @@ void GameScene::SaveInGame(cocos2d::Node *item)
 	}
 	auto NumMinion = def->getIntegerForKey("INGAME_NUMMINION", Num);
 	def->setIntegerForKey("INGAME_NUMMINION", Num);
-	def->flush();
+	// trap
+	AllTrap = TrapManager::getInstance()->AllTrap;
+	Num = 0;
+	/*for (int i = 0; i < 30; i++)
+	{
+		/*if (AllTrap.at(i)->isVisible() == true)
+		{
+			Num++;
+			//auto trapPosx = def->getFloatForKey("INGAME_TrapPOSX" + Num, AllTrap.at(i)->getPositionX());
+			//auto trapPosy = def->getFloatForKey("INGAME_TrapPOSY" + Num, AllTrap.at(i)->getPositionY());
+			//auto trapType = def->getIntegerForKey("INGAME_TRAPType" + Num, AllTrap.at(i)->type);
+
+			//def->setFloatForKey("INGAME_TrapPOSX" + Num, AllTrap.at(i)->getPositionX());
+			//def->setFloatForKey("INGAME_TrapPOSY" + Num, AllTrap.at(i)->getPositionY());
+			//def->setIntegerForKey("INGAME_TRAPType" + Num, AllTrap.at(i)->type);
+			//def->setFloatForKey("INGAME_PLAYERENEGY"+Num, canvas->enegy->getPercent());
+			/*if (AllTrap.at(i)->type == 3)
+			{
+				auto trapspeed = def->getFloatForKey("INGAME_TrapSpeed" + Num, AllTrap.at(i)->speed);
+				def->setFloatForKey("INGAME_TrapSpeed" + Num, AllTrap.at(i)->speed);
+			}
+			if (AllTrap.at(i)->type == 4)
+			{
+				auto checkboss = dynamic_cast<TrapCheckBoss*>(AllTrap.at(i));
+				auto traptaget = def->getIntegerForKey("INGAME_TrapTaget" + Num, checkboss->taget);
+				def->setIntegerForKey("INGAME_TrapTaget" + Num, checkboss->taget);
+			}
+		//}
+	}*/
+	/*auto NumTrap = def->getIntegerForKey("INGAME_NUMTrap", Num);
+	def->setIntegerForKey("INGAME_NUMTrap", Num);*/
+
+	//def->flush();
 	
 }
 void GameScene::checkdie()
 {
 	if (player->NumHeal > 1)
-		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GotoAgain), DISPLAY_TIME_SPLASH_SCENE*2, 0, 0);
+		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GotoAgain), DISPLAY_TIME_SPLASH_SCENE*1.5, 0, 0);
 }
 void GameScene::GotoAgain(float dt)
 {
@@ -658,7 +690,7 @@ void GameScene::GotoAgain(float dt)
 	}
 	MinionManager::getInstance()->SetFalseAllMinion();
 	auto NumMinion = def->getIntegerForKey("INGAME_NUMMINION", 0);
-	for (int i = 0; i < NumMinion; i++)
+	for (int i = 1; i <=NumMinion; i++)
 	{
 		auto MinionPosx = def->getFloatForKey("INGAME_MinionPOSX" + i, 0);
 		auto MinionPosy = def->getFloatForKey("INGAME_MinionPOSY" + i, 0);
@@ -671,12 +703,6 @@ void GameScene::GotoAgain(float dt)
 		
 		if (light == false && MinionDie == false && MinionBoolfind == true)
 		{
-			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
-			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
-			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
-			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
-			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
-			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
 			minion->lighton(1);
 		}
 		if (MInionType == 0)
@@ -696,5 +722,37 @@ void GameScene::GotoAgain(float dt)
 		}
 		this->addChild(minion, 20);
 	}
-	def->flush();
+	// create trap
+	/*AllTrap = TrapManager::getInstance()->AllTrap;
+	for (int i = 0; i < AllTrap.size(); i++)
+	{
+		if (AllTrap.at(i)->isVisible() == true)
+		{
+			this->removeChild(AllTrap.at(i));
+		}
+	}
+	TrapManager::getInstance()->SetFalseAllTrap();*/
+	//auto NumTrap = def->getIntegerForKey("INGAME_NUMTrap", 0);
+	/*for (int i = 1; i <= NumTrap; i++)
+	{
+		auto trapPosx = def->getFloatForKey("INGAME_TrapPOSX" + i, 0);
+		auto trapPosy = def->getFloatForKey("INGAME_TrapPOSY" + i, 0);
+		auto trapType = def->getIntegerForKey("INGAME_TrapType" + i, 0);
+
+		auto trap = TrapManager::getInstance()->CreateTrap(trapType);
+		trap->setPosition(Vec2(trapPosx, trapPosy));
+		if (trapType == 3)
+		{
+			auto trapspeed = def->getFloatForKey("INGAME_TrapSpeed" + i,0);
+			trap->speed = trapspeed;
+		}
+		if (trapType == 4)
+		{
+			auto traptaget = def->getIntegerForKey("INGAME_TrapTaget" + i, 0);
+			auto checkboss = dynamic_cast<TrapCheckBoss*>(trap);
+			checkboss->taget = traptaget;
+		}
+		this->addChild(trap, 25);
+	}*/
+	//def->flush();
 }

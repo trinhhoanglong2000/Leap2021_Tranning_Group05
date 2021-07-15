@@ -72,8 +72,14 @@ void TrapBear::HitPlayer()
 {
 	// chay animation
 	//this->setLocalZOrder(40);
-	auto animationAction = RepeatForever::create(_Animation.at(0));
-	this->runAction(_Animation.at(0));
+	
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+		this->setVisible(false);
+		this->removeFromParent();
+	});
+	auto sequence = Sequence::create(_Animation.at(0), callback, nullptr);
+	this->runAction(sequence);
 	work = false;
 }
 void TrapBear::reset()
