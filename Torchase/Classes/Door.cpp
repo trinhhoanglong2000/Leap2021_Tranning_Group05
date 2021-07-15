@@ -60,8 +60,27 @@ void Door::setmeta(cocos2d::TMXLayer *objectGroupDoorGame, cocos2d::TMXTiledMap 
 			}
 		}
 	}
+	Door::CheckDoor();
 }
 void Door::reduceNumberKey()
 {
 	numberkey--;
+	Door::CheckDoor();
+}
+void Door::CheckDoor()
+{
+	if (numberkey <= 0)
+	{
+		for (int i = 0; i < _tileMap->getMapSize().width; i++)
+		{
+			for (int j = 0; j < _tileMap->getMapSize().height; j++)
+			{
+				auto tileSprite = _meta->getTileAt(Vec2(i, j));
+				if (tileSprite)
+				{
+					_meta->removeTileAt(Vec2(i, j));
+				}
+			}
+		}
+	}
 }

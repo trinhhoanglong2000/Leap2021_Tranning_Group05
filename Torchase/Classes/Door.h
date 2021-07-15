@@ -33,6 +33,7 @@ public:
 	Door();
 	void setmeta(cocos2d::TMXLayer *objectGroupDoorGame, cocos2d::TMXTiledMap *_tileMapGame,int numberKeyGame);
 	void reduceNumberKey();
+	void CheckDoor();
 	int numberkey;
 protected:
 	cocos2d::Size visibleSize;
