@@ -137,3 +137,18 @@ void MinionBoss::reset()
 	this->setTexture("prefap/Minions/Shadow.png");
 	this->setTextureRect(Rect(100, 0, 100, 150));
 }
+void MinionBoss::setStatus(bool checkdie)
+{
+	if (checkdie == true)
+	{
+		goUp = false;
+		this->setTexture("prefap/Minions/ShadowDie.png");
+		this->setTextureRect(Rect(432, 0, 144, 152));
+	}
+	else
+	{
+		goUp = true;
+		this->setTexture("prefap/Minions/Shadow.png");
+		this->setTextureRect(Rect(100, 0, 100, 150));
+	}
+}

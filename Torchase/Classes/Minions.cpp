@@ -203,6 +203,7 @@ void Minions::findPlayerType0(float dt)
 }
 void Minions::setplayer(Player* playerScene, float mapspeed)
 {
+	mindPositison = this->getPosition();
 	player = playerScene;
 	this->speed = mapspeed;
 }

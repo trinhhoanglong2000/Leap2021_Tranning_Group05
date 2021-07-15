@@ -85,9 +85,9 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			Minions* minion;
 
 			minion = MinionManager::getInstance()->CreateMinion(type);
+			minion->setPosition(Vec2(x, y)*MAP_SCALE);
 			minion->setplayer(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
 
-			minion->setPosition(Vec2(x, y)*MAP_SCALE);
 			scene->addChild(minion, 20);
 		}
 	}

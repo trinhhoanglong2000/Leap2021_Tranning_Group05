@@ -129,3 +129,18 @@ void Spider::reset()
 	this->setTexture("prefap/Minions/spider.png");
 	this->setTextureRect(Rect(100, 0, 100, 100));
 }
+void Spider::setStatus(bool checkdie)
+{
+	if (checkdie == true)
+	{
+		goUp = false;
+		this->setTexture("prefap/Minions/spiderDie.png");
+		this->setTextureRect(Rect(200, 0, 100, 100));
+	}
+	else
+	{
+		goUp = true;
+		this->setTexture("prefap/Minions/spider.png");
+		this->setTextureRect(Rect(100, 0, 100, 100));
+	}
+}

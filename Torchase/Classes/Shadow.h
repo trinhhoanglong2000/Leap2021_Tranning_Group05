@@ -36,6 +36,7 @@ public:
 	void setAnimation();
 	void Roar(float dt);
 	void reset();
+	void setStatus(bool checkdie);
 private:
 	std::string minionname = "prefap/Minions/Shadow.png";
 };

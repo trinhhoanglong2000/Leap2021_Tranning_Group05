@@ -46,9 +46,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -598,24 +598,103 @@ void  GameScene::GoToGameOver(float dt)
 void GameScene::SaveInGame(cocos2d::Node *item)
 {
 	def = UserDefault::getInstance();
-
+	//player
 	auto PosX = def->getFloatForKey("INGAME_PLAYERPOSX", item->getPositionX());
 	auto PosY = def->getFloatForKey("INGAME_PLAYERPOSY", item->getPositionY());
 	auto enegy = def->getFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
+	auto light = def->getBoolForKey("INGAME_PLAYERLight", canvas->background_off->isVisible());
 
+	def->setBoolForKey("INGAME_PLAYERLight", canvas->background_off->isVisible());
 	def->setFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
 	def->setFloatForKey("INGAME_PLAYERPOSX", item->getPositionX());
 	def->setFloatForKey("INGAME_PLAYERPOSY", item->getPositionY());
+
+	//minion
+	AllMinions = MinionManager::getInstance()->AllMinions;
+	int Num = 0;
+	for (int i = 0; i < AllMinions.size(); i++)
+	{
+		if (AllMinions.at(i)->isVisible() == true)
+		{
+			Num++;
+			auto MinionPosx = def->getFloatForKey("INGAME_MinionPOSX" + Num, AllMinions.at(i)->mindPositison.x);
+			auto MinionPosy = def->getFloatForKey("INGAME_MinionPOSY" + Num, AllMinions.at(i)->mindPositison.y);
+			auto MinionBoolfind = def->getBoolForKey("INGAME_MinionBoolFind" + Num, AllMinions.at(i)->boolFind);
+			auto MinionDie = def->getBoolForKey("INGAME_MinionDie" + Num, AllMinions.at(i)->Booldie);
+			auto MInionType = def->getIntegerForKey("INGAME_MinionType" + Num, AllMinions.at(i)->type);
+
+			def->setFloatForKey("INGAME_MinionPOSX" + Num, AllMinions.at(i)->mindPositison.x);
+			def->setFloatForKey("INGAME_MinionPOSY" + Num, AllMinions.at(i)->mindPositison.y);
+			def->setBoolForKey("INGAME_MinionBoolFind" + Num, AllMinions.at(i)->boolFind);
+			def->setBoolForKey("INGAME_MinionDie" + Num, AllMinions.at(i)->Booldie);
+			def->setIntegerForKey("INGAME_MinionType" + Num, AllMinions.at(i)->type);
+		}
+	}
+	auto NumMinion = def->getIntegerForKey("INGAME_NUMMINION", Num);
+	def->setIntegerForKey("INGAME_NUMMINION", Num);
 	def->flush();
 	
 }
 void GameScene::checkdie()
 {
 	if (player->NumHeal > 1)
-		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GotoAgain), DISPLAY_TIME_SPLASH_SCENE, 0, 0);
+		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GotoAgain), DISPLAY_TIME_SPLASH_SCENE*2, 0, 0);
 }
 void GameScene::GotoAgain(float dt)
 {
-	auto enegy = def->getFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
+	//player
+	auto enegy = def->getFloatForKey("INGAME_PLAYERENEGY", 0);
+	auto light = def->getBoolForKey("INGAME_PLAYERLight", false);
 	canvas->enegy->setPercent(enegy);
+
+	//mininon
+	AllMinions = MinionManager::getInstance()->AllMinions;
+	for (int i = 0; i < AllMinions.size(); i++)
+	{
+		if (AllMinions.at(i)->isVisible()==true)
+		{
+			this->removeChild(AllMinions.at(i));
+		}
+	}
+	MinionManager::getInstance()->SetFalseAllMinion();
+	auto NumMinion = def->getIntegerForKey("INGAME_NUMMINION", 0);
+	for (int i = 0; i < NumMinion; i++)
+	{
+		auto MinionPosx = def->getFloatForKey("INGAME_MinionPOSX" + i, 0);
+		auto MinionPosy = def->getFloatForKey("INGAME_MinionPOSY" + i, 0);
+		auto MinionBoolfind = def->getBoolForKey("INGAME_MinionBoolFind" + i, false);
+		auto MinionDie = def->getBoolForKey("INGAME_MinionDie" + i, false);
+		auto MInionType = def->getIntegerForKey("INGAME_MinionType" + i, 1);
+		auto minion = MinionManager::getInstance()->CreateMinion(MInionType);
+		minion->setPosition(Vec2(MinionPosx, MinionPosy));
+		minion->boolFind = MinionBoolfind;
+		
+		if (light == false && MinionDie == false && MinionBoolfind == true)
+		{
+			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
+			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
+			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
+			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
+			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
+			CCLOG("aaaaaaaaaaaaaaaaaaaaa");
+			minion->lighton(1);
+		}
+		if (MInionType == 0)
+		{
+			auto spider = dynamic_cast<Spider*>(minion);
+			spider->setStatus(MinionDie);
+		}
+		if (MInionType == 1)
+		{
+			auto spider = dynamic_cast<Shadow*>(minion);
+			spider->setStatus(MinionDie);
+		}
+		if (MInionType == 2)
+		{
+			auto spider = dynamic_cast<MinionBoss*>(minion);
+			spider->setStatus(MinionDie);
+		}
+		this->addChild(minion, 20);
+	}
+	def->flush();
 }
