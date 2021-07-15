@@ -343,7 +343,11 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			background_off->setVisible(false);
 			for (int i = 0; i < AllMinions.size(); i++)
 			{
-				AllMinions.at(i)->lighton();
+				if (AllMinions.at(i)->boolFind == true && AllMinions.at(i))
+				{
+					CCLOG("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+					AllMinions.at(i)->lighton(1);
+				}
 			}
 			Schedule_ReduceEnegy = CC_SCHEDULE_SELECTOR(Canvas::reduceenergy);
 			this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);

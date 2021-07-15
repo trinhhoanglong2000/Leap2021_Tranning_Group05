@@ -39,13 +39,18 @@ public:
 	void removeAction();
 	void Roar(float dt);
 	void lightoff();
-	void lighton();
+	void lighton(float dt);
 	bool boolFind;
 	void die();
 	void actiondie(float dt);
 	void setplayer(Player* playerScene, float mapspeed);
+	void changeTravelTime(float value);
+	void resetTravelTime(float dt);
+	void reset();
 	int type;
 	bool Booldie;
+	float traveltime;
+
 protected:
 	Player *player;
 	bool booltop;

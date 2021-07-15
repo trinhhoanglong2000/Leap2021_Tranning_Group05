@@ -51,6 +51,8 @@ public:
 	void  GoToGameOver(float dt);
 	void createHeal();
 	bool stop;
+	void changeTravelTime(float value);
+	void resetTravelTime(float dt);
 	cocos2d::DrawNode *background;
 	bool die;
 	int NumHeal;

@@ -29,7 +29,7 @@ USING_NS_CC;
 
 Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
-
+	traveltime = MININON_SPEED;
 	player = playerScene;
 	this->speed = mapspeed;
 	auto EnemyBody = PhysicsBody::createBox(this->getContentSize());
@@ -45,6 +45,8 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 }	
 Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
+	traveltime = MININON_SPEED;
+
 	auto EnemyBody = PhysicsBody::createBox(this->getContentSize());
 	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
 	EnemyBody->setCategoryBitmask(ENEMY_CATEGORY_BITMASK);
@@ -114,11 +116,11 @@ void Minions::findPlayer(float dt)
 		}
 	}
 	this->stopAllActions();
-	auto moveAction = MoveTo::create(MININON_SPEED, pointup + player->getPosition());
+	auto moveAction = MoveTo::create(traveltime, pointup + player->getPosition());
 	auto animationAction = RepeatForever::create(Animates.at(mind-1));
 	auto callback = CallFunc::create([&]() {
 		this->stopAllActions();
-		
+		Minions::findPlayer(1);
 		});
 	auto sequence = Sequence::create(moveAction, callback, nullptr);
 	this->runAction(animationAction);
@@ -129,8 +131,16 @@ void Minions::removeAction()
 {
 	/*if (type == 1)
 	{*/
-		Actor::removeAction();
-		*booltro = false;
+		//Actor::removeAction();
+	this->stopAllActions();
+	auto reverAction = MoveTo::create(traveltime / 2, mindPositison);
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+		Minions::findPlayer(1);
+	});
+	auto sequence = Sequence::create(reverAction, callback, nullptr);
+	this->runAction(sequence);
+	*booltro = false;
 	/*}
 	if (type == 0)
 	{
@@ -157,9 +167,10 @@ void Minions::lightoff()
 	//this->setLocalZOrder(20);
 	goUp = false;
 }
-void Minions::lighton()
+void Minions::lighton(float dt)
 {
 	goUp = true;
+	Minions::findPlayer(1);
 }
 void Minions::die()
 {
@@ -180,7 +191,7 @@ void Minions::actiondie(float dt)
 void Minions::findPlayerType0(float dt)
 {
 	this->stopAllActions();
-	auto moveAction = MoveTo::create(MININON_SPEED*10, Vec2(player->getPositionX()-this->getPositionX(), player->getPositionY() - this->getPositionY()) *10);
+	auto moveAction = MoveTo::create(traveltime *10, Vec2(player->getPositionX()-this->getPositionX(), player->getPositionY() - this->getPositionY()) *10);
 	auto animationAction = RepeatForever::create(Animates.at(3));
 	auto callback = CallFunc::create([&]() {
 		this->stopAllActions();
@@ -194,4 +205,19 @@ void Minions::setplayer(Player* playerScene, float mapspeed)
 {
 	player = playerScene;
 	this->speed = mapspeed;
+}
+void Minions::changeTravelTime(float value)
+{
+	traveltime = MININON_SPEED+ value;
+	this->schedule(CC_SCHEDULE_SELECTOR(Player::resetTravelTime), TIME_SLOW, 0, 0);
+}
+void Minions::resetTravelTime(float dt)
+{
+	traveltime = MININON_SPEED;
+}
+void Minions::reset()
+{
+	goUp = true;
+	boolFind = false;
+	Booldie = false;
 }

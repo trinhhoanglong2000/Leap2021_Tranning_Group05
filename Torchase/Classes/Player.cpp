@@ -30,6 +30,7 @@
 USING_NS_CC;
 Player::Player() : Actor("prefap/Player/Player.png", Rect(360, 1, 80, 95))
 {
+	traveltime = ACTOR_SPEED;
 	NumHeal = 3;
 	Player::createHeal();
 	auto PlayerBody = PhysicsBody::createBox(Size(this->getContentSize().width/2,this->getContentSize().height));
@@ -338,4 +339,13 @@ void Player::GoToAgain(float dt)
 	this->setPosition(Vec2(PosX, PosY));
 	this->setTexture("prefap/Player/Player.png");
 	this->setTextureRect(Rect(360, 1, 80, 95));
+}
+void Player::changeTravelTime(float value)
+{
+	traveltime = ACTOR_SPEED+value;
+	this->schedule(CC_SCHEDULE_SELECTOR(Player::resetTravelTime), TIME_SLOW, 0, 0);
+}
+void Player::resetTravelTime(float dt)
+{
+	traveltime = ACTOR_SPEED;
 }

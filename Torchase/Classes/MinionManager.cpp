@@ -98,6 +98,21 @@ void MinionManager::SetFalseAllMinion()
 	for (int i = 0; i < AllMinions.size(); i++)
 	{
 		AllMinions.at(i)->setVisible(false);
+		if (AllMinions.at(i)->type == 0)
+		{
+			auto minion = dynamic_cast<Spider*>(AllMinions.at(i));
+			minion->reset();
+		}
+		if (AllMinions.at(i)->type == 1)
+		{
+			auto minion = dynamic_cast<Shadow*>(AllMinions.at(i));
+			minion->reset();
+		}
+		if (AllMinions.at(i)->type == 2)
+		{
+			auto minion = dynamic_cast<MinionBoss*>(AllMinions.at(i));
+			minion->reset();
+		}
 	}
 }
 MinionManager* MinionManager::mInstancePtr = new MinionManager();

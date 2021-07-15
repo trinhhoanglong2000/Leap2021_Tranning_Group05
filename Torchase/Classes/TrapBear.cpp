@@ -76,3 +76,9 @@ void TrapBear::HitPlayer()
 	this->runAction(_Animation.at(0));
 	work = false;
 }
+void TrapBear::reset()
+{
+	work = true;
+	this->setTexture("prefap/trap/Bear_Trap.png");
+	this->setTextureRect(Rect(0, 0, 32, 32));
+}

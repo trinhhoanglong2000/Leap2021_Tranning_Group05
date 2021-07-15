@@ -38,7 +38,7 @@ public:
 	cocos2d::MoveTo * MoveLeft();
 	cocos2d::MoveTo * MoveRight();
 	void removeAction();
-	float speed;
+	float speed, traveltime;
 	cocos2d::Vec2 mindPositison;
 protected:
 	//static cocos2d::Camera *cam;

@@ -40,6 +40,7 @@ public:
 	void ReduceSlider();
 	void PlusSlider(float dt);
 	cocos2d::ui::Slider *enegy;
+	void reset();
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;

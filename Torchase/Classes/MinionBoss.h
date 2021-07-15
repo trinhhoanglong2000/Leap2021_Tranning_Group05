@@ -38,6 +38,7 @@ public:
 	void setAnimation();
 	void CreateMinion(float dt);
 	void reduceEnegy(float dame);
+	void reset();
 private:
 	std::string minionname = "prefap/Minions/Shadow.png";
 	cocos2d::ui::Slider *enegy;

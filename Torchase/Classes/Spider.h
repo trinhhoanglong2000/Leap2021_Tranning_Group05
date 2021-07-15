@@ -35,7 +35,7 @@ public:
 	Spider();
 	void setAnimation();
 	void Roar(float dt);
-	void findPlayer(float dt);
+	void reset();
 private:
 	std::string minionname = "prefap/Minions/spider.png";
 

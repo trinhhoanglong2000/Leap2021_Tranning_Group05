@@ -275,20 +275,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		if (a->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 		{
 			auto trap = dynamic_cast<Trap*>(a->getOwner());
-			if (trap->type == 0 || trap->type == 2 || trap->type == 3)
+			if (trap->type == 0 || trap->type == 3)
 			{
-				
 				trap->setLocalZOrder(40);
-				if (trap->type == 2)
-				{
-					TrapBear *trapbear = dynamic_cast<TrapBear*>(trap);
-					if (trapbear->work != false)
-					{
-						trapbear->HitPlayer();
-					}
-					else
-						return true;
-				}
 				if (!player->die && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{
 					player->Playerdie();
@@ -298,6 +287,25 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					auto minion = dynamic_cast<Minions*>(b->getOwner());
 					minion->die();
+				}
+			}
+			if (trap->type == 2)
+			{
+				TrapBear *trapbear = dynamic_cast<TrapBear*>(trap);
+				if (trapbear->work != false)
+				{
+					trapbear->HitPlayer();
+				}
+				else
+					return true;
+				if (!player->die && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+				{
+					player->changeTravelTime(VALUE_SLOW);
+				}
+				if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+				{
+					auto minion = dynamic_cast<Minions*>(b->getOwner());
+					minion->changeTravelTime(VALUE_SLOW);
 				}
 			}
 			if (trap->type == 1 && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
@@ -321,19 +329,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			
 			auto trap = dynamic_cast<Trap*>(b->getOwner());
-			if (trap->type == 0 || trap->type == 2 || trap->type == 3)
+			if (trap->type == 0  || trap->type == 3)
 			{
 				trap->setLocalZOrder(40);
-				if (trap->type == 2)
-				{
-					TrapBear *trapbear = dynamic_cast<TrapBear*>(trap);
-					if (trapbear->work == false)
-						return true;
-					else
-					{
-						trapbear->HitPlayer();
-					}
-				}
 				if (!player->die && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{
 					player->Playerdie();
@@ -343,6 +341,25 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					auto minion = dynamic_cast<Minions*>(a->getOwner());
 					minion->die();
+				}
+			}
+			if (trap->type == 2)
+			{
+				TrapBear *trapbear = dynamic_cast<TrapBear*>(trap);
+				if (trapbear->work != false)
+				{
+					trapbear->HitPlayer();
+				}
+				else
+					return true;
+				if (!player->die && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+				{
+					player->changeTravelTime(VALUE_SLOW);
+				}
+				if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+				{
+					auto minion = dynamic_cast<Minions*>(a->getOwner());
+					minion->changeTravelTime(VALUE_SLOW);
 				}
 			}
 			if (trap->type == 1 && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
@@ -380,7 +397,6 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				auto minion = dynamic_cast<Minions*>(a->getOwner());
 				if (minion->boolFind == false)
 				{
-					minion->boolFind = true;
 					Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 					this->schedule(Schedule_shake, 0.1f);
 					SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
@@ -414,7 +430,6 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				auto minion = dynamic_cast<Minions*>(b->getOwner());
 				if (minion->boolFind == false)
 				{
-					minion->boolFind = true;
 					Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
 					this->schedule(Schedule_shake, 0.1f);
 					SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);

@@ -124,6 +124,16 @@ void TrapManager::SetFalseAllTrap()
 	for (int i = 0; i < AllTrap.size(); i++)
 	{
 		AllTrap.at(i)->setVisible(false);
+		if (AllTrap.at(i)->type == 2)
+		{
+			auto trap = dynamic_cast<TrapBear*>(AllTrap.at(i));
+			trap->reset();
+		}
+		if (AllTrap.at(i)->type == 1)
+		{
+			auto trap = dynamic_cast<TrapPlant*>(AllTrap.at(i));
+			trap->reset();
+		}
 	}
 }
 TrapManager* TrapManager::mInstancePtr = new TrapManager();

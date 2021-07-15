@@ -131,3 +131,9 @@ void MinionBoss::setAnimation()
 	Animates.pushBack(animate);
 	animFrames.clear();
 }
+void MinionBoss::reset()
+{
+	Minions::reset();
+	this->setTexture("prefap/Minions/Shadow.png");
+	this->setTextureRect(Rect(100, 0, 100, 150));
+}

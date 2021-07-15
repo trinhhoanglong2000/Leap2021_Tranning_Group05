@@ -37,6 +37,7 @@ public:
 	TrapBear(std::string filename, cocos2d::Rect rect);
 	void HitPlayer();
 	bool work = true;
+	void reset();
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;

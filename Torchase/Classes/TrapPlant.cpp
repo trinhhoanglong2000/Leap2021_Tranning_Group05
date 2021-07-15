@@ -116,3 +116,8 @@ void TrapPlant::PlusSlider(float dt)
 		this->unschedule(CC_SCHEDULE_SELECTOR(TrapPlant::PlusSlider));
 	}
 }
+void TrapPlant::reset()
+{
+	enegy->setPercent(enegy->getMaxPercent());
+	enegy->setVisible(false);
+}

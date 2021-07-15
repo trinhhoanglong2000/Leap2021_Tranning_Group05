@@ -41,14 +41,11 @@ Spider::Spider() : Minions()
 }
 void Spider::Roar(float dt)
 {
+	boolFind = true;
 	Minions::Roar(1);
-	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Spider::findPlayer);
-	this->schedule(Schedule_findPlayer, 1.3f, 100, 1.0f);
-}
-void Spider::findPlayer(float dt)
-{
-	// add audio
-	Minions::findPlayer(1);
+	//Minions::findPlayer(1);
+	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Spider::lighton);
+	this->schedule(Schedule_findPlayer, 1.3f, 0, 1.0f);
 }
 void Spider::setAnimation()
 {
@@ -125,4 +122,10 @@ void Spider::setAnimation()
 	animate = Animate::create(animation);
 	Animates.pushBack(animate);
 	animFrames.clear();
+}
+void Spider::reset()
+{
+	Minions::reset();
+	this->setTexture("prefap/Minions/spider.png");
+	this->setTextureRect(Rect(100, 0, 100, 100));
 }

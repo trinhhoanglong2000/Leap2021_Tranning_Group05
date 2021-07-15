@@ -40,10 +40,12 @@ Shadow::Shadow() : Minions()
 }
 void Shadow::Roar(float dt)
 {
+	boolFind = true;
 	Minions::Roar(1);
 	this->setLocalZOrder(30);
-	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayer);
-	this->schedule(Schedule_findPlayer, 1.3f, 100, 1.0f);
+	//Minions::findPlayer(1);
+	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::lighton);
+	this->schedule(Schedule_findPlayer, 1.3f, 0, 1.0f);
 }
 void Shadow::setAnimation()
 {
@@ -113,4 +115,10 @@ void Shadow::setAnimation()
 	animate = Animate::create(animation);
 	Animates.pushBack(animate);
 	animFrames.clear();
+}
+void Shadow::reset()
+{
+	Minions::reset();
+	this->setTexture("prefap/Minions/Shadow.png");
+	this->setTextureRect(Rect(100, 0, 100, 150));
 }
