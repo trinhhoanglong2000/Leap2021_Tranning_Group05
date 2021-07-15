@@ -29,6 +29,7 @@
 #include "TrapBear.h"
 #include "MinionManager.h"
 #include "TrapManager.h"
+#include "MainMenuScene.h"
 
 USING_NS_CC;
 using namespace cocos2d::ui;//ui namespace
@@ -49,8 +50,12 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonLeft = ui::Button::create("prefap/Gui/left.png");
 	ButtonRight = ui::Button::create("prefap/Gui/right.png");
 	ButtonPause = ui::Button::create("prefap/Gui/right.png");
-	auto ButtonLight = ui::Button::create("prefap/Gui/right.png");
-	auto ButtonTrap = ui::Button::create("prefap/Gui/right.png");
+	ButtonResume = ui::Button::create("prefap/Gui/right.png");
+	ButtonHome = ui::Button::create("prefap/Gui/down.png");
+	ButtonLight = ui::Button::create("prefap/Gui/right.png");
+	ButtonTrap = ui::Button::create("prefap/Gui/right.png");
+	ButtonResume->setVisible(false);
+	ButtonHome->setVisible(false);
 
 	/*MenuItemSprite *pauseItem = MenuItemSprite::create(Sprite::create("prefap/Gui/up.png"), Sprite::create("prefap/Gui/up.png"), CC_CALLBACK_1(Canvas::PauseScene, this));
 	pauseItem->setPosition(Vec2(origin.x, origin.y ));
@@ -80,8 +85,10 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonLeft->setScale(BUTTON_SCALE);
 	ButtonRight->setScale(BUTTON_SCALE);
 	ButtonPause->setScale(BUTTON_SCALE);
+	ButtonResume->setScale(BUTTON_SCALE);
 	ButtonLight->setScale(BUTTON_SCALE);
 	ButtonTrap->setScale(BUTTON_SCALE);
+	ButtonHome->setScale(BUTTON_SCALE);
 
 	ButtonTrap->setPosition(Vec2(visibleSize.width / 2.3 + origin.x, -visibleSize.height / 10 + origin.y));
 	ButtonTrap->addTouchEventListener(CC_CALLBACK_2(Canvas::PutTrap, this));
@@ -104,14 +111,22 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonPause->setPosition(Vec2(visibleSize.width * 3 / 10, visibleSize.height * 1 / 5));
 	ButtonPause->addTouchEventListener(CC_CALLBACK_2(Canvas::PauseScene, this));
 
+	ButtonResume->setPosition(Vec2(visibleSize.width * 3 / 10,origin.y));
+	ButtonResume->addTouchEventListener(CC_CALLBACK_2(Canvas::PauseScene, this));
+
+	ButtonHome->setPosition(Vec2(-visibleSize.width * 3 / 10, origin.y));
+	ButtonHome->addTouchEventListener(CC_CALLBACK_2(Canvas::GotoMainMenu, this));
+
 	
 	this->addChild(ButtonUp);
 	this->addChild(ButtonDow);
 	this->addChild(ButtonLeft);
 	this->addChild(ButtonRight);
 	this->addChild(ButtonPause);
+	this->addChild(ButtonResume);
 	this->addChild(ButtonLight);
 	this->addChild(ButtonTrap);
+	this->addChild(ButtonHome);
 	
 	if (controller_Scene == 1)
 	{
@@ -277,7 +292,16 @@ void Canvas::PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			auto moveAction = FadeIn::create(PAUSE_BACKGROUND_FADE_IN_TIME);
 			auto sequence = Sequence::create(moveAction, callback, nullptr);
 			pauseBackgr->runAction(sequence);
-			EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y)));
+			ButtonDow->setVisible(false);
+			ButtonUp->setVisible(false);
+			ButtonLeft->setVisible(false);
+			ButtonRight->setVisible(false);
+			ButtonLight->setVisible(false);
+			ButtonTrap->setVisible(false);
+			ButtonPause->setVisible(false);
+			ButtonResume->setVisible(true);
+			ButtonHome->setVisible(true);
+			//EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y)));
 		}
 		else if (STATE_PAUSE == *gameState)
 		{
@@ -285,7 +309,16 @@ void Canvas::PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			Director::getInstance()->resume();
 			CCLOG("resume %d", *gameState);
 			pauseBackgr->runAction(FadeOut::create(PAUSE_BACKGROUND_FADE_IN_TIME));
-			EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y + visibleSize.height)));
+			//EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y + visibleSize.height)));
+			ButtonDow->setVisible(true);
+			ButtonUp->setVisible(true);
+			ButtonLeft->setVisible(true);
+			ButtonRight->setVisible(true);
+			ButtonLight->setVisible(true);
+			ButtonTrap->setVisible(true);
+			ButtonPause->setVisible(true);
+			ButtonResume->setVisible(false);
+			ButtonHome->setVisible(false);
 		}
 	}
 	//Game paused
@@ -303,6 +336,14 @@ void Canvas::PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 
 	//Hide the pause button
 	//ButtonPause->setVisible(false);
+}
+void Canvas::GotoMainMenu(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
+{
+	if (Type == ui::Widget::TouchEventType::BEGAN)
+	{
+		auto scene = MainMenuScene::createScene();
+		Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+	}
 }
 /*void Canvas::ResumeScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {

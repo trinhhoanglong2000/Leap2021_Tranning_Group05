@@ -47,6 +47,7 @@ public:
 	void MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void GotoMainMenu(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	//void ResumeScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
@@ -73,7 +74,8 @@ private:
 	bool BoolTouch;
 	bool touchpause = false;
 	int controller_canvas;
-	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight, *ButtonPause, *ButtonResume;
+	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight,
+						*ButtonPause, *ButtonResume, *ButtonHome, *ButtonLight, *ButtonTrap;
 	cocos2d::Scene *scene;
 	
 	int *gameState;
