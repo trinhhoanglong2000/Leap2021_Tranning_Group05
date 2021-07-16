@@ -593,6 +593,7 @@ void GameScene::setcheckLighting(float dt)
 }
 void  GameScene::GoToGameOver(float dt)
 {
+	SoundManager::getInstance()->stopMusic(softbackground_sound);
 	auto scene = GameOver::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
