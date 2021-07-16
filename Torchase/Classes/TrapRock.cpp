@@ -127,6 +127,7 @@ void TrapRock::atack(float dt)
 }
 void TrapRock::setspeed(float speedScene)
 {
+	traveltime = ACTOR_SPEED;
 	speed = speedScene;
 	//TrapRock::atack(1);
 }

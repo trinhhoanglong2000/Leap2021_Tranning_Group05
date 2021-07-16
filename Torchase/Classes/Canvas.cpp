@@ -536,6 +536,7 @@ void Canvas::goup(float dt)
 		player->background->getPhysicsBody()->setEnabled(false);
 		player->background->setVisible(false);
 		background_off->setVisible(false);
+		endlight = false;
 		Canvas::AutoMove(1);
 		int_move = 0;
 		return;
