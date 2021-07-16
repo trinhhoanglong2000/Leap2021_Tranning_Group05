@@ -56,6 +56,7 @@ public:
 	void plusenergy(int power);
 	void AutoMove(float dt);
 	void reducePlant();
+	void Goagain(bool light);
 	void goup(float dt);
 	cocos2d::Vector<Minions*> AllMinions;
 	cocos2d::Vector<Trap*> AllTrap;

@@ -49,10 +49,12 @@ public:
 	cocos2d::Size returnSizeMap();
 	cocos2d::Size returnSizetile();
 	cocos2d::Vector<Trap*> AllTrap;
+	void GoAgain();
 	TMXLayer *_meta;
 	TMXTiledMap *_tileMap;
 	Door *door;
 private:
+	cocos2d::Scene *sceneMap;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	Sprite * Tile[1000];

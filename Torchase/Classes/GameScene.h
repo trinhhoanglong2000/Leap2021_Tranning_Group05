@@ -52,6 +52,7 @@ public:
 	void setcheckLighting(float dt);
 	cocos2d::Vector<Minions*> AllMinions;
 	cocos2d::Vector<Trap*> AllTrap;
+	cocos2d::Vector<Iteam*> AllIteam;
 	void GoToGameOver(float dt);
 	void GotoAgain(float dt);
 	void SaveInGame(cocos2d::Node *item);

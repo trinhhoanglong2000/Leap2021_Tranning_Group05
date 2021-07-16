@@ -647,7 +647,20 @@ void GameScene::SaveInGame(cocos2d::Node *item)
 	def->setIntegerForKey("INGAME_NUMTrap", Numtrap);
 	
 	//iteam
-	
+	AllIteam = IteamManager::getInstance()->AllIteam;
+	int NumIteam = 0;
+	for (int i = 0; i < AllIteam.size(); i++)
+	{
+		if (AllIteam.at(i)->isVisible() == true)
+		{
+			NumIteam++;
+			def->setFloatForKey(StringUtils::format("INGAME_ItemPOSX%d", NumIteam).c_str(), AllIteam.at(i)->getPositionX());
+			def->setFloatForKey(StringUtils::format("INGAME_ItemPOSY%d", NumIteam).c_str(), AllIteam.at(i)->getPositionY());
+			def->setIntegerForKey(StringUtils::format("INGAME_ItemTP%d", NumIteam).c_str(), AllIteam.at(i)->type);
+			def->setIntegerForKey(StringUtils::format("INGAME_ItemZ%d", NumIteam).c_str(), AllIteam.at(i)->getLocalZOrder());
+		}
+	}
+	def->setIntegerForKey("INGAME_NUMIteam", NumIteam);
 }
 void GameScene::checkdie()
 {
@@ -666,6 +679,7 @@ void GameScene::GotoAgain(float dt)
 	canvas->enegy->setPercent(enegy);
 	player->setPosition(Vec2(PosX, PosY));
 	player->die = false;
+	player->checkMove = true;
 	player->setTexture("prefap/Player/Player.png");
 	player->setTextureRect(Rect(360, 1, 80, 95));
 
@@ -743,5 +757,40 @@ void GameScene::GotoAgain(float dt)
 		}
 		this->addChild(trap, trapz);
 	}
+	//create iteam
+	AllIteam = IteamManager::getInstance()->AllIteam;
+	for (int i = 0; i < AllIteam.size(); i++)
+	{
+		if (AllIteam.at(i)->isVisible() == true)
+		{
+			this->removeChild(AllIteam.at(i));
+		}
+	}
+	IteamManager::getInstance()->SetFalseAllIteam();
+	auto Numitem = def->getIntegerForKey("INGAME_NUMIteam", 0);
+	int NumberKey=0;
+	for (int i = 1; i <= Numitem; i++)
+	{
+		auto ItemPosX =  def->getFloatForKey(StringUtils::format("INGAME_ItemPOSX%d", i).c_str(),0);
+		auto ItemPosY = def->getFloatForKey(StringUtils::format("INGAME_ItemPOSY%d", i).c_str(), 0);
+		auto ItemType = def->getIntegerForKey(StringUtils::format("INGAME_ItemTP%d", i).c_str(),0);
+		auto ItemZ = def->getIntegerForKey(StringUtils::format("INGAME_ItemZ%d", i).c_str(),0);
+		if (ItemType == 2)
+			NumberKey++;
+
+		auto item =  IteamManager::getInstance()->CreateIteam(ItemType);
+		item->setPosition(Vec2(ItemPosX, ItemPosY));
+		this->addChild(item, ItemZ);
+	}
+	//Door
+	door->numberkey = NumberKey;
+	//Game Map
+	gameMap->GoAgain();
+	/*door = new Door();
+	door->setmeta(gameMap->_tileMap->getLayer("door"), gameMap->_tileMap, NumberKey);
+	this->addChild(door, 25);*/
+	//canvas
+	canvas->Goagain(light);
+
 	//def->flush();
 }

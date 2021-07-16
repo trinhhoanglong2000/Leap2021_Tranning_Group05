@@ -543,3 +543,20 @@ void Canvas::goup(float dt)
 	}
 	this->schedule(CC_SCHEDULE_SELECTOR(Canvas::goup), 0.1f, 0, 0);
 }
+void Canvas::Goagain(bool light)
+{
+	int_move = 0;
+	endlight = true;
+	if (light == false)
+	{
+		player->background->getPhysicsBody()->setEnabled(true);
+		player->background->setVisible(true);
+		background_off->setVisible(false);
+	}
+	else
+	{
+		player->background->getPhysicsBody()->setEnabled(false);
+		player->background->setVisible(false);
+		background_off->setVisible(true);
+	}
+}

@@ -62,7 +62,7 @@ void TrapCheckBoss::hitplayer(cocos2d::Scene *sceneGame)
 		}
 	}
 	scene = sceneGame;
-	TrapCheckBoss::addtrap(0);
+	//TrapCheckBoss::addtrap(0);
 	this->schedule(CC_SCHEDULE_SELECTOR(TrapCheckBoss::addtrap), 0.5f);
 }
 void TrapCheckBoss::addtrap(float dt)

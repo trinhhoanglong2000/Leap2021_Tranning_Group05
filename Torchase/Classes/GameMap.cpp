@@ -44,6 +44,7 @@ USING_NS_CC;
 
 GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 {
+	sceneMap = scene;
 	_player = playerScene;
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -114,9 +115,11 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		}
 	}
 	//create door
+
 	door = new Door();
 	door->setmeta(_tileMap->getLayer("door"), _tileMap, numberkey);
 	scene->addChild(door, 25);
+
 	// tao wall
 	_meta = _tileMap->getLayer("meta");
 	for (int i = 0; i < _tileMap->getMapSize().width; i++)
@@ -185,4 +188,14 @@ cocos2d::Size GameMap::returnSizeMap()
 cocos2d::Size GameMap::returnSizetile()
 {	
 	return _tileMap->getTileSize()*MAP_SCALE;
+}
+void GameMap::GoAgain()
+{
+	sceneMap->removeChild(_tileMap);
+	_tileMap = new TMXTiledMap();
+	_tileMap->initWithTMXFile("Maptest/Mapver2.tmx");
+
+	_tileMap->setScale(MAP_SCALE);
+	_tileMap->setTag(100);
+	sceneMap->addChild(_tileMap);
 }
