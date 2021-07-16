@@ -294,8 +294,6 @@ void Player::setActionDie(float dt)
 	this->runAction(DeadAnimation);
 	if(NumHeal==0)
 		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE);
-	else
-		this->schedule(CC_SCHEDULE_SELECTOR(Player::GoToAgain), DISPLAY_TIME_SPLASH_SCENE,0,0);
 }
 void Player::removeAction()
 {
@@ -324,16 +322,9 @@ void Player::createHeal()
 }
 void Player::GoToAgain(float dt)
 {
-	def = UserDefault::getInstance();
+	//def = UserDefault::getInstance();
 
-	auto PosX = def->getFloatForKey("INGAME_PLAYERPOSX",0);
-	auto PosY = def->getFloatForKey("INGAME_PLAYERPOSY",0);
-	def->flush();
-
-	die = false;
-	this->setPosition(Vec2(PosX, PosY));
-	this->setTexture("prefap/Player/Player.png");
-	this->setTextureRect(Rect(360, 1, 80, 95));
+	
 }
 void Player::changeTravelTime(float value)
 {

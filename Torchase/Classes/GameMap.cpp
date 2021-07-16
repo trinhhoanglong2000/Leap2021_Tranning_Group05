@@ -163,7 +163,6 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 				trap = new TrapPlant();
 			}*/
 			trap->setPosition(Vec2(x, y)*MAP_SCALE);
-
 			if (type == 3)
 			{
 				auto traptemp = dynamic_cast<TrapRock*>(trap);
@@ -171,7 +170,6 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			}
 			if (type == 4)
 			{
-				trap->setVisible(false);
 				auto traptemp = dynamic_cast<TrapCheckBoss*>(trap);
 				traptemp->taget = objTrap.asValueMap()["taget"].asInt();
 			}

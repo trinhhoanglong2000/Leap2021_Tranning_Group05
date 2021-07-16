@@ -600,10 +600,6 @@ void  GameScene::GoToGameOver(float dt)
 void GameScene::SaveInGame(cocos2d::Node *item)
 {
 	//player
-	auto PosX = def->getFloatForKey("INGAME_PLAYERPOSX", item->getPositionX());
-	auto PosY = def->getFloatForKey("INGAME_PLAYERPOSY", item->getPositionY());
-	auto enegy = def->getFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
-	auto light = def->getBoolForKey("INGAME_PLAYERLight", canvas->background_off->isVisible());
 
 	def->setBoolForKey("INGAME_PLAYERLight", canvas->background_off->isVisible());
 	def->setFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
@@ -618,54 +614,39 @@ void GameScene::SaveInGame(cocos2d::Node *item)
 		if (AllMinions.at(i)->isVisible() == true)
 		{
 			Num++;
-			/*auto MinionPosx = def->getFloatForKey("INGAME_MinionPOSX" + Num, AllMinions.at(i)->mindPositison.x);
-			auto MinionPosy = def->getFloatForKey("INGAME_MinionPOSY" + Num, AllMinions.at(i)->mindPositison.y);
-			auto MinionBoolfind = def->getBoolForKey("INGAME_MinionBoolFind" + Num, AllMinions.at(i)->boolFind);
-			auto MinionDie = def->getBoolForKey("INGAME_MinionDie" + Num, AllMinions.at(i)->Booldie);
-			auto MInionType = def->getIntegerForKey("INGAME_MinionType" + Num, AllMinions.at(i)->type);*/
-
-			def->setFloatForKey("INGAME_MinionPOSX" + Num, AllMinions.at(i)->mindPositison.x);
-			def->setFloatForKey("INGAME_MinionPOSY" + Num, AllMinions.at(i)->mindPositison.y);
-			def->setBoolForKey("INGAME_MinionBoolFind" + Num, AllMinions.at(i)->boolFind);
-			def->setBoolForKey("INGAME_MinionDie" + Num, AllMinions.at(i)->Booldie);
-			def->setIntegerForKey("INGAME_MinionType" + Num, AllMinions.at(i)->type);
+			
+			def->setFloatForKey(StringUtils::format("INGAME_MinionPOSX%d", Num).c_str(), AllMinions.at(i)->mindPositison.x);
+			def->setFloatForKey(StringUtils::format("INGAME_MinionPOSY%d", Num).c_str(), AllMinions.at(i)->mindPositison.y);
+			def->setBoolForKey(StringUtils::format("INGAME_MinionBoolFind%d", Num).c_str(), AllMinions.at(i)->boolFind);
+			def->setBoolForKey(StringUtils::format("INGAME_MinionDie%d", Num).c_str(), AllMinions.at(i)->Booldie);
+			def->setIntegerForKey(StringUtils::format("INGAME_MinionType%d", Num).c_str(), AllMinions.at(i)->type);
+			def->setIntegerForKey(StringUtils::format("INGAME_MinionZ%d", Num).c_str(), AllMinions.at(i)->getLocalZOrder());
 		}
 	}
-	auto NumMinion = def->getIntegerForKey("INGAME_NUMMINION", Num);
 	def->setIntegerForKey("INGAME_NUMMINION", Num);
 	// trap
 	AllTrap = TrapManager::getInstance()->AllTrap;
-	Num = 0;
-	/*for (int i = 0; i < 30; i++)
+	int Numtrap = 0;
+	for (int i = 0; i < AllTrap.size(); i++)
 	{
-		/*if (AllTrap.at(i)->isVisible() == true)
+		if (AllTrap.at(i)->isVisible() == true)
 		{
-			Num++;
-			//auto trapPosx = def->getFloatForKey("INGAME_TrapPOSX" + Num, AllTrap.at(i)->getPositionX());
-			//auto trapPosy = def->getFloatForKey("INGAME_TrapPOSY" + Num, AllTrap.at(i)->getPositionY());
-			//auto trapType = def->getIntegerForKey("INGAME_TRAPType" + Num, AllTrap.at(i)->type);
-
-			//def->setFloatForKey("INGAME_TrapPOSX" + Num, AllTrap.at(i)->getPositionX());
-			//def->setFloatForKey("INGAME_TrapPOSY" + Num, AllTrap.at(i)->getPositionY());
-			//def->setIntegerForKey("INGAME_TRAPType" + Num, AllTrap.at(i)->type);
-			//def->setFloatForKey("INGAME_PLAYERENEGY"+Num, canvas->enegy->getPercent());
-			/*if (AllTrap.at(i)->type == 3)
-			{
-				auto trapspeed = def->getFloatForKey("INGAME_TrapSpeed" + Num, AllTrap.at(i)->speed);
-				def->setFloatForKey("INGAME_TrapSpeed" + Num, AllTrap.at(i)->speed);
-			}
+			Numtrap++;
+			def->setFloatForKey(StringUtils::format("INGAME_TrapPOSX%d", Numtrap).c_str(), AllTrap.at(i)->getPositionX());
+			def->setFloatForKey(StringUtils::format("INGAME_TrapPOSY%d", Numtrap).c_str(), AllTrap.at(i)->getPositionY());
+			def->setIntegerForKey(StringUtils::format("INGAME_TrapTP%d", Numtrap).c_str(), AllTrap.at(i)->type);
+			def->setIntegerForKey(StringUtils::format("INGAME_TrapZ%d", Numtrap).c_str(), AllTrap.at(i)->getLocalZOrder());
 			if (AllTrap.at(i)->type == 4)
 			{
-				auto checkboss = dynamic_cast<TrapCheckBoss*>(AllTrap.at(i));
-				auto traptaget = def->getIntegerForKey("INGAME_TrapTaget" + Num, checkboss->taget);
-				def->setIntegerForKey("INGAME_TrapTaget" + Num, checkboss->taget);
+				auto traptemp = dynamic_cast<TrapCheckBoss*>(AllTrap.at(i));
+				def->setIntegerForKey(StringUtils::format("INGAME_TrapTg%d",Numtrap).c_str(), traptemp->taget);
+				
 			}
-		//}
-	}*/
-	/*auto NumTrap = def->getIntegerForKey("INGAME_NUMTrap", Num);
-	def->setIntegerForKey("INGAME_NUMTrap", Num);*/
-
-	//def->flush();
+		}
+	}
+	def->setIntegerForKey("INGAME_NUMTrap", Numtrap);
+	
+	//iteam
 	
 }
 void GameScene::checkdie()
@@ -676,9 +657,17 @@ void GameScene::checkdie()
 void GameScene::GotoAgain(float dt)
 {
 	//player
+	//UserDefault *def= UserDefault::getInstance();
+	auto PosX = def->getFloatForKey("INGAME_PLAYERPOSX", 0);
+	auto PosY = def->getFloatForKey("INGAME_PLAYERPOSY", 0);
 	auto enegy = def->getFloatForKey("INGAME_PLAYERENEGY", 0);
 	auto light = def->getBoolForKey("INGAME_PLAYERLight", false);
+
 	canvas->enegy->setPercent(enegy);
+	player->setPosition(Vec2(PosX, PosY));
+	player->die = false;
+	player->setTexture("prefap/Player/Player.png");
+	player->setTextureRect(Rect(360, 1, 80, 95));
 
 	//mininon
 	AllMinions = MinionManager::getInstance()->AllMinions;
@@ -693,11 +682,13 @@ void GameScene::GotoAgain(float dt)
 	auto NumMinion = def->getIntegerForKey("INGAME_NUMMINION", 0);
 	for (int i = 1; i <=NumMinion; i++)
 	{
-		auto MinionPosx = def->getFloatForKey("INGAME_MinionPOSX" + i, 0);
-		auto MinionPosy = def->getFloatForKey("INGAME_MinionPOSY" + i, 0);
-		auto MinionBoolfind = def->getBoolForKey("INGAME_MinionBoolFind" + i, false);
-		auto MinionDie = def->getBoolForKey("INGAME_MinionDie" + i, false);
-		auto MInionType = def->getIntegerForKey("INGAME_MinionType" + i, 1);
+		auto MinionPosx = def->getFloatForKey(StringUtils::format("INGAME_MinionPOSX%d", i).c_str(), 0);
+		auto MinionPosy = def->getFloatForKey(StringUtils::format("INGAME_MinionPOSY%d", i).c_str(), 0);
+		auto MinionBoolfind = def->getBoolForKey(StringUtils::format("INGAME_MinionBoolFind%d", i).c_str(),false);
+		auto MinionDie = def->getBoolForKey(StringUtils::format("INGAME_MinionDie%d", i).c_str(), false);
+		auto MInionType = def->getIntegerForKey(StringUtils::format("INGAME_MinionType%d", i).c_str(), 1);
+		auto MInionZ = def->getIntegerForKey(StringUtils::format("INGAME_MinionZ%d", i).c_str(), 20);
+
 		auto minion = MinionManager::getInstance()->CreateMinion(MInionType);
 		minion->setPosition(Vec2(MinionPosx, MinionPosy));
 		minion->boolFind = MinionBoolfind;
@@ -721,10 +712,10 @@ void GameScene::GotoAgain(float dt)
 			auto spider = dynamic_cast<MinionBoss*>(minion);
 			spider->setStatus(MinionDie);
 		}
-		this->addChild(minion, 20);
+		this->addChild(minion, MInionZ);
 	}
 	// create trap
-	/*AllTrap = TrapManager::getInstance()->AllTrap;
+	AllTrap = TrapManager::getInstance()->AllTrap;
 	for (int i = 0; i < AllTrap.size(); i++)
 	{
 		if (AllTrap.at(i)->isVisible() == true)
@@ -732,28 +723,25 @@ void GameScene::GotoAgain(float dt)
 			this->removeChild(AllTrap.at(i));
 		}
 	}
-	TrapManager::getInstance()->SetFalseAllTrap();*/
-	//auto NumTrap = def->getIntegerForKey("INGAME_NUMTrap", 0);
-	/*for (int i = 1; i <= NumTrap; i++)
+	TrapManager::getInstance()->SetFalseAllTrap();
+	auto NumTrap = def->getIntegerForKey("INGAME_NUMTrap", 0);
+	for (int i = 1; i <= NumTrap; i++)
 	{
-		auto trapPosx = def->getFloatForKey("INGAME_TrapPOSX" + i, 0);
-		auto trapPosy = def->getFloatForKey("INGAME_TrapPOSY" + i, 0);
-		auto trapType = def->getIntegerForKey("INGAME_TrapType" + i, 0);
+		auto trapPosx = def->getFloatForKey(StringUtils::format("INGAME_TrapPOSX%d", i).c_str(),0);
+		auto trapPosy = def->getFloatForKey(StringUtils::format("INGAME_TrapPOSY%d", i).c_str(), 0);
+		auto trapType = def->getIntegerForKey(StringUtils::format("INGAME_TrapTP%d", i).c_str(), 0);
+		auto trapz= def->getIntegerForKey(StringUtils::format("INGAME_TrapZ%d", i).c_str(), 0);
 
 		auto trap = TrapManager::getInstance()->CreateTrap(trapType);
 		trap->setPosition(Vec2(trapPosx, trapPosy));
-		if (trapType == 3)
-		{
-			auto trapspeed = def->getFloatForKey("INGAME_TrapSpeed" + i,0);
-			trap->speed = trapspeed;
-		}
+
 		if (trapType == 4)
 		{
-			auto traptaget = def->getIntegerForKey("INGAME_TrapTaget" + i, 0);
+			auto traptaget = def->getIntegerForKey(StringUtils::format("INGAME_TrapTg%d", i).c_str(), 0);
 			auto checkboss = dynamic_cast<TrapCheckBoss*>(trap);
 			checkboss->taget = traptaget;
 		}
-		this->addChild(trap, 25);
-	}*/
+		this->addChild(trap, trapz);
+	}
 	//def->flush();
 }

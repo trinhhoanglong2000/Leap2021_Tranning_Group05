@@ -28,12 +28,12 @@
 #include "TrapManager.h"
 #include "TrapRock.h"
 USING_NS_CC;
-TrapCheckBoss::TrapCheckBoss() : Trap("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)) {
+TrapCheckBoss::TrapCheckBoss() : Trap("prefap/trap/CheckBoss.png", Rect(0, 0, 128, 128)) {
 
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	type = 4;
-	this->setScale(3.0f);
+	this->setScale(0.8f);
 }
 TrapCheckBoss::TrapCheckBoss(std::string name) {
 

@@ -182,6 +182,7 @@ void Minions::die()
 }
 void Minions::actiondie(float dt)
 {
+	this->mindPositison = this->getPosition();
 	//this->setLocalZOrder(20);
 	SoundManager::getInstance()->PlayMusics(HitTrap_sound, false, 0.5f);
 	this->stopAllActions();
