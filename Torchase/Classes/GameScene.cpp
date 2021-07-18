@@ -168,9 +168,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 				if (item->type == 4)
 				{
-					GameScene::SaveInGame(item);
 					item->setVisible(false);
 					this->removeChild(item);
+					GameScene::SaveInGame(item);
 				}
 			}
 		}
@@ -201,9 +201,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 				if (item->type == 4)
 				{
-					GameScene::SaveInGame(item);
 					item->setVisible(false);
 					this->removeChild(item);
+					GameScene::SaveInGame(item);
 				}
 			}
 		}
@@ -689,7 +689,7 @@ void GameScene::GotoAgain(float dt)
 	{
 		if (AllMinions.at(i)->isVisible()==true)
 		{
-			this->removeChild(AllMinions.at(i));
+			this->removeChild(AllMinions.at(i));	
 		}
 	}
 	MinionManager::getInstance()->SetFalseAllMinion();

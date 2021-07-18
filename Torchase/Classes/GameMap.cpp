@@ -197,5 +197,7 @@ void GameMap::GoAgain()
 
 	_tileMap->setScale(MAP_SCALE);
 	_tileMap->setTag(100);
+	_meta = _tileMap->getLayer("meta");
+	_meta->setVisible(false);
 	sceneMap->addChild(_tileMap);
 }
