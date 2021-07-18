@@ -94,7 +94,7 @@ private:
 	cocos2d::SEL_SCHEDULE Schedule_lighting;
 	cocos2d::SEL_SCHEDULE Schedule_shake;
 
-	
+	bool continueGame;
 };
 
 #endif // __GAMESCENE_H__

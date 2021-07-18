@@ -280,6 +280,24 @@ void Player::Playerdie()
 void Player::setActionDie(float dt)
 {
 	NumHeal--;
+	def = UserDefault::getInstance();
+	SoundManager::getInstance()->PlayMusics(HitTrap_sound,false,0.5f);
+	this->unscheduleAllCallbacks();
+	this->stopAllActions();
+	this->runAction(DeadAnimation);
+	if (NumHeal == 0)
+	{
+		def->setBoolForKey("INGAME_CONTINUE", false);
+		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE);
+	}
+	else
+	{
+		def->setIntegerForKey("INGAME_PLAYERHEAL", NumHeal);
+	}
+
+}
+void Player::changeHeal()
+{
 	for (int i = 0; i < vecHeal.size(); i++)
 	{
 		if (i >= NumHeal)
@@ -288,12 +306,6 @@ void Player::setActionDie(float dt)
 			vecHeal.at(i)->setTextureRect(Rect(0, 622, 318, 311));
 		}
 	}
-	SoundManager::getInstance()->PlayMusics(HitTrap_sound,false,0.5f);
-	this->unscheduleAllCallbacks();
-	this->stopAllActions();
-	this->runAction(DeadAnimation);
-	if(NumHeal==0)
-		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE);
 }
 void Player::removeAction()
 {
@@ -322,8 +334,6 @@ void Player::createHeal()
 }
 void Player::GoToAgain(float dt)
 {
-	//def = UserDefault::getInstance();
-
 	
 }
 void Player::changeTravelTime(float value)

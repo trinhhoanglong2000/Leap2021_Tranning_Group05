@@ -29,6 +29,8 @@ USING_NS_CC;
 
 Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
+	hit = false;
+
 	traveltime = MININON_SPEED;
 	player = playerScene;
 	this->speed = mapspeed;
@@ -45,6 +47,7 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 }	
 Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
+	hit = false;
 	traveltime = MININON_SPEED;
 
 	auto EnemyBody = PhysicsBody::createBox(this->getContentSize());
@@ -184,7 +187,7 @@ void Minions::actiondie(float dt)
 {
 	this->mindPositison = this->getPosition();
 	//this->setLocalZOrder(20);
-	SoundManager::getInstance()->PlayMusics(HitTrap_sound, false, 0.5f);
+	SoundManager::getInstance()->PlayMusics(HitTrap_sound, false, 0.3f);
 	this->stopAllActions();
 	auto animationAction = RepeatForever::create(Animates.at(4));
 	this->runAction(Animates.at(4));

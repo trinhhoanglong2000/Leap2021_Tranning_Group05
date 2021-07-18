@@ -113,6 +113,7 @@ void IteamManager::SetFalseAllIteam()
 	for (int i = 0; i < AllIteam.size(); i++)
 	{
 		AllIteam.at(i)->setVisible(false);
+		AllIteam.at(i)->hit = false;
 	}
 }
 IteamManager* IteamManager::mInstancePtr = new IteamManager();

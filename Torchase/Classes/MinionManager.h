@@ -45,6 +45,7 @@ public:
 
 	void CreateAllMinion();
 	void SetFalseAllMinion();
+	void setfalseMinion(Minions *minion);
 	cocos2d::Vector<Minions *> AllMinions;
 	Minions *CreateMinion(int Type);
 

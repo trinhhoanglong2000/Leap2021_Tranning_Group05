@@ -30,6 +30,7 @@ Trap::Trap() {
 }
 Trap::Trap(std::string name) {
 
+	hit = false;
 	this->initWithFile(name);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
@@ -44,6 +45,7 @@ Trap::Trap(std::string name) {
 }
 Trap::Trap(std::string filename, cocos2d::Rect rect)
 {
+	hit = false;
 	this->initWithFile(filename,rect);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();

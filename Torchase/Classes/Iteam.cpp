@@ -28,6 +28,7 @@
 USING_NS_CC;
 Iteam::Iteam(std::string name) {
 
+	hit = false;
 	this->initWithFile(name);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
@@ -42,6 +43,7 @@ Iteam::Iteam(std::string name) {
 }
 Iteam::Iteam(std::string filename, cocos2d::Rect rect)
 {
+	hit = false;
 	this->initWithFile(filename, rect);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();

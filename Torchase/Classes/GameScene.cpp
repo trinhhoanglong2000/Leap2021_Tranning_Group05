@@ -68,8 +68,14 @@ bool GameScene::init()
     }
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
-
+	continueGame = false;
 	def = UserDefault::getInstance();
+	if (Level_of_difficult == 3)
+	{
+		Level_of_difficult = def->getIntegerForKey("INGAME_CONTINUE_LEVEL", 1);
+		continueGame = true;
+	}
+
 	gameState = STATE_PLAYING;
 	CCLOG("gamescene init %d", gameState);
 
@@ -77,7 +83,7 @@ bool GameScene::init()
 	TrapManager::getInstance()->SetFalseAllTrap();
 	IteamManager::getInstance()->SetFalseAllIteam();
 
-	player = new Player();	
+	player = new Player();
 	this->addChild(player,30);
 	
 	this->runAction(Follow::create(player)); // add action camera follow player	
@@ -123,7 +129,10 @@ bool GameScene::init()
 	effect->setPosition(player->getPosition());
 	//effect->setScale(1.5f);
 	this->addChild(effect, 200);
-	
+	if (continueGame == true)
+	{
+		GameScene::GotoAgain(1);
+	}
 	
 	return true;
 }
@@ -146,6 +155,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			if(b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				auto item = dynamic_cast<Iteam*>(a->getOwner());
+				item->hit = true;
 				if (item->type == 1)
 				{
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
@@ -179,6 +189,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			if(a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				auto item = dynamic_cast<Iteam*>(b->getOwner());
+				item->hit = true;
 				if (item->type == 1)
 				{
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
@@ -276,6 +287,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		if (a->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 		{
 			auto trap = dynamic_cast<Trap*>(a->getOwner());
+			trap->hit = true;
 			if (trap->type == 0 || trap->type == 3)
 			{
 				trap->setLocalZOrder(40);
@@ -287,6 +299,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 				{
 					auto minion = dynamic_cast<Minions*>(b->getOwner());
+					if(minion->Booldie==false)
 					minion->die();
 				}
 			}
@@ -328,8 +341,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		else if (b->getCategoryBitmask() == TRAP_CATEGORY_BITMASK)
 		{
-			
 			auto trap = dynamic_cast<Trap*>(b->getOwner());
+			trap->hit = true;
 			if (trap->type == 0  || trap->type == 3)
 			{
 				trap->setLocalZOrder(40);
@@ -341,6 +354,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 				{
 					auto minion = dynamic_cast<Minions*>(a->getOwner());
+					if (minion->Booldie == false)
 					minion->die();
 				}
 			}
@@ -383,10 +397,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		//Enemy detect collision
 		if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 		{
-			CCLOG("enemy");
+			auto minion = dynamic_cast<Minions*>(a->getOwner());
+			minion->hit = true;
 			if (!player->die && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				auto minion = dynamic_cast<Minions*>(a->getOwner());
+				//auto minion = dynamic_cast<Minions*>(a->getOwner());
 				if (minion->Booldie == false)
 				{
 					player->Playerdie();
@@ -395,7 +410,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			}
 			if (b->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
 			{
-				auto minion = dynamic_cast<Minions*>(a->getOwner());
+				//auto minion = dynamic_cast<Minions*>(a->getOwner());
 				if (minion->boolFind == false)
 				{
 					Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
@@ -417,9 +432,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		}
 		else if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 		{
+			auto minion = dynamic_cast<Minions*>(b->getOwner());
+			minion->hit = true;
 			if (!player->die && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				auto minion = dynamic_cast<Minions*>(b->getOwner());
+				//auto minion = dynamic_cast<Minions*>(b->getOwner());
 				if (minion->Booldie == false)
 				{
 					player->Playerdie();
@@ -428,7 +445,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			}
 			if (a->getCategoryBitmask() == PLAYER_BG_CATEGORY_BITMASK)
 			{
-				auto minion = dynamic_cast<Minions*>(b->getOwner());
+				//auto minion = dynamic_cast<Minions*>(b->getOwner());
 				if (minion->boolFind == false)
 				{
 					Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
@@ -599,19 +616,21 @@ void  GameScene::GoToGameOver(float dt)
 }
 void GameScene::SaveInGame(cocos2d::Node *item)
 {
+	//Game
+	def->setBoolForKey("INGAME_CONTINUE", true);
+	def->setIntegerForKey("INGAME_CONTINUE_LEVEL", Level_of_difficult);
 	//player
 
 	def->setBoolForKey("INGAME_PLAYERLight", canvas->background_off->isVisible());
 	def->setFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
 	def->setFloatForKey("INGAME_PLAYERPOSX", item->getPositionX());
 	def->setFloatForKey("INGAME_PLAYERPOSY", item->getPositionY());
-
 	//minion
 	AllMinions = MinionManager::getInstance()->AllMinions;
 	int Num = 0;
 	for (int i = 0; i < AllMinions.size(); i++)
 	{
-		if (AllMinions.at(i)->isVisible() == true)
+		if (AllMinions.at(i)->isVisible() == true )
 		{
 			Num++;
 			
@@ -669,12 +688,16 @@ void GameScene::checkdie()
 }
 void GameScene::GotoAgain(float dt)
 {
+	//sound 
+	SoundManager::getInstance()->stopALLMusic();
+	SoundManager::getInstance()->PlayMusics(softbackground_sound, true, 1.0f);
 	//player
 	//UserDefault *def= UserDefault::getInstance();
 	auto PosX = def->getFloatForKey("INGAME_PLAYERPOSX", 0);
 	auto PosY = def->getFloatForKey("INGAME_PLAYERPOSY", 0);
 	auto enegy = def->getFloatForKey("INGAME_PLAYERENEGY", 0);
 	auto light = def->getBoolForKey("INGAME_PLAYERLight", false);
+	auto heal = def->getIntegerForKey("INGAME_PLAYERHEAL", player->NumHeal);
 
 	canvas->enegy->setPercent(enegy);
 	player->setPosition(Vec2(PosX, PosY));
@@ -682,13 +705,16 @@ void GameScene::GotoAgain(float dt)
 	player->checkMove = true;
 	player->setTexture("prefap/Player/Player.png");
 	player->setTextureRect(Rect(360, 1, 80, 95));
+	player->NumHeal = heal;
+	player->changeHeal();
 
 	//mininon
 	AllMinions = MinionManager::getInstance()->AllMinions;
 	for (int i = 0; i < AllMinions.size(); i++)
 	{
-		if (AllMinions.at(i)->isVisible()==true)
+		if (AllMinions.at(i)->isVisible()==true )
 		{
+			//MinionManager::getInstance()->setfalseMinion(AllMinions.at(i));
 			this->removeChild(AllMinions.at(i));	
 		}
 	}
@@ -706,7 +732,7 @@ void GameScene::GotoAgain(float dt)
 		auto minion = MinionManager::getInstance()->CreateMinion(MInionType);
 		minion->setPosition(Vec2(MinionPosx, MinionPosy));
 		minion->boolFind = MinionBoolfind;
-		
+		minion->Booldie = MinionDie;
 		if (light == false && MinionDie == false && MinionBoolfind == true)
 		{
 			minion->lighton(1);

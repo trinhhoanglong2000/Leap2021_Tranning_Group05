@@ -48,7 +48,7 @@ private:
 	DrawNode* layout;
 	MenuItemToggle* toggle1, *toggle2;
 	UserDefault *def;
-
+	bool continueGame;
 	void PlayMenu(cocos2d::Ref* pSender);
 	void LevelMenuContinue(cocos2d::Ref* pSender);
 	void LevelMenuNew(cocos2d::Ref* pSender);

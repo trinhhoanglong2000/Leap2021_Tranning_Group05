@@ -123,6 +123,7 @@ void TrapManager::SetFalseAllTrap()
 {
 	for (int i = 0; i < AllTrap.size(); i++)
 	{
+		AllTrap.at(i)->hit = false;
 		AllTrap.at(i)->setVisible(false);
 		if (AllTrap.at(i)->type == 2)
 		{

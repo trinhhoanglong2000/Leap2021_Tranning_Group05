@@ -53,6 +53,7 @@ public:
 	bool stop;
 	void changeTravelTime(float value);
 	void resetTravelTime(float dt);
+	void changeHeal();
 	cocos2d::DrawNode *background;
 	bool die;
 	int NumHeal;

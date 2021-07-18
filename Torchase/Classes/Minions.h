@@ -50,6 +50,7 @@ public:
 	int type;
 	bool Booldie;
 	float traveltime;
+	bool hit;
 
 protected:
 	Player *player;

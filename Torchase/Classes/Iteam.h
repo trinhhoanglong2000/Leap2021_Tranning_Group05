@@ -33,6 +33,7 @@ public:
 	Iteam(std::string name);
 	Iteam(std::string filename, cocos2d::Rect rect);
 	int type;
+	bool hit;
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;

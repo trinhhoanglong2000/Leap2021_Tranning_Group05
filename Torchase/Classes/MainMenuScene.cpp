@@ -51,7 +51,8 @@ bool MainMenuScene::init()
 	{
 		return false;
 	}
-
+	def = UserDefault::getInstance();
+	continueGame = def->getBoolForKey("INGAME_CONTINUE", false);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -62,7 +63,7 @@ bool MainMenuScene::init()
 	// add a "close" icon to exit the progress. it's an autorelease object
 
 	SoundManager::getInstance()->PlayMusics(MAINMENU_SOUND, true, 1);
-
+	SoundManager::getInstance()->stopALLMusic();
 	auto BgSprite = Sprite::create("dungeon.jpg");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	float scale = MAX(visibleSize.width / BgSprite->getContentSize().width, visibleSize.height / BgSprite->getContentSize().height);
@@ -108,11 +109,14 @@ bool MainMenuScene::init()
 
 	//=================PlayLevel
 	menuArr.clear();
-	Label = Label::createWithTTF("Continue", "fonts/Raven Song.ttf", visibleSize.height / 18);
-	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::LevelMenuContinue, this));
-	btn->setAnchorPoint(Vec2(0, 1));
-
-	menuArr.pushBack(btn);
+	if (continueGame == true)
+	{
+		Label = Label::createWithTTF("Continue", "fonts/Raven Song.ttf", visibleSize.height / 18);
+		btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::gotoPlayScreen, this));
+		btn->setAnchorPoint(Vec2(0, 1));
+		btn->setTag(3);
+		menuArr.pushBack(btn);
+	}
 
 	Label = Label::createWithTTF("New Game", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::LevelMenuNew, this));
@@ -162,33 +166,33 @@ bool MainMenuScene::init()
 
 	menuArr.pushBack(btn);
 
-	menuLevelContinue = Menu::createWithArray(menuArr);
+	/*menuLevelContinue = Menu::createWithArray(menuArr);
 	menuLevelContinue->setPosition(Vec2(myLabel->getPositionX(), myLabel->getPositionY() - myLabel->getContentSize().height));
 	menuLevelContinue->alignItemsVerticallyWithPadding(10);
 		
 	menuLevelContinue->setAnchorPoint(Vec2(0, 0));
 	menuLevelContinue->setVisible(false);
-	this->addChild(menuLevelContinue);
+	this->addChild(menuLevelContinue);*/
 	
 	//=================LevelMenu for New
 	menuArr.clear();
 	Label = Label::createWithTTF("Easyy", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::gotoStoryScreen, this));
 	btn->setAnchorPoint(Vec2(0, 1));
-	btn->setTag(3);
+	btn->setTag(0);
 	menuArr.pushBack(btn);
 
 	Label = Label::createWithTTF("Normall", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::gotoStoryScreen, this));
 	btn->setAnchorPoint(Vec2(0, 1));
-	btn->setTag(4);
+	btn->setTag(1);
 
 	menuArr.pushBack(btn);
 
 	Label = Label::createWithTTF("Hardd", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::gotoStoryScreen, this));
 	btn->setAnchorPoint(Vec2(0, 1));
-	btn->setTag(5);
+	btn->setTag(2);
 
 	menuArr.pushBack(btn);
 
@@ -248,7 +252,7 @@ bool MainMenuScene::init()
 	toggle2->setTag(2);
 	toggle2->setScale(0.5f);
 
-	def = UserDefault::getInstance();
+	
 	
 //	def->getDataForKey("minion",)
 	auto MindControll = def->getIntegerForKey("CONTROLLER", 0);
@@ -298,28 +302,28 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 void MainMenuScene::PlayMenu(Ref* pSender) {
 	menu->setVisible(false);
 	menuPlay->setVisible(true);
-	menuLevelContinue->setVisible(false);
+	//menuLevelContinue->setVisible(false);
 	menuLevelNew->setVisible(false);
 	layout->setVisible(false);
 }
 void MainMenuScene::LevelMenuContinue(cocos2d::Ref* pSender) {
 	menu->setVisible(false);
 	menuPlay->setVisible(false);
-	menuLevelContinue->setVisible(true);
+	//menuLevelContinue->setVisible(true);
 	menuLevelNew->setVisible(false);
 	layout->setVisible(false);
 }
 void MainMenuScene::LevelMenuNew(cocos2d::Ref* pSender) {
 	menu->setVisible(false);
 	menuPlay->setVisible(false);
-	menuLevelContinue->setVisible(false);
+	//menuLevelContinue->setVisible(false);
 	menuLevelNew->setVisible(true);
 	layout->setVisible(false);
 }
 void MainMenuScene ::MainMenu(cocos2d::Ref* pSender) {
 	menu->setVisible(true);
 	menuPlay->setVisible(false);
-	menuLevelContinue->setVisible(false);
+	//menuLevelContinue->setVisible(false);
 	menuLevelNew->setVisible(false);
 	layout->setVisible(false);
 }
