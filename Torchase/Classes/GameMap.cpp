@@ -54,7 +54,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 
 	_tileMap->setScale(MAP_SCALE);
 	_tileMap->setTag(100);
-	scene->addChild(_tileMap);
+	scene->addChild(_tileMap,19);
 
 	TMXObjectGroup *objectGroup = _tileMap->getObjectGroup("Player");
 
@@ -89,7 +89,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			minion->setPosition(Vec2(x, y)*MAP_SCALE);
 			minion->setplayer(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
 
-			scene->addChild(minion, 20);
+			scene->addChild(minion, 21);
 		}
 	}
 
@@ -177,7 +177,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 				traptemp->taget = objTrap.asValueMap()["taget"].asInt();
 			}
 
-			scene->addChild(trap, 25);
+			scene->addChild(trap, 20);
 		}
 	}
 }
@@ -199,5 +199,5 @@ void GameMap::GoAgain()
 	_tileMap->setTag(100);
 	_meta = _tileMap->getLayer("meta");
 	_meta->setVisible(false);
-	sceneMap->addChild(_tileMap);
+	sceneMap->addChild(_tileMap,19);
 }
