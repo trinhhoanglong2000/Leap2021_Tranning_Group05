@@ -136,7 +136,7 @@ bool GameScene::init()
 	}
 	else
 	{
-		GameScene::meet();
+		//GameScene::meet();
 	}
 	return true;
 }

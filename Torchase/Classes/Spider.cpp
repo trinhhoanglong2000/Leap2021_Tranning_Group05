@@ -41,15 +41,60 @@ Spider::Spider() : Minions()
 }
 void Spider::Roar(float dt)
 {
+	this->setLocalZOrder(35);
+	lazer->setVisible(true);
 	boolFind = true;
-	Minions::Roar(1);
 	//Minions::findPlayer(1);
-	Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Spider::lighton);
-	this->schedule(Schedule_findPlayer, 1.3f, 0, 1.0f);
+	this->schedule(CC_SCHEDULE_SELECTOR(Spider::stare), 0.1f);
+}
+void Spider::stare(float dt)
+{
+	if (numstare <= 0)
+	{
+		numstare = 20;
+		this->schedule(CC_SCHEDULE_SELECTOR(Spider::actionLazer), 0.1f);
+		this->unschedule(CC_SCHEDULE_SELECTOR(Spider::stare));
+	}
+	else
+	{
+		
+		numstare--;
+		cocos2d::Vec2 *pointX = new Vec2(0, 30);
+		cocos2d::Vec2 *pointY = new Vec2(player->getPositionX() - this->getPositionX(), player->getPositionY() - this->getPositionY());
+		mindPlayer = Vec2(pointY->x,pointY->y);
+		float s = (pointX->x * pointY->x + pointX->y * pointY->y) / (sqrt(pointX->x*pointX->x + pointX->y*pointX->y)*sqrt(pointY->x*pointY->x + pointY->y*pointY->y)) + 1;
+		s = 90 * s;
+		if (player->getPositionX() > this->getPositionX())
+			s = -s;
+		this->setRotation(s);
+	}
+	
+}
+void Spider::actionLazer(float dt)
+{
+	if (numlazer <= 0)
+	{
+		lazer->setVisible(false);
+		numlazer = 15;
+		Schedule_findPlayer = CC_SCHEDULE_SELECTOR(Minions::findPlayerType0);
+		this->schedule(Schedule_findPlayer, 0.2f, 0, 0);
+		this->unschedule(CC_SCHEDULE_SELECTOR(Spider::actionLazer));
+	}
+	else
+	{
+		numlazer--;
+		if (lazer->isVisible() == true)
+			lazer->setVisible(false);
+		else
+			lazer->setVisible(true);
+	}
 }
 void Spider::setAnimation()
 {
-
+	lazer = Sprite::create("prefap/Minions/lazer.png");
+	lazer->setScale(0.6f);
+	lazer->setPosition(this->getContentSize().width / 2, -this->getContentSize().height*2.0f);
+	this->addChild(lazer);
 	//down
 	type = 0;
 	Vector<SpriteFrame*>  animFrames;
@@ -126,6 +171,7 @@ void Spider::setAnimation()
 void Spider::reset()
 {
 	Minions::reset();
+	lazer->setVisible(false);
 	this->setTexture("prefap/Minions/spider.png");
 	this->setTextureRect(Rect(100, 0, 100, 100));
 }

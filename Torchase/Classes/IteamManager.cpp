@@ -29,6 +29,7 @@
 #include "Iteam.h"
 #include "IteamBox.h"
 #include "IteamSaveGame.h"
+#include "IteamBear.h"
 USING_NS_CC;
 
 IteamManager::IteamManager() {
@@ -51,10 +52,14 @@ void IteamManager::CreateAllIteam()
 		auto iteamSaveGame = new IteamSaveGame();
 		iteamSaveGame->setVisible(false);
 
+		auto iteambear = new IteamBear();
+		iteambear->setVisible(false);
+
 		AllIteam.pushBack(battery);
 		AllIteam.pushBack(key);
 		AllIteam.pushBack(iteamBox);
 		AllIteam.pushBack(iteamSaveGame);
+		AllIteam.pushBack(iteambear);
 	}
 }
 Iteam *IteamManager::CreateIteam(int Type)
@@ -102,6 +107,14 @@ Iteam *IteamManager::CreateIteam(int Type)
 		iteamSaveGame->setVisible(false);
 		AllIteam.pushBack(iteamSaveGame);
 		return iteamSaveGame;
+		break;
+	}
+	case 5:
+	{
+		auto iteambear = new IteamBear();
+		iteambear->setVisible(false);
+		AllIteam.pushBack(iteambear);
+		return iteambear;
 		break;
 	}
 	default:

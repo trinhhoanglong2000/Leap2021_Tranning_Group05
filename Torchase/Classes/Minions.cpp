@@ -50,7 +50,7 @@ Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 	hit = false;
 	traveltime = MININON_SPEED;
 
-	auto EnemyBody = PhysicsBody::createBox(this->getContentSize());
+	auto EnemyBody = PhysicsBody::createBox(this->getContentSize()/2);
 	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
 	EnemyBody->setCategoryBitmask(ENEMY_CATEGORY_BITMASK);
 	EnemyBody->setContactTestBitmask(ENEMY_COLISION_BITMASK);
@@ -132,8 +132,8 @@ void Minions::findPlayer(float dt)
 }
 void Minions::removeAction()
 {
-	/*if (type == 1)
-	{*/
+	if (type == 1)
+	{
 		//Actor::removeAction();
 	this->stopAllActions();
 	auto reverAction = MoveTo::create(traveltime / 2, mindPositison);
@@ -144,12 +144,15 @@ void Minions::removeAction()
 	auto sequence = Sequence::create(reverAction, callback, nullptr);
 	this->runAction(sequence);
 	*booltro = false;
-	/*}
+	}
 	if (type == 0)
 	{
 		this->stopAllActions();
-		Minions::die();
-	}*/
+		Booldie = true;
+		this->unscheduleAllCallbacks();
+		goUp = false;
+		Minions::actiondie(1);
+	}
 }
 void Minions::Roar(float dt)
 {
@@ -195,11 +198,11 @@ void Minions::actiondie(float dt)
 void Minions::findPlayerType0(float dt)
 {
 	this->stopAllActions();
-	auto moveAction = MoveTo::create(traveltime *10, Vec2(player->getPositionX()-this->getPositionX(), player->getPositionY() - this->getPositionY()) *10);
+	auto moveAction = MoveBy::create(traveltime/3, mindPlayer);
 	auto animationAction = RepeatForever::create(Animates.at(3));
 	auto callback = CallFunc::create([&]() {
 		this->stopAllActions();
-
+		Minions::findPlayerType0(1);
 	});
 	auto sequence = Sequence::create(moveAction, callback, nullptr);
 	this->runAction(animationAction);

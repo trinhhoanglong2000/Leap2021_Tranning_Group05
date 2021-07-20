@@ -37,8 +37,13 @@ public:
 	void Roar(float dt);
 	void reset();
 	void setStatus(bool checkdie);
+	void stare(float dt);
+	void actionLazer(float dt);
 private:
 	std::string minionname = "prefap/Minions/spider.png";
+	int numstare = 20;
+	int numlazer = 15;
+	cocos2d::Sprite *lazer;
 
 };
 
