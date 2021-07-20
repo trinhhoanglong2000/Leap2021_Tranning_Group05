@@ -58,12 +58,23 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonHome = ui::Button::create("prefap/Gui/homebtn.png");
 	ButtonResume->setVisible(false);
 	ButtonHome->setVisible(false);
+	ButtonUp->setVisible(false);
+	ButtonDow->setVisible(false);
+	ButtonLeft->setVisible(false);
+	ButtonRight->setVisible(false);
+	ButtonLight->setVisible(false);
+	ButtonTrap->setVisible(false);
 
 	pauseBackgr = Sprite::create("SplatterGray.png");
 	pauseBackgr->setScale(0.15f);
 	pauseBackgr->setPosition(Vec2(origin.x,origin.y));
 	pauseBackgr->setOpacity(0);
 	this->addChild(pauseBackgr);
+
+	talkboxBachgr = Sprite::create("prefap/Gui/blackbox.png");
+	talkboxBachgr->setScale(visibleSize.width / talkboxBachgr->getContentSize().width, visibleSize.height / talkboxBachgr->getContentSize().height / 2);
+	talkboxBachgr->setPosition(Vec2(origin.x + (ButtonDow->getContentSize().width / 6), origin.y - (ButtonDow->getContentSize().height / 2)));
+	this->addChild(talkboxBachgr,100);
 
 	ButtonConvert->setScale(BUTTON_SCALE);
 	ButtonUp->setScale(BUTTON_SCALE);
@@ -143,6 +154,22 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	int_move = 0;
 	mind_move = 1;
 	BoolTouch = false;
+	
+	LableTalk = Label::createWithTTF("I need to get through this room and find my son quickly", "fonts/Balsoon.ttf", visibleSize.height / 15);
+	LableTalk->setPosition(Point(-(talkboxBachgr->getContentSize().width)-(ButtonDow->getContentSize().width/2), -ButtonDow->getContentSize().height / 4));
+	LableTalk->setAnchorPoint(Vec2(0, 1));
+	this->addChild(LableTalk, 100);
+
+	num_talk = 0;
+	//First talk - instruction
+	talkbox.push_back("Hope it's not too late");
+	talkbox.push_back("Wait!!!...");
+	talkbox.push_back("There's something written right here");
+	talkbox.push_back("\"The Shadows have slept too long to wait for a day to be awakened by the \nlight and chase their prey.");
+	talkbox.push_back("Once they have caught their prey, they will tear it apart and enjoy a taste \nthey haven't enjoyed in a long time.");
+	talkbox.push_back("But they're just stupid Walking Dead. So use your wisdom and destroy them \nwith deadly traps.\"");
+	talkbox.push_back("It sounds terrible, but we don't have time and we're running out of battery.\nLet's go and find some along the way.");
+	talkbox.push_back("Good luck!!!");
 	
 	// add touch move
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -414,6 +441,27 @@ void Canvas::AutoMove(float dt)
 }
 bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
+	if (talk)
+	{
+		LableTalk->setString(talkbox.at(num_talk));
+		if (talkbox.at(num_talk) == "Good luck!!!")
+		{
+			talk = false;
+		}
+		num_talk++;
+	}
+	else
+	{
+		ButtonUp->setVisible(true);
+		ButtonDow->setVisible(true);
+		ButtonLeft->setVisible(true);
+		ButtonRight->setVisible(true);
+		ButtonLight->setVisible(true);
+		ButtonTrap->setVisible(true);
+
+		talkboxBachgr->setVisible(false);
+		LableTalk->setVisible(false);
+	}
 	if (controller_canvas == 0)
 		return true;
 	if (BoolTouch == false)

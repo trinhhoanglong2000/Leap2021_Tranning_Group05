@@ -42,8 +42,7 @@ class GameScene : public cocos2d::Scene
 public:
     static cocos2d::Scene* createScene(int Level_of_difficult_Scene, int controller_Scene);
 	
-    virtual bool init();
-    CREATE_FUNC(GameScene);
+    virtual bool init(); 
 	void shakeScreen(float dt);
 	float rangeRandom(float min, float max);
 	void Lighting(float dt);
@@ -58,6 +57,7 @@ public:
 	void SaveInGame(cocos2d::Node *item);
 	void checkdie();
 	//GameScene *Scene_layer;
+	CREATE_FUNC(GameScene);
 private:
 	UserDefault *def;
 	int level = 0;
@@ -95,6 +95,7 @@ private:
 	cocos2d::SEL_SCHEDULE Schedule_shake;
 
 	bool continueGame;
+
 };
 
 #endif // __GAMESCENE_H__

@@ -111,7 +111,7 @@ bool GameScene::init()
 	this->addChild(background_off, 25);
 	background_off->setVisible(false);
 
-	canvas = new Canvas(player, background_off, controller,this,gameState);
+	canvas = new Canvas(player, background_off, controller, this, gameState);
 	canvas->setPosition(Vec2(0, 0));
 	player->addChild(canvas, 50);
 	canvas->_meta = gameMap->_meta;
@@ -133,9 +133,10 @@ bool GameScene::init()
 	{
 		GameScene::GotoAgain(1);
 	}
-	
+
 	return true;
 }
+
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 {
 	AllMinions = MinionManager::getInstance()->AllMinions;
@@ -686,6 +687,7 @@ void GameScene::checkdie()
 	if (player->NumHeal > 1)
 		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GotoAgain), DISPLAY_TIME_SPLASH_SCENE*1.5, 0, 0);
 }
+
 void GameScene::GotoAgain(float dt)
 {
 	//sound 

@@ -75,6 +75,7 @@ private:
 	int mind_move;
 	bool BoolTouch;
 	bool touchpause = false;
+	bool talk = true;
 	int controller_canvas;
 	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight,
 						*ButtonPause, *ButtonResume, *ButtonHome, *ButtonLight, *ButtonTrap, *ButtonConvert;
@@ -83,8 +84,11 @@ private:
 	
 	int *gameState;
 	cocos2d::Menu *pauseMenu;
-	cocos2d::Sprite *pauseBackgr;
+	cocos2d::Sprite *pauseBackgr, *talkboxBachgr;
+	cocos2d::Label *LableTalk;
 
+	int num_talk;
+	std::vector<std::string> talkbox;
 };
 
 #endif // __CANVAS_H__
