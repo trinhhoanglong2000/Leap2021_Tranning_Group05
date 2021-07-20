@@ -43,13 +43,14 @@ private:
 	TMXLayer *_Trap;
 	TMXLayer *_TrapPlant;
 	Player *_player;
-	
+	cocos2d::Sprite* Son;
 public:
-	GameMap(cocos2d::Scene *scene, Player *playerScene);
+	GameMap(cocos2d::Scene *scene, Player *playerScene,cocos2d::Sprite* Son);
 	cocos2d::Size returnSizeMap();
 	cocos2d::Size returnSizetile();
 	cocos2d::Vector<Trap*> AllTrap;
 	void GoAgain();
+	
 	TMXLayer *_meta;
 	TMXTiledMap *_tileMap;
 	Door *door;

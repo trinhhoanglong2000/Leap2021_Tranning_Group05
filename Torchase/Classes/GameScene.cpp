@@ -85,10 +85,13 @@ bool GameScene::init()
 
 	player = new Player();
 	this->addChild(player,30);
-	
-	this->runAction(Follow::create(player)); // add action camera follow player	
+	Son->setVisible(true);
+	Son->setScale(2);
 
-	gameMap = new GameMap(this,player); // add gamemap
+	this->addChild(Son, 50);
+	//this->runAction(Follow::create(player)); // add action camera follow player	
+
+	gameMap = new GameMap(this,player,Son); // add gamemap
 	door = gameMap->door;
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
@@ -113,6 +116,7 @@ bool GameScene::init()
 
 	canvas = new Canvas(player, background_off, controller,this,gameState);
 	canvas->setPosition(Vec2(0, 0));
+	canvas->setVisible(false);
 	player->addChild(canvas, 50);
 	canvas->_meta = gameMap->_meta;
 	canvas->maxmap = (int)(gameMap->_tileMap->getMapSize().height);
@@ -129,11 +133,40 @@ bool GameScene::init()
 	effect->setPosition(player->getPosition());
 	//effect->setScale(1.5f);
 	this->addChild(effect, 200);
+
 	if (continueGame == true)
 	{
 		GameScene::GotoAgain(1);
 	}
+	DelayTime *pause = DelayTime::create(2);
+
+	auto Action = Follow::create(Son);
+
+
+	auto callback = CallFunc::create([&]() {
+		auto callback1 = CallFunc::create([&]() {
+
+			this->stopAllActions();
+			canvas->setVisible(true);
+
+			this->runAction(Follow::create(player));
+
+
+			});
+		this->stopAllActions();
+		auto Move = MoveBy::create(5, -player->getPosition() + Son->getPosition());
+		auto seq = Sequence::create(Move, callback1, NULL);
+		this->runAction(seq);
+		
+
+		});
+
+	auto sequence = Sequence::create(pause->clone(),callback,NULL);
+	this->runAction(Action);
+	this->runAction(sequence);
 	
+
+
 	return true;
 }
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)

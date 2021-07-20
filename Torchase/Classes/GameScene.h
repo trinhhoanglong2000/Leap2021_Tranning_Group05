@@ -70,6 +70,7 @@ private:
 	Player *player;
 	Minions *minion;
 	GameMap *gameMap;
+	cocos2d::Sprite* Son = new cocos2d::Sprite;
 
 	cocos2d::PhysicsWorld *sceneWorld;
 	cocos2d::DrawNode* background_off;

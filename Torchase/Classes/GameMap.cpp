@@ -42,10 +42,11 @@
 USING_NS_CC;
 
 
-GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
+GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, cocos2d::Sprite* son)
 {
 	sceneMap = scene;
 	_player = playerScene;
+	this->Son = son;
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -69,6 +70,14 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 		int y = spawnPoint["y"].asInt();
 		_player->speed = _tileMap->getTileSize().width*MAP_SCALE;
 		_player->setPosition(Vec2(x, y)*MAP_SCALE);
+
+		auto SonPoint = objectGroup->getObject("Son"); 
+		x = SonPoint["x"].asInt();
+		y = SonPoint["y"].asInt();
+		Son->initWithFile("prefap/Player/Son.png",Rect(10,11,29,31));
+		Son->setPosition(Vec2(x, y)*MAP_SCALE);
+	
+
 	}
 	// create minion
 	TMXObjectGroup *objectGroupminions = _tileMap->getObjectGroup("minions");
