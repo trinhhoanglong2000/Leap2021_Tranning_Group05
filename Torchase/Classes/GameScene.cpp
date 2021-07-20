@@ -827,41 +827,11 @@ void GameScene::GotoAgain(float dt)
 }
 void GameScene::meet()
 {
-	playerNow = player->getPosition();
+	canvas->playerNow = player->getPosition();
 	player->setPosition(gameMap->PlayerMeet);
 	son = new Son();
 	son->setPosition(gameMap->SonMeet);
 	this->addChild(son, 50);
-
-	player->checkMove = false;
-	player->background->setVisible(false);
-	player->background->getPhysicsBody()->setEnabled(false);
-	player->getPhysicsBody()->setEnabled(false);
-	canvas->endlight = false;
-
-	player->setTextureRect(Rect(360, 359, 80, 95));
-	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::actionmeet), 2.0f,0,0);
-}
-void GameScene::actionmeet(float dt)
-{
-	son->MoveUp();
-	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::movemeet), 1.0f, 0, 0);
-}
-void GameScene::movemeet(float dt)
-{
-	auto move = MoveTo::create(1.0f, playerNow);
-	//player->runAction(move);
-
-	auto callback = CallFunc::create([&]() {
-		this->stopAllActions();
-		player->checkMove = true;
-		player->background->setVisible(true);
-		player->background->getPhysicsBody()->setEnabled(true);
-		player->getPhysicsBody()->setEnabled(true);
-		canvas->endlight = true;
-		player->setTextureRect(Rect(360, 1, 80, 95));
-		this->removeChild(son);
-	});
-	auto sequence = Sequence::create(move, callback, nullptr);
-	player->runAction(sequence);
+	canvas->son = son;
+	canvas->meet();
 }

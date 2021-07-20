@@ -31,6 +31,7 @@
 #include "Trap.h"
 #include "TrapPlant.h"
 #include "cocos2d.h"
+#include "Son.h"
 
 class Canvas : public cocos2d::ui::Layout
 {
@@ -58,6 +59,10 @@ public:
 	void reducePlant();
 	void Goagain(bool light);
 	void goup(float dt);
+	void meet();
+	void actionmeet(float dt);
+	void movemeet(float dt);
+	void OnButtonController();
 	cocos2d::Vector<Minions*> AllMinions;
 	cocos2d::Vector<Trap*> AllTrap;
 	cocos2d::DrawNode* background_off;
@@ -66,8 +71,10 @@ public:
 	TrapPlant *plant;
 	cocos2d::TMXLayer *_meta;
 	int maxmap;
+	Son *son;
+	cocos2d::Vec2 playerNow;
 private:
-	Player *player;
+	Player *player;	
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	cocos2d::SEL_SCHEDULE Schedule_ReduceEnegy;

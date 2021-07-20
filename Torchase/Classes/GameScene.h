@@ -58,9 +58,6 @@ public:
 	void SaveInGame(cocos2d::Node *item);
 	void checkdie();
 	void meet();
-	void actionmeet(float dt);
-	void endmeet(float dt);
-	void movemeet(float dt);
 	//GameScene *Scene_layer;
 	CREATE_FUNC(GameScene);
 private:
@@ -100,7 +97,7 @@ private:
 	cocos2d::SEL_SCHEDULE Schedule_lighting;
 	cocos2d::SEL_SCHEDULE Schedule_shake;
 
-	cocos2d::Vec2 playerNow;
+	
 	bool continueGame;
 
 };

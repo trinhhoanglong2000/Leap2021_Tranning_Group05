@@ -56,6 +56,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonPause = ui::Button::create("prefap/Gui/pausebtn.png");
 	ButtonResume = ui::Button::create("prefap/Gui/right.png");
 	ButtonHome = ui::Button::create("prefap/Gui/homebtn.png");
+
 	ButtonResume->setVisible(false);
 	ButtonHome->setVisible(false);
 	ButtonUp->setVisible(false);
@@ -329,15 +330,7 @@ void Canvas::PauseScene(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			pauseBackgr->runAction(FadeOut::create(PAUSE_BACKGROUND_FADE_IN_TIME));
 			//EaseBounceOut *menuActionEase = EaseBounceOut::create(MoveTo::create(EASE_BOUNCE_IN_TIME, Vec2(origin.x, origin.y + visibleSize.height)));
 			
-			if (controller_canvas != 1)
-			{
-				ButtonUp->setVisible(true);
-				ButtonDow->setVisible(true);
-				ButtonRight->setVisible(true);
-				ButtonLeft->setVisible(true);
-			}
-			ButtonLight->setVisible(true);
-			ButtonTrap->setVisible(true);
+			Canvas::OnButtonController();
 			ButtonPause->setVisible(true);
 			ButtonResume->setVisible(false);
 			ButtonHome->setVisible(false);
@@ -452,12 +445,8 @@ bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	}
 	else
 	{
-		ButtonUp->setVisible(true);
-		ButtonDow->setVisible(true);
-		ButtonLeft->setVisible(true);
-		ButtonRight->setVisible(true);
-		ButtonLight->setVisible(true);
-		ButtonTrap->setVisible(true);
+
+		Canvas::OnButtonController();
 
 		talkboxBachgr->setVisible(false);
 		LableTalk->setVisible(false);
@@ -607,4 +596,49 @@ void Canvas::Goagain(bool light)
 		player->background->setVisible(false);
 		background_off->setVisible(true);
 	}
+}
+void Canvas::meet()
+{
+
+	player->checkMove = false;
+	player->background->setVisible(false);
+	player->background->getPhysicsBody()->setEnabled(false);
+	player->getPhysicsBody()->setEnabled(false);
+	endlight = false;
+
+	player->setTextureRect(Rect(360, 359, 80, 95));
+	this->schedule(CC_SCHEDULE_SELECTOR(Canvas::actionmeet), 2.0f, 0, 0);
+}
+void Canvas::actionmeet(float dt)
+{
+	son->MoveUp();
+	this->schedule(CC_SCHEDULE_SELECTOR(Canvas::movemeet), 1.0f, 0, 0);
+}
+void Canvas::movemeet(float dt)
+{
+	auto move = MoveTo::create(1.0f, playerNow);
+	player->background->setVisible(true);
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+		player->checkMove = true;
+		player->background->getPhysicsBody()->setEnabled(true);
+		player->getPhysicsBody()->setEnabled(true);
+		endlight = true;
+		player->setTextureRect(Rect(360, 1, 80, 95));
+		this->removeChild(son);
+	});
+	auto sequence = Sequence::create(move, callback, nullptr);
+	player->runAction(sequence);
+}
+void Canvas::OnButtonController()
+{
+	if (controller_canvas != 1)
+	{
+		ButtonUp->setVisible(true);
+		ButtonDow->setVisible(true);
+		ButtonRight->setVisible(true);
+		ButtonLeft->setVisible(true);
+	}
+	ButtonLight->setVisible(true);
+	ButtonTrap->setVisible(true);
 }
