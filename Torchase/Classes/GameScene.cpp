@@ -47,7 +47,7 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
@@ -136,7 +136,7 @@ bool GameScene::init()
 	}
 	else
 	{
-		//GameScene::meet();
+		GameScene::meet();
 	}
 	return true;
 }
@@ -833,5 +833,10 @@ void GameScene::meet()
 	son->setPosition(gameMap->SonMeet);
 	this->addChild(son, 50);
 	canvas->son = son;
-	canvas->meet();
+	player->checkMove = false;
+	player->background->setVisible(false);
+	player->background->getPhysicsBody()->setEnabled(false);
+	player->getPhysicsBody()->setEnabled(false);
+	player->setTextureRect(Rect(360, 359, 80, 95));
+	//canvas->meet();
 }

@@ -60,9 +60,9 @@ endif()
     #Classes/HelloWorldScene.cpp
     #)
 #list(APPEND GAME_HEADER
-     #Classes/AppDelegate.h
-     #Classes/HelloWorldScene.h
-     #)
+    #Classes/AppDelegate.h
+    #Classes/HelloWorldScene.h
+    #)
 file(GLOB GAME_SOURCE
      "Classes/**.cpp"
      )
