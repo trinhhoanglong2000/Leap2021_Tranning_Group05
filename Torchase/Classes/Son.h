@@ -1,4 +1,4 @@
-/****************************************************************************
+	/****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
@@ -22,46 +22,23 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __GAMEMAP_H__
-#define __GAMEMAP_H__
+#ifndef __SON_H__
+#define __SON_H__
 
 #include "cocos2d.h"
-#include "Player.h"
-#include "Minions.h"
-#include "TrapPlant.h"
-#include "Trapthorn.h"
-#include "Trap.h"
-#include "Door.h"
+#include "ui\CocosGUI.h"
+#include"Actor.h"
+#include "SoundManager.h"
 
-USING_NS_CC;
-
-class GameMap : public cocos2d::Scene
+class Son : public Actor
 {
-private:
-	
-	
-	TMXLayer *_Trap;
-	TMXLayer *_TrapPlant;
-	Player *_player;
-	
 public:
-	GameMap(cocos2d::Scene *scene, Player *playerScene);
-	cocos2d::Size returnSizeMap();
-	cocos2d::Size returnSizetile();
-	cocos2d::Vector<Trap*> AllTrap;
-	void GoAgain();
-	TMXLayer *_meta;
-	TMXTiledMap *_tileMap;
-	Door *door;
-	cocos2d::Vec2 PlayerMeet,SonMeet;
+	Son();
+	void MoveUp();
 private:
-	cocos2d::Scene *sceneMap;
-	cocos2d::Size visibleSize;
-	cocos2d::Vec2 origin;
-	Sprite * Tile[1000];
-	int numberkey = 0;
-	
+	cocos2d::Vector<cocos2d::SpriteFrame*> stand;
+	cocos2d::SEL_SCHEDULE Schedule_reverse;
 	
 };
 
-#endif // __GAMEMAP_H__
+#endif // __PLAYER_H__

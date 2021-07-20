@@ -370,7 +370,7 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			background_off->setVisible(false);
 			for (int i = 0; i < AllMinions.size(); i++)
 			{
-				if (AllMinions.at(i)->boolFind == true && AllMinions.at(i))
+				if (AllMinions.at(i)->boolFind == true && AllMinions.at(i)&& AllMinions.at(i)->Booldie==false)
 				{
 					AllMinions.at(i)->lighton(1);
 				}

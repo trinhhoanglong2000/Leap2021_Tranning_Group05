@@ -36,6 +36,7 @@
 #include "TrapPlant.h"
 #include "Trap.h"
 #include "Door.h"
+#include "Son.h"
 
 class GameScene : public cocos2d::Scene
 {
@@ -56,6 +57,10 @@ public:
 	void GotoAgain(float dt);
 	void SaveInGame(cocos2d::Node *item);
 	void checkdie();
+	void meet();
+	void actionmeet(float dt);
+	void endmeet(float dt);
+	void movemeet(float dt);
 	//GameScene *Scene_layer;
 	CREATE_FUNC(GameScene);
 private:
@@ -68,6 +73,7 @@ private:
 	Door *door;
 
 	Player *player;
+	Son *son;
 	Minions *minion;
 	GameMap *gameMap;
 
@@ -94,6 +100,7 @@ private:
 	cocos2d::SEL_SCHEDULE Schedule_lighting;
 	cocos2d::SEL_SCHEDULE Schedule_shake;
 
+	cocos2d::Vec2 playerNow;
 	bool continueGame;
 
 };

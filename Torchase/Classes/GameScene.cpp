@@ -37,6 +37,7 @@
 #include "Iteam.h"
 #include "GameOver.h"
 #include "IteamBox.h"
+#include "Son.h"
 USING_NS_CC;
 
 int Level_of_difficult;
@@ -46,9 +47,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -133,7 +134,10 @@ bool GameScene::init()
 	{
 		GameScene::GotoAgain(1);
 	}
-
+	else
+	{
+		GameScene::meet();
+	}
 	return true;
 }
 
@@ -400,6 +404,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			auto minion = dynamic_cast<Minions*>(a->getOwner());
 			minion->hit = true;
+			if(minion->Booldie == true)
+				return true;
 			if (!player->die && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				//auto minion = dynamic_cast<Minions*>(a->getOwner());
@@ -435,6 +441,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			auto minion = dynamic_cast<Minions*>(b->getOwner());
 			minion->hit = true;
+			if (minion->Booldie == true)
+				return true;
 			if (!player->die && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				//auto minion = dynamic_cast<Minions*>(b->getOwner());
@@ -814,11 +822,46 @@ void GameScene::GotoAgain(float dt)
 	door->numberkey = NumberKey;
 	//Game Map
 	gameMap->GoAgain();
-	/*door = new Door();
-	door->setmeta(gameMap->_tileMap->getLayer("door"), gameMap->_tileMap, NumberKey);
-	this->addChild(door, 25);*/
 	//canvas
 	canvas->Goagain(light);
+}
+void GameScene::meet()
+{
+	playerNow = player->getPosition();
+	player->setPosition(gameMap->PlayerMeet);
+	son = new Son();
+	son->setPosition(gameMap->SonMeet);
+	this->addChild(son, 50);
 
-	//def->flush();
+	player->checkMove = false;
+	player->background->setVisible(false);
+	player->background->getPhysicsBody()->setEnabled(false);
+	player->getPhysicsBody()->setEnabled(false);
+	canvas->endlight = false;
+
+	player->setTextureRect(Rect(360, 359, 80, 95));
+	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::actionmeet), 2.0f,0,0);
+}
+void GameScene::actionmeet(float dt)
+{
+	son->MoveUp();
+	this->schedule(CC_SCHEDULE_SELECTOR(GameScene::movemeet), 1.0f, 0, 0);
+}
+void GameScene::movemeet(float dt)
+{
+	auto move = MoveTo::create(1.0f, playerNow);
+	//player->runAction(move);
+
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+		player->checkMove = true;
+		player->background->setVisible(true);
+		player->background->getPhysicsBody()->setEnabled(true);
+		player->getPhysicsBody()->setEnabled(true);
+		canvas->endlight = true;
+		player->setTextureRect(Rect(360, 1, 80, 95));
+		this->removeChild(son);
+	});
+	auto sequence = Sequence::create(move, callback, nullptr);
+	player->runAction(sequence);
 }
