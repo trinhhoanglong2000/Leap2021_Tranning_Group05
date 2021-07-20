@@ -35,9 +35,6 @@ class Son : public Actor
 public:
 	Son();
 	void MoveUp();
-	void MoveDow();
-	void MoveLeft();
-	void MoveRight();
 private:
 	cocos2d::Vector<cocos2d::SpriteFrame*> stand;
 	cocos2d::SEL_SCHEDULE Schedule_reverse;

@@ -53,6 +53,7 @@ public:
 	TMXLayer *_meta;
 	TMXTiledMap *_tileMap;
 	Door *door;
+	cocos2d::Vec2 PlayerMeet,SonMeet;
 private:
 	cocos2d::Scene *sceneMap;
 	cocos2d::Size visibleSize;

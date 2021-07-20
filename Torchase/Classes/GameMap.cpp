@@ -159,12 +159,6 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			int y = objTrap.asValueMap()["y"].asInt();
 			int type = objTrap.asValueMap()["type"].asInt();
 			Trap* trap = TrapManager::getInstance()->CreateTrap(type);
-			/*if (type == 0) {
-				trap = new Trapthorn();
-			}
-			else if (type == 1) {
-				trap = new TrapPlant();
-			}*/
 			trap->setPosition(Vec2(x, y)*MAP_SCALE);
 			if (type == 3)
 			{
@@ -178,6 +172,29 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
 			}
 
 			scene->addChild(trap, 20);
+		}
+	}
+	// meet
+	TMXObjectGroup *objectGroupMeet = _tileMap->getObjectGroup("meet");
+	if (objectGroupMeet == NULL) {
+
+	}
+	else
+	{
+		auto spawnPointMeet = objectGroupMeet->getObjects();
+		for (Value objMeet : spawnPointMeet)
+		{
+			int x = objMeet.asValueMap()["x"].asInt();
+			int y = objMeet.asValueMap()["y"].asInt();
+			int type = objMeet.asValueMap()["type"].asInt();
+			if (type == 0)
+			{
+				PlayerMeet = Vec2(x, y)*MAP_SCALE;
+			}
+			if (type == 1)
+			{
+				SonMeet = Vec2(x, y)*MAP_SCALE;
+			}
 		}
 	}
 }

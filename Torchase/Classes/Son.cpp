@@ -30,6 +30,7 @@
 USING_NS_CC;
 Son::Son() : Actor("prefap/Player/george.png", Rect(0, 0, 48, 48))
 {
+	this->setScale(1.5f);
 	traveltime = ACTOR_SPEED;
 	auto PlayerBody = PhysicsBody::createBox(Size(this->getContentSize().width/2,this->getContentSize().height));
 	PlayerBody->setCollisionBitmask(PLAYER_COLISION_BITMASK);
@@ -46,103 +47,15 @@ Son::Son() : Actor("prefap/Player/george.png", Rect(0, 0, 48, 48))
 	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(0, 48, 48, 48)));
 	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(0, 96, 48, 48)));
 	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(0, 144, 48, 48)));
-	stand.pushBack(animFrames.at(0));
+	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(0, 0, 0, 0)));
 	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 	
 	Animate* animate = Animate::create(animation);
-	Animates.pushBack(animate);
-	//Look down
-	animFrames.clear();
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(96, 0, 48, 48)));
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(96, 48, 48, 48)));
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(96, 96, 48, 48)));
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(96, 144, 48, 48)));
-	stand.pushBack(animFrames.at(0));
-	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-	animate = Animate::create(animation);
-	Animates.pushBack(animate);
-	//Left
-	animFrames.clear();
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(48, 0, 48, 48)));
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(48, 48, 48, 48)));
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(48, 96, 48, 48)));
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(48, 144, 48, 48)));
-	stand.pushBack(animFrames.at(0));
-	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-	animate = Animate::create(animation);
-	Animates.pushBack(animate);
-
-	//right
-	animFrames.clear();
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(144, 0, 48, 48)));
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(144, 48, 48, 48)));
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(144, 96, 48, 48)));
-	animFrames.pushBack(SpriteFrame::create("prefap/Player/george.png", Rect(144, 144, 48, 48)));
-	stand.pushBack(animFrames.at(0));
-	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-	animate = Animate::create(animation);
 	Animates.pushBack(animate);
 
 }
 void Son::MoveUp()
 {
+	this->runAction(Animates.at(0));
 
-	auto moveAction = Actor::MoveUp();
-	auto animationAction = RepeatForever::create(Animates.at(0));
-	auto callback = CallFunc::create([&]() {
-		this->stopAllActions();
-		this->setSpriteFrame(stand.at(0));	
-	
-	});
-	auto sequence = Sequence::create(moveAction, callback,nullptr);
-	this->runAction(animationAction);
-	this->runAction(sequence);
-
-	SoundManager::getInstance()->PlayMusics(playerMove_sound, false, 0.3f);
-}
-void Son::MoveDow()
-{
-
-	auto moveAction = Actor::MoveDow();	
-	auto animationAction = RepeatForever::create(Animates.at(1));
-	auto callback = CallFunc::create([&]() {
-		this->stopAllActions();
-		this->setSpriteFrame(stand.at(1));
-
-	});
-	auto sequence = Sequence::create(moveAction, callback, nullptr);
-	this->runAction(animationAction);
-	this->runAction(sequence);
-
-	SoundManager::getInstance()->PlayMusics(playerMove_sound, false, 0.3f);
-}
-void Son::MoveLeft()
-{
-	auto moveAction = Actor::MoveLeft();
-	auto animationAction = RepeatForever::create(Animates.at(2));
-	auto callback = CallFunc::create([&]() {
-		this->stopAllActions();
-		this->setSpriteFrame(stand.at(2));
-	});
-	auto sequence = Sequence::create(moveAction, callback, nullptr);
-	this->runAction(animationAction);
-	this->runAction(sequence);
-
-	SoundManager::getInstance()->PlayMusics(playerMove_sound, false, 0.3f);
-}
-void Son::MoveRight()
-{
-	auto moveAction = Actor::MoveRight();
-	auto animationAction = RepeatForever::create(Animates.at(3));
-	auto callback = CallFunc::create([&]() {
-		this->stopAllActions();
-		this->setSpriteFrame(stand.at(3));
-	});
-	auto sequence = Sequence::create(moveAction, callback, nullptr);
-	this->runAction(animationAction);
-	this->runAction(sequence);
-	SoundManager::getInstance()->PlayMusics(playerMove_sound,false,0.3f);
 }
