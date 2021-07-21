@@ -144,6 +144,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	this->addChild(LableTalk, 100);
 
 	//First talk - instruction
+	talkbox.push_back("Dad:\nAlright, Where are we now???");
 	talkbox.push_back("Son:\nDad, he wants to take me away.");
 	talkbox.push_back("Dad:\nWh..Hold on, what did you say? Who??..");
 	talkbox.push_back("Son:\nI don't know. Hurry Dad, I'm so scared....");
