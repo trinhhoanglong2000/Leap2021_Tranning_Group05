@@ -42,15 +42,18 @@
 USING_NS_CC;
 
 
-GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene)
+GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, int levelGame)
 {
+	level = levelGame;
 	sceneMap = scene;
 	_player = playerScene;
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	nameMap = StringUtils::format("Maptest/Mapver%d.tmx", level);
+
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("Maptest/Mapver2.tmx");
+	_tileMap->initWithTMXFile(nameMap);
 
 	_tileMap->setScale(MAP_SCALE);
 	_tileMap->setTag(100);
@@ -210,7 +213,7 @@ void GameMap::GoAgain()
 {
 	sceneMap->removeChild(_tileMap);
 	_tileMap = new TMXTiledMap();
-	_tileMap->initWithTMXFile("Maptest/Mapver2.tmx");
+	_tileMap->initWithTMXFile(nameMap);
 
 	_tileMap->setScale(MAP_SCALE);
 	_tileMap->setTag(100);

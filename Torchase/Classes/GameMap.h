@@ -45,7 +45,7 @@ private:
 	Player *_player;
 	
 public:
-	GameMap(cocos2d::Scene *scene, Player *playerScene);
+	GameMap(cocos2d::Scene *scene, Player *playerScene,int levelGame);
 	cocos2d::Size returnSizeMap();
 	cocos2d::Size returnSizetile();
 	cocos2d::Vector<Trap*> AllTrap;
@@ -54,13 +54,14 @@ public:
 	TMXTiledMap *_tileMap;
 	Door *door;
 	cocos2d::Vec2 PlayerMeet,SonMeet;
+	int level;
 private:
 	cocos2d::Scene *sceneMap;
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
 	Sprite * Tile[1000];
 	int numberkey = 0;
-	
+	std::string nameMap;
 	
 };
 

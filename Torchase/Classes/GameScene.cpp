@@ -89,7 +89,16 @@ bool GameScene::init()
 	
 	this->runAction(Follow::create(player)); // add action camera follow player	
 
-	gameMap = new GameMap(this,player); // add gamemap
+	if (continueGame == true)
+	{
+		level = def->getIntegerForKey("INGAME_Level", 1);
+	}
+	else
+	{
+		def->setIntegerForKey("INGAME_Level", 1);
+		level = 1;
+	}
+	gameMap = new GameMap(this,player, level); // add gamemap
 	door = gameMap->door;
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
@@ -121,15 +130,12 @@ bool GameScene::init()
 
 	if (continueGame == true)
 	{
-		level = def->getIntegerForKey("INGAME_Level", 1);
 		canvas->num_talk = def->getIntegerForKey("INGAME_NumTalk", 0);
 	}
 	else
 	{
-		def->setIntegerForKey("INGAME_Level", 1);
 		def->setIntegerForKey("INGAME_NumTalk", 0);
 		canvas->num_talk = 0;
-		level = 1;
 	}
 
 	auto contactListener = EventListenerPhysicsContact::create();
