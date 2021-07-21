@@ -76,7 +76,7 @@ public:
 	Son *son;
 	cocos2d::Vec2 playerNow;
 	int level;
-	int num_talk;
+	int num_talk = -1;
 private:
 	Player *player;	
 	cocos2d::Size visibleSize;
