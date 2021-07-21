@@ -205,6 +205,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 				if (item->type == 4)
 				{
+					
 					item->setVisible(false);
 					this->removeChild(item);
 					GameScene::SaveInGame(item);

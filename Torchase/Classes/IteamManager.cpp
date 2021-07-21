@@ -103,18 +103,18 @@ Iteam *IteamManager::CreateIteam(int Type)
 	}
 	case 4:
 	{
-		auto wallcrake = new WallCrake();
-		wallcrake->setVisible(false);
-		AllIteam.pushBack(wallcrake);
-		return wallcrake;
+		auto iteamSaveGame = new IteamSaveGame();
+		iteamSaveGame->setVisible(true);
+		AllIteam.pushBack(iteamSaveGame);
+		return iteamSaveGame;
 		break;
 	}
 	case 5:
 	{
-		auto iteamSaveGame = new IteamSaveGame();
-		iteamSaveGame->setVisible(false);
-		AllIteam.pushBack(iteamSaveGame);
-		return iteamSaveGame;
+		auto wallcrake = new WallCrake();
+		wallcrake->setVisible(true);
+		AllIteam.pushBack(wallcrake);
+		return wallcrake;
 		break;
 	}
 	default:
