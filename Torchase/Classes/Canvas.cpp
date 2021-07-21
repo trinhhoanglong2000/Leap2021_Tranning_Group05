@@ -156,13 +156,21 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	mind_move = 1;
 	BoolTouch = false;
 	
-	LableTalk = Label::createWithTTF("I need to get through this room and find my son quickly", "fonts/Balsoon.ttf", visibleSize.height / 15);
+	LableTalk = Label::createWithTTF("Dad:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
 	LableTalk->setPosition(Point(-(talkboxBachgr->getContentSize().width)-(ButtonDow->getContentSize().width/2), -ButtonDow->getContentSize().height / 4));
 	LableTalk->setAnchorPoint(Vec2(0, 1));
 	this->addChild(LableTalk, 100);
 
 	num_talk = 0;
 	//First talk - instruction
+	talkbox.push_back("Son:\nDad, he wants to take me away.");
+	talkbox.push_back("Dad:\nWh..Hold on, what did you say? Who??..");
+	talkbox.push_back("Son:\nI don't know. Hurry Dad, I'm so scared....");
+	talkbox.push_back("Dad:\nIt's okay son, let me...");
+	talkbox.push_back("What?!?! What just happend!");
+	talkbox.push_back("Where is my son? OMG!!!");
+	talkbox.push_back("...");
+	talkbox.push_back("I need to get through this place and find my son quickly");
 	talkbox.push_back("Hope it's not too late");
 	talkbox.push_back("Wait!!!...");
 	talkbox.push_back("There's something written right here");
@@ -434,16 +442,21 @@ void Canvas::AutoMove(float dt)
 }
 bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
-	if (talk)
+	if (talk && !waittalk)
 	{
 		LableTalk->setString(talkbox.at(num_talk));
+		if (talkbox.at(num_talk) == "Dad:\nIt's okay son, let me...")
+		{ 
+			waittalk = true;
+			this->schedule(CC_SCHEDULE_SELECTOR(Canvas::actionmeet), 1.0f, 0, 0);
+		}
 		if (talkbox.at(num_talk) == "Good luck!!!")
 		{
 			talk = false;
 		}
 		num_talk++;
 	}
-	else
+	else if (!talk && !waittalk)
 	{
 
 		Canvas::OnButtonController();
@@ -599,15 +612,14 @@ void Canvas::Goagain(bool light)
 }
 void Canvas::meet()
 {
+	//player->checkMove = false;
+	//player->background->setVisible(false);
+	//player->background->getPhysicsBody()->setEnabled(false);
+	//player->getPhysicsBody()->setEnabled(false);
+	endlight = true;
 
-	player->checkMove = false;
-	player->background->setVisible(false);
-	player->background->getPhysicsBody()->setEnabled(false);
-	player->getPhysicsBody()->setEnabled(false);
-	endlight = false;
-
-	player->setTextureRect(Rect(360, 359, 80, 95));
-	this->schedule(CC_SCHEDULE_SELECTOR(Canvas::actionmeet), 2.0f, 0, 0);
+	//player->setTextureRect(Rect(360, 359, 80, 95));
+	//this->schedule(CC_SCHEDULE_SELECTOR(Canvas::actionmeet), 2.0f, 0, 0);
 }
 void Canvas::actionmeet(float dt)
 {
@@ -629,6 +641,7 @@ void Canvas::movemeet(float dt)
 	});
 	auto sequence = Sequence::create(move, callback, nullptr);
 	player->runAction(sequence);
+	waittalk = false;
 }
 void Canvas::OnButtonController()
 {

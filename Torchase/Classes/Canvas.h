@@ -83,6 +83,7 @@ private:
 	bool BoolTouch;
 	bool touchpause = false;
 	bool talk = true;
+	bool waittalk = false;
 	int controller_canvas;
 	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight,
 						*ButtonPause, *ButtonResume, *ButtonHome, *ButtonLight, *ButtonTrap, *ButtonConvert;
