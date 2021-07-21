@@ -38,6 +38,7 @@
 #include "GameOver.h"
 #include "IteamBox.h"
 #include "Son.h"
+#include "WallCrake.h"
 USING_NS_CC;
 
 int Level_of_difficult;
@@ -178,10 +179,10 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		//Get item
 		if (a->getCategoryBitmask() == ITEM_CATEGORY_BITMASK)
 		{
+			auto item = dynamic_cast<Iteam*>(a->getOwner());
+			item->hit = true;
 			if(b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				auto item = dynamic_cast<Iteam*>(a->getOwner());
-				item->hit = true;
 				if (item->type == 1)
 				{
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
@@ -207,15 +208,32 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					item->setVisible(false);
 					this->removeChild(item);
 					GameScene::SaveInGame(item);
+				}
+				if (item->type == 5)
+				{
+					item->setLocalZOrder(30);
+					auto wallcrake = dynamic_cast<WallCrake*>(item);
+					if (wallcrake->check == false)
+					{
+						player->removeAction();
+					}
+				}
+			}
+			if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+			{
+				auto wallcrake = dynamic_cast<WallCrake*>(item);
+				if (wallcrake->check == false)
+				{
+					wallcrake->HitMinion();
 				}
 			}
 		}
 		else if (b->getCategoryBitmask() == ITEM_CATEGORY_BITMASK)
 		{
+			auto item = dynamic_cast<Iteam*>(b->getOwner());
+			item->hit = true;
 			if(a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				auto item = dynamic_cast<Iteam*>(b->getOwner());
-				item->hit = true;
 				if (item->type == 1)
 				{
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
@@ -241,6 +259,23 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					item->setVisible(false);
 					this->removeChild(item);
 					GameScene::SaveInGame(item);
+				}
+				if (item->type == 5)
+				{
+					item->setLocalZOrder(30);
+					auto wallcrake = dynamic_cast<WallCrake*>(item);
+					if (wallcrake->check == false)
+					{
+						player->removeAction();
+					}
+				}
+			}
+			if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+			{
+				auto wallcrake = dynamic_cast<WallCrake*>(item);
+				if (wallcrake->check == false)
+				{
+					wallcrake->HitMinion();
 				}
 			}
 		}

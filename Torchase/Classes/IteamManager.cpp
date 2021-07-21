@@ -29,6 +29,7 @@
 #include "Iteam.h"
 #include "IteamBox.h"
 #include "IteamSaveGame.h"
+#include "WallCrake.h"
 
 USING_NS_CC;
 
@@ -52,12 +53,14 @@ void IteamManager::CreateAllIteam()
 		auto iteamSaveGame = new IteamSaveGame();
 		iteamSaveGame->setVisible(false);
 
+		auto wallcrake = new WallCrake();
+		wallcrake->setVisible(false);
 
 		AllIteam.pushBack(battery);
 		AllIteam.pushBack(key);
 		AllIteam.pushBack(iteamBox);
 		AllIteam.pushBack(iteamSaveGame);
-
+		AllIteam.pushBack(wallcrake);
 	}
 }
 Iteam *IteamManager::CreateIteam(int Type)
@@ -100,7 +103,14 @@ Iteam *IteamManager::CreateIteam(int Type)
 	}
 	case 4:
 	{
-
+		auto wallcrake = new WallCrake();
+		wallcrake->setVisible(false);
+		AllIteam.pushBack(wallcrake);
+		return wallcrake;
+		break;
+	}
+	case 5:
+	{
 		auto iteamSaveGame = new IteamSaveGame();
 		iteamSaveGame->setVisible(false);
 		AllIteam.pushBack(iteamSaveGame);

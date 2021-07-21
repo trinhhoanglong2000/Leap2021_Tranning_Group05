@@ -22,60 +22,43 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "IteamBox.h"
+#include "WallCrake.h"
 #include "Definitions.h"
 
 USING_NS_CC;
 
-IteamBox::IteamBox() :Iteam("prefap/Iteam/RandomBox.png", Rect(256, 0, 32, 32)) {
+WallCrake::WallCrake() :Iteam("prefap/Iteam/Wall1.png", Rect(0, 0, 128, 104)) {
 	name = "prefap/Iteam/RandomBox.png";
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-	type = 3;
-	this->setScale(3.5f);
-	IteamBox::setAnimation();
+	type = 5;
+	//this->setScale(3.5f);
+	WallCrake::setAnimation();
 }
-void IteamBox::setAnimation()
+void WallCrake::setAnimation()
 {
 	Vector<SpriteFrame*>  animFrames;
-	animFrames.pushBack(SpriteFrame::create(name, Rect(0, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(0, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(0, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(0, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(32, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(64, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(96, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(128, 0, 32, 32)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Iteam/Wall1.png", Rect(0, 0, 128, 104)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Iteam/Wall2.png", Rect(0, 0, 128, 104)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Iteam/Wall3.png", Rect(0, 0, 128, 129)));
 	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
 	Animate* animate = Animate::create(animation);
 	_Animation.pushBack(animate);
 
-	animFrames.clear();
-	animFrames.pushBack(SpriteFrame::create(name, Rect(256, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(288, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(320, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(352, 0, 32, 32)));
-	animFrames.pushBack(SpriteFrame::create(name, Rect(384, 0, 32, 32)));
-	animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
-	animate = Animate::create(animation);
-	_Animation.pushBack(animate);
-
-	auto animationAction = RepeatForever::create(_Animation.at(0));
-	this->runAction(animationAction);
-	
 }
-void IteamBox::HitPlater()
+void WallCrake::HitMinion()
 {
 	check = true;
 	this->stopAllActions();
 	auto callback = CallFunc::create([&]() {
+		check = false;
 		this->stopAllActions();
 		this->removeFromParent();
 		this->setVisible(false);
-		check = false;
-		this->setTexture(name);
-		this->setTextureRect(Rect(256, 0, 32, 32));
+		this->setLocalZOrder(20);
+		this->setTexture("prefap/Iteam/Wall1.png");
+		this->setTextureRect(Rect(0, 0, 128, 104));
 	});
-	auto sequence = Sequence::create(_Animation.at(1), callback, nullptr);
+	auto sequence = Sequence::create(_Animation.at(0), callback, nullptr);
 	this->runAction(sequence);
 }
