@@ -37,7 +37,7 @@ class Canvas : public cocos2d::ui::Layout
 {
 	
 public:
-	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller, cocos2d::Scene *sceneGame, int &_gameState);
+	Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller, cocos2d::Scene *sceneGame, int &_gameState, int levelGame);
 	
 	bool TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event);
 	bool TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event);
@@ -63,6 +63,8 @@ public:
 	void actionmeet(float dt);
 	void movemeet(float dt);
 	void OnButtonController();
+	void ontalk();
+	void offtalk();
 	cocos2d::Vector<Minions*> AllMinions;
 	cocos2d::Vector<Trap*> AllTrap;
 	cocos2d::DrawNode* background_off;
@@ -73,6 +75,8 @@ public:
 	int maxmap;
 	Son *son;
 	cocos2d::Vec2 playerNow;
+	int level;
+	int num_talk;
 private:
 	Player *player;	
 	cocos2d::Size visibleSize;
@@ -94,8 +98,8 @@ private:
 	cocos2d::Menu *pauseMenu;
 	cocos2d::Sprite *pauseBackgr, *talkboxBachgr;
 	cocos2d::Label *LableTalk;
-
-	int num_talk;
+	cocos2d::UserDefault *def;
+	
 	std::vector<std::string> talkbox;
 };
 

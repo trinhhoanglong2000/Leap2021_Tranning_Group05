@@ -112,11 +112,25 @@ bool GameScene::init()
 	this->addChild(background_off, 25);
 	background_off->setVisible(false);
 
-	canvas = new Canvas(player, background_off, controller, this, gameState);
+	
+	canvas = new Canvas(player, background_off, controller, this, gameState, level);
 	canvas->setPosition(Vec2(0, 0));
 	player->addChild(canvas, 50);
 	canvas->_meta = gameMap->_meta;
 	canvas->maxmap = (int)(gameMap->_tileMap->getMapSize().height);
+
+	if (continueGame == true)
+	{
+		level = def->getIntegerForKey("INGAME_Level", 1);
+		canvas->num_talk = def->getIntegerForKey("INGAME_NumTalk", 0);
+	}
+	else
+	{
+		def->setIntegerForKey("INGAME_Level", 1);
+		def->setIntegerForKey("INGAME_NumTalk", 0);
+		canvas->num_talk = 0;
+		level = 1;
+	}
 
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
@@ -130,11 +144,12 @@ bool GameScene::init()
 	effect->setPosition(player->getPosition());
 	//effect->setScale(1.5f);
 	this->addChild(effect, 200);
-	if (continueGame == true)
+	if (continueGame == true )
 	{
 		GameScene::GotoAgain(1);
+		canvas->offtalk();
 	}
-	else
+	else 
 	{
 		GameScene::meet();
 	}
@@ -619,12 +634,14 @@ void GameScene::setcheckLighting(float dt)
 }
 void  GameScene::GoToGameOver(float dt)
 {
+	def->setIntegerForKey("INGAME_Level", level);
 	SoundManager::getInstance()->stopMusic(softbackground_sound);
 	auto scene = GameOver::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void GameScene::SaveInGame(cocos2d::Node *item)
 {
+	canvas->ontalk();
 	//Game
 	def->setBoolForKey("INGAME_CONTINUE", true);
 	def->setIntegerForKey("INGAME_CONTINUE_LEVEL", Level_of_difficult);
@@ -838,5 +855,6 @@ void GameScene::meet()
 	player->background->getPhysicsBody()->setEnabled(false);
 	player->getPhysicsBody()->setEnabled(false);
 	player->setTextureRect(Rect(360, 359, 80, 95));
+	canvas->ontalk();
 	//canvas->meet();
 }

@@ -287,7 +287,7 @@ void Player::setActionDie(float dt)
 	this->runAction(DeadAnimation);
 	if (NumHeal == 0)
 	{
-		def->setBoolForKey("INGAME_CONTINUE", false);
+		//def->setBoolForKey("INGAME_CONTINUE", false);
 		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE);
 	}
 	else

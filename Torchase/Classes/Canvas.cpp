@@ -34,10 +34,12 @@
 USING_NS_CC;
 using namespace cocos2d::ui;//ui namespace
 
-Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller_Scene, cocos2d::Scene *sceneGame, int &_gameState)
+Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller_Scene, cocos2d::Scene *sceneGame, int &_gameState, int levelGame)
 {
+	def = UserDefault::getInstance();
 	scene = sceneGame;
 	this->gameState = &_gameState;
+	level = levelGame;
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	player = playerScene;
@@ -56,15 +58,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonPause = ui::Button::create("prefap/Gui/pausebtn.png");
 	ButtonResume = ui::Button::create("prefap/Gui/right.png");
 	ButtonHome = ui::Button::create("prefap/Gui/homebtn.png");
-
-	ButtonResume->setVisible(false);
-	ButtonHome->setVisible(false);
-	ButtonUp->setVisible(false);
-	ButtonDow->setVisible(false);
-	ButtonLeft->setVisible(false);
-	ButtonRight->setVisible(false);
-	ButtonLight->setVisible(false);
-	ButtonTrap->setVisible(false);
+	
 
 	pauseBackgr = Sprite::create("SplatterGray.png");
 	pauseBackgr->setScale(0.15f);
@@ -129,16 +123,6 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	this->addChild(ButtonTrap);
 	this->addChild(ButtonHome);
 	
-
-
-	if (controller_Scene == 1)
-	{
-		ButtonUp->setVisible(false);
-		ButtonDow->setVisible(false);
-		ButtonRight->setVisible(false);
-		ButtonLeft->setVisible(false);
-	}
-
 	// add slider enegy
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
@@ -149,19 +133,16 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	enegy->setPercent(enegy->getMaxPercent());
 	enegy->setScale(1.5f);
 	this->addChild(enegy);
-	Schedule_ReduceEnegy = CC_SCHEDULE_SELECTOR(Canvas::reduceenergy);
-
-	this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
+	
 	int_move = 0;
 	mind_move = 1;
 	BoolTouch = false;
 	
 	LableTalk = Label::createWithTTF("Dad:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
-	LableTalk->setPosition(Point(-(talkboxBachgr->getContentSize().width)-(ButtonDow->getContentSize().width/2), -ButtonDow->getContentSize().height / 4));
+	LableTalk->setPosition(Point(-(talkboxBachgr->getContentSize().width)-(ButtonDow->getContentSize().width/2), -ButtonDow->getContentSize().height / 3));
 	LableTalk->setAnchorPoint(Vec2(0, 1));
 	this->addChild(LableTalk, 100);
 
-	num_talk = 0;
 	//First talk - instruction
 	talkbox.push_back("Son:\nDad, he wants to take me away.");
 	talkbox.push_back("Dad:\nWh..Hold on, what did you say? Who??..");
@@ -179,6 +160,8 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	talkbox.push_back("But they're just stupid Walking Dead. So use your wisdom and destroy them \nwith deadly traps.\"");
 	talkbox.push_back("It sounds terrible, but we don't have time and we're running out of battery.\nLet's go and find some along the way.");
 	talkbox.push_back("Good luck!!!");
+	talkbox.push_back("This book will guide you and bring you back here every time you die. \nBut don't die too much, your life is limited.");
+	talkbox.push_back("Good luck!!!");
 	
 	// add touch move
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -187,7 +170,15 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	touchListener->onTouchEnded = CC_CALLBACK_2(Canvas::TouchMoveEnd, this);
 	touchListener->onTouchMoved = CC_CALLBACK_2(Canvas::TouchMoveMove, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-	
+	Schedule_ReduceEnegy = CC_SCHEDULE_SELECTOR(Canvas::reduceenergy);
+	if (controller_Scene == 1)
+	{
+		ButtonUp->setVisible(false);
+		ButtonDow->setVisible(false);
+		ButtonRight->setVisible(false);
+		ButtonLeft->setVisible(false);
+	}
+
 }
 void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
@@ -458,11 +449,9 @@ bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	}
 	else if (!talk && !waittalk)
 	{
-
-		Canvas::OnButtonController();
-
-		talkboxBachgr->setVisible(false);
-		LableTalk->setVisible(false);
+		//num_talk++;
+		def->setIntegerForKey("INGAME_NumTalk", num_talk);
+		Canvas::offtalk();
 	}
 	if (controller_canvas == 0)
 		return true;
@@ -617,7 +606,6 @@ void Canvas::meet()
 	//player->background->getPhysicsBody()->setEnabled(false);
 	//player->getPhysicsBody()->setEnabled(false);
 	endlight = true;
-
 	//player->setTextureRect(Rect(360, 359, 80, 95));
 	//this->schedule(CC_SCHEDULE_SELECTOR(Canvas::actionmeet), 2.0f, 0, 0);
 }
@@ -645,6 +633,7 @@ void Canvas::movemeet(float dt)
 }
 void Canvas::OnButtonController()
 {
+	Director::getInstance()->resume();
 	if (controller_canvas != 1)
 	{
 		ButtonUp->setVisible(true);
@@ -654,4 +643,35 @@ void Canvas::OnButtonController()
 	}
 	ButtonLight->setVisible(true);
 	ButtonTrap->setVisible(true);
+}
+void Canvas::ontalk()
+{
+	ButtonResume->setVisible(false);
+	ButtonHome->setVisible(false);
+	ButtonUp->setVisible(false);
+	ButtonDow->setVisible(false);
+	ButtonLeft->setVisible(false);
+	ButtonRight->setVisible(false);
+	ButtonLight->setVisible(false);
+	ButtonTrap->setVisible(false);
+	waittalk = false;
+	talk = true;
+
+	talkboxBachgr->setVisible(true);
+	LableTalk->setVisible(true);
+	LableTalk->setString(talkbox.at(num_talk));
+	num_talk++;
+	this->unschedule(Schedule_ReduceEnegy);
+}
+void Canvas::offtalk()
+{
+	Canvas::OnButtonController();
+
+	talkboxBachgr->setVisible(false);
+	LableTalk->setVisible(false);
+
+	waittalk = true;
+	talkboxBachgr->setVisible(false);
+	LableTalk->setVisible(false);
+	this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
 }

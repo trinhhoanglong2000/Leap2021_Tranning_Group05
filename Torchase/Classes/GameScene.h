@@ -62,7 +62,7 @@ public:
 	CREATE_FUNC(GameScene);
 private:
 	UserDefault *def;
-	int level = 0;
+	int level;
 	void SetPhysicWorld(cocos2d::PhysicsWorld *world) { sceneWorld = world; };
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	cocos2d::Size visibleSize;
@@ -90,6 +90,7 @@ private:
 	int SET_LIGHTING_DURATION = 3;
 	int SET_LIGHTINGBG_DURATION = 5;
 
+	
 	int gameState;
 
 	cocos2d::Sprite *effect;
