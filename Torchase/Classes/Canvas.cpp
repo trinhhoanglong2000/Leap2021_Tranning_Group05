@@ -666,6 +666,9 @@ void Canvas::ontalk()
 }
 void Canvas::offtalk()
 {
+	ButtonPause->setVisible(true);
+	ButtonResume->setVisible(false);
+	ButtonHome->setVisible(false);
 	Canvas::OnButtonController();
 
 	talkboxBachgr->setVisible(false);

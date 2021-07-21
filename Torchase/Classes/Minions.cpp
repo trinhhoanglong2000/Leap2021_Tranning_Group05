@@ -50,7 +50,7 @@ Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 	hit = false;
 	traveltime = MININON_SPEED;
 
-	auto EnemyBody = PhysicsBody::createBox(this->getContentSize()/2);
+	auto EnemyBody = PhysicsBody::createBox(this->getContentSize()/1.5);
 	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
 	EnemyBody->setCategoryBitmask(ENEMY_CATEGORY_BITMASK);
 	EnemyBody->setContactTestBitmask(ENEMY_COLISION_BITMASK);

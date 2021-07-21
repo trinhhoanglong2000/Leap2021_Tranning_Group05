@@ -155,7 +155,7 @@ void Spider::setAnimation()
 	animFrames.clear();
 	goUp = true;
 
-
+	
 	// die
 	std::string minionnamedie = "prefap/Minions/spiderDie.png";
 	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 100, 100)));

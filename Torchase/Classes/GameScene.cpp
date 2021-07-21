@@ -47,7 +47,7 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
@@ -426,6 +426,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				//auto minion = dynamic_cast<Minions*>(a->getOwner());
 				if (minion->Booldie == false)
 				{
+					minion->unscheduleAllCallbacks();
 					player->Playerdie();
 					GameScene::checkdie();
 				}
@@ -463,6 +464,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				//auto minion = dynamic_cast<Minions*>(b->getOwner());
 				if (minion->Booldie == false)
 				{
+					minion->unscheduleAllCallbacks();
 					player->Playerdie();
 					GameScene::checkdie();
 				}
