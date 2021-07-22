@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="120">
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="119">
+
  <tileset firstgid="1" source="GamemapObject.tsx"/>
  <tileset firstgid="321" source="meta_tiles.tsx"/>
  <layer id="1" name="Floor" width="50" height="50">
@@ -46,10 +47,11 @@
  <objectgroup id="7" name="Iteam">
   <object id="32" name="battery_1" type="1" x="464" y="1424"/>
   <object id="65" name="key" type="2" x="848" y="912"/>
-  <object id="78" name="saveGame" type="4" x="400" y="1328"/>
-  <object id="79" name="saveGame" type="4" x="656" y="912"/>
-  <object id="80" name="saveGame" type="4" x="1008" y="1456"/>
-  <object id="81" name="saveGame" type="4" x="176" y="1168"/>
+  <object id="80" name="saveGame_0" type="4" x="1008" y="1456"/>
+  <object id="78" name="saveGame_1" type="4" x="400" y="1328"/>
+  <object id="81" name="saveGame_2" type="4" x="176" y="1168"/>
+  <object id="79" name="saveGame_3" type="4" x="656" y="912"/>
+  <object id="118" name="battery_2" type="1" x="176" y="1200"/>
  </objectgroup>
  <objectgroup id="13" name="meet">
   <object id="102" name="player" type="0" x="1072" y="912"/>
