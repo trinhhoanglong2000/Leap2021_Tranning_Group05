@@ -151,7 +151,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	this->addChild(LableTalkContent, 100);
 
 	//First talk - instruction
-	std::string file = "story/level_1.txt";
+	std::string file = StringUtils::format("story/level_%d.txt", level);
 	auto s = FileUtils::getInstance()->getStringFromFile(file);
 	int count = s.find("\n");
 	while(count!=-1)

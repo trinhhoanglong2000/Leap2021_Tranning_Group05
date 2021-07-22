@@ -91,6 +91,7 @@ private:
 	int SET_LIGHTINGBG_DURATION = 5;
 
 	bool finish;
+	bool again;
 	int gameState;
 
 	cocos2d::Sprite *effect;

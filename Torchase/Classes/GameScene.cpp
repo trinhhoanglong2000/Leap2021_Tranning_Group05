@@ -71,8 +71,13 @@ bool GameScene::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
 	continueGame = false;
+	again = false;
 	def = UserDefault::getInstance();
-	if (Level_of_difficult == 3)
+	if (Level_of_difficult == 4)
+	{
+		again = true;
+	}
+	if (Level_of_difficult >= 3)
 	{
 		Level_of_difficult = def->getIntegerForKey("INGAME_CONTINUE_LEVEL", 1);
 		continueGame = true;
@@ -89,15 +94,21 @@ bool GameScene::init()
 	this->addChild(player,30);
 	
 	this->runAction(Follow::create(player)); // add action camera follow player	
-
-	if (continueGame == true)
+	if (again == true)
 	{
 		level = def->getIntegerForKey("INGAME_Level", 1);
 	}
 	else
 	{
-		def->setIntegerForKey("INGAME_Level", 1);
-		level = 1;
+		if (continueGame == true)
+		{
+			level = def->getIntegerForKey("INGAME_Level", 1);
+		}
+		else
+		{
+			def->setIntegerForKey("INGAME_Level", 1);
+			level = 1;
+		}
 	}
 	gameMap = new GameMap(this,player, level); // add gamemap
 	door = gameMap->door;
@@ -128,8 +139,8 @@ bool GameScene::init()
 	player->addChild(canvas, 50);
 	canvas->_meta = gameMap->_meta;
 	canvas->maxmap = (int)(gameMap->_tileMap->getMapSize().height);
-
-	if (continueGame == true)
+	bool checkover = def->getBoolForKey("INGAME_OverGame", false);
+	if (continueGame == true && checkover==false)
 	{
 		canvas->num_talk = def->getIntegerForKey("INGAME_NumTalk", -2);
 	}
@@ -151,7 +162,6 @@ bool GameScene::init()
 	effect->setPosition(player->getPosition());
 	//effect->setScale(1.5f);
 	this->addChild(effect, 200);
-	bool checkover = def->getBoolForKey("INGAME_OverGame", false);
 	if (continueGame == true && checkover == false)
 	{
 		GameScene::GotoAgain(1);
@@ -904,7 +914,9 @@ void GameScene::GotoAgain(float dt)
 		item->setPosition(Vec2(ItemPosX, ItemPosY));
 		this->addChild(item, ItemZ);
 	}
-	//Game Map
+	//Game Ma1;
+	door->numberkey = 1;
+	door->reduceNumberKey();
 	gameMap->GoAgain();
 	//Door
 	door->numberkey = NumberKey;

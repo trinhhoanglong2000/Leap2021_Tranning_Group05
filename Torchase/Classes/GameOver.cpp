@@ -132,7 +132,7 @@ void GameOver::GoToGameScene(cocos2d::Ref* pSender)
 	}
 
 	SoundManager::getInstance()->stopMusic(EVIL_LAUGH);
-	auto scene = GameScene::createScene(Level_of_difficult, controll);
+	auto scene = GameScene::createScene(4, controll);
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void GameOver::GoToGameSceneNext(cocos2d::Ref* pSender)
