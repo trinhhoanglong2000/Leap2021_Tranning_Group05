@@ -59,12 +59,14 @@ bool GameOver::init()
 
 	def = UserDefault::getInstance();
 	def->setBoolForKey("INGAME_OverGame", true);
-	int level = def->getIntegerForKey("INGAME_Level", 1);
-	
+	level = def->getIntegerForKey("INGAME_Level", 1);
+	Level_of_difficult = def->getIntegerForKey("INGAME_CONTINUE_LEVEL", 0);
+	std::string win = "You Lose!!!";
 	if (finish == true)
 	{
 		level++;
 		def->setIntegerForKey("INGAME_Level", level);
+		win = "You Win!!!";
 	}
 
 	SoundManager::getInstance()->stopALLMusic();
@@ -75,12 +77,21 @@ bool GameOver::init()
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(BgSprite);
 
-	auto myLabel = Label::createWithTTF("You Lose!!!", "fonts/Raven Song.ttf", visibleSize.height / 9);
+	auto myLabel = Label::createWithTTF(win, "fonts/Raven Song.ttf", visibleSize.height / 9);
 	myLabel->setAnchorPoint(Vec2(0.5, 0));
 	myLabel->setPosition(visibleSize.width / 2, visibleSize.height - myLabel->getBoundingBox().size.height * 3 / 2);
 	this->addChild(myLabel);
 	//========================Menu
 	Vector<MenuItem*> menuArr;
+	if (finish == true)
+	{
+		auto Labelnext = Label::createWithTTF("Next Game", "fonts/Raven Song.ttf", visibleSize.height / 18);
+		auto btnnext = MenuItemLabel::create(Labelnext, CC_CALLBACK_1(GameOver::GoToGameSceneNext, this));
+		btnnext->setAnchorPoint(Vec2(0, 1));
+
+		menuArr.pushBack(btnnext);
+	}
+
 	auto Label = Label::createWithTTF("Replay", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	auto btn = MenuItemLabel::create(Label, CC_CALLBACK_1(GameOver::GoToGameScene, this));
 	btn->setAnchorPoint(Vec2(0, 1));
@@ -114,11 +125,22 @@ void GameOver::GoToMainMenu(cocos2d::Ref* pSender)
 
 void GameOver::GoToGameScene(cocos2d::Ref* pSender)
 {
+	if (finish == true)
+	{
+		level--;
+		def->setIntegerForKey("INGAME_Level", level);
+	}
+
+	SoundManager::getInstance()->stopMusic(EVIL_LAUGH);
+	auto scene = GameScene::createScene(Level_of_difficult, controll);
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+void GameOver::GoToGameSceneNext(cocos2d::Ref* pSender)
+{
 	SoundManager::getInstance()->stopMusic(EVIL_LAUGH);
 	auto scene = GameScene::createScene(3, controll);
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
-
 void GameOver::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application

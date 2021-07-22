@@ -39,11 +39,14 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
 	void GoToMainMenu(cocos2d::Ref* pSender);
 	void GoToGameScene(cocos2d::Ref* pSender);
+	void GoToGameSceneNext(cocos2d::Ref* pSender);
     // implement the "static create()" method manually
     CREATE_FUNC(GameOver);
 private:
 	//int Level_of_difficult, controller;
 	Menu* menu;
+	int Level_of_difficult;
+	int level;
 	UserDefault *def;
 };
 

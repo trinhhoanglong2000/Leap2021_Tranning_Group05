@@ -36,11 +36,12 @@ public:
 	void CheckDoor();
 	//void setDoor(int key);
 	int numberkey;
+	cocos2d::TMXLayer *_meta;
+	cocos2d::TMXTiledMap *_tileMap;
 protected:
 	cocos2d::Size visibleSize;
 	cocos2d::Vec2 origin;
-	cocos2d::TMXLayer *_meta;
-	cocos2d::TMXTiledMap *_tileMap;
+
 };
 
 #endif // __Actor_H__

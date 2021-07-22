@@ -375,6 +375,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 				{
 					auto minion = dynamic_cast<Minions*>(b->getOwner());
+					if (minion->type == 0)
+						return true;
 					if(minion->Booldie==false)
 					minion->die();
 				}
@@ -395,6 +397,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 				{
 					auto minion = dynamic_cast<Minions*>(b->getOwner());
+					if (minion->type == 0)
+						return true;
 					minion->changeTravelTime(VALUE_SLOW);
 				}
 			}
@@ -430,6 +434,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 				{
 					auto minion = dynamic_cast<Minions*>(a->getOwner());
+					if (minion->type == 0)
+						return true;
 					if (minion->Booldie == false)
 					minion->die();
 				}
@@ -450,6 +456,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 				{
 					auto minion = dynamic_cast<Minions*>(a->getOwner());
+					if (minion->type == 0)
+						return true;
 					minion->changeTravelTime(VALUE_SLOW);
 				}
 			}
@@ -770,6 +778,8 @@ void GameScene::checkdie()
 {
 	if (player->NumHeal > 1)
 		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GotoAgain), DISPLAY_TIME_SPLASH_SCENE*1.5, 0, 0);
+	else
+		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE*1.5, 0, 0);
 }
 
 void GameScene::GotoAgain(float dt)
@@ -894,10 +904,12 @@ void GameScene::GotoAgain(float dt)
 		item->setPosition(Vec2(ItemPosX, ItemPosY));
 		this->addChild(item, ItemZ);
 	}
-	//Door
-	door->numberkey = NumberKey;
 	//Game Map
 	gameMap->GoAgain();
+	//Door
+	door->numberkey = NumberKey;
+	door->_tileMap = gameMap->_tileMap;
+	door->_meta = gameMap->_meta;
 	//canvas
 	canvas->Goagain(light);
 }
