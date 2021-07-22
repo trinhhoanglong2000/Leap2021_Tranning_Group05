@@ -140,12 +140,12 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	mind_move = 1;
 	BoolTouch = false;
 	
-	LableTalk = Label::createWithTTF("Dad:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
+	LableTalk = Label::createWithTTF("John:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
 	LableTalk->setPosition(Point(talkboxBachgr->getPosition().x -talkboxBachgr->getContentSize().width * 1.3f, talkboxBachgr->getPosition().y+ talkboxBachgr->getContentSize().height/4));
 	LableTalk->setAnchorPoint(Vec2(0, 1));
 	this->addChild(LableTalk, 100);
 
-	LableTalkContent = Label::createWithTTF("Dad:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
+	LableTalkContent = Label::createWithTTF("John:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
 	LableTalkContent->setPosition(Point(talkboxBachgr->getPosition().x - talkboxBachgr->getContentSize().width * 1.3f, talkboxBachgr->getPosition().y));
 	LableTalkContent->setAnchorPoint(Vec2(0, 1));
 	this->addChild(LableTalkContent, 100);
