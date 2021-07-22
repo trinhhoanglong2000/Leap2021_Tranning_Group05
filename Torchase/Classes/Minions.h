@@ -60,6 +60,7 @@ protected:
 	bool booldow;
 	bool *booltro;
 	bool goUp; 
+	bool light;
 	cocos2d::Vec2 mindPlayer;
 	cocos2d::SEL_SCHEDULE Schedule_Roar;
 	cocos2d::SEL_SCHEDULE Schedule_findPlayer;

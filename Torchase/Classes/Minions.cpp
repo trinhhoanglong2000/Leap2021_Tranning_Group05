@@ -30,7 +30,7 @@ USING_NS_CC;
 Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
 	hit = false;
-
+	light = true;
 	traveltime = MININON_SPEED;
 	player = playerScene;
 	this->speed = mapspeed;
@@ -49,7 +49,7 @@ Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
 	hit = false;
 	traveltime = MININON_SPEED;
-
+	light = true;
 	auto EnemyBody = PhysicsBody::createBox(this->getContentSize()/1.5);
 	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
 	EnemyBody->setCategoryBitmask(ENEMY_CATEGORY_BITMASK);
@@ -62,7 +62,7 @@ Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 }
 void Minions::findPlayer(float dt)
 {
-	if (goUp == false)
+	if (goUp == false || light== false)
 		return;
 	this->mindPositison = this->getPosition();
 	cocos2d::Vec2 point = this->getPosition();
@@ -123,12 +123,13 @@ void Minions::findPlayer(float dt)
 	auto animationAction = RepeatForever::create(Animates.at(mind-1));
 	auto callback = CallFunc::create([&]() {
 		this->stopAllActions();
+		goUp = true;
 		Minions::findPlayer(1);
 		});
 	auto sequence = Sequence::create(moveAction, callback, nullptr);
 	this->runAction(animationAction);
 	this->runAction(sequence);
-	goUp = true;
+	
 }
 void Minions::removeAction()
 {
@@ -171,11 +172,12 @@ void Minions::Roar(float dt)
 void Minions::lightoff()
 {
 	//this->setLocalZOrder(20);
-	goUp = false;
+	this->unscheduleAllCallbacks();;
+	light = false;
 }
 void Minions::lighton(float dt)
 {
-	goUp = true;
+	light = true;
 	Minions::findPlayer(1);
 }
 void Minions::die()
