@@ -85,7 +85,7 @@ bool StoryScene::init()
 	story.push_back("So the father took his son with him on duty. With the curiosity of a child, \n\nTommy accidentally activated an ancient treasure and was imprisoned in the \n\nbuilding. You must help John find his way to Tommy's cell by collecting items");
 	story.push_back("that are left somewhere in the rooms. Be careful of the monsters along \n\nthe way and kill them by luring them into traps with your Tourch. Note that \n\nthe Torch's battery is limited and we don't have much time left to save Tommy.");
 	num_story = 0;
-
+	check = false;
     return true;
 }
 void StoryScene::gotoPlayScreen(Ref* pSender) {
@@ -109,13 +109,17 @@ void StoryScene::menuCloseCallback(Ref* pSender)
 }
 bool StoryScene::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
-	if (num_story > 1)
+	if (check == true)
+		return true;
+	if (num_story > 1 && check ==false)
 	{
+		check = true;
 		auto scene = GameScene::createScene(Level_of_difficult_temp, controller_temp);
 		SoundManager::getInstance()->stopMusic(MAINMENU_SOUND);
 		Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 		return true;
 	}
+	
 	LableStory->setString(story.at(num_story));
 	if(num_story==1)
 		btnSkip->setVisible(true);

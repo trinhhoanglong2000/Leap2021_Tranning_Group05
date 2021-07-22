@@ -131,12 +131,12 @@ bool GameScene::init()
 
 	if (continueGame == true)
 	{
-		canvas->num_talk = def->getIntegerForKey("INGAME_NumTalk", 0);
+		canvas->num_talk = def->getIntegerForKey("INGAME_NumTalk", -2);
 	}
 	else
 	{
-		def->setIntegerForKey("INGAME_NumTalk", 0);
-		canvas->num_talk = 0;
+		def->setIntegerForKey("INGAME_NumTalk", -2);
+		canvas->num_talk = -2;
 	}
 
 	auto contactListener = EventListenerPhysicsContact::create();

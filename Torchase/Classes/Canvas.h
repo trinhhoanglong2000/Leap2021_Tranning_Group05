@@ -97,7 +97,7 @@ private:
 	int *gameState;
 	cocos2d::Menu *pauseMenu;
 	cocos2d::Sprite *pauseBackgr, *talkboxBachgr;
-	cocos2d::Label *LableTalk;
+	cocos2d::Label *LableTalk, *LableTalkContent;
 	cocos2d::UserDefault *def;
 	
 	std::vector<std::string> talkbox;

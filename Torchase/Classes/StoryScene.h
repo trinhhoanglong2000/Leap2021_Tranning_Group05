@@ -47,6 +47,7 @@ private:
 	std::vector<std::string> story;
 	int num_story;
 	cocos2d::Label *LableStory;
+	bool check;
 };
 
 #endif // __STORY_SCENE_H__

@@ -141,82 +141,27 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	BoolTouch = false;
 	
 	LableTalk = Label::createWithTTF("Dad:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
-	LableTalk->setPosition(Point(-(talkboxBachgr->getContentSize().width)-(ButtonDow->getContentSize().width/2), -ButtonDow->getContentSize().height / 3));
+	LableTalk->setPosition(Point(-(talkboxBachgr->getContentSize().width)-(ButtonDow->getContentSize().width/2), -ButtonDow->getContentSize().height / 3.5));
 	LableTalk->setAnchorPoint(Vec2(0, 1));
 	this->addChild(LableTalk, 100);
 
+	LableTalkContent = Label::createWithTTF("Dad:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
+	LableTalkContent->setPosition(Point(-(talkboxBachgr->getContentSize().width) - (ButtonDow->getContentSize().width / 2), -ButtonDow->getContentSize().height / 2.5));
+	LableTalkContent->setAnchorPoint(Vec2(0, 1));
+	this->addChild(LableTalkContent, 100);
+
 	//First talk - instruction
-
-	talkbox.push_back("Dad:\nAlright, Where are we now???");
-	talkbox.push_back("Son:\nDad, he wants to take me away.");
-	talkbox.push_back("Dad:\nWh..Hold on, what did you say? Who??..");
-	talkbox.push_back("Son:\nI don't know. Hurry Dad, I'm so scared....");
-	talkbox.push_back("Dad:\nIt's okay son, let me...");
-	talkbox.push_back("What?!?! What just happend!");
-	talkbox.push_back("Where is my son? OMG!!!");
-	talkbox.push_back("...");
-	talkbox.push_back("I need to get through this place and find my son quickly");
-	talkbox.push_back("Hope it's not too late");
-	talkbox.push_back("Wait!!!...");
-	talkbox.push_back("There's something written right here");
-	talkbox.push_back("\"The Shadows have slept too long to wait for a day to be awakened by the \nlight and chase their prey.");
-	talkbox.push_back("Once they have caught their prey, they will tear it apart and enjoy a taste \nthey haven't enjoyed in a long time.");
-	talkbox.push_back("But they're just stupid Walking Dead. So use your wisdom and destroy them \nwith deadly traps.\"");
-	talkbox.push_back("It sounds terrible, but we don't have time and we're running out of battery.\nLet's go and find some along the way.");
-	talkbox.push_back("Good luck!!!");
-	talkbox.push_back("This book will guide you and bring you back here every time you die. \nBut don't die too much, your life is limited.");
-	talkbox.push_back("Good luck!!!");
-
-	talkbox.push_back("Dad:\nAlright, Where are we now???");
-	talkbox.push_back("Son:\nDad, he wants to take me away.");
-	talkbox.push_back("Dad:\nWh..Hold on, what did you say? Who??..");
-	talkbox.push_back("Son:\nI don't know. Hurry Dad, I'm so scared....");
-	talkbox.push_back("Dad:\nIt's okay son, let me...");
-	talkbox.push_back("What?!?! What just happend!");
-	talkbox.push_back("Where is my son? OMG!!!");
-	talkbox.push_back("...");
-	talkbox.push_back("I need to get through this place and find my son quickly");
-	talkbox.push_back("Hope it's not too late");
-	talkbox.push_back("Wait!!!...");
-	talkbox.push_back("There's something written right here");
-	talkbox.push_back("\"The Shadows have slept too long to wait for a day to be awakened by the \nlight and chase their prey.");
-	talkbox.push_back("Once they have caught their prey, they will tear it apart and enjoy a taste \nthey haven't enjoyed in a long time.");
-	talkbox.push_back("But they're just stupid Walking Dead. So use your wisdom and destroy them \nwith deadly traps.\"");
-	talkbox.push_back("It sounds terrible, but we don't have time and we're running out of battery.\nLet's go and find some along the way.");
-	talkbox.push_back("Good luck!!!");
-	talkbox.push_back("This book will guide you and bring you back here every time you die. \nBut don't die too much, your life is limited.");
-	talkbox.push_back("Good luck!!!");
-
-
-
-	talkbox.push_back("Dad:\nAlright, Where are we now???");
-	talkbox.push_back("Son:\nDad, he wants to take me away.");
-	talkbox.push_back("Dad:\nWh..Hold on, what did you say? Who??..");
-	talkbox.push_back("Son:\nI don't know. Hurry Dad, I'm so scared....");
-	talkbox.push_back("Dad:\nIt's okay son, let me...");
-	talkbox.push_back("What?!?! What just happend!");
-	talkbox.push_back("Where is my son? OMG!!!");
-	talkbox.push_back("...");
-	talkbox.push_back("I need to get through this place and find my son quickly");
-	talkbox.push_back("Hope it's not too late");
-	talkbox.push_back("Wait!!!...");
-	talkbox.push_back("There's something written right here");
-	talkbox.push_back("\"The Shadows have slept too long to wait for a day to be awakened by the \nlight and chase their prey.");
-	talkbox.push_back("Once they have caught their prey, they will tear it apart and enjoy a taste \nthey haven't enjoyed in a long time.");
-	talkbox.push_back("But they're just stupid Walking Dead. So use your wisdom and destroy them \nwith deadly traps.\"");
-	talkbox.push_back("It sounds terrible, but we don't have time and we're running out of battery.\nLet's go and find some along the way.");
-	talkbox.push_back("Good luck!!!");
-	talkbox.push_back("This book will guide you and bring you back here every time you die. \nBut don't die too much, your life is limited.");
-	talkbox.push_back("Good luck!!!");
-	talkbox.push_back("Phew!!! That room seem easy...");
-	talkbox.push_back("Good luck!!!");
-	talkbox.push_back("Well! It's easier than i thought.");
-	talkbox.push_back("Oh! Something is written right here\n\"Run fast if you don't want to die.\"");
-	talkbox.push_back("Good luck!!!");
-	talkbox.push_back("Phew... That's so close, isn't it??");
-	talkbox.push_back("Now let's go to the next room.");
-	talkbox.push_back("See the sign ahead, maybe it's our last test to find my son");
-	talkbox.push_back("Good luck!!!");
+	std::string file = "story/level_1.txt";
+	auto s = FileUtils::getInstance()->getStringFromFile(file);
+	int count = s.find("\n");
+	while(count!=-1)
+	{
+		auto temp = s.substr(0, count);
+		talkbox.push_back(temp);
+		s = s.substr(count + 1, s.length());
+		count = s.find("\n");
+		
+	}
 
 	// add touch move
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -490,21 +435,25 @@ bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	if (talk && !waittalk)
 	{
-		num_talk++;
+		num_talk=num_talk+2;
 		LableTalk->setString(talkbox.at(num_talk));
-		if (talkbox.at(num_talk) == "Dad:\nIt's okay son, let me...")
+		LableTalkContent->setString(talkbox.at(num_talk+1));
+		CCLOG("%d", num_talk);
+		int countwait = talkbox.at(num_talk + 1).find("let me...");
+		int countTalk = talkbox.at(num_talk + 1).find("Good luck!!!");
+		if (countwait >=0 )
 		{ 
+			CCLOG("%d", talkbox.at(num_talk + 1).find("let me..."));
 			waittalk = true;
 			this->schedule(CC_SCHEDULE_SELECTOR(Canvas::actionmeet), 1.0f, 0, 0);
 		}
-		if (talkbox.at(num_talk) == "Good luck!!!")
+		if (countTalk >=0 )
 		{
 			talk = false;
 		}	
 	}
 	else if (!talk && !waittalk)
 	{
-		//num_talk++;
 		def->setIntegerForKey("INGAME_NumTalk", num_talk);
 		Canvas::offtalk();
 	}
@@ -714,8 +663,10 @@ void Canvas::ontalk()
 
 	talkboxBachgr->setVisible(true);
 	LableTalk->setVisible(true);
-	num_talk++;
+	LableTalkContent->setVisible(true);
+	num_talk+=2;
 	LableTalk->setString(talkbox.at(num_talk));
+	LableTalkContent->setString(talkbox.at(num_talk+1));
 	this->unschedule(Schedule_ReduceEnegy);
 }
 void Canvas::offtalk()
@@ -727,9 +678,8 @@ void Canvas::offtalk()
 
 	talkboxBachgr->setVisible(false);
 	LableTalk->setVisible(false);
-
+	LableTalkContent->setVisible(false);
 	waittalk = true;
-	talkboxBachgr->setVisible(false);
-	LableTalk->setVisible(false);
+
 	this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
 }
