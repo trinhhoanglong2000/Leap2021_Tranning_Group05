@@ -141,7 +141,14 @@ void Player::setBlackVisionBG(cocos2d::Size size) {
 	background->setPhysicsBody(backgroundBody);
 
 	this->addChild(background);
+	auto l = Sprite::create("light_node.png");
+	l->setScale(1.5);
 	
+	background->addChild(l);
+	l->setPosition(background->getContentSize().width / 2, background->getContentSize().height / 2);
+	log("%f %f\n", l->getPositionX(), l->getPositionY());
+	log("%f %f\n", background->getPositionX(), background->getPositionY());
+
 	auto Edge = Node::create();
 	auto EdgeBody = PhysicsBody::createBox(Size(speed*2, speed*2));
 	EdgeBody->setCollisionBitmask(PLAYER_EDGE_COLISION_BITMASK);
