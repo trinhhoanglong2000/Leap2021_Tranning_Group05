@@ -124,13 +124,13 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	this->addChild(ButtonLight);
 	this->addChild(ButtonTrap);
 	this->addChild(ButtonHome);
-	
+
 	// add slider enegy
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
 	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
 	enegy->loadProgressBarTexture("Slider_PressBar.png");
-	enegy->setPosition(Vec2(-visibleSize.width /3 + origin.x, visibleSize.height /2.5 + origin.y));
+	enegy->setPosition(Vec2(-visibleSize.width /3 + origin.x, player->vecHeal.at(0)->getPositionY()- player->vecHeal.at(0)->getContentSize().height*0.2f));
 	enegy->setMaxPercent(MAX_PERCENT);
 	enegy->setPercent(enegy->getMaxPercent());
 	enegy->setScale(1.5f);

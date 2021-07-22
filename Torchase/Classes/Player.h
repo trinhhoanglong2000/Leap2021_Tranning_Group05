@@ -57,6 +57,7 @@ public:
 	cocos2d::DrawNode *background;
 	bool die;
 	int NumHeal;
+	cocos2d::Vector<cocos2d::Sprite*> vecHeal;
 private:
 	cocos2d::UserDefault *def;
 	int thickness = 400;
@@ -64,7 +65,7 @@ private:
 	int height = 1200;
 	cocos2d::Vector<cocos2d::SpriteFrame*> stand;
 	cocos2d::SEL_SCHEDULE Schedule_reverse;
-	cocos2d::Vector<cocos2d::Sprite*> vecHeal;
+	
 	
 };
 
