@@ -51,7 +51,9 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonDow = ui::Button::create("prefap/Gui/down.png");
 	ButtonLeft = ui::Button::create("prefap/Gui/left.png");
 	ButtonRight = ui::Button::create("prefap/Gui/right.png");
-	ButtonLight = ui::Button::create("prefap/Gui/right.png");
+
+	ButtonLight = ui::Button::create("prefap/Gui/light.png");
+	
 	ButtonTrap = ui::Button::create("prefap/Gui/right.png");
 	ButtonConvert = ui::Button::create("prefap/Gui/right.png");
 
@@ -78,7 +80,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonRight->setScale(BUTTON_SCALE);
 	ButtonPause->setScale(BUTTON_SCALE);
 	ButtonResume->setScale(ButtonHome->getContentSize().width / ButtonResume->getContentSize().width * BUTTON_SCALE);
-	ButtonLight->setScale(BUTTON_SCALE);
+	ButtonLight->setScale(BUTTON_SCALE/2);
 	ButtonTrap->setScale(BUTTON_SCALE);
 	ButtonHome->setScale(BUTTON_SCALE);
 
