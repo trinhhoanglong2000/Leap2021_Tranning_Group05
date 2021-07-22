@@ -73,7 +73,7 @@ bool GameOver::init()
 	SoundManager::getInstance()->PlayMusics(EVIL_LAUGH, false, 1);
 	SoundManager::getInstance()->PlayMusics(GAME_OVER_SOUND, true, 1.0f);
 
-	auto BgSprite = Sprite::create("coco2d.png");
+	auto BgSprite = Sprite::create("Background_over.jpg");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(BgSprite);
 

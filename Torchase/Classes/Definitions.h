@@ -35,7 +35,7 @@
 #define STATE_PAUSE 99
 
 #define ACTOR_SPEED 0.6
-#define BUTTON_SCALE 0.35
+#define BUTTON_SCALE 1
 #define MININON_SPEED 1.2
 #define AUTO_SPEED 0.2
 #define ROCK_SPEED 1

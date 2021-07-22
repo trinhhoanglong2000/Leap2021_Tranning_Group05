@@ -54,21 +54,21 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 
 	ButtonLight = ui::Button::create("prefap/Gui/light.png");
 	
-	ButtonTrap = ui::Button::create("prefap/Gui/right.png");
+	ButtonTrap = ui::Button::create("prefap/Gui/Trap.png");
 	ButtonConvert = ui::Button::create("prefap/Gui/right.png");
 
 	ButtonPause = ui::Button::create("prefap/Gui/pausebtn.png");
-	ButtonResume = ui::Button::create("prefap/Gui/right.png");
+	ButtonResume = ui::Button::create("prefap/Gui/play.png");
 	ButtonHome = ui::Button::create("prefap/Gui/homebtn.png");
 	
 
-	pauseBackgr = Sprite::create("SplatterGray.png");
-	pauseBackgr->setScale(0.15f);
+	pauseBackgr = Sprite::create("prefap/Gui/table.png");
+	pauseBackgr->setScale(1.2f);
 	pauseBackgr->setPosition(Vec2(origin.x,origin.y));
 	pauseBackgr->setOpacity(0);
 	this->addChild(pauseBackgr);
 
-	talkboxBachgr = Sprite::create("prefap/Gui/blackbox.png");
+	talkboxBachgr = Sprite::create("prefap/Gui/blackboxx.png");
 	talkboxBachgr->setScale(3.0f,2.0f);
 	talkboxBachgr->setPosition(Vec2(0,-visibleSize.height/2+ talkboxBachgr->getContentSize().height));
 	this->addChild(talkboxBachgr,100);
@@ -79,8 +79,8 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonLeft->setScale(BUTTON_SCALE);
 	ButtonRight->setScale(BUTTON_SCALE);
 	ButtonPause->setScale(BUTTON_SCALE);
-	ButtonResume->setScale(ButtonHome->getContentSize().width / ButtonResume->getContentSize().width * BUTTON_SCALE);
-	ButtonLight->setScale(BUTTON_SCALE/2);
+	ButtonResume->setScale(BUTTON_SCALE);
+	ButtonLight->setScale(BUTTON_SCALE);
 	ButtonTrap->setScale(BUTTON_SCALE);
 	ButtonHome->setScale(BUTTON_SCALE);
 
@@ -93,25 +93,25 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonLight->setPosition(Vec2(visibleSize.width / 2.2 + origin.x, -visibleSize.height / 4 + origin.y));
 	ButtonLight->addTouchEventListener(CC_CALLBACK_2(Canvas::OnOffLight, this));
 
-	ButtonUp->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE/1.3));
+	ButtonUp->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE*0.8f));
 	ButtonUp->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveUp, this));
 
-	ButtonDow->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE/1.3));
+	ButtonDow->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE*0.8f));
 	ButtonDow->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveDow, this));
 
-	ButtonLeft->setPosition(Vec2(-visibleSize.width / 3 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE/1.3, -visibleSize.height / 4 + origin.y));
+	ButtonLeft->setPosition(Vec2(-visibleSize.width / 3 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE*0.8f, -visibleSize.height / 4 + origin.y));
 	ButtonLeft->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveLeft, this));
 
-	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE/1.3, -visibleSize.height / 4 + origin.y));
+	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE*0.8f, -visibleSize.height / 4 + origin.y));
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveRight, this));
 
 	ButtonPause->setPosition(Vec2(visibleSize.width /2.3 , visibleSize.height /2.5 ));
 	ButtonPause->addTouchEventListener(CC_CALLBACK_2(Canvas::PauseScene, this));
 
-	ButtonResume->setPosition(Vec2(visibleSize.width * 3 / 10,origin.y));
+	ButtonResume->setPosition(Vec2(pauseBackgr->getPosition().x+ pauseBackgr->getContentSize().width/4,origin.y));
 	ButtonResume->addTouchEventListener(CC_CALLBACK_2(Canvas::PauseScene, this));
 
-	ButtonHome->setPosition(Vec2(-visibleSize.width * 3 / 10, origin.y));
+	ButtonHome->setPosition(Vec2(pauseBackgr->getPosition().x - pauseBackgr->getContentSize().width / 4, origin.y));
 	ButtonHome->addTouchEventListener(CC_CALLBACK_2(Canvas::GotoMainMenu, this));
 
 	this->addChild(ButtonUp);
@@ -127,13 +127,13 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 
 	// add slider enegy
 	enegy = ui::Slider::create();
-	enegy->loadBarTexture("Slider_Back.png"); // what the slider looks like
+	enegy->loadBarTexture("Slider_Backs.png"); 
 	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
-	enegy->loadProgressBarTexture("Slider_PressBar.png");
-	enegy->setPosition(Vec2(-visibleSize.width /3 + origin.x, player->vecHeal.at(0)->getPositionY()- player->vecHeal.at(0)->getContentSize().height*0.2f));
+	enegy->loadProgressBarTexture("Slider_PressBars.png");
+	enegy->setPosition(Vec2(-visibleSize.width /2.8 + origin.x, player->vecHeal.at(0)->getPositionY()- player->vecHeal.at(0)->getContentSize().height*0.2f));
 	enegy->setMaxPercent(MAX_PERCENT);
 	enegy->setPercent(enegy->getMaxPercent());
-	enegy->setScale(1.5f);
+	enegy->setScale(1.3f);
 	this->addChild(enegy);
 	
 	int_move = 0;
