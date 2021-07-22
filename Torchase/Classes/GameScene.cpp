@@ -140,7 +140,7 @@ bool GameScene::init()
 	canvas->_meta = gameMap->_meta;
 	canvas->maxmap = (int)(gameMap->_tileMap->getMapSize().height);
 	bool checkover = def->getBoolForKey("INGAME_OverGame", false);
-	if (continueGame == true && checkover==false)
+	if (continueGame == true && checkover==false && again==false)
 	{
 		canvas->num_talk = def->getIntegerForKey("INGAME_NumTalk", -2);
 	}
@@ -162,7 +162,7 @@ bool GameScene::init()
 	effect->setPosition(player->getPosition());
 	//effect->setScale(1.5f);
 	this->addChild(effect, 200);
-	if (continueGame == true && checkover == false)
+	if (continueGame == true && checkover == false && again==false)
 	{
 		GameScene::GotoAgain(1);
 		canvas->offtalk();
