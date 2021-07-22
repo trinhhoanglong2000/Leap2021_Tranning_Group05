@@ -69,8 +69,8 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	this->addChild(pauseBackgr);
 
 	talkboxBachgr = Sprite::create("prefap/Gui/blackbox.png");
-	talkboxBachgr->setScale(visibleSize.width / talkboxBachgr->getContentSize().width, visibleSize.height / talkboxBachgr->getContentSize().height / 2);
-	talkboxBachgr->setPosition(Vec2(origin.x + (ButtonDow->getContentSize().width / 6), origin.y - (ButtonDow->getContentSize().height / 2)));
+	talkboxBachgr->setScale(3.0f,2.0f);
+	talkboxBachgr->setPosition(Vec2(0,-visibleSize.height/2+ talkboxBachgr->getContentSize().height));
 	this->addChild(talkboxBachgr,100);
 
 	ButtonConvert->setScale(BUTTON_SCALE);
@@ -141,12 +141,12 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	BoolTouch = false;
 	
 	LableTalk = Label::createWithTTF("Dad:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
-	LableTalk->setPosition(Point(-(talkboxBachgr->getContentSize().width)-(ButtonDow->getContentSize().width/2), -ButtonDow->getContentSize().height / 3.5));
+	LableTalk->setPosition(Point(talkboxBachgr->getPosition().x -talkboxBachgr->getContentSize().width * 1.3f, talkboxBachgr->getPosition().y+ talkboxBachgr->getContentSize().height/4));
 	LableTalk->setAnchorPoint(Vec2(0, 1));
 	this->addChild(LableTalk, 100);
 
 	LableTalkContent = Label::createWithTTF("Dad:\nAlright, Where are we now???", "fonts/Balsoon.ttf", visibleSize.height / 15);
-	LableTalkContent->setPosition(Point(-(talkboxBachgr->getContentSize().width) - (ButtonDow->getContentSize().width / 2), -ButtonDow->getContentSize().height / 2.5));
+	LableTalkContent->setPosition(Point(talkboxBachgr->getPosition().x - talkboxBachgr->getContentSize().width * 1.3f, talkboxBachgr->getPosition().y));
 	LableTalkContent->setAnchorPoint(Vec2(0, 1));
 	this->addChild(LableTalkContent, 100);
 
@@ -650,6 +650,7 @@ void Canvas::OnButtonController()
 void Canvas::ontalk()
 {
 	ButtonResume->setVisible(false);
+	ButtonPause->setVisible(false);
 	ButtonHome->setVisible(false);
 	ButtonUp->setVisible(false);
 	ButtonDow->setVisible(false);
@@ -670,6 +671,7 @@ void Canvas::ontalk()
 }
 void Canvas::offtalk()
 {
+	ButtonPause->setVisible(true);
 	ButtonPause->setVisible(true);
 	ButtonResume->setVisible(false);
 	ButtonHome->setVisible(false);

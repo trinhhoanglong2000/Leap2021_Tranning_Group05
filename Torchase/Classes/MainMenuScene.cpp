@@ -255,7 +255,7 @@ bool MainMenuScene::init()
 	
 	
 //	def->getDataForKey("minion",)
-	auto MindControll = def->getIntegerForKey("CONTROLLER", 0);
+	auto MindControll = def->getIntegerForKey("CONTROLLER", 1);
 	//def->flush();
 
 	toggle2->setSelectedIndex(MindControll);
