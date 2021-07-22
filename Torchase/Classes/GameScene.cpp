@@ -237,10 +237,13 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			}
 			if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
-				auto wallcrake = dynamic_cast<WallCrake*>(item);
-				if (wallcrake->check == false)
+				if (item->type == 5)
 				{
-					wallcrake->HitMinion();
+					auto wallcrake = dynamic_cast<WallCrake*>(item);
+					if (wallcrake->check == false)
+					{
+						wallcrake->HitMinion();
+					}
 				}
 			}
 		}
@@ -291,10 +294,13 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			}
 			if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 			{
-				auto wallcrake = dynamic_cast<WallCrake*>(item);
-				if (wallcrake->check == false)
+				if (item->type == 5)
 				{
-					wallcrake->HitMinion();
+					auto wallcrake = dynamic_cast<WallCrake*>(item);
+					if (wallcrake->check == false)
+					{
+						wallcrake->HitMinion();
+					}
 				}
 			}
 		}

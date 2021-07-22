@@ -438,7 +438,6 @@ bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		num_talk=num_talk+2;
 		LableTalk->setString(talkbox.at(num_talk));
 		LableTalkContent->setString(talkbox.at(num_talk+1));
-		CCLOG("%d", num_talk);
 		int countwait = talkbox.at(num_talk + 1).find("let me...");
 		int countTalk = talkbox.at(num_talk + 1).find("Good luck!!!");
 		if (countwait >=0 )

@@ -31,6 +31,6 @@ IteamSaveGame::IteamSaveGame():Iteam("prefap/Iteam/saveGame.png") {
 
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-	this->setScale(0.5f);
+	this->setScale(0.05f);
 	type = 4;
 }
