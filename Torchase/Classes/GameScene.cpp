@@ -376,6 +376,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			trap->hit = true;
 			if (trap->type == 0 || trap->type == 3)
 			{
+				if(trap->type == 0)
 				trap->setLocalZOrder(40);
 				if (!player->die && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{
@@ -435,6 +436,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			trap->hit = true;
 			if (trap->type == 0  || trap->type == 3)
 			{
+				if (trap->type == 0)
 				trap->setLocalZOrder(40);
 				if (!player->die && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 				{

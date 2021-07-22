@@ -50,7 +50,7 @@ TrapCheckBoss::TrapCheckBoss(std::string filename, cocos2d::Rect rect)
 void TrapCheckBoss::hitplayer(cocos2d::Scene *sceneGame)
 {
 	AllTrap = TrapManager::getInstance()->AllTrap;
-	if (taget == 1)
+	/*if (taget == 1)
 	{
 		for (int i = 0; i < AllTrap.size(); i++)
 		{
@@ -60,7 +60,7 @@ void TrapCheckBoss::hitplayer(cocos2d::Scene *sceneGame)
 				trap->atack(1);
 			}
 		}
-	}
+	}*/
 	scene = sceneGame;
 	//TrapCheckBoss::addtrap(0);
 	this->schedule(CC_SCHEDULE_SELECTOR(TrapCheckBoss::addtrap), 0.5f);
