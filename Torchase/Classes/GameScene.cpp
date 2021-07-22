@@ -55,7 +55,7 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
 	Scene_layer->removeChild(Scene_layer->getDefaultCamera());
-
+	
 	scene->addChild(Scene_layer);
 
 	return scene;
@@ -151,7 +151,8 @@ bool GameScene::init()
 	effect->setPosition(player->getPosition());
 	//effect->setScale(1.5f);
 	this->addChild(effect, 200);
-	if (continueGame == true )
+	bool checkover = def->getBoolForKey("INGAME_OverGame", false);
+	if (continueGame == true && checkover == false)
 	{
 		GameScene::GotoAgain(1);
 		canvas->offtalk();
@@ -160,6 +161,7 @@ bool GameScene::init()
 	{
 		GameScene::meet();
 	}
+	finish = false;
 	return true;
 }
 
@@ -208,7 +210,10 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					
 					item->setVisible(false);
 					this->removeChild(item);
-					GameScene::SaveInGame(item);
+					itemsave = item;
+					canvas->ontalk();
+					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::SaveInGame), 0.5f, 0, 0);
+					//GameScene::SaveInGame(item);
 				}
 				if (item->type == 5)
 				{
@@ -259,7 +264,10 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					item->setVisible(false);
 					this->removeChild(item);
-					GameScene::SaveInGame(item);
+					itemsave = item;
+					canvas->ontalk();
+					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::SaveInGame), 0.5f, 0,0);
+					//GameScene::SaveInGame(item);
 				}
 				if (item->type == 5)
 				{
@@ -285,8 +293,11 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 		{
 			if (b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
-				if(door->numberkey<=0)
-					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE/2);
+				if (door->numberkey <= 0)
+				{
+					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE / 2);
+					finish = true;
+				}
 				else
 					player->removeAction();
 			}
@@ -296,7 +307,10 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			if (a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				if (door->numberkey <= 0)
+				{
 					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::GoToGameOver), DISPLAY_TIME_SPLASH_SCENE / 2);
+					finish = true;
+				}
 				else
 					player->removeAction();
 			}
@@ -680,21 +694,22 @@ void  GameScene::GoToGameOver(float dt)
 {
 	def->setIntegerForKey("INGAME_Level", level);
 	SoundManager::getInstance()->stopMusic(softbackground_sound);
-	auto scene = GameOver::createScene();
+	auto scene = GameOver::createScene(controller, finish);
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
-void GameScene::SaveInGame(cocos2d::Node *item)
+void GameScene::SaveInGame(float dt)
 {
-	canvas->ontalk();
+	
 	//Game
 	def->setBoolForKey("INGAME_CONTINUE", true);
 	def->setIntegerForKey("INGAME_CONTINUE_LEVEL", Level_of_difficult);
+	def->setBoolForKey("INGAME_OverGame", false);
 	//player
 
 	def->setBoolForKey("INGAME_PLAYERLight", canvas->background_off->isVisible());
 	def->setFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
-	def->setFloatForKey("INGAME_PLAYERPOSX", item->getPositionX());
-	def->setFloatForKey("INGAME_PLAYERPOSY", item->getPositionY());
+	def->setFloatForKey("INGAME_PLAYERPOSX", itemsave->getPositionX());
+	def->setFloatForKey("INGAME_PLAYERPOSY", itemsave->getPositionY());
 	//minion
 	AllMinions = MinionManager::getInstance()->AllMinions;
 	int Num = 0;

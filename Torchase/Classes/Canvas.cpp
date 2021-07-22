@@ -163,7 +163,28 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	talkbox.push_back("Good luck!!!");
 	talkbox.push_back("This book will guide you and bring you back here every time you die. \nBut don't die too much, your life is limited.");
 	talkbox.push_back("Good luck!!!");
-	
+
+	talkbox.push_back("Dad:\nAlright, Where are we now???");
+	talkbox.push_back("Son:\nDad, he wants to take me away.");
+	talkbox.push_back("Dad:\nWh..Hold on, what did you say? Who??..");
+	talkbox.push_back("Son:\nI don't know. Hurry Dad, I'm so scared....");
+	talkbox.push_back("Dad:\nIt's okay son, let me...");
+	talkbox.push_back("What?!?! What just happend!");
+	talkbox.push_back("Where is my son? OMG!!!");
+	talkbox.push_back("...");
+	talkbox.push_back("I need to get through this place and find my son quickly");
+	talkbox.push_back("Hope it's not too late");
+	talkbox.push_back("Wait!!!...");
+	talkbox.push_back("There's something written right here");
+	talkbox.push_back("\"The Shadows have slept too long to wait for a day to be awakened by the \nlight and chase their prey.");
+	talkbox.push_back("Once they have caught their prey, they will tear it apart and enjoy a taste \nthey haven't enjoyed in a long time.");
+	talkbox.push_back("But they're just stupid Walking Dead. So use your wisdom and destroy them \nwith deadly traps.\"");
+	talkbox.push_back("It sounds terrible, but we don't have time and we're running out of battery.\nLet's go and find some along the way.");
+	talkbox.push_back("Good luck!!!");
+	talkbox.push_back("This book will guide you and bring you back here every time you die. \nBut don't die too much, your life is limited.");
+	talkbox.push_back("Good luck!!!");
+
+
 	// add touch move
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->setSwallowTouches(true);

@@ -31,7 +31,7 @@ USING_NS_CC;
 class GameOver : public cocos2d::Scene
 {
 public:
-    static cocos2d::Scene* createScene();
+    static cocos2d::Scene* createScene(int controller_Scene,bool finish_Scene);
 
     virtual bool init();
     
@@ -44,6 +44,7 @@ public:
 private:
 	//int Level_of_difficult, controller;
 	Menu* menu;
+	UserDefault *def;
 };
 
 #endif // __GAMEOVER_H__

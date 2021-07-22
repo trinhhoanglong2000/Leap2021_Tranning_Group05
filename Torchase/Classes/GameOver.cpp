@@ -28,11 +28,12 @@
 #include "GameScene.h"
 USING_NS_CC;
 
-extern int Level_of_difficult;
-extern int controller;
-
-Scene* GameOver::createScene()
+int controll;
+int finish;
+Scene* GameOver::createScene(int controller_Scene, bool finish_Scene)
 {
+	controll = controller_Scene;
+	finish = finish_Scene;
     return GameOver::create();
 }
 
@@ -56,12 +57,17 @@ bool GameOver::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
+	def = UserDefault::getInstance();
+	def->setBoolForKey("INGAME_OverGame", true);
+	int level = def->getIntegerForKey("INGAME_Level", 1);
+	
+	if (finish == true)
+	{
+		level++;
+		def->setIntegerForKey("INGAME_Level", level);
+	}
 
-    // add a "close" icon to exit the progress. it's an autorelease object
-    
+	SoundManager::getInstance()->stopALLMusic();
 	SoundManager::getInstance()->PlayMusics(EVIL_LAUGH, false, 1);
 	SoundManager::getInstance()->PlayMusics(GAME_OVER_SOUND, true, 1.0f);
 
@@ -109,7 +115,7 @@ void GameOver::GoToMainMenu(cocos2d::Ref* pSender)
 void GameOver::GoToGameScene(cocos2d::Ref* pSender)
 {
 	SoundManager::getInstance()->stopMusic(EVIL_LAUGH);
-	auto scene = GameScene::createScene(Level_of_difficult,controller);
+	auto scene = GameScene::createScene(3, controll);
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 

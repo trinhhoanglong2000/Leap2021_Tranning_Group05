@@ -55,7 +55,7 @@ public:
 	cocos2d::Vector<Iteam*> AllIteam;
 	void GoToGameOver(float dt);
 	void GotoAgain(float dt);
-	void SaveInGame(cocos2d::Node *item);
+	void SaveInGame(float dt);
 	void checkdie();
 	void meet();
 	//GameScene *Scene_layer;
@@ -90,7 +90,7 @@ private:
 	int SET_LIGHTING_DURATION = 3;
 	int SET_LIGHTINGBG_DURATION = 5;
 
-	
+	bool finish;
 	int gameState;
 
 	cocos2d::Sprite *effect;
@@ -98,7 +98,7 @@ private:
 	cocos2d::SEL_SCHEDULE Schedule_lighting;
 	cocos2d::SEL_SCHEDULE Schedule_shake;
 
-	
+	cocos2d::Node *itemsave;
 	bool continueGame;
 
 };
