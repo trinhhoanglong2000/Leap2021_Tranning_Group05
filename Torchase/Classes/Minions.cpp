@@ -146,7 +146,7 @@ void Minions::removeAction()
 	this->runAction(sequence);
 	*booltro = false;
 	}
-	if (type == 0)
+	if (type == 0 && Booldie==false)
 	{
 		this->stopAllActions();
 		Booldie = true;

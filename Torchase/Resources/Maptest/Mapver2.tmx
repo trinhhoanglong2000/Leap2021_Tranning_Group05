@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="84">
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="86">
  <tileset firstgid="1" source="GamemapObject.tsx"/>
  <tileset firstgid="321" source="meta_tiles.tsx"/>
  <layer id="1" name="Floor" width="50" height="50">
@@ -31,14 +31,14 @@
   <object id="14" name="spider_1" type="0" x="112" y="1424"/>
   <object id="15" name="spider_2" type="0" x="304" y="1360"/>
   <object id="16" name="spider_3" type="0" x="112" y="1296"/>
-  <object id="25" name="spider_4" type="0" x="208" y="1072"/>
-  <object id="26" name="spider_5" type="0" x="400" y="912"/>
   <object id="27" name="spider_6" type="0" x="464" y="752"/>
   <object id="28" name="spider_7" type="0" x="208" y="752"/>
   <object id="29" name="spider_8" type="0" x="208" y="656"/>
   <object id="30" name="spider_9" type="0" x="464" y="656"/>
   <object id="59" name="shadow_1" type="1" x="656" y="464"/>
   <object id="63" name="shadow_2" type="1" x="720" y="592"/>
+  <object id="84" name="shadow_4" type="0" x="240" y="1072"/>
+  <object id="85" name="shadow_5" type="0" x="368" y="912"/>
  </objectgroup>
  <objectgroup id="7" name="Iteam">
   <object id="18" name="saveGame_0" type="4" x="208" y="1520"/>

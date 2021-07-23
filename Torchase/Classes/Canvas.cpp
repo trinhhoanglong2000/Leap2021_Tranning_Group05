@@ -466,7 +466,7 @@ bool Canvas::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 }
 bool Canvas::TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event)
 {
-	if (controller_canvas == 0)
+	if (controller_canvas == 0 || talk ==true)
 	{
 		return true;
 	}
@@ -478,7 +478,7 @@ bool Canvas::TouchMoveEnd(cocos2d::Touch *touch, cocos2d::Event *event)
 }
 bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 { 
-	if (controller_canvas == 0)
+	if (controller_canvas == 0 || talk == true)
 		return true;
 	if(int_move==0)
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED/1.5f);
@@ -668,6 +668,7 @@ void Canvas::ontalk()
 	LableTalk->setString(talkbox.at(num_talk));
 	LableTalkContent->setString(talkbox.at(num_talk+1));
 	this->unschedule(Schedule_ReduceEnegy);
+	this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove));
 }
 void Canvas::offtalk()
 {

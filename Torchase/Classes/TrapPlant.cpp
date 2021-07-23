@@ -34,9 +34,9 @@ TrapPlant::TrapPlant() : Trap("prefap/trap/Plant.png", Rect(0, 0, 28, 32)) {
 	type = 1;
 	this->setScale(3.0f);
 	enegy = ui::Slider::create();
-	enegy->loadBarTexture("Slider_Back.png"); 
+	enegy->loadBarTexture("Slider_Backs.png"); 
 	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
-	enegy->loadProgressBarTexture("Slider_PressBar.png");
+	enegy->loadProgressBarTexture("Slider_PressBars.png");
 	enegy->setPosition(Vec2(this->getPositionX() + enegy->getContentSize().width/3 * 0.25f,this->getPositionY()+this->getContentSize().height/2.5 * 3.0f) );
 	enegy->setMaxPercent(10);
 	enegy->setPercent(enegy->getMaxPercent());

@@ -479,7 +479,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					minion->changeTravelTime(VALUE_SLOW);
 				}
 			}
-			if (trap->type == 1 && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
+			if (trap->type == 1 && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				TrapPlant *trapPlant = dynamic_cast<TrapPlant*>(trap);
 				if (trapPlant->enegy->isVisible() == false)
@@ -770,7 +770,11 @@ void GameScene::SaveInGame(float dt)
 			{
 				auto traptemp = dynamic_cast<TrapCheckBoss*>(AllTrap.at(i));
 				def->setIntegerForKey(StringUtils::format("INGAME_TrapTg%d",Numtrap).c_str(), traptemp->taget);
-				
+			}
+			if (AllTrap.at(i)->type == 3)
+			{
+				auto traptemp = dynamic_cast<TrapRock*>(AllTrap.at(i));
+				def->setIntegerForKey(StringUtils::format("INGAME_TrapRock%d", Numtrap).c_str(), traptemp->checkmove);
 			}
 		}
 	}
@@ -895,6 +899,13 @@ void GameScene::GotoAgain(float dt)
 			auto checkboss = dynamic_cast<TrapCheckBoss*>(trap);
 			checkboss->taget = traptaget;
 		}
+		if (trapType == 3)
+		{
+			auto traprock = dynamic_cast<TrapRock*>(trap);
+			auto checkmove =  def->getIntegerForKey(StringUtils::format("INGAME_TrapRock%d", i).c_str(), 3);
+			traprock->checkmove = checkmove;
+			traprock->atack(1);
+		}
 		this->addChild(trap, trapz);
 	}
 	//create iteam
@@ -923,8 +934,6 @@ void GameScene::GotoAgain(float dt)
 		this->addChild(item, ItemZ);
 	}
 	//Game Ma1;
-	door->numberkey = 1;
-	door->reduceNumberKey();
 	gameMap->GoAgain();
 	//Door
 	door->numberkey = NumberKey;

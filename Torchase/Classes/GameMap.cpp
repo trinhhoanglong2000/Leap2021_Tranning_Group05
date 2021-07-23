@@ -220,4 +220,6 @@ void GameMap::GoAgain()
 	_meta = _tileMap->getLayer("meta");
 	_meta->setVisible(false);
 	sceneMap->addChild(_tileMap,19);
+	door->_meta = _tileMap->getLayer("door");
+	door->_tileMap = _tileMap;
 }

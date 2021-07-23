@@ -32,7 +32,7 @@ WallCrake::WallCrake() :Iteam("prefap/Iteam/Wall1.png", Rect(0, 0, 128, 104)) {
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	type = 5;
-	//this->setScale(3.5f);
+	this->setScale(1.2f);
 	WallCrake::setAnimation();
 }
 void WallCrake::setAnimation()
