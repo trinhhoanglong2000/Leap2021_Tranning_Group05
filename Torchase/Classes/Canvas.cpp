@@ -50,7 +50,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonUp = ui::Button::create("prefap/Gui/up.png");
 	ButtonDow = ui::Button::create("prefap/Gui/down.png");
 	ButtonLeft = ui::Button::create("prefap/Gui/left.png");
-	ButtonRight = ui::Button::create("prefap/Gui/right.png");
+	ButtonRight = ui::Button::create("prefap/Gui/rights.png");
 
 	ButtonLight = ui::Button::create("prefap/Gui/light.png");
 	
@@ -78,11 +78,13 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonDow->setScale(BUTTON_SCALE);
 	ButtonLeft->setScale(BUTTON_SCALE);
 	ButtonRight->setScale(BUTTON_SCALE);
-	ButtonPause->setScale(BUTTON_SCALE);
-	ButtonResume->setScale(BUTTON_SCALE);
-	ButtonLight->setScale(BUTTON_SCALE);
-	ButtonTrap->setScale(BUTTON_SCALE);
-	ButtonHome->setScale(BUTTON_SCALE);
+	ButtonPause->setScale(BUTTON_SCALE*2.5f);
+	ButtonResume->setScale(BUTTON_SCALE*2.5f);
+
+	ButtonLight->setScale(BUTTON_SCALE*1.3f);
+	ButtonTrap->setScale(BUTTON_SCALE*1.3f);
+
+	ButtonHome->setScale(BUTTON_SCALE*2.5f);
 
 	ButtonConvert->setPosition(Vec2(visibleSize.width / 2.2 + origin.x, -visibleSize.height / 10 + origin.y));
 	ButtonConvert->addTouchEventListener(CC_CALLBACK_2(Canvas::PutTrap, this));
@@ -93,16 +95,16 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonLight->setPosition(Vec2(visibleSize.width / 2.2 + origin.x, -visibleSize.height / 4 + origin.y));
 	ButtonLight->addTouchEventListener(CC_CALLBACK_2(Canvas::OnOffLight, this));
 
-	ButtonUp->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE*0.8f));
+	ButtonUp->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE*0.75f));
 	ButtonUp->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveUp, this));
 
-	ButtonDow->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE*0.8f));
+	ButtonDow->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE*0.75f));
 	ButtonDow->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveDow, this));
 
-	ButtonLeft->setPosition(Vec2(-visibleSize.width / 3 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE*0.8f, -visibleSize.height / 4 + origin.y));
+	ButtonLeft->setPosition(Vec2(-visibleSize.width / 3 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE*0.75f, -visibleSize.height / 4 + origin.y));
 	ButtonLeft->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveLeft, this));
 
-	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE*0.8f, -visibleSize.height / 4 + origin.y));
+	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE*0.75f, -visibleSize.height / 4 + origin.y));
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveRight, this));
 
 	ButtonPause->setPosition(Vec2(visibleSize.width /2.3 , visibleSize.height /2.5 ));
@@ -187,7 +189,7 @@ void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType T
 		player->MoveUp();
 		int_move = 1;
 		mind_move = 1;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.5f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.2f);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 1)
 	{
@@ -218,7 +220,7 @@ void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 		player->MoveDow();
 		int_move = 2;
 		mind_move = 2;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.5f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.2f);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 2)
 	{
@@ -247,7 +249,7 @@ void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType
 		player->MoveLeft();
 		int_move = 3;
 		mind_move = 3;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.5f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.2f);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 3)
 	{
@@ -275,7 +277,7 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 		player->MoveRight();
 		int_move = 4;
 		mind_move = 4;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.5f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.2f);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 4)
 	{
@@ -481,7 +483,7 @@ bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 	if (controller_canvas == 0 || talk == true)
 		return true;
 	if(int_move==0)
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED/1.5f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED/1.2f);
 	cocos2d::Vec2 pointgoc = Vec2(touch->getStartLocation().x, touch->getStartLocation().y + 20) - touch->getStartLocation();
 	cocos2d::Vec2 point = touch->getLocation() - touch->getStartLocation();
 	float radian = (pointgoc.x * point.x + pointgoc.y * point.y) / (sqrt(point.x*point.x + point.y*point.y)*sqrt(pointgoc.x*pointgoc.x + pointgoc.y*pointgoc.y));

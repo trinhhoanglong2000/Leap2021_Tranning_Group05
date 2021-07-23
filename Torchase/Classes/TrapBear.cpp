@@ -54,6 +54,7 @@ TrapBear::TrapBear() : Trap("prefap/trap/Bear_Trap.png", Rect(0, 0, 32, 32)) {
 	Animation* animations = Animation::createWithSpriteFrames(animFramesOut, 0.2f);
 	Animate* animates = Animate::create(animations);
 	_AnimationOut.pushBack(animates);
+	
 
 }
 TrapBear::TrapBear(std::string name) {
@@ -77,6 +78,9 @@ void TrapBear::HitPlayer()
 		this->stopAllActions();
 		this->setVisible(false);
 		this->removeFromParent();
+		this->setTexture("prefap/trap/Bear_Trap.png");
+		this->setTextureRect(Rect(0, 0, 32, 32));
+		work = true;
 	});
 	auto sequence = Sequence::create(_Animation.at(0), callback, nullptr);
 	this->runAction(sequence);
