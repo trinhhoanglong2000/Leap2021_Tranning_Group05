@@ -85,7 +85,7 @@ bool GameScene::init()
 
 	gameState = STATE_PLAYING;
 	CCLOG("gamescene init %d", gameState);
-
+	SoundManager::getInstance()->stopALLMusic();
 	MinionManager::getInstance()->SetFalseAllMinion();
 	TrapManager::getInstance()->SetFalseAllTrap();
 	IteamManager::getInstance()->SetFalseAllIteam();
@@ -731,7 +731,7 @@ void GameScene::SaveInGame(float dt)
 	def->setIntegerForKey("INGAME_CONTINUE_LEVEL", Level_of_difficult);
 	def->setBoolForKey("INGAME_OverGame", false);
 	//player
-
+	def->setIntegerForKey("INGAME_PLAYERHEAL", player->NumHeal);
 	def->setBoolForKey("INGAME_PLAYERLight", canvas->background_off->isVisible());
 	def->setFloatForKey("INGAME_PLAYERENEGY", canvas->enegy->getPercent());
 	def->setFloatForKey("INGAME_PLAYERPOSX", itemsave->getPositionX());
