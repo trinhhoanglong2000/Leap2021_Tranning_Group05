@@ -634,7 +634,7 @@ void GameScene::Lighting(float dt)
 	else
 	{
 		
-		SoundManager::getInstance()->PlayMusics(LIGHTING);
+		SoundManager::getInstance()->PlayMusics(LIGHTING,false,0.8f);
 		if (player->background->isVisible() == true)
 			light = false;
 		else

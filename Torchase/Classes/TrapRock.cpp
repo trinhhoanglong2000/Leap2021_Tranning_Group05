@@ -54,7 +54,7 @@ TrapRock::TrapRock() : Trap("prefap/trap/Trap_Rock.png", Rect(0, 0, 51, 51)) {
 	Animation* animations = Animation::createWithSpriteFrames(animFramesOut, 0.2f);
 	Animate* animates = Animate::create(animations);
 	_AnimationOut.pushBack(animates);
-	this->schedule(CC_SCHEDULE_SELECTOR(TrapRock::atack), 1.5f,0,0);
+	
 	//TrapRock::atack(1);
 }
 TrapRock::TrapRock(std::string name) {

@@ -167,6 +167,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, int levelGame)
 			{
 				auto traptemp = dynamic_cast<TrapRock*>(trap);
 				traptemp->setspeed(_tileMap->getTileSize().width*MAP_SCALE);
+				traptemp->atack(1);
 			}
 			if (type == 4)
 			{
