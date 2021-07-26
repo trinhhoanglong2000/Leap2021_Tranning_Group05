@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="123">
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="124">
  <tileset firstgid="1" source="GamemapObject.tsx"/>
  <tileset firstgid="321" source="meta_tiles.tsx"/>
  <layer id="1" name="Floor" width="50" height="50">
@@ -51,6 +51,7 @@
   <object id="81" name="saveGame_2" type="4" x="176" y="1168"/>
   <object id="79" name="saveGame_3" type="4" x="656" y="912"/>
   <object id="118" name="battery_2" type="1" x="176" y="1200"/>
+  <object id="123" type="3" x="976" y="1456"/>
  </objectgroup>
  <objectgroup id="13" name="meet">
   <object id="102" name="player" type="0" x="1072" y="912"/>

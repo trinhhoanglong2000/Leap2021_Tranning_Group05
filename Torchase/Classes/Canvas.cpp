@@ -51,9 +51,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonDow = ui::Button::create("prefap/Gui/down.png");
 	ButtonLeft = ui::Button::create("prefap/Gui/left.png");
 	ButtonRight = ui::Button::create("prefap/Gui/rights.png");
-
 	ButtonLight = ui::Button::create("prefap/Gui/light.png");
-	
 	ButtonTrap = ui::Button::create("prefap/Gui/Trap.png");
 	ButtonConvert = ui::Button::create("prefap/Gui/right.png");
 
@@ -68,6 +66,7 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	pauseBackgr->setOpacity(0);
 	this->addChild(pauseBackgr);
 
+	
 	talkboxBachgr = Sprite::create("prefap/Gui/blackboxx.png");
 	talkboxBachgr->setScale(3.0f,2.0f);
 	talkboxBachgr->setPosition(Vec2(0,-visibleSize.height/2+ talkboxBachgr->getContentSize().height));
@@ -127,6 +126,21 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	this->addChild(ButtonTrap);
 	this->addChild(ButtonHome);
 
+	NumTrap = Sprite::create("prefap/Gui/NumTrap.png");
+	NumTrap->setScale(0.4f);
+	NumTrap->setPosition(Vec2(ButtonTrap->getContentSize().width/1.2f,ButtonTrap->getContentSize().height / 1.2f));
+	ButtonTrap->addChild(NumTrap, 100);
+
+	LableNumTrap = Label::createWithTTF("100", "fonts/horroroid.ttf", visibleSize.height/10);
+	LableNumTrap->setPosition(Vec2(ButtonTrap->getContentSize().width / 1.2f, ButtonTrap->getContentSize().height / 1.2f));
+	LableNumTrap->setColor(Color3B::BLACK);
+	ButtonTrap->addChild(LableNumTrap, 101);
+
+	erroTrap = Label::createWithTTF("out of Trap", "fonts/horroroid.ttf", visibleSize.height / 18);
+	erroTrap->setPosition(Vec2(visibleSize.width / 2.7 + origin.x, -visibleSize.height / 7 + origin.y));
+	erroTrap->setColor(Color3B::WHITE);
+	this->addChild(erroTrap, 101);
+	erroTrap->setVisible(false);
 	// add slider enegy
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Backs.png"); 
@@ -518,6 +532,24 @@ void Canvas::reducePlant()
 }
 void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
+	if (amountTrap <= 0)
+	{
+		if (checkTouchPutTrap == false)
+		{
+			checkTouchPutTrap = true;
+			auto fadeOut = FadeTo::create(1, 10);
+			auto callback = CallFunc::create([&]() {
+				erroTrap->setVisible(false);
+				checkTouchPutTrap = false;
+			});
+			auto sequenceout = Sequence::create(fadeOut, callback, nullptr);
+			auto fadeIn = FadeTo::create(1, 255);
+			Sequence* sequence = Sequence::create(fadeIn, sequenceout, NULL);
+			erroTrap->setVisible(true);
+			erroTrap->runAction(sequence);
+		}
+		return;
+	}
 	if (Type == ui::Widget::TouchEventType::BEGAN && player->die==false)
 	{
 		switch (mind_move)
@@ -530,6 +562,8 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() + player->speed));
 			scene->addChild(trap, 20);
+			amountTrap--;
+			Canvas::changeNumtrap();
 			break;
 		}
 		case 2:
@@ -540,6 +574,8 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX(), player->getPositionY() - player->speed));
 			scene->addChild(trap, 20);
+			amountTrap--;
+			Canvas::changeNumtrap();
 			break;
 		}
 		case 3:
@@ -550,6 +586,8 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX() - player->speed, player->getPositionY()));
 			scene->addChild(trap, 20);
+			amountTrap--;
+			Canvas::changeNumtrap();
 			break;
 		}
 		case 4:
@@ -560,6 +598,8 @@ void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 			auto trap = TrapManager::getInstance()->CreateTrap(2);
 			trap->setPosition(Vec2(player->getPositionX() + player->speed, player->getPositionY()));
 			scene->addChild(trap,20);
+			amountTrap--;
+			Canvas::changeNumtrap();
 			break;
 		}
 		default:
@@ -686,4 +726,9 @@ void Canvas::offtalk()
 	waittalk = true;
 
 	this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
+}
+void Canvas::changeNumtrap()
+{
+	auto s = StringUtils::format("%d", amountTrap);
+	LableNumTrap->setString(s);
 }

@@ -65,6 +65,7 @@ public:
 	void OnButtonController();
 	void ontalk();
 	void offtalk();
+	void changeNumtrap();
 	cocos2d::Vector<Minions*> AllMinions;
 	cocos2d::Vector<Trap*> AllTrap;
 	cocos2d::DrawNode* background_off;
@@ -77,6 +78,8 @@ public:
 	cocos2d::Vec2 playerNow;
 	int level;
 	int num_talk = -1;
+	int amountTrap;
+	
 private:
 	Player *player;	
 	cocos2d::Size visibleSize;
@@ -87,6 +90,7 @@ private:
 	bool BoolTouch;
 	bool touchpause = false;
 	bool talk = true;
+	bool checkTouchPutTrap=false;
 	bool waittalk = false;
 	int controller_canvas;
 	cocos2d::ui::Button *ButtonUp, *ButtonDow, *ButtonLeft, *ButtonRight,
@@ -96,8 +100,8 @@ private:
 	
 	int *gameState;
 	cocos2d::Menu *pauseMenu;
-	cocos2d::Sprite *pauseBackgr, *talkboxBachgr;
-	cocos2d::Label *LableTalk, *LableTalkContent;
+	cocos2d::Sprite *pauseBackgr, *talkboxBachgr,*NumTrap;
+	cocos2d::Label *LableTalk, *LableTalkContent,*LableNumTrap,*erroTrap;
 	cocos2d::UserDefault *def;
 	
 	std::vector<std::string> talkbox;

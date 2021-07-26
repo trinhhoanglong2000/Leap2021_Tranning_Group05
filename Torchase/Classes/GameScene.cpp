@@ -142,12 +142,17 @@ bool GameScene::init()
 	bool checkover = def->getBoolForKey("INGAME_OverGame", false);
 	if (continueGame == true && checkover==false && again==false)
 	{
+		canvas->amountTrap = def->getIntegerForKey("INGAME_AMOUNTTRAP", 0);
+		canvas->changeNumtrap();
 		canvas->num_talk = def->getIntegerForKey("INGAME_NumTalk", -2);
 	}
 	else
 	{
 		def->setIntegerForKey("INGAME_NumTalk", -2);
 		canvas->num_talk = -2;
+		def->setIntegerForKey("INGAME_AMOUNTTRAP", 0);
+		canvas->amountTrap = 0;
+		canvas->changeNumtrap();
 	}
 
 	auto contactListener = EventListenerPhysicsContact::create();
@@ -212,6 +217,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					auto itemBox = dynamic_cast<IteamBox*>(item);
 					if (itemBox->check == false)
 					{
+						canvas->amountTrap+=2;
+						canvas->changeNumtrap();
 						itemBox->HitPlater();
 					}
 				}
@@ -270,6 +277,8 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					auto itemBox = dynamic_cast<IteamBox*>(item);
 					if (itemBox->check == false)
 					{
+						canvas->amountTrap += 2;
+						canvas->changeNumtrap();
 						itemBox->HitPlater();
 					}
 				}
@@ -730,6 +739,7 @@ void GameScene::SaveInGame(float dt)
 	def->setBoolForKey("INGAME_CONTINUE", true);
 	def->setIntegerForKey("INGAME_CONTINUE_LEVEL", Level_of_difficult);
 	def->setBoolForKey("INGAME_OverGame", false);
+	def->setIntegerForKey("INGAME_AMOUNTTRAP", canvas->amountTrap);
 	//player
 	def->setIntegerForKey("INGAME_PLAYERHEAL", player->NumHeal);
 	def->setBoolForKey("INGAME_PLAYERLight", canvas->background_off->isVisible());
@@ -940,6 +950,8 @@ void GameScene::GotoAgain(float dt)
 	door->_tileMap = gameMap->_tileMap;
 	door->_meta = gameMap->_meta;
 	//canvas
+	canvas->amountTrap =  def->getIntegerForKey("INGAME_AMOUNTTRAP", 0);
+	canvas->changeNumtrap();
 	canvas->Goagain(light);
 }
 void GameScene::meet()
