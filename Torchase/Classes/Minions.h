@@ -34,6 +34,7 @@ class Minions : public Actor
 public:
 	Minions();
 	Minions(Player* playerScene, float mapspeed);
+	Minions(std::string name, cocos2d::Rect rect);
 	void findPlayer(float dt);
 	void findPlayerType0(float dt);
 	void removeAction();
@@ -47,6 +48,7 @@ public:
 	void changeTravelTime(float value);
 	void resetTravelTime(float dt);
 	void reset();
+	
 	int type;
 	bool Booldie;
 	float traveltime;

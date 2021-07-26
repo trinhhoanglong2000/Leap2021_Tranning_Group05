@@ -38,6 +38,7 @@ Spider::Spider(Player * playerScene, float mapspeed):	Minions( playerScene, maps
 Spider::Spider() : Minions()
 {
 	Spider::setAnimation();
+	
 }
 void Spider::Roar(float dt)
 {
@@ -59,14 +60,16 @@ void Spider::stare(float dt)
 	{
 		
 		numstare--;
-		cocos2d::Vec2 *pointX = new Vec2(0, 30);
+		cocos2d::Vec2 *pointX = new Vec2(0, -30);
 		cocos2d::Vec2 *pointY = new Vec2(player->getPositionX() - this->getPositionX(), player->getPositionY() - this->getPositionY());
 		mindPlayer = Vec2(pointY->x,pointY->y);
-		float s = (pointX->x * pointY->x + pointX->y * pointY->y) / (sqrt(pointX->x*pointX->x + pointX->y*pointX->y)*sqrt(pointY->x*pointY->x + pointY->y*pointY->y)) + 1;
-		s = 90 * s;
-		if (player->getPositionX() > this->getPositionX())
-			s = -s;
-		this->setRotation(s);
+		float s = (pointX->x * pointY->x + pointX->y * pointY->y) / (sqrt(pointX->x*pointX->x + pointX->y*pointX->y)*sqrt(pointY->x*pointY->x + pointY->y*pointY->y));
+		//s = 90 * (s+1);
+		/*if (player->getPositionX() > this->getPositionX())
+			s = -s;*/
+		auto radian = acos(s);
+		radian = radian * 180 / 3.141592;
+		this->setRotation(radian);
 	}
 	
 }

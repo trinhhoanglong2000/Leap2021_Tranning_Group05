@@ -39,6 +39,7 @@ public:
 	int taget;
 	void hitplayer(cocos2d::Scene *sceneGame);
 	void addtrap(float dt);
+	void boss2Atack(float dt);
 protected:
 	cocos2d::Scene *scene;
 	cocos2d::Size visibleSize;

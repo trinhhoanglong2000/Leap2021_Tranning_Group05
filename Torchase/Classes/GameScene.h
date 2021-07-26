@@ -101,7 +101,7 @@ private:
 
 	cocos2d::Node *itemsave;
 	bool continueGame;
-
+	bool stoplightting = false;
 };
 
 #endif // __GAMESCENE_H__

@@ -39,6 +39,7 @@
 #include "IteamBox.h"
 #include "Son.h"
 #include "WallCrake.h"
+#include "MinionBoss.h"
 USING_NS_CC;
 
 int Level_of_difficult;
@@ -48,9 +49,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -441,6 +442,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			if (trap->type == 4)
 			{
 				canvas->goup(1);
+				stoplightting = true;
 				auto trapCheckBoss = dynamic_cast<TrapCheckBoss*>(trap);
 				trapCheckBoss->hitplayer(this);
 			}
@@ -501,6 +503,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			if (trap->type == 4)
 			{
 				canvas->goup(1);
+				stoplightting = true;
 				auto trapCheckBoss = dynamic_cast<TrapCheckBoss*>(trap);
 				trapCheckBoss->hitplayer(this);
 			}
@@ -512,6 +515,20 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			minion->hit = true;
 			if(minion->Booldie == true)
 				return true;
+			if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+			{
+				auto minionb = dynamic_cast<Minions*>(b->getOwner());
+				if (minion->type == 2)
+				{
+					auto boss = dynamic_cast<MinionBoss*>(minion);
+					boss->reduceEnegy(1);
+				}
+				if (minionb->type == 2)
+				{
+					auto boss = dynamic_cast<MinionBoss*>(minionb);
+					boss->reduceEnegy(1);
+				}
+			}
 			if (!player->die && b->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				//auto minion = dynamic_cast<Minions*>(a->getOwner());
@@ -550,6 +567,20 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			minion->hit = true;
 			if (minion->Booldie == true)
 				return true;
+			if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+			{
+				auto minionb = dynamic_cast<Minions*>(a->getOwner());
+				if (minion->type == 2)
+				{
+					auto boss = dynamic_cast<MinionBoss*>(minion);
+					boss->reduceEnegy(1);
+				}
+				if (minionb->type == 2)
+				{
+					auto boss = dynamic_cast<MinionBoss*>(minionb);
+					boss->reduceEnegy(1);
+				}
+			}
 			if (!player->die && a->getCategoryBitmask() == PLAYER_CATEGORY_BITMASK)
 			{
 				//auto minion = dynamic_cast<Minions*>(b->getOwner());
@@ -637,6 +668,8 @@ float GameScene::rangeRandom(float min, float max)
 }
 void GameScene::Lighting(float dt)
 {
+	if (stoplightting == true)
+		return;
 	int num = cocos2d::RandomHelper::random_int(1, 10);
 	if (num < 7)
 		return;
@@ -816,6 +849,7 @@ void GameScene::checkdie()
 
 void GameScene::GotoAgain(float dt)
 {
+	stoplightting = false;
 	//sound 
 	SoundManager::getInstance()->stopALLMusic();
 	SoundManager::getInstance()->PlayMusics(softbackground_sound, true, 1.0f);
@@ -943,12 +977,15 @@ void GameScene::GotoAgain(float dt)
 		item->setPosition(Vec2(ItemPosX, ItemPosY));
 		this->addChild(item, ItemZ);
 	}
-	//Game Ma1;
+	//Game Map;
+	door->numberkey = 0;
+	door->CheckDoor();
 	gameMap->GoAgain();
 	//Door
 	door->numberkey = NumberKey;
 	door->_tileMap = gameMap->_tileMap;
 	door->_meta = gameMap->_meta;
+	door->CheckDoor();
 	//canvas
 	canvas->amountTrap =  def->getIntegerForKey("INGAME_AMOUNTTRAP", 0);
 	canvas->changeNumtrap();

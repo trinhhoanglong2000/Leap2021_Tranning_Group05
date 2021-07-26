@@ -39,9 +39,14 @@ public:
 	void CreateMinion(float dt);
 	void reduceEnegy(float dame);
 	void reset();
+	void atack(float dt);
+	void start();
 	void setStatus(bool checkdie);
+	cocos2d::Scene *scene;
 private:
-	std::string minionname = "prefap/Minions/Shadow.png";
+	int midpos,pos;
+	int posSpider;
+	std::string minionname = "prefap/Minions/ryuk.png";
 	cocos2d::ui::Slider *enegy;
 };
 

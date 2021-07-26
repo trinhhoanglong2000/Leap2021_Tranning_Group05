@@ -47,6 +47,7 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 }	
 Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
+	booltro = &booltop;
 	hit = false;
 	traveltime = MININON_SPEED;
 	light = true;
@@ -59,6 +60,21 @@ Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 	boolFind = false;
 	Booldie = false;
 	std::string minionname = "prefap/Minions/spider.png";
+}
+Minions::Minions(std::string name, cocos2d::Rect rect) : Actor(name, rect)
+{
+	booltro = &booltop;
+	hit = false;
+	traveltime = MININON_SPEED;
+	light = true;
+	auto EnemyBody = PhysicsBody::createBox(this->getContentSize() / 1.5);
+	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
+	EnemyBody->setCategoryBitmask(ENEMY_CATEGORY_BITMASK);
+	EnemyBody->setContactTestBitmask(ENEMY_COLISION_BITMASK);
+	EnemyBody->setDynamic(false);
+	this->setPhysicsBody(EnemyBody);
+	boolFind = false;
+	Booldie = false;
 }
 void Minions::findPlayer(float dt)
 {

@@ -39,6 +39,7 @@
 #include "Door.h"
 #include "Key.h"
 #include "IteamManager.h"
+
 USING_NS_CC;
 
 
@@ -91,7 +92,11 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, int levelGame)
 			minion = MinionManager::getInstance()->CreateMinion(type);
 			minion->setPosition(Vec2(x, y)*MAP_SCALE);
 			minion->setplayer(playerScene, _tileMap->getTileSize().width*MAP_SCALE);
-
+			if (type == 2)
+			{
+				auto boss = dynamic_cast<MinionBoss*>(minion);
+				boss->scene = scene;
+			}
 			scene->addChild(minion, 21);
 		}
 	}

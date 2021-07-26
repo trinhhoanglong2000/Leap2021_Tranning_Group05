@@ -26,7 +26,9 @@
 #include "Definitions.h"
 #include "ui\CocosGUI.h"
 #include "TrapManager.h"
+#include "MinionManager.h"
 #include "TrapRock.h"
+#include "MinionBoss.h"
 USING_NS_CC;
 TrapCheckBoss::TrapCheckBoss() : Trap("prefap/trap/CheckBoss.png", Rect(0, 0, 128, 128)) {
 
@@ -49,21 +51,24 @@ TrapCheckBoss::TrapCheckBoss(std::string filename, cocos2d::Rect rect)
 }
 void TrapCheckBoss::hitplayer(cocos2d::Scene *sceneGame)
 {
-	AllTrap = TrapManager::getInstance()->AllTrap;
-	/*if (taget == 1)
+	if (taget == 0)
 	{
-		for (int i = 0; i < AllTrap.size(); i++)
+		AllMinions = MinionManager::getInstance()->AllMinions;
+		for (int i = 0; i < AllMinions.size(); i++)
 		{
-			if (AllTrap.at(i)->type == 3 && AllTrap.at(i)->isVisible() == true)
+			if (AllMinions.at(i)->type == 2 && AllMinions.at(i)->isVisible() == true)
 			{
-				auto trap = dynamic_cast<TrapRock*>(AllTrap.at(i));
-				trap->atack(1);
+				auto boss = dynamic_cast<MinionBoss*>(AllMinions.at(i));
+				boss->start();
 			}
 		}
-	}*/
+	}
 	scene = sceneGame;
-	//TrapCheckBoss::addtrap(0);
 	this->schedule(CC_SCHEDULE_SELECTOR(TrapCheckBoss::addtrap), 0.5f);
+}
+void TrapCheckBoss::boss2Atack(float dt)
+{
+	
 }
 void TrapCheckBoss::addtrap(float dt)
 {

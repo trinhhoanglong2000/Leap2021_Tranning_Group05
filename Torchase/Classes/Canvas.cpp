@@ -203,7 +203,7 @@ void Canvas::MoveUp(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType T
 		player->MoveUp();
 		int_move = 1;
 		mind_move = 1;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.2f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.5f);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 1)
 	{
@@ -234,7 +234,7 @@ void Canvas::MoveDow(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType 
 		player->MoveDow();
 		int_move = 2;
 		mind_move = 2;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.2f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.5f);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 2)
 	{
@@ -263,7 +263,7 @@ void Canvas::MoveLeft(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType
 		player->MoveLeft();
 		int_move = 3;
 		mind_move = 3;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.2f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.5f);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 3)
 	{
@@ -291,7 +291,7 @@ void Canvas::MoveRight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTyp
 		player->MoveRight();
 		int_move = 4;
 		mind_move = 4;
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.2f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED / 1.5f);
 	}
 	if (Type == ui::Widget::TouchEventType::ENDED && int_move == 4)
 	{
@@ -497,7 +497,7 @@ bool Canvas::TouchMoveMove(cocos2d::Touch *touch, cocos2d::Event *event)
 	if (controller_canvas == 0 || talk == true)
 		return true;
 	if(int_move==0)
-		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED/1.2f);
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::AutoMove), AUTO_SPEED/1.5f);
 	cocos2d::Vec2 pointgoc = Vec2(touch->getStartLocation().x, touch->getStartLocation().y + 20) - touch->getStartLocation();
 	cocos2d::Vec2 point = touch->getLocation() - touch->getStartLocation();
 	float radian = (pointgoc.x * point.x + pointgoc.y * point.y) / (sqrt(point.x*point.x + point.y*point.y)*sqrt(pointgoc.x*pointgoc.x + pointgoc.y*pointgoc.y));

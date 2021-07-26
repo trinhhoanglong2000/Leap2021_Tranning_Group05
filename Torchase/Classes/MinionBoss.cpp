@@ -25,28 +25,53 @@
 #include "MinionBoss.h"
 #include "Definitions.h"
 #include "MinionManager.h"
+#include "Minions.h"
+#include "Spider.h"
 #include "ui\CocosGUI.h"
+#include "SoundManager.h"
 USING_NS_CC;
 
 MinionBoss::MinionBoss(Player * playerScene, float mapspeed):	Minions( playerScene, mapspeed)
 {
 	MinionBoss::setAnimation();
 }
-MinionBoss::MinionBoss() : Minions()
+MinionBoss::MinionBoss() : Minions("prefap/Minions/ryuk.png", Rect(0, 0, 48, 64))
 {
+	midpos = -3;
+	type = 2;
 	MinionBoss::setAnimation();
-
+	this->setScale(3.0f);
 	enegy = ui::Slider::create();
-	enegy->loadBarTexture("Slider_Back.png");
+	enegy->loadBarTexture("Slider_Backs.png");
 	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
-	enegy->loadProgressBarTexture("Slider_PressBar.png");
-	enegy->setPosition(Vec2(this->getPositionX() + enegy->getContentSize().width / 3 * 0.25f, this->getPositionY() + this->getContentSize().height / 2.5 * 3.0f));
+	enegy->loadProgressBarTexture("Slider_PressBars.png");
+	enegy->setPosition(Vec2(this->getPositionX() + enegy->getContentSize().width / 3 * 0.4f, this->getPositionY() + this->getContentSize().height / 2.5 * 3.0f));
 	enegy->setMaxPercent(10);
 	enegy->setPercent(enegy->getMaxPercent());
 	enegy->setScale(0.25f);
-
 	this->addChild(enegy);
-	enegy->setVisible(false);
+	posSpider = -2;
+	//this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::atack), 2.0f,100,15.0f);
+}
+void MinionBoss::start()
+{
+	SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
+	this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::atack), 2.0f);
+}
+void MinionBoss::atack(float dt)
+{
+	pos = cocos2d::RandomHelper::random_int(-2, 2);
+	while (pos==midpos)
+	{
+		pos = cocos2d::RandomHelper::random_int(-2, 2);
+	}
+	midpos = pos;
+	auto minion = MinionManager::getInstance()->CreateMinion(0);
+	minion->setPosition(Vec2(this->getPositionX() + speed, this->getPositionY() + pos * speed));
+	minion->setplayer(player,speed);
+	auto spider = dynamic_cast<Spider*>(minion);
+	spider->Roar(1);
+	scene->addChild(minion);
 }
 void MinionBoss::Roar(float dt)
 {
@@ -65,13 +90,12 @@ void MinionBoss::reduceEnegy(float dame)
 }
 void MinionBoss::setAnimation()
 {
-	type = 2;
 	//down
 	Vector<SpriteFrame*>  animFrames;
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 0, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 0, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 0, 100, 150)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
 
 	//default
 	this->setSpriteFrame(animFrames.at(0));
@@ -82,10 +106,10 @@ void MinionBoss::setAnimation()
 	animFrames.clear();
 
 	//up
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 450, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 450, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 450, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 450, 100, 150)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
 
 	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -94,10 +118,10 @@ void MinionBoss::setAnimation()
 	animFrames.clear();
 
 	//left
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 150, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 150, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 150, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 150, 100, 150)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
 
 	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -106,10 +130,10 @@ void MinionBoss::setAnimation()
 	animFrames.clear();
 
 	//right 
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 300, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(100, 300, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(200, 300, 100, 150)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(300, 300, 100, 150)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
 
 	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -119,11 +143,11 @@ void MinionBoss::setAnimation()
 	goUp = true;
 
 	// die
-	std::string minionnamedie = "prefap/Minions/ShadowDie.png";
-	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 144, 152)));
-	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(144, 0, 144, 152)));
-	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(288, 0, 144, 152)));
-	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(432, 0, 144, 152)));
+	std::string minionnamedie = "prefap/Minions/ryuk.png";
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 48, 64)));
 
 	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -134,21 +158,21 @@ void MinionBoss::setAnimation()
 void MinionBoss::reset()
 {
 	Minions::reset();
-	this->setTexture("prefap/Minions/Shadow.png");
-	this->setTextureRect(Rect(100, 0, 100, 150));
+	this->setTexture("prefap/Minions/ryuk.png");
+	this->setTextureRect(Rect(0, 0, 48, 64));
 }
 void MinionBoss::setStatus(bool checkdie)
 {
 	if (checkdie == true)
 	{
 		goUp = false;
-		this->setTexture("prefap/Minions/ShadowDie.png");
-		this->setTextureRect(Rect(432, 0, 144, 152));
+		this->setTexture("prefap/Minions/ryuk.png");
+		this->setTextureRect(Rect(0, 0, 48, 64));
 	}
 	else
 	{
 		goUp = true;
-		this->setTexture("prefap/Minions/Shadow.png");
-		this->setTextureRect(Rect(100, 0, 100, 150));
+		this->setTexture("prefap/Minions/ryuk.png");
+		this->setTextureRect(Rect(0, 0, 48, 64));
 	}
 }
