@@ -876,7 +876,6 @@ void GameScene::GotoAgain(float dt)
 	{
 		if (AllMinions.at(i)->isVisible()==true )
 		{
-			//MinionManager::getInstance()->setfalseMinion(AllMinions.at(i));
 			this->removeChild(AllMinions.at(i));	
 		}
 	}

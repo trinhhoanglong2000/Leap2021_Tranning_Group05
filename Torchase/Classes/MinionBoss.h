@@ -28,6 +28,7 @@
 #include "cocos2d.h"
 #include"Minions.h"
 #include "ui\CocosGUI.h"
+#include "Trap.h"
 class MinionBoss : public Minions
 {
 public:
@@ -40,14 +41,21 @@ public:
 	void reduceEnegy(float dame);
 	void reset();
 	void atack(float dt);
+	void atack2(float dt);
+	void addtrap(float dt);
 	void start();
 	void setStatus(bool checkdie);
+	void plusPower(float dt);
 	cocos2d::Scene *scene;
 private:
 	int midpos,pos;
 	int posSpider;
 	std::string minionname = "prefap/Minions/ryuk.png";
-	cocos2d::ui::Slider *enegy;
+	cocos2d::ui::Slider *enegy,*power;
+	int percentPower;
+	bool checkpower;
+	cocos2d::Vector<cocos2d::Sprite *> Alltaget;
+	cocos2d::Vector<Trap*> AllTrap;
 };
 
 #endif // __MINIONBOSS_H__

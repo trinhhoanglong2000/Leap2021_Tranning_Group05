@@ -33,6 +33,7 @@ class Trapthorn : public Trap
 {
 public:
 	Trapthorn();
+	void atack();
 	Trapthorn(std::string name);
 	Trapthorn(std::string filename, cocos2d::Rect rect);
 

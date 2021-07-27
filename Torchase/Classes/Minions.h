@@ -48,7 +48,7 @@ public:
 	void changeTravelTime(float value);
 	void resetTravelTime(float dt);
 	void reset();
-	
+	void removeMinion(float dt);
 	int type;
 	bool Booldie;
 	float traveltime;

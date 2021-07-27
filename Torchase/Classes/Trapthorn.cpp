@@ -36,13 +36,13 @@ Trapthorn::Trapthorn() : Trap("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)) 
 
 	Vector<SpriteFrame*>  animFrames;
 
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(0, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(32, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(79, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(101, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(133, 0, 28, 32)));
-	animFrames.pushBack(SpriteFrame::create("prefap/trap/Plant.png", Rect(165, 0, 28, 32)));
-	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Thorn.png", Rect(66, 0, 33, 34)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Thorn.png", Rect(33, 0, 33, 34)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)));
+	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)));
+	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.15f);
 	Animate* animate = Animate::create(animation);
 	_Animation.pushBack(animate);
 
@@ -69,4 +69,15 @@ Trapthorn::Trapthorn(std::string filename, cocos2d::Rect rect)
 	this->initWithFile(filename,rect);
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
+}
+void Trapthorn::atack()
+{
+	this->stopAllActions();
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+		this->setVisible(false);
+		this->removeFromParent();
+	});
+	auto sequence = Sequence::create(_Animation.at(0), callback, nullptr);
+	this->runAction(sequence);
 }

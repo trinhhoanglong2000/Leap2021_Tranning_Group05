@@ -169,6 +169,7 @@ void Minions::removeAction()
 		this->unscheduleAllCallbacks();
 		goUp = false;
 		Minions::actiondie(1);
+		this->schedule(CC_SCHEDULE_SELECTOR(Minions::removeMinion), 4.0f, 0, 0);
 	}
 }
 void Minions::Roar(float dt)
@@ -210,14 +211,27 @@ void Minions::actiondie(float dt)
 	//this->setLocalZOrder(20);
 	SoundManager::getInstance()->PlayMusics(HitTrap_sound, false, 0.3f);
 	this->stopAllActions();
-	auto animationAction = RepeatForever::create(Animates.at(4));
 	this->runAction(Animates.at(4));
+
+}
+void Minions::removeMinion(float dt)
+{
+	auto fadeOut = FadeTo::create(1.0f, 10);
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+		this->removeFromParent();
+		this->setVisible(false);
+		this->reset();
+	});
+	auto sequence = Sequence::create(fadeOut, callback, nullptr);
+	this->runAction(sequence);
+	
 }
 void Minions::findPlayerType0(float dt)
 {
 	this->stopAllActions();
 	auto moveAction = MoveBy::create(traveltime/3, mindPlayer);
-	auto animationAction = RepeatForever::create(Animates.at(3));
+	auto animationAction = RepeatForever::create(Animates.at(0));
 	auto callback = CallFunc::create([&]() {
 		this->stopAllActions();
 		Minions::findPlayerType0(1);

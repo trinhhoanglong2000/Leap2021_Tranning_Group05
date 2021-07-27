@@ -25,41 +25,69 @@
 #include "MinionBoss.h"
 #include "Definitions.h"
 #include "MinionManager.h"
+#include "TrapManager.h"
 #include "Minions.h"
 #include "Spider.h"
 #include "ui\CocosGUI.h"
 #include "SoundManager.h"
+#include"Trapthorn.h"
 USING_NS_CC;
 
 MinionBoss::MinionBoss(Player * playerScene, float mapspeed):	Minions( playerScene, mapspeed)
 {
 	MinionBoss::setAnimation();
 }
-MinionBoss::MinionBoss() : Minions("prefap/Minions/ryuk.png", Rect(0, 0, 48, 64))
+MinionBoss::MinionBoss() : Minions("prefap/Minions/boss/cultist_priest_die_1.png", Rect(0, 0, 200, 200))
 {
+	checkpower = false;
 	midpos = -3;
 	type = 2;
+	Booldie = false;
 	MinionBoss::setAnimation();
-	this->setScale(3.0f);
+	this->setScale(1.0f);
+	percentPower = 1;
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Backs.png");
 	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
-	enegy->loadProgressBarTexture("Slider_PressBars.png");
-	enegy->setPosition(Vec2(this->getPositionX() + enegy->getContentSize().width / 3 * 0.4f, this->getPositionY() + this->getContentSize().height / 2.5 * 3.0f));
+	enegy->loadProgressBarTexture("Slider_PressBars_heal.png");
+	enegy->setPosition(Vec2(this->getPositionX() + enegy->getContentSize().width / 3 * 1.5f, this->getPositionY() + this->getContentSize().height / 2.5 * 3.0f));
 	enegy->setMaxPercent(10);
 	enegy->setPercent(enegy->getMaxPercent());
-	enegy->setScale(0.25f);
+	enegy->setScale(1.0f);
 	this->addChild(enegy);
+
+	power = ui::Slider::create();
+	power->loadBarTexture("Slider_Backs.png");
+	//enegy->loadSlidBallTextures("SliderNode_Normal.png", "SliderNode_Press.png", "SliderNode_Disable.png");
+	power->loadProgressBarTexture("Slider_PressBars_power.png");
+	power->setPosition(Vec2(this->getPositionX() + enegy->getContentSize().width / 3 * 1.5f, this->getPositionY() + this->getContentSize().height / 2.65f * 3.0f));
+	power->setMaxPercent(30);
+	power->setPercent(0);
+	power->setScale(1.0f);
+	this->addChild(power);
+
 	posSpider = -2;
-	//this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::atack), 2.0f,100,15.0f);
 }
 void MinionBoss::start()
 {
+	this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::plusPower), 1.0f);
+	auto action = RepeatForever::create(Animates.at(0));
+	this->runAction(action);
 	SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
-	this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::atack), 2.0f);
+	this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::atack), 2.5f);
 }
 void MinionBoss::atack(float dt)
 {
+	if (checkpower == true)
+		return;
+	this->stopAllActions();
+	auto callback = CallFunc::create([&]() {
+		this->stopAllActions();
+		auto action = RepeatForever::create(Animates.at(0));
+		this->runAction(action);
+	});
+	auto sequence = Sequence::create(Animates.at(1), callback, nullptr);
+	this->runAction(sequence);
 	pos = cocos2d::RandomHelper::random_int(-2, 2);
 	while (pos==midpos)
 	{
@@ -71,7 +99,62 @@ void MinionBoss::atack(float dt)
 	minion->setplayer(player,speed);
 	auto spider = dynamic_cast<Spider*>(minion);
 	spider->Roar(1);
-	scene->addChild(minion);
+	scene->addChild(minion, this->getLocalZOrder());
+}
+void MinionBoss::atack2(float dt)
+{
+	int numberTrap = RandomHelper::random_int(2, 3);
+	for (int i = 0; i < numberTrap; i++)
+	{
+		int X = RandomHelper::random_int(-3, -1);
+		int Y = RandomHelper::random_int(-2, 2);
+		auto node = Sprite::create("prefap/Minions/boss/target_PNG69.png");
+		node->setPosition(Vec2(this->getPositionX() + X*speed, this->getPositionY() + Y * speed));
+		node->setScale(0.5f);
+		auto fadeOut = FadeTo::create(0.1f, 10);
+		auto fadeIn = FadeTo::create(2, 255);
+		auto sequence = Sequence::create(fadeOut, fadeIn, nullptr);
+		scene->addChild(node,this->getLocalZOrder());
+		node->runAction(sequence);
+		Alltaget.pushBack(node);
+	}
+	this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::addtrap), 2.0f, 0, 0);
+}
+void MinionBoss::addtrap(float dt)
+{
+	for (int i = 0; i < Alltaget.size(); i++)
+	{
+		auto trap = TrapManager::getInstance()->CreateTrap(0);
+		trap->setPosition(Alltaget.at(i)->getPosition());
+		scene->addChild(trap, this->getLocalZOrder());
+		auto trapthorn = dynamic_cast<Trapthorn*>(trap);
+		trapthorn->atack();
+		AllTrap.pushBack(trap);
+		Alltaget.at(i)->removeFromParent();
+	}
+	Alltaget.clear();
+}
+void MinionBoss::plusPower(float dt)
+{
+	power->setPercent(power->getPercent()+ percentPower);
+	if (power->getPercent() >= power->getMaxPercent() && checkpower == false)
+	{
+		SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
+		this->unscheduleAllCallbacks();
+		checkpower = true;
+		this->stopAllActions();
+		auto callback = CallFunc::create([&]() {
+			this->stopAllActions();
+			auto action = RepeatForever::create(Animates.at(0));
+			this->runAction(action);
+			this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::atack), 2.0f,100,2.0f);
+			this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::atack2), 3.0f, 100, 2.0f);
+			checkpower = false;
+		});
+		auto sequence = Sequence::create(Animates.at(4), callback, nullptr);
+		this->runAction(sequence);
+		this->unscheduleAllCallbacks();
+	}
 }
 void MinionBoss::Roar(float dt)
 {
@@ -84,18 +167,45 @@ void MinionBoss::CreateMinion(float dt)
 }
 void MinionBoss::reduceEnegy(float dame)
 {
+	if (checkpower == true)
+		return;
 	enegy->setPercent(enegy->getPercent() - dame);
-	if (enegy->getPercent() <= 0)
-		this->die();
+	power->setPercent(power->getPercent() + 3);
+	if (enegy->getPercent() <= 0 )
+	{
+		this->stopAllActions();
+		auto callback = CallFunc::create([&]() {
+			this->stopAllActions();
+			Booldie = true;
+		});
+		auto sequence = Sequence::create(Animates.at(3), callback, nullptr);
+		this->runAction(sequence);
+		this->unscheduleAllCallbacks();
+	}
+	else
+	{
+		if (Booldie == true)
+			return;
+		this->stopAllActions();
+		auto callback = CallFunc::create([&]() {
+			this->stopAllActions();
+			auto action = RepeatForever::create(Animates.at(0));
+			this->runAction(action);
+			
+		});
+		auto sequence = Sequence::create(Animates.at(2), callback, nullptr);
+		this->runAction(sequence);
+	}
 }
 void MinionBoss::setAnimation()
 {
-	//down
+	//idle
 	Vector<SpriteFrame*>  animFrames;
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_idle_1.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_idle_2.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_idle_3.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_idle_4.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_idle_5.png", Rect(0, 0, 200, 200)));
 
 	//default
 	this->setSpriteFrame(animFrames.at(0));
@@ -105,35 +215,39 @@ void MinionBoss::setAnimation()
 	Animates.pushBack(animate);
 	animFrames.clear();
 
-	//up
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	//atack
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_attack_1.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_attack_2.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_attack_3.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_attack_4.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_attack_5.png", Rect(0, 0, 200, 200)));
 
-	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
-
-	animate = Animate::create(animation);
-	Animates.pushBack(animate);
-	animFrames.clear();
-
-	//left
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-
-	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	animation = Animation::createWithSpriteFrames(animFrames, 0.07f);
 
 	animate = Animate::create(animation);
 	Animates.pushBack(animate);
 	animFrames.clear();
 
-	//right 
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionname, Rect(0, 0, 48, 64)));
+	//hit
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_takehit_2.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_takehit_1.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_takehit_3.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_takehit_1.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_takehit_4.png", Rect(0, 0, 200, 200)));
+
+	animation = Animation::createWithSpriteFrames(animFrames, 0.07f);
+
+	animate = Animate::create(animation);
+	Animates.pushBack(animate);
+	animFrames.clear();
+
+	//die
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_die_1.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_die_2.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_die_3.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_die_4.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_die_5.png", Rect(0, 0, 200, 200)));
+
 
 	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
 
@@ -142,14 +256,21 @@ void MinionBoss::setAnimation()
 	animFrames.clear();
 	goUp = true;
 
-	// die
+	// power
 	std::string minionnamedie = "prefap/Minions/ryuk.png";
-	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 48, 64)));
-	animFrames.pushBack(SpriteFrame::create(minionnamedie, Rect(0, 0, 48, 64)));
-
-	animation = Animation::createWithSpriteFrames(animFrames, 0.1f);
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_3.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_3.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_2.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_2.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_5.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_5.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_4.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_4.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_1.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_1.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_1.png", Rect(0, 0, 200, 200)));
+	animFrames.pushBack(SpriteFrame::create("prefap/Minions/boss/cultist_priest_Power_1.png", Rect(0, 0, 200, 200)));
+	animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
 
 	animate = Animate::create(animation);
 	Animates.pushBack(animate);
@@ -158,8 +279,9 @@ void MinionBoss::setAnimation()
 void MinionBoss::reset()
 {
 	Minions::reset();
-	this->setTexture("prefap/Minions/ryuk.png");
-	this->setTextureRect(Rect(0, 0, 48, 64));
+	this->setTexture("prefap/Minions/boss/cultist_priest_die_1.png");
+	this->setTextureRect(Rect(0, 0, 200, 200));
+	enegy->setPercent(enegy->getMaxPercent());
 }
 void MinionBoss::setStatus(bool checkdie)
 {

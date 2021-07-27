@@ -64,11 +64,10 @@ void Spider::stare(float dt)
 		cocos2d::Vec2 *pointY = new Vec2(player->getPositionX() - this->getPositionX(), player->getPositionY() - this->getPositionY());
 		mindPlayer = Vec2(pointY->x,pointY->y);
 		float s = (pointX->x * pointY->x + pointX->y * pointY->y) / (sqrt(pointX->x*pointX->x + pointX->y*pointX->y)*sqrt(pointY->x*pointY->x + pointY->y*pointY->y));
-		//s = 90 * (s+1);
-		/*if (player->getPositionX() > this->getPositionX())
-			s = -s;*/
 		auto radian = acos(s);
 		radian = radian * 180 / 3.141592;
+		if (player->getPositionX() > this->getPositionX())
+			radian = -radian;
 		this->setRotation(radian);
 	}
 	
@@ -173,10 +172,13 @@ void Spider::setAnimation()
 }
 void Spider::reset()
 {
+	
 	Minions::reset();
 	lazer->setVisible(false);
 	this->setTexture("prefap/Minions/spider.png");
 	this->setTextureRect(Rect(100, 0, 100, 100));
+	auto fadeIn = FadeTo::create(1, 255);
+	this->runAction(fadeIn);
 }
 void Spider::setStatus(bool checkdie)
 {
