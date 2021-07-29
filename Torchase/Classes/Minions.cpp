@@ -188,7 +188,6 @@ void Minions::Roar(float dt)
 }
 void Minions::lightoff()
 {
-	//this->setLocalZOrder(20);
 	if (type == 1)
 	{
 		this->unscheduleAllCallbacks();;

@@ -310,6 +310,11 @@ void Player::changeHeal()
 			vecHeal.at(i)->setTexture("prefap/Player/Heal.png");
 			vecHeal.at(i)->setTextureRect(Rect(0, 622, 318, 311));
 		}
+		else
+		{
+			vecHeal.at(i)->setTexture("prefap/Player/Heal.png");
+			vecHeal.at(i)->setTextureRect(Rect(0, 0, 318, 311));
+		}
 	}
 }
 void Player::removeAction()

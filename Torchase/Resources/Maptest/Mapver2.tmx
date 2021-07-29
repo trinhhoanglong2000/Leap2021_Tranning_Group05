@@ -59,7 +59,6 @@
   <object id="96" name="randomitem_1" type="3" x="336" y="1136"/>
   <object id="97" name="randomitem_2" type="3" x="272" y="656"/>
   <object id="98" name="randomitem_3" type="3" x="560" y="528"/>
-  <object id="99" name="randomitem_4" type="3" x="912" y="528"/>
  </objectgroup>
  <objectgroup id="8" name="meet">
   <object id="68" name="son" type="1" x="1360" y="528"/>

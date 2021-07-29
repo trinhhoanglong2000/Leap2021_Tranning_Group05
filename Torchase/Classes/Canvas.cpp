@@ -59,7 +59,6 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonResume = ui::Button::create("prefap/Gui/play.png");
 	ButtonHome = ui::Button::create("prefap/Gui/homebtn.png");
 	
-
 	pauseBackgr = Sprite::create("prefap/Gui/table.png");
 	pauseBackgr->setScale(1.2f);
 	pauseBackgr->setPosition(Vec2(origin.x,origin.y));
@@ -141,6 +140,19 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	erroTrap->setColor(Color3B::WHITE);
 	this->addChild(erroTrap, 101);
 	erroTrap->setVisible(false);
+
+	addTrap = Label::createWithTTF("+2", "fonts/horroroid.ttf", visibleSize.height / 18);
+	addTrap->setPosition(Vec2(visibleSize.width / 2.7 + origin.x, -visibleSize.height / 7 + origin.y));
+	addTrap->setColor(Color3B::WHITE);
+	this->addChild(addTrap, 101);
+	addTrap->setVisible(false);
+
+	addheal = Label::createWithTTF("+1", "fonts/horroroid.ttf", visibleSize.height / 18);
+	addheal->setPosition(Vec2(player->vecHeal.at(player->vecHeal.size()-1)->getPositionX()+ player->vecHeal.at(0)->getContentSize().width*0.2f, player->vecHeal.at(player->vecHeal.size() - 1)->getPositionY()));
+	addheal->setColor(Color3B::WHITE);
+	this->addChild(addheal, 101);
+	addheal->setVisible(false);
+
 	// add slider enegy
 	enegy = ui::Slider::create();
 	enegy->loadBarTexture("Slider_Backs.png"); 
@@ -746,4 +758,31 @@ void Canvas::changeNumtrap()
 {
 	auto s = StringUtils::format("%d", amountTrap);
 	LableNumTrap->setString(s);
+}
+void Canvas::plushTrap()
+{
+	auto fadeOut = FadeTo::create(1, 10);
+	auto callback = CallFunc::create([&]() {
+		addTrap->setVisible(false);
+	});
+	auto sequenceout = Sequence::create(fadeOut, callback, nullptr);
+	auto fadeIn = FadeTo::create(1, 255);
+	Sequence* sequence = Sequence::create(fadeIn, sequenceout, NULL);
+	addTrap->setVisible(true);
+	addTrap->runAction(sequence);
+}
+void Canvas::plushHeal()
+{
+	player->NumHeal++;
+	def->setIntegerForKey("INGAME_PLAYERHEAL", player->NumHeal);
+	player->changeHeal();
+	auto fadeOut = FadeTo::create(1, 10);
+	auto callback = CallFunc::create([&]() {
+		addheal->setVisible(false);
+	});
+	auto sequenceout = Sequence::create(fadeOut, callback, nullptr);
+	auto fadeIn = FadeTo::create(1, 255);
+	Sequence* sequence = Sequence::create(fadeIn, sequenceout, NULL);
+	addheal->setVisible(true);
+	addheal->runAction(sequence);
 }

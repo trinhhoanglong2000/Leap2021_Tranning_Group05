@@ -218,9 +218,20 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					auto itemBox = dynamic_cast<IteamBox*>(item);
 					if (itemBox->check == false)
 					{
-						canvas->amountTrap+=2;
-						canvas->changeNumtrap();
+						int rand = RandomHelper::random_int(1, 10);
 						itemBox->HitPlater();
+						if (player->NumHeal >= 3)
+							rand = 11;
+						if (rand >=3)
+						{
+							canvas->amountTrap += 2;
+							canvas->changeNumtrap();
+							canvas->plushTrap();
+						}
+						else
+						{
+							canvas->plushHeal();
+						}
 					}
 				}
 				if (item->type == 4)
@@ -278,9 +289,20 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					auto itemBox = dynamic_cast<IteamBox*>(item);
 					if (itemBox->check == false)
 					{
-						canvas->amountTrap += 2;
-						canvas->changeNumtrap();
+						int rand = RandomHelper::random_int(1, 10);
 						itemBox->HitPlater();
+						if (player->NumHeal >= 3)
+							rand = 11;
+						if (rand >= 3)
+						{
+							canvas->amountTrap += 2;
+							canvas->changeNumtrap();
+							canvas->plushTrap();
+						}
+						else
+						{
+							canvas->plushHeal();
+						}
 					}
 				}
 				if (item->type == 4)
