@@ -37,7 +37,7 @@ MinionBoss::MinionBoss(Player * playerScene, float mapspeed):	Minions( playerSce
 {
 	MinionBoss::setAnimation();
 }
-MinionBoss::MinionBoss() : Minions("prefap/Minions/boss/cultist_priest_die_1.png", Rect(0, 0, 200, 200))
+MinionBoss::MinionBoss() : Minions("prefap/Minions/boss/cultist_priest_idle_1.png", Rect(0, 0, 200, 200))
 {
 	checkpower = false;
 	midpos = -3;
@@ -279,22 +279,23 @@ void MinionBoss::setAnimation()
 void MinionBoss::reset()
 {
 	Minions::reset();
-	this->setTexture("prefap/Minions/boss/cultist_priest_die_1.png");
+	this->setTexture("prefap/Minions/boss/cultist_priest_idle_1.png");
 	this->setTextureRect(Rect(0, 0, 200, 200));
 	enegy->setPercent(enegy->getMaxPercent());
+	power->setPercent(0);
 }
 void MinionBoss::setStatus(bool checkdie)
 {
 	if (checkdie == true)
 	{
 		goUp = false;
-		this->setTexture("prefap/Minions/ryuk.png");
-		this->setTextureRect(Rect(0, 0, 48, 64));
+		this->setTexture("prefap/Minions/boss/cultist_priest_die_5.png");
+		this->setTextureRect(Rect(0, 0, 200, 200));
 	}
 	else
 	{
 		goUp = true;
-		this->setTexture("prefap/Minions/ryuk.png");
-		this->setTextureRect(Rect(0, 0, 48, 64));
+		this->setTexture("prefap/Minions/boss/cultist_priest_idle_1.png");
+		this->setTextureRect(Rect(0, 0, 200, 200));
 	}
 }

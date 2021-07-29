@@ -124,6 +124,11 @@ bool MainMenuScene::init()
 
 	menuArr.pushBack(btn);
 
+	/*Label = Label::createWithTTF("Tutorial", "fonts/Raven Song.ttf", visibleSize.height / 18);
+	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::LevelMenuNew, this));
+	btn->setAnchorPoint(Vec2(0, 1));
+	menuArr.pushBack(btn);*/
+
 	Label = Label::createWithTTF("Back", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::MainMenu, this));
 	btn->setAnchorPoint(Vec2(0, 1));
