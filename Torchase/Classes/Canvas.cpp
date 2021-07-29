@@ -380,8 +380,9 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			background_off->setVisible(false);
 			for (int i = 0; i < AllMinions.size(); i++)
 			{
-				if (AllMinions.at(i)->boolFind == true && AllMinions.at(i)&& AllMinions.at(i)->Booldie==false)
+				if (AllMinions.at(i)->boolFind == true && AllMinions.at(i)->isVisible()==true && AllMinions.at(i)->Booldie==false)
 				{
+					if (AllMinions.at(i)->type == 1);
 					AllMinions.at(i)->lighton(1);
 				}
 			}
@@ -396,7 +397,13 @@ void Canvas::OnOffLight(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventTy
 			background_off->setVisible(true);
 			for (int i = 0; i < AllMinions.size(); i++)
 			{
-				AllMinions.at(i)->lightoff();
+				if (AllMinions.at(i)->boolFind == true && AllMinions.at(i)->isVisible() == true && AllMinions.at(i)->Booldie == false)
+				{
+					if (AllMinions.at(i)->type == 1);
+					{
+						AllMinions.at(i)->lightoff();
+					}
+				}
 			}
 			this->unschedule(Schedule_ReduceEnegy);
 			this->schedule(CC_SCHEDULE_SELECTOR(Canvas::autoplusenergy), 1.0f);
@@ -418,7 +425,13 @@ void Canvas::reduceenergy(float dt)
 		background_off->setVisible(true);
 		for (int i = 0; i < AllMinions.size(); i++)
 		{
-			AllMinions.at(i)->lightoff();
+			if (AllMinions.at(i)->boolFind == true && AllMinions.at(i)->isVisible() == true && AllMinions.at(i)->Booldie == false)
+			{
+				if (AllMinions.at(i)->type == 1);
+				{
+					AllMinions.at(i)->lightoff();
+				}
+			}
 		}
 		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::autoplusenergy), 1.0f);
 		this->unschedule(Schedule_ReduceEnegy);	

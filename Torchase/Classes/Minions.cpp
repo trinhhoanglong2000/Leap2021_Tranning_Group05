@@ -189,13 +189,19 @@ void Minions::Roar(float dt)
 void Minions::lightoff()
 {
 	//this->setLocalZOrder(20);
-	this->unscheduleAllCallbacks();;
-	light = false;
+	if (type == 1)
+	{
+		this->unscheduleAllCallbacks();;
+		light = false;
+	}
 }
 void Minions::lighton(float dt)
 {
-	light = true;
-	Minions::findPlayer(1);
+	if (type == 1)
+	{
+		light = true;
+		Minions::findPlayer(1);
+	}
 }
 void Minions::die()
 {

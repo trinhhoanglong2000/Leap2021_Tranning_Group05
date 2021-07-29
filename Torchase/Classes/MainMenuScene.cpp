@@ -27,6 +27,7 @@
 #include "GameScene.h"
 #include "SoundManager.h"
 #include "StoryScene.h"
+#include "ui\CocosGUI.h"
 USING_NS_CC;
 
 
@@ -85,6 +86,44 @@ bool MainMenuScene::init()
 
 	menuArr.pushBack(btn);
 
+	Label = Label::createWithTTF("Tutorial", "fonts/Raven Song.ttf", visibleSize.height / 18);
+	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::Tutorial, this));
+	btn->setAnchorPoint(Vec2(0, 1));
+
+	menuArr.pushBack(btn);
+
+
+	layout_tutorial = ui::Layout::create();
+	layout_tutorial->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+	this->addChild(layout_tutorial,100);
+	for (int i = 1; i <= 4; i++)
+	{
+		auto name = StringUtils::format("Tutorial/tutorial_%d.png", i);
+		auto temp = Sprite::create(name);
+		temp->setPosition(Vec2());
+		temp->setScale(1.4f);
+		layout_tutorial->addChild(temp,10);
+		all_Tutorial.pushBack(temp);
+	}
+	auto Next = ui::Button::create("prefap/Gui/next.png");
+	auto Previous = ui::Button::create("prefap/Gui/previous.png");
+	auto Close = ui::Button::create("prefap/Gui/close.png");
+
+	Next->setPosition(Vec2(visibleSize.width / 2.2f, -visibleSize.height / 2.5));
+	Previous->setPosition(Vec2(-visibleSize.width / 2.2f, -visibleSize.height / 2.5));
+	Close->setPosition(Vec2(visibleSize.width / 2.2f, visibleSize.height / 2.5));
+
+
+	Next->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::NextTutorial, this));
+	Previous->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::PreviousTutorial, this));
+	Close->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::CloseTutorial, this));
+
+	layout_tutorial->addChild(Next, 11);
+	layout_tutorial->addChild(Previous, 11);
+	layout_tutorial->addChild(Close, 11);
+
+	layout_tutorial->setVisible(false);
+
 	Label = Label::createWithTTF("Option", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::OptionMenu, this));
 	btn->setAnchorPoint(Vec2(0, 1));
@@ -124,10 +163,6 @@ bool MainMenuScene::init()
 
 	menuArr.pushBack(btn);
 
-	/*Label = Label::createWithTTF("Tutorial", "fonts/Raven Song.ttf", visibleSize.height / 18);
-	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::LevelMenuNew, this));
-	btn->setAnchorPoint(Vec2(0, 1));
-	menuArr.pushBack(btn);*/
 
 	Label = Label::createWithTTF("Back", "fonts/Raven Song.ttf", visibleSize.height / 18);
 	btn = MenuItemLabel::create(Label, CC_CALLBACK_1(MainMenuScene::MainMenu, this));
@@ -310,6 +345,54 @@ void MainMenuScene::PlayMenu(Ref* pSender) {
 	//menuLevelContinue->setVisible(false);
 	menuLevelNew->setVisible(false);
 	layout->setVisible(false);
+}
+void MainMenuScene::Tutorial(cocos2d::Ref* pSender)
+{
+	for (int i = 1; i < all_Tutorial.size(); i++)
+	{
+		all_Tutorial.at(i)->setVisible(false);
+	}
+	all_Tutorial.at(0)->setVisible(true);
+	mindTutorial = 0;
+	layout_tutorial->setVisible(true);
+	layout->setVisible(false);
+}
+void MainMenuScene::CloseTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
+{
+	if (Type == ui::Widget::TouchEventType::BEGAN)
+	{
+		layout_tutorial->setVisible(false);
+	}
+}
+void  MainMenuScene::NextTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
+{
+	if (Type == ui::Widget::TouchEventType::BEGAN)
+	{
+		if (mindTutorial < all_Tutorial.size() - 1)
+		{
+			for (int i = 0; i < all_Tutorial.size(); i++)
+			{
+				all_Tutorial.at(i)->setVisible(false);
+			}
+			mindTutorial++;
+			all_Tutorial.at(mindTutorial)->setVisible(true);
+		}
+	}
+}
+void  MainMenuScene::PreviousTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
+{
+	if (Type == ui::Widget::TouchEventType::BEGAN)
+	{
+		if (mindTutorial > 0)
+		{
+			for (int i = 0; i < all_Tutorial.size(); i++)
+			{
+				all_Tutorial.at(i)->setVisible(false);
+			}
+			mindTutorial--;
+			all_Tutorial.at(mindTutorial)->setVisible(true);
+		}
+	}
 }
 void MainMenuScene::LevelMenuContinue(cocos2d::Ref* pSender) {
 	menu->setVisible(false);

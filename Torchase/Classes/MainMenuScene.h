@@ -27,6 +27,7 @@
 
 #include "cocos2d.h"
 #include "Player.h"
+#include "ui\CocosGUI.h"
 
 USING_NS_CC;
 
@@ -50,6 +51,10 @@ private:
 	UserDefault *def;
 	bool continueGame;
 	void PlayMenu(cocos2d::Ref* pSender);
+	void Tutorial(cocos2d::Ref* pSender);
+	void CloseTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void NextTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
+	void PreviousTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type);
 	void LevelMenuContinue(cocos2d::Ref* pSender);
 	void LevelMenuNew(cocos2d::Ref* pSender);
 	void MainMenu(cocos2d::Ref* pSender);
@@ -60,8 +65,10 @@ private:
 	void gotoStoryScreen(cocos2d::Ref* pSender);
 	void OnOFF(cocos2d::Ref* pSender);
 	void setoption();
-	
+	cocos2d::Vector<cocos2d::Sprite*> all_Tutorial;
 
+	cocos2d::ui::Layout *layout_tutorial;
+	int mindTutorial;
 };
 
 #endif // __MAINMENU_SCENE_H__
