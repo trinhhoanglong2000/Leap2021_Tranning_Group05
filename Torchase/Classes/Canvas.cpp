@@ -87,22 +87,22 @@ Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int 
 	ButtonConvert->setPosition(Vec2(visibleSize.width / 2.2 + origin.x, -visibleSize.height / 10 + origin.y));
 	ButtonConvert->addTouchEventListener(CC_CALLBACK_2(Canvas::PutTrap, this));
 
-	ButtonTrap->setPosition(Vec2(visibleSize.width / 2.7 + origin.x, -visibleSize.height / 4 + origin.y));
+	ButtonTrap->setPosition(Vec2(visibleSize.width / 2.7 + origin.x, -visibleSize.height / 3.2 + origin.y));
 	ButtonTrap->addTouchEventListener(CC_CALLBACK_2(Canvas::PutTrap, this));
 	  
-	ButtonLight->setPosition(Vec2(visibleSize.width / 2.2 + origin.x, -visibleSize.height / 4 + origin.y));
+	ButtonLight->setPosition(Vec2(visibleSize.width / 2.2 + origin.x, -visibleSize.height / 3.2 + origin.y));
 	ButtonLight->addTouchEventListener(CC_CALLBACK_2(Canvas::OnOffLight, this));
 
-	ButtonUp->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE*0.75f));
+	ButtonUp->setPosition(Vec2(-visibleSize.width / 3.2 + origin.x, -visibleSize.height / 4 + origin.y + ButtonUp->getContentSize().height*BUTTON_SCALE*0.75f));
 	ButtonUp->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveUp, this));
 
-	ButtonDow->setPosition(Vec2(-visibleSize.width / 3 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE*0.75f));
+	ButtonDow->setPosition(Vec2(-visibleSize.width / 3.2 + origin.x, -visibleSize.height / 4 + origin.y - ButtonUp->getContentSize().height*BUTTON_SCALE*0.75f));
 	ButtonDow->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveDow, this));
 
-	ButtonLeft->setPosition(Vec2(-visibleSize.width / 3 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE*0.75f, -visibleSize.height / 4 + origin.y));
+	ButtonLeft->setPosition(Vec2(-visibleSize.width / 3.2 + origin.x - ButtonLeft->getContentSize().width*BUTTON_SCALE*0.75f, -visibleSize.height / 4 + origin.y));
 	ButtonLeft->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveLeft, this));
 
-	ButtonRight->setPosition(Vec2(-visibleSize.width / 3 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE*0.75f, -visibleSize.height / 4 + origin.y));
+	ButtonRight->setPosition(Vec2(-visibleSize.width / 3.2 + origin.x + ButtonLeft->getContentSize().width*BUTTON_SCALE*0.75f, -visibleSize.height / 4 + origin.y));
 	ButtonRight->addTouchEventListener(CC_CALLBACK_2(Canvas::MoveRight, this));
 
 	ButtonPause->setPosition(Vec2(visibleSize.width /2.3 , visibleSize.height /2.5 ));
@@ -437,6 +437,7 @@ void Canvas::reduceenergy(float dt)
 		background_off->setVisible(true);
 		for (int i = 0; i < AllMinions.size(); i++)
 		{
+			
 			if (AllMinions.at(i)->boolFind == true && AllMinions.at(i)->isVisible() == true && AllMinions.at(i)->Booldie == false)
 			{
 				if (AllMinions.at(i)->type == 1);
@@ -774,7 +775,7 @@ void Canvas::plushTrap()
 void Canvas::plushHeal()
 {
 	player->NumHeal++;
-	def->setIntegerForKey("INGAME_PLAYERHEAL", player->NumHeal);
+	//def->setIntegerForKey("INGAME_PLAYERHEAL", player->NumHeal);
 	player->changeHeal();
 	auto fadeOut = FadeTo::create(1, 10);
 	auto callback = CallFunc::create([&]() {

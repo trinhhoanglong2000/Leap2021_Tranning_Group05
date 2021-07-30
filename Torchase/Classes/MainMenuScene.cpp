@@ -62,16 +62,14 @@ bool MainMenuScene::init()
 	//    you may modify it.
 
 	// add a "close" icon to exit the progress. it's an autorelease object
-
-	SoundManager::getInstance()->PlayMusics(MAINMENU_SOUND, true, 1);
 	SoundManager::getInstance()->stopALLMusic();
+	SoundManager::getInstance()->PlayMusics(MAINMENU_SOUND, true, 1);
 	auto BgSprite = Sprite::create("dungeon.jpg");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	float scale = MAX(visibleSize.width / BgSprite->getContentSize().width, visibleSize.height / BgSprite->getContentSize().height);
 
 	BgSprite->setScale(scale);
 	this->addChild(BgSprite);
-
 
 
 	auto myLabel = Label::createWithTTF("Torchase", "fonts/Raven Song.ttf", visibleSize.height/9);
@@ -100,8 +98,7 @@ bool MainMenuScene::init()
 	{
 		auto name = StringUtils::format("Tutorial/tutorial_%d.png", i);
 		auto temp = Sprite::create(name);
-		temp->setPosition(Vec2());
-		temp->setScale(1.4f);
+		temp->setScale(1.35f);
 		layout_tutorial->addChild(temp,10);
 		all_Tutorial.pushBack(temp);
 	}
@@ -109,9 +106,9 @@ bool MainMenuScene::init()
 	auto Previous = ui::Button::create("prefap/Gui/previous.png");
 	auto Close = ui::Button::create("prefap/Gui/close.png");
 
-	Next->setPosition(Vec2(visibleSize.width / 2.2f, -visibleSize.height / 2.5));
-	Previous->setPosition(Vec2(-visibleSize.width / 2.2f, -visibleSize.height / 2.5));
-	Close->setPosition(Vec2(visibleSize.width / 2.2f, visibleSize.height / 2.5));
+	Next->setPosition(Vec2(visibleSize.width / 2.2f, -visibleSize.height / 2.7));
+	Previous->setPosition(Vec2(-visibleSize.width / 2.2f, -visibleSize.height / 2.7));
+	Close->setPosition(Vec2(visibleSize.width / 2.2f, visibleSize.height / 2.7));
 
 
 	Next->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::NextTutorial, this));
@@ -328,6 +325,7 @@ bool MainMenuScene::init()
 }
 void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	//Close the cocos2d-x game scene and quit the application
 	Director::getInstance()->end();
 
@@ -340,6 +338,7 @@ void MainMenuScene::menuCloseCallback(Ref* pSender)
 }
 
 void MainMenuScene::PlayMenu(Ref* pSender) {
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	menu->setVisible(false);
 	menuPlay->setVisible(true);
 	//menuLevelContinue->setVisible(false);
@@ -348,6 +347,7 @@ void MainMenuScene::PlayMenu(Ref* pSender) {
 }
 void MainMenuScene::Tutorial(cocos2d::Ref* pSender)
 {
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	for (int i = 1; i < all_Tutorial.size(); i++)
 	{
 		all_Tutorial.at(i)->setVisible(false);
@@ -361,13 +361,16 @@ void MainMenuScene::CloseTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget::To
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
+		SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 		layout_tutorial->setVisible(false);
 	}
 }
 void  MainMenuScene::NextTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
+	
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
+		SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 		if (mindTutorial < all_Tutorial.size() - 1)
 		{
 			for (int i = 0; i < all_Tutorial.size(); i++)
@@ -383,6 +386,7 @@ void  MainMenuScene::PreviousTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget
 {
 	if (Type == ui::Widget::TouchEventType::BEGAN)
 	{
+		SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 		if (mindTutorial > 0)
 		{
 			for (int i = 0; i < all_Tutorial.size(); i++)
@@ -395,6 +399,7 @@ void  MainMenuScene::PreviousTutorial(cocos2d::Ref * sender, cocos2d::ui::Widget
 	}
 }
 void MainMenuScene::LevelMenuContinue(cocos2d::Ref* pSender) {
+	SoundManager::getInstance()->PlayMusics(CLICK,false,0.5f);
 	menu->setVisible(false);
 	menuPlay->setVisible(false);
 	//menuLevelContinue->setVisible(true);
@@ -402,6 +407,7 @@ void MainMenuScene::LevelMenuContinue(cocos2d::Ref* pSender) {
 	layout->setVisible(false);
 }
 void MainMenuScene::LevelMenuNew(cocos2d::Ref* pSender) {
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	menu->setVisible(false);
 	menuPlay->setVisible(false);
 	//menuLevelContinue->setVisible(false);
@@ -409,6 +415,7 @@ void MainMenuScene::LevelMenuNew(cocos2d::Ref* pSender) {
 	layout->setVisible(false);
 }
 void MainMenuScene ::MainMenu(cocos2d::Ref* pSender) {
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	menu->setVisible(true);
 	menuPlay->setVisible(false);
 	//menuLevelContinue->setVisible(false);
@@ -416,25 +423,27 @@ void MainMenuScene ::MainMenu(cocos2d::Ref* pSender) {
 	layout->setVisible(false);
 }
 void MainMenuScene::gotoPlayScreen(cocos2d::Ref* pSender) {
-	
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	auto node = dynamic_cast<Node*>(pSender);
 	auto scene = GameScene::createScene(node->getTag(), toggle1->getSelectedIndex());
 	SoundManager::getInstance()->stopMusic(MAINMENU_SOUND);
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void MainMenuScene::gotoStoryScreen(cocos2d::Ref* pSender) {
-
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	auto node = dynamic_cast<Node*>(pSender);
 	auto scene = StoryScene::createScene(node->getTag(), toggle1->getSelectedIndex());
 	SoundManager::getInstance()->stopMusic(MAINMENU_SOUND);
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void  MainMenuScene::OptionMenu(cocos2d::Ref* pSender) {
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	layout->setVisible(true);
 }
 void MainMenuScene::OnOFF(cocos2d::Ref* pSender) {
 	auto node = dynamic_cast<Node*>(pSender);
 	int i = toggle1->getSelectedIndex();
+	SoundManager::getInstance()->PlayMusics(CLICKOPTION, false, 0.5f);
 	if (node->getTag() == 1 && i == 0)
 	{
 		toggle1->setSelectedIndex(1);

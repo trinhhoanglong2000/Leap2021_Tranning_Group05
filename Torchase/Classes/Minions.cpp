@@ -152,15 +152,16 @@ void Minions::removeAction()
 	if (type == 1)
 	{
 		//Actor::removeAction();
-	this->stopAllActions();
-	auto reverAction = MoveTo::create(traveltime / 2, mindPositison);
-	auto callback = CallFunc::create([&]() {
 		this->stopAllActions();
-		Minions::findPlayer(1);
-	});
-	auto sequence = Sequence::create(reverAction, callback, nullptr);
-	this->runAction(sequence);
-	*booltro = false;
+		auto reverAction = MoveTo::create(traveltime / 2, mindPositison);
+		auto callback = CallFunc::create([&]() {
+			this->stopAllActions();
+			goUp = true;
+			Minions::findPlayer(1);
+		});
+		auto sequence = Sequence::create(reverAction, callback, nullptr);
+		this->runAction(sequence);
+		*booltro = false;
 	}
 	if (type == 0 && Booldie==false)
 	{
@@ -214,7 +215,10 @@ void Minions::actiondie(float dt)
 {
 	this->mindPositison = this->getPosition();
 	//this->setLocalZOrder(20);
-	SoundManager::getInstance()->PlayMusics(HitTrap_sound, false, 0.3f);
+	if(type==0)
+	SoundManager::getInstance()->PlayMusics(SPIDERDIE, false, 0.5f);
+	else
+	SoundManager::getInstance()->PlayMusics(SHADOWDIE, false, 1.0f);
 	this->stopAllActions();
 	this->runAction(Animates.at(4));
 

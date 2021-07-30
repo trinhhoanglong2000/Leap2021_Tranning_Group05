@@ -57,6 +57,7 @@ Minions *MinionManager::CreateMinion(int Type)
 	{
 		if (AllMinions.at(i)->type == Type && AllMinions.at(i)->isVisible() == false)
 		{
+			MinionManager::setfalseMinion(AllMinions.at(i));
 			AllMinions.at(i)->setVisible(true);
 				return AllMinions.at(i);
 		}

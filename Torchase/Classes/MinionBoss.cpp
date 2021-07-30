@@ -173,6 +173,7 @@ void MinionBoss::reduceEnegy(float dame)
 	power->setPercent(power->getPercent() + 3);
 	if (enegy->getPercent() <= 0 )
 	{
+		SoundManager::getInstance()->PlayMusics(SHADOWDIE, false, 0.5f);
 		this->stopAllActions();
 		auto callback = CallFunc::create([&]() {
 			this->stopAllActions();

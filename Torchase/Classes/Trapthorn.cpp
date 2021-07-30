@@ -42,7 +42,7 @@ Trapthorn::Trapthorn() : Trap("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)) 
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)));
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)));
 	animFrames.pushBack(SpriteFrame::create("prefap/trap/Trap_Thorn.png", Rect(0, 0, 33, 34)));
-	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.15f);
+	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.2f);
 	Animate* animate = Animate::create(animation);
 	_Animation.pushBack(animate);
 

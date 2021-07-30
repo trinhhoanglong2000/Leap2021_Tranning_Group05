@@ -56,7 +56,7 @@
 #define PLAYER_BG_CATEGORY_BITMASK 32
 #define PLAYER_EDGE_CATEGORY_BITMASK 64
 #define DOOR_CATEGORY_BITMASK 128
-#define CHECK_LIGHTING 15
+#define CHECK_LIGHTING 18
 
 #define ITEM_COLISION_BITMASK 18
 #define PLAYER_COLISION_BITMASK 157	// 1+4+8+16+128
@@ -88,4 +88,9 @@
 #define EVIL_LAUGH "music/evil_laugh.mp3"
 #define GAME_OVER_SOUND "music/The_Old_Castle.mp3"
 
+#define CLICK "music/click.mp3"
+#define GET_ITEM "music/GetIteam.mp3"
+#define CLICKOPTION "music/CLICKOTION.mp3"
+#define SPIDERDIE "music/SpiderDie.mp3"
+#define SHADOWDIE "music/shadowDIE.mp3"
 #endif // __DEFINITIONS_H__

@@ -49,9 +49,9 @@ Scene* GameScene::createScene(int Level_of_difficult_Scene, int controller_Scene
 	Level_of_difficult = Level_of_difficult_Scene;
 	controller = controller_Scene;
 	auto scene = Scene::createWithPhysics();
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-	scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
+	//scene->getPhysicsWorld()->setGravity(Vec2(0, 0));
 
 	auto Scene_layer = GameScene::create();
 	Scene_layer->SetPhysicWorld(scene->getPhysicsWorld());
@@ -203,18 +203,21 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			{
 				if (item->type == 1)
 				{
+					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
 					this->removeChild(item);
 					item->setVisible(false);
 				}
 				if (item->type == 2)
 				{
+					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					this->removeChild(item);
 					door->reduceNumberKey();
 					item->setVisible(false);
 				}
 				if (item->type == 3)
 				{
+					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					auto itemBox = dynamic_cast<IteamBox*>(item);
 					if (itemBox->check == false)
 					{
@@ -236,7 +239,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 				if (item->type == 4)
 				{
-					
+					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					item->setVisible(false);
 					this->removeChild(item);
 					itemsave = item;
@@ -274,18 +277,21 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 			{
 				if (item->type == 1)
 				{
+					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					canvas->plusenergy((int)canvas->enegy->getMaxPercent() / 3);
 					this->removeChild(item);
 					item->setVisible(false);
 				}
 				if (item->type == 2)
 				{
+					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					this->removeChild(item);
 					door->reduceNumberKey();
 					item->setVisible(false);
 				}
 				if (item->type == 3)
 				{
+					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					auto itemBox = dynamic_cast<IteamBox*>(item);
 					if (itemBox->check == false)
 					{
@@ -307,6 +313,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 				if (item->type == 4)
 				{
+					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					item->setVisible(false);
 					this->removeChild(item);
 					itemsave = item;
@@ -582,6 +589,21 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					}
 				}
 			}
+			if (b->getCategoryBitmask() == PLAYER_EDGE_CATEGORY_BITMASK)
+			{
+				if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
+				{
+					auto minion = dynamic_cast<Minions*>(a->getOwner());
+					if (minion->Booldie == true)
+						return true;
+					if (checkLighting == true)
+					{
+						checkLighting = false;
+						this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), CHECK_LIGHTING, 0, 0);
+						GameScene::Lighting(1);
+					}
+				}
+			}
 		}
 		else if (b->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
 		{
@@ -650,21 +672,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				}
 			}
 		}
-		else if (b->getCategoryBitmask() == PLAYER_EDGE_CATEGORY_BITMASK)
-		{
-			if (a->getCategoryBitmask() == ENEMY_CATEGORY_BITMASK)
-			{
-				auto minion = dynamic_cast<Minions*>(a->getOwner());
-				if (minion->Booldie == true)
-					return true;
-				if (checkLighting == true)
-				{
-					checkLighting = false;
-					this->schedule(CC_SCHEDULE_SELECTOR(GameScene::setcheckLighting), CHECK_LIGHTING, 0, 0);
-					GameScene::Lighting(1);
-				}
-			}
-		}
+		
 	return true;
 }
 void GameScene::shakeScreen(float dt)
@@ -693,7 +701,7 @@ void GameScene::Lighting(float dt)
 	if (stoplightting == true)
 		return;
 	int num = cocos2d::RandomHelper::random_int(1, 10);
-	if (num < 7)
+	if (num <= 7)
 		return;
 	else
 	{
@@ -715,7 +723,24 @@ void GameScene::Lighting(float dt)
 			this->schedule(Schedule_shake, 0.1f);
 			for (int i = 0; i < AllMinions.size(); i++)
 			{
-				AllMinions.at(i)->Roar(1);
+				//float distance = sqrt((player->getPositionX() - AllMinions.at(i)->getPositionX())*(player->getPositionX() - AllMinions.at(i)->getPositionX()) + (player->getPositionY() - AllMinions.at(i)->getPositionY())*(player->getPositionY() - AllMinions.at(i)->getPositionY()));
+				//if (distance < visibleSize.height*1.5f)
+				if (abs(player->getPositionX() - AllMinions.at(i)->getPositionX()) < visibleSize.width / 2 && abs(player->getPositionY() - AllMinions.at(i)->getPositionY()) < visibleSize.height / 2)
+				{
+					if (AllMinions.at(i)->isVisible() == true && AllMinions.at(i)->Booldie == false)
+					{
+						if (AllMinions.at(i)->type == 0)
+						{
+							auto spider = dynamic_cast<Spider*>(AllMinions.at(i));
+							spider->Roar(1);
+						}
+						if (AllMinions.at(i)->type == 1)
+						{
+							auto shadow = dynamic_cast<Shadow*>(AllMinions.at(i));
+							shadow->Roar(1);
+						}
+					}
+				}
 			}
 		}
 		effect->setVisible(true);

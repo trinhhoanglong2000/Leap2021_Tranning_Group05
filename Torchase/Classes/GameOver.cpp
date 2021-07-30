@@ -118,6 +118,7 @@ bool GameOver::init()
 }
 void GameOver::GoToMainMenu(cocos2d::Ref* pSender)
 {
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	SoundManager::getInstance()->stopALLMusic();
 	auto scene = MainMenuScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
@@ -132,12 +133,14 @@ void GameOver::GoToGameScene(cocos2d::Ref* pSender)
 	}
 
 	SoundManager::getInstance()->stopALLMusic();
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	auto scene = GameScene::createScene(4, controll);
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 void GameOver::GoToGameSceneNext(cocos2d::Ref* pSender)
 {
 	SoundManager::getInstance()->stopALLMusic();
+	SoundManager::getInstance()->PlayMusics(CLICK, false, 0.5f);
 	auto scene = GameScene::createScene(3, controll);
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }

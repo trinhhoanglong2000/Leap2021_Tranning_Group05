@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="123">
+<map version="1.5" tiledversion="1.7.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="132">
  <tileset firstgid="1" source="GamemapObject.tsx"/>
  <tileset firstgid="321" source="meta_tiles.tsx"/>
  <layer id="1" name="Floor" width="50" height="50">
@@ -32,7 +32,7 @@
   <object id="100" name="shadow_13" type="1" x="656" y="1392"/>
   <object id="14" name="shadow_12" type="1" x="848" y="1456"/>
   <object id="17" name="shadow_11" type="1" x="720" y="1552"/>
-  <object id="18" name="shadow_10" type="0" x="560" y="1232"/>
+  <object id="18" name="shadow_10" type="1" x="560" y="1232"/>
   <object id="19" name="shadow_9" type="1" x="400" y="1168"/>
   <object id="20" name="shadow_8" type="1" x="240" y="1232"/>
   <object id="21" name="shadow_7" type="1" x="112" y="1104"/>
@@ -42,6 +42,7 @@
   <object id="26" name="shadow_3" type="1" x="592" y="1392"/>
   <object id="29" name="shadow_2" type="1" x="592" y="1552"/>
   <object id="30" name="shadow_1" type="1" x="592" y="1488"/>
+  <object id="128" name="shadow_15" type="1" x="560" y="848"/>
  </objectgroup>
  <objectgroup id="7" name="Iteam">
   <object id="32" name="battery_1" type="1" x="464" y="1424"/>
@@ -51,6 +52,11 @@
   <object id="81" name="saveGame_2" type="4" x="176" y="1168"/>
   <object id="79" name="saveGame_3" type="4" x="656" y="912"/>
   <object id="118" name="battery_2" type="1" x="176" y="1200"/>
+  <object id="124" name="randomitem_2" type="3" x="432" y="1232"/>
+  <object id="126" name="randomitem_3" type="3" x="496" y="1296"/>
+  <object id="127" name="randomitem_4" type="3" x="528" y="848"/>
+  <object id="130" name="randomitem_5" type="3" x="624" y="912"/>
+  <object id="131" name="randomitem_5" type="3" x="912" y="1424"/>
  </objectgroup>
  <objectgroup id="13" name="meet">
   <object id="102" name="player" type="0" x="1072" y="912"/>
