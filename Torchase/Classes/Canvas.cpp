@@ -560,26 +560,26 @@ void Canvas::reducePlant()
 }
 void Canvas::PutTrap(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType Type)
 {
-	if (amountTrap <= 0)
-	{
-		if (checkTouchPutTrap == false)
-		{
-			checkTouchPutTrap = true;
-			auto fadeOut = FadeTo::create(1, 10);
-			auto callback = CallFunc::create([&]() {
-				erroTrap->setVisible(false);
-				checkTouchPutTrap = false;
-			});
-			auto sequenceout = Sequence::create(fadeOut, callback, nullptr);
-			auto fadeIn = FadeTo::create(1, 255);
-			Sequence* sequence = Sequence::create(fadeIn, sequenceout, NULL);
-			erroTrap->setVisible(true);
-			erroTrap->runAction(sequence);
-		}
-		return;
-	}
 	if (Type == ui::Widget::TouchEventType::BEGAN && player->die==false)
 	{
+		if (amountTrap <= 0)
+		{
+			if (checkTouchPutTrap == false)
+			{
+				checkTouchPutTrap = true;
+				auto fadeOut = FadeTo::create(1, 10);
+				auto callback = CallFunc::create([&]() {
+					erroTrap->setVisible(false);
+					checkTouchPutTrap = false;
+				});
+				auto sequenceout = Sequence::create(fadeOut, callback, nullptr);
+				auto fadeIn = FadeTo::create(1, 255);
+				Sequence* sequence = Sequence::create(fadeIn, sequenceout, NULL);
+				erroTrap->setVisible(true);
+				erroTrap->runAction(sequence);
+			}
+			return;
+		}
 		switch (mind_move)
 		{
 		case 1:
