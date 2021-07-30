@@ -96,6 +96,7 @@ void Spider::setAnimation()
 	lazer = Sprite::create("prefap/Minions/lazer.png");
 	lazer->setScale(0.6f);
 	lazer->setPosition(this->getContentSize().width / 2, -this->getContentSize().height*2.0f);
+	lazer->setVisible(false);
 	this->addChild(lazer);
 	//down
 	type = 0;
@@ -172,7 +173,6 @@ void Spider::setAnimation()
 }
 void Spider::reset()
 {
-	
 	Minions::reset();
 	lazer->setVisible(false);
 	this->setTexture("prefap/Minions/spider.png");
