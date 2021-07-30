@@ -71,7 +71,7 @@ void Door::CheckDoor()
 {
 	if (numberkey <= 0)
 	{
-		for (int i = 0; i < _tileMap->getMapSize().width; i++)
+		/*for (int i = 0; i < _tileMap->getMapSize().width; i++)
 		{
 			for (int j = 0; j < _tileMap->getMapSize().height; j++)
 			{
@@ -81,6 +81,9 @@ void Door::CheckDoor()
 					_meta->removeTileAt(Vec2(i, j));
 				}
 			}
-		}
+		}*/
+		_meta->setVisible(false);
 	}
+	else
+		_meta->setVisible(true);
 }

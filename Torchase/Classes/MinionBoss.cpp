@@ -167,6 +167,8 @@ void MinionBoss::CreateMinion(float dt)
 }
 void MinionBoss::reduceEnegy(float dame)
 {
+	if (Booldie == true)
+		return;
 	if (checkpower == true)
 		return;
 	enegy->setPercent(enegy->getPercent() - dame);

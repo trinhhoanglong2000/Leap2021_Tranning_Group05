@@ -212,7 +212,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					this->removeChild(item);
-					door->reduceNumberKey();
+					//door->reduceNumberKey();
+					door->numberkey--;
+					door->CheckDoor();
 					item->setVisible(false);
 				}
 				if (item->type == 3)
@@ -286,7 +288,9 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 				{
 					SoundManager::getInstance()->PlayMusics(GET_ITEM, false, 1.0f);
 					this->removeChild(item);
-					door->reduceNumberKey();
+					//door->reduceNumberKey();
+					door->numberkey --;
+					door->CheckDoor();
 					item->setVisible(false);
 				}
 				if (item->type == 3)
@@ -1023,14 +1027,8 @@ void GameScene::GotoAgain(float dt)
 		item->setPosition(Vec2(ItemPosX, ItemPosY));
 		this->addChild(item, ItemZ);
 	}
-	//Game Map;
-	door->numberkey = 0;
-	door->CheckDoor();
-	gameMap->GoAgain();
 	//Door
 	door->numberkey = NumberKey;
-	door->_tileMap = gameMap->_tileMap;
-	door->_meta = gameMap->_meta;
 	door->CheckDoor();
 	//canvas
 	canvas->amountTrap =  def->getIntegerForKey("INGAME_AMOUNTTRAP", 0);

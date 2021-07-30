@@ -217,6 +217,7 @@ cocos2d::Size GameMap::returnSizetile()
 }
 void GameMap::GoAgain()
 {
+	/*_tileMap->setVisible(false);
 	sceneMap->removeChild(_tileMap);
 	_tileMap = new TMXTiledMap();
 	_tileMap->initWithTMXFile(nameMap);
@@ -227,5 +228,5 @@ void GameMap::GoAgain()
 	_meta->setVisible(false);
 	sceneMap->addChild(_tileMap,19);
 	door->_meta = _tileMap->getLayer("door");
-	door->_tileMap = _tileMap;
+	door->_tileMap = _tileMap;*/
 }
