@@ -83,7 +83,7 @@ bool GameOver::init()
 	this->addChild(myLabel);
 	//========================Menu
 	Vector<MenuItem*> menuArr;
-	if (finish == true)
+	if (finish == true && level<=2)
 	{
 		auto Labelnext = Label::createWithTTF("Next Game", "fonts/Raven Song.ttf", visibleSize.height / 18);
 		auto btnnext = MenuItemLabel::create(Labelnext, CC_CALLBACK_1(GameOver::GoToGameSceneNext, this));

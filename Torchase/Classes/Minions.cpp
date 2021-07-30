@@ -29,6 +29,7 @@ USING_NS_CC;
 
 Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
+	booltop = true;
 	hit = false;
 	light = true;
 	traveltime = MININON_SPEED;
@@ -47,6 +48,7 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 }	
 Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 {
+	booltop = true;
 	booltro = &booltop;
 	hit = false;
 	traveltime = MININON_SPEED;
@@ -63,6 +65,7 @@ Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 }
 Minions::Minions(std::string name, cocos2d::Rect rect) : Actor(name, rect)
 {
+	booltop = true;
 	booltro = &booltop;
 	hit = false;
 	traveltime = MININON_SPEED;
