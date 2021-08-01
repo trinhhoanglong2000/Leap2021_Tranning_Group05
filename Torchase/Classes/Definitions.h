@@ -36,13 +36,17 @@
 
 #define ACTOR_SPEED 0.6
 #define BUTTON_SCALE 0.3
-#define MININON_SPEED 1.2
+
+#define MININON_SPEED 1.3
+#define MININON_SPEED_MEDIUM 1.1
+#define MININON_SPEED_HARD 1
+
 #define AUTO_SPEED 0.2
 #define ROCK_SPEED 1
 
 #define TIME_REDUCE_ENERGY 1
 
-#define TIME_SLOW 4
+#define TIME_SLOW 3
 #define VALUE_SLOW 0.5
 
 #define PERCENT_REDUCE 1

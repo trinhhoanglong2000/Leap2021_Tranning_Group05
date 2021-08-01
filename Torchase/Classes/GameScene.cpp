@@ -80,7 +80,7 @@ bool GameScene::init()
 	}
 	if (Level_of_difficult >= 3)
 	{
-		Level_of_difficult = def->getIntegerForKey("INGAME_CONTINUE_LEVEL", 1);
+		Level_of_difficult = def->getIntegerForKey("INGAME_CONTINUE_LEVEL", 0);
 		continueGame = true;
 	}
 
@@ -111,7 +111,7 @@ bool GameScene::init()
 			level = 1;
 		}
 	}
-	gameMap = new GameMap(this,player, level); // add gamemap
+	gameMap = new GameMap(this,player, level,Level_of_difficult); // add gamemap
 	door = gameMap->door;
 	Size size = gameMap->returnSizeMap();
 	player->setBlackVisionBG(size);
@@ -225,7 +225,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					{
 						int rand = RandomHelper::random_int(1, 10);
 						itemBox->HitPlater();
-						if (player->NumHeal >= 3)
+						if (player->NumHeal >= 0)
 							rand = 11;
 						if (rand >=3)
 						{
@@ -301,7 +301,7 @@ bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
 					{
 						int rand = RandomHelper::random_int(1, 10);
 						itemBox->HitPlater();
-						if (player->NumHeal >= 3)
+						if (player->NumHeal >= 0)
 							rand = 11;
 						if (rand >= 3)
 						{
@@ -716,11 +716,10 @@ void GameScene::Lighting(float dt)
 		else
 			light = true;
 		canvas->endlight = false;
-		if (Level_of_difficult != 1)
-		{
-			this->schedule(CC_SCHEDULE_SELECTOR(GameScene::Lightingbg), 0.25);
-		}
-		if (Level_of_difficult == 2)
+		
+		this->schedule(CC_SCHEDULE_SELECTOR(GameScene::Lightingbg), 0.25);
+		
+		/*if (Level_of_difficult == 2)
 		{
 			SoundManager::getInstance()->PlayMusics(Roar_sound, false, 0.5f);
 			Schedule_shake = CC_SCHEDULE_SELECTOR(GameScene::shakeScreen);
@@ -746,7 +745,7 @@ void GameScene::Lighting(float dt)
 					}
 				}
 			}
-		}
+		}*/
 		effect->setVisible(true);
 		Schedule_lighting = CC_SCHEDULE_SELECTOR(GameScene::Lightingstart);
 		this->schedule(Schedule_lighting, 0.5f);
@@ -945,6 +944,7 @@ void GameScene::GotoAgain(float dt)
 		minion->setPosition(Vec2(MinionPosx, MinionPosy));
 		minion->boolFind = MinionBoolfind;
 		minion->Booldie = MinionDie;
+		minion->setspeed(Level_of_difficult);
 		if (light == false && MinionDie == false && MinionBoolfind == true)
 		{
 			minion->lighton(1);

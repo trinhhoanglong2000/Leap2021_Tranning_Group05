@@ -43,7 +43,7 @@
 USING_NS_CC;
 
 
-GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, int levelGame)
+GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, int levelGame, int Level_of_difficult_Scene)
 {
 	level = levelGame;
 	sceneMap = scene;
@@ -97,6 +97,7 @@ GameMap::GameMap(cocos2d::Scene *scene, Player *playerScene, int levelGame)
 				auto boss = dynamic_cast<MinionBoss*>(minion);
 				boss->scene = scene;
 			}
+			minion->setspeed(Level_of_difficult_Scene);
 			scene->addChild(minion, 21);
 		}
 	}

@@ -32,7 +32,8 @@ Minions::Minions(Player* playerScene, float mapspeed):  Actor("prefap/Minions/sp
 	booltop = true;
 	hit = false;
 	light = true;
-	traveltime = MININON_SPEED;
+	speeder = MININON_SPEED;
+	traveltime = speeder;
 	player = playerScene;
 	this->speed = mapspeed;
 	auto EnemyBody = PhysicsBody::createBox(this->getContentSize());
@@ -51,7 +52,8 @@ Minions::Minions() : Actor("prefap/Minions/spider.png", Rect(100, 0, 100, 100))
 	booltop = true;
 	booltro = &booltop;
 	hit = false;
-	traveltime = MININON_SPEED;
+	speeder = MININON_SPEED;
+	traveltime = speeder;
 	light = true;
 	auto EnemyBody = PhysicsBody::createBox(this->getContentSize()/1.5);
 	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
@@ -68,7 +70,8 @@ Minions::Minions(std::string name, cocos2d::Rect rect) : Actor(name, rect)
 	booltop = true;
 	booltro = &booltop;
 	hit = false;
-	traveltime = MININON_SPEED;
+	speeder = MININON_SPEED;
+	traveltime = speeder;
 	light = true;
 	auto EnemyBody = PhysicsBody::createBox(this->getContentSize() / 1.5);
 	EnemyBody->setCollisionBitmask(ENEMY_COLISION_BITMASK);
@@ -81,7 +84,7 @@ Minions::Minions(std::string name, cocos2d::Rect rect) : Actor(name, rect)
 }
 void Minions::findPlayer(float dt)
 {
-	if (goUp == false || light== false)
+	if (goUp == false || light== false||traveltime==0)
 		return;
 	this->mindPositison = this->getPosition();
 	cocos2d::Vec2 point = this->getPosition();
@@ -211,7 +214,7 @@ void Minions::die()
 	Booldie = true;
 	this->unscheduleAllCallbacks();
 	goUp = false;
-	this->schedule(CC_SCHEDULE_SELECTOR(Minions::actiondie),0.5f, 0, 0.5f);
+	this->schedule(CC_SCHEDULE_SELECTOR(Minions::actiondie),0.3f, 0, 0.5f);
 	
 }
 void Minions::actiondie(float dt)
@@ -260,16 +263,36 @@ void Minions::setplayer(Player* playerScene, float mapspeed)
 }
 void Minions::changeTravelTime(float value)
 {
-	traveltime = MININON_SPEED+ value;
-	this->schedule(CC_SCHEDULE_SELECTOR(Player::resetTravelTime), TIME_SLOW, 0, 0);
+	traveltime = 0;
+	this->schedule(CC_SCHEDULE_SELECTOR(Minions::resetTravelTime), TIME_SLOW, 0, 0);
 }
 void Minions::resetTravelTime(float dt)
 {
-	traveltime = MININON_SPEED;
+	traveltime = speeder;
+	Minions::lighton(1);
 }
 void Minions::reset()
 {
 	goUp = true;
 	boolFind = false;
 	Booldie = false;
+}
+void  Minions::setspeed(int a)
+{
+	if (a == 0)
+	{
+
+		speeder = MININON_SPEED;
+	}
+	if (a == 1)
+	{
+
+		speeder = MININON_SPEED_MEDIUM;
+	}
+	if (a == 2)
+	{
+
+		speeder = MININON_SPEED_HARD;
+	}
+	traveltime = speeder;
 }
