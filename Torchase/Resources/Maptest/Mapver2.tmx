@@ -56,9 +56,6 @@
   <object id="81" name="battery_3" type="1" x="528" y="528"/>
   <object id="89" name="wal_5" type="5" x="304" y="848"/>
   <object id="90" name="wal_6" type="5" x="304" y="1008"/>
-  <object id="97" name="randomitem_2" type="3" x="272" y="656"/>
-  <object id="100" name="randomitem_2" type="3" x="432" y="528"/>
-  <object id="101" name="randomitem_1" type="3" x="272" y="1232"/>
  </objectgroup>
  <objectgroup id="8" name="meet">
   <object id="68" name="son" type="1" x="1360" y="528"/>
