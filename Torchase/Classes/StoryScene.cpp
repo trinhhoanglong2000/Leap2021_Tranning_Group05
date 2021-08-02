@@ -70,11 +70,11 @@ bool StoryScene::init()
 	this->addChild(LableStory,20);
 
 
-	auto Label = Label::createWithTTF("Play", "fonts/Balsoon.ttf", visibleSize.height / 10);
+	auto Label = Label::createWithTTF("Skip", "fonts/Balsoon.ttf", visibleSize.height / 10);
 	auto btn = MenuItemLabel::create(Label, CC_CALLBACK_1(StoryScene::gotoPlayScreen, this));
 	btnSkip = Menu::create(btn,NULL);
-	btnSkip->setPosition(visibleSize.width * 9 / 10, visibleSize.height / 7);
-	btnSkip->setVisible(false);
+	btnSkip->setPosition(visibleSize.width * 5 / 10, visibleSize.height / 7);
+	//btnSkip->setVisible(false);
 	this->addChild(btnSkip,50);
 
 	auto touchListener = EventListenerTouchOneByOne::create();
@@ -122,7 +122,7 @@ bool StoryScene::TouchMoveBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	
 	LableStory->setString(story.at(num_story));
 	if(num_story==1)
-		btnSkip->setVisible(true);
+		btnSkip->setVisible(false);
 	num_story++;
 	return true;
 }	
