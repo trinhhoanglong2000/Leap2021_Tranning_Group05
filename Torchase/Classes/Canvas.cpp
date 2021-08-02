@@ -36,6 +36,7 @@ using namespace cocos2d::ui;//ui namespace
 
 Canvas::Canvas(Player *playerScene, cocos2d::DrawNode* background_offScene, int controller_Scene, cocos2d::Scene *sceneGame, int &_gameState, int levelGame)
 {
+	percent_enegy = PERCENT_REDUCE;
 	def = UserDefault::getInstance();
 	scene = sceneGame;
 	this->gameState = &_gameState;
@@ -428,7 +429,7 @@ void Canvas::reduceenergy(float dt)
 	{
 		return;
 	}
-	enegy->setPercent(enegy->getPercent() - PERCENT_REDUCE);
+	enegy->setPercent(enegy->getPercent() - percent_enegy);
 	if (enegy->getPercent() <= 0)
 	{
 		AllMinions = MinionManager::getInstance()->AllMinions;
@@ -786,4 +787,19 @@ void Canvas::plushHeal()
 	Sequence* sequence = Sequence::create(fadeIn, sequenceout, NULL);
 	addheal->setVisible(true);
 	addheal->runAction(sequence);
+}
+void Canvas::setPercentEnegy(int a)
+{
+	if (a == 0)
+	{
+		percent_enegy = PERCENT_REDUCE;
+	}
+	if (a == 1)
+	{
+		percent_enegy = PERCENT_REDUCE_MEDIUM;
+	}
+	if (a == 2)
+	{
+		percent_enegy = PERCENT_REDUCE_HARD;
+	}
 }

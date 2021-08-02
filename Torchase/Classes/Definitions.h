@@ -50,6 +50,10 @@
 #define VALUE_SLOW 0.5
 
 #define PERCENT_REDUCE 1
+#define PERCENT_REDUCE_MEDIUM 1.5
+#define PERCENT_REDUCE_HARD 2
+
+
 #define MAX_PERCENT 60
 
 #define ITEM_CATEGORY_BITMASK 1
@@ -73,7 +77,7 @@
 
 #define MAP_SCALE 5
 
-#define AUTOPLUSHENEGY 2
+#define AUTOPLUSHENEGY 2.5
 
 
 

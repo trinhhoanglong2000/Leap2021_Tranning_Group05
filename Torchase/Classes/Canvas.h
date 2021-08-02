@@ -68,6 +68,7 @@ public:
 	void changeNumtrap();
 	void plushTrap();
 	void plushHeal();
+	void setPercentEnegy(int a);
 	cocos2d::Vector<Minions*> AllMinions;
 	cocos2d::Vector<Trap*> AllTrap;
 	cocos2d::DrawNode* background_off;
@@ -105,7 +106,8 @@ private:
 	cocos2d::Sprite *pauseBackgr, *talkboxBachgr,*NumTrap;
 	cocos2d::Label *LableTalk, *LableTalkContent,*LableNumTrap,*erroTrap,*addTrap,*addheal;
 	cocos2d::UserDefault *def;
-	
+	float percent_enegy;
+
 	std::vector<std::string> talkbox;
 };
 

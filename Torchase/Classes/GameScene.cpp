@@ -177,6 +177,7 @@ bool GameScene::init()
 	{
 		GameScene::meet();
 	}
+	canvas->setPercentEnegy(Level_of_difficult);
 	finish = false;
 	return true;
 }
