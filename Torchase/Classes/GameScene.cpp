@@ -176,10 +176,13 @@ bool GameScene::init()
 	else 
 	{
 		GameScene::meet();
+		player->NumHeal = 3- Level_of_difficult;
+		player->changeHeal();
 	}
 	canvas->setPercentEnegy(Level_of_difficult);
 	finish = false;
 	return true;
+	
 }
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact)
