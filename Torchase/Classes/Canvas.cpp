@@ -662,12 +662,17 @@ void Canvas::Goagain(bool light)
 	endlight = true;
 	if (light == false)
 	{
+		this->unschedule(CC_SCHEDULE_SELECTOR(Canvas::autoplusenergy));
+		this->schedule(Schedule_ReduceEnegy, TIME_REDUCE_ENERGY);
 		player->background->getPhysicsBody()->setEnabled(true);
 		player->background->setVisible(true);
 		background_off->setVisible(false);
 	}
 	else
 	{
+	
+		this->schedule(CC_SCHEDULE_SELECTOR(Canvas::autoplusenergy), 1.0f);
+		this->unschedule(Schedule_ReduceEnegy);
 		player->background->getPhysicsBody()->setEnabled(false);
 		player->background->setVisible(false);
 		background_off->setVisible(true);

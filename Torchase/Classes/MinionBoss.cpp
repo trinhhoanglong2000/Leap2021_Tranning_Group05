@@ -70,6 +70,7 @@ MinionBoss::MinionBoss() : Minions("prefap/Minions/boss/cultist_priest_idle_1.pn
 }
 void MinionBoss::start()
 {
+	SoundManager::getInstance()->PlayMusics(thrillingbackground_sound, false, 0.6f);
 	this->schedule(CC_SCHEDULE_SELECTOR(MinionBoss::plusPower), 1.0f);
 	auto action = RepeatForever::create(Animates.at(0));
 	this->runAction(action);
@@ -175,6 +176,7 @@ void MinionBoss::reduceEnegy(float dame)
 	power->setPercent(power->getPercent() + 3);
 	if (enegy->getPercent() <= 0 )
 	{
+		SoundManager::getInstance()->stopMusic(thrillingbackground_sound);
 		SoundManager::getInstance()->PlayMusics(SHADOWDIE, false, 0.5f);
 		this->stopAllActions();
 		auto callback = CallFunc::create([&]() {
