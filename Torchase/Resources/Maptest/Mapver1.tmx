@@ -68,10 +68,8 @@
  <objectgroup id="5" name="Trap">
   <object id="99" name="thorn_23" type="0" x="688" y="1520"/>
   <object id="98" name="thorn_22" type="0" x="720" y="1488"/>
-  <object id="97" name="thorn_21" type="0" x="656" y="1456"/>
   <object id="96" name="thorn_20" type="0" x="688" y="1424"/>
   <object id="95" name="thorn_19" type="0" x="752" y="1424"/>
-  <object id="94" name="thorn_18" type="0" x="720" y="1520"/>
   <object id="85" name="thorn_17" type="0" x="624" y="1520"/>
   <object id="1" name="thorn_16" type="0" x="336" y="1264"/>
   <object id="2" name="thorn_15" type="0" x="368" y="1264"/>
