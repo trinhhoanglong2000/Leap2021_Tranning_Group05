@@ -29,8 +29,12 @@
 #include "MinionManager.h"
 #include "TrapManager.h"
 #include "IteamManager.h"
-USING_NS_CC;
+#include "ui/UIVideoPlayer.h"
+#include "SoundManager.h"
+#include "ui/CocosGUI.h"
 
+USING_NS_CC;
+using namespace cocos2d::ui;
 Scene* SplashScene::createScene()
 {
     return SplashScene::create();
@@ -59,25 +63,25 @@ bool SplashScene::init()
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    
+	
 	this->schedule(CC_SCHEDULE_SELECTOR(SplashScene::GoToMainMenu), DISPLAY_TIME_SPLASH_SCENE);
-
-	auto BgSprite = Sprite::create("coco2d.png");
+	
+	auto BgSprite = Sprite::create("CaptureSlap.png");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(BgSprite);
+	
+	auto fadeOut = FadeTo::create(0.01, 10);
+	auto fadeIn = FadeTo::create(0.5, 255);
+	auto sequenceout = Sequence::create(fadeOut, fadeIn, nullptr);
+	BgSprite->runAction(sequenceout);
+
+	SoundManager::getInstance()->PlayMusics(SLAPSCENE,false,0.8f);
     return true;
 }
 void SplashScene::GoToMainMenu(float dt)
 {
 	auto scene = MainMenuScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-
 }
 
 void SplashScene::menuCloseCallback(Ref* pSender)

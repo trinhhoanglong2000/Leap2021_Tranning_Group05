@@ -25,7 +25,7 @@
 #ifndef __DEFINITIONS_H__
 #define __DEFINITIONS_H__
 
-#define DISPLAY_TIME_SPLASH_SCENE 2
+#define DISPLAY_TIME_SPLASH_SCENE 1.9
 #define DISPLAY_TIME_STORY_SCENE 30
 #define TRANSITION_TIME 0.5
 #define PAUSE_BACKGROUND_FADE_IN_TIME 0.5
@@ -101,4 +101,5 @@
 #define CLICKOPTION "music/CLICKOTION.mp3"
 #define SPIDERDIE "music/SpiderDie.mp3"
 #define SHADOWDIE "music/shadowDIE.mp3"
+#define SLAPSCENE "music/slapscene.mp3"
 #endif // __DEFINITIONS_H__
