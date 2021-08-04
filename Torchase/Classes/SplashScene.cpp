@@ -66,7 +66,7 @@ bool SplashScene::init()
 	
 	this->schedule(CC_SCHEDULE_SELECTOR(SplashScene::GoToMainMenu), DISPLAY_TIME_SPLASH_SCENE);
 	
-	auto BgSprite = Sprite::create("CaptureSlap.png");
+	auto BgSprite = Sprite::create("CaptureSlap.PNG");
 	BgSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(BgSprite);
 	
