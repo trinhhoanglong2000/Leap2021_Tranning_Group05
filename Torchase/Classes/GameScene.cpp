@@ -104,6 +104,8 @@ bool GameScene::init()
 		if (continueGame == true)
 		{
 			level = def->getIntegerForKey("INGAME_Level", 1);
+			if (level >= 3)
+				level = 2;
 		}
 		else
 		{
